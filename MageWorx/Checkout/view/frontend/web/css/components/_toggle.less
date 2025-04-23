@@ -1,0 +1,91 @@
+.toggle {
+  display: inline-flex;
+  flex-wrap: nowrap;
+
+  &__button {
+    border: 1px solid @color-accent;
+    cursor: pointer;
+
+    .radio {
+      &__control {
+        &:checked {
+          & + .radio {
+
+            &__label {
+              color: @color-white;
+
+              &::after {
+                background-color: @color-accent;
+              }
+
+              .checkbox {
+                &__box {
+                  background: transparent;
+                  border-color: transparent;
+                }
+              }
+            }
+          }
+        }
+
+        &:active {
+          & + .radio {
+            &__label {
+              .radio {
+                &__box {
+                  border-color: transparent;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &__box {
+        border-color: transparent;
+        background-color: transparent;
+        transition: none;
+        left: 5px;
+      }
+
+      &__label {
+        position: relative;
+        .get-rem(font-size, 14);
+        .get-rem(padding-top, 10);
+        .get-rem(padding-right, 20);
+        .get-rem(padding-bottom, 10);
+        .get-rem(padding-left, 30);
+        cursor: pointer;
+        text-align: center;
+        color: @color-accent;
+
+        @media @screen-sm {
+          .get-rem(font-size, 16);
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: @color-white;
+          transition: background-color .1s ease;
+          z-index: -1;
+        }
+      }
+    }
+
+    &--side-left {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    &--side-right {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      margin-left: -1px;
+    }
+  }
+}

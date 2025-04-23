@@ -1,0 +1,38 @@
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<each args="items()">
+
+    <!-- ko foreach: $parent.elems() -->
+        <!-- ko if: $parentContext.$index() < $parents[1].maxCartItemsToDisplay -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+
+</each>
+
+<!-- ko if: getCartLineItemsCount() > maxCartItemsToDisplay -->
+<div class="summary__field summary__field--condensed">
+    <div class="summary__cell">
+        <dl class="collapsible collapsible--style-distant" data-bind="css : {'collapsible--expanded' : collapsed}">
+            <dd class="collapsible__content">
+                <div class="summary">
+                    <each args="items()">
+                        <!-- ko foreach: $parent.elems() -->
+                            <!-- ko if: $parentContext.$index() >= $parents[1].maxCartItemsToDisplay -->
+                                <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </each>
+                </div>
+            </dd>
+            <dt class="collapsible__header" data-bind="click: toggleVisibility(this)">
+                <span class="link link--variation-subdued" data-bind="i18n: $t('Show %1 more products').replace('%1', getCartLineItemsCount() - maxCartItemsToDisplay)"></span>
+            </dt>
+        </dl>
+    </div>
+</div>
+<!-- /ko -->

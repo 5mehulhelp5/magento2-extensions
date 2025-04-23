@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<a class="ammenu-logo <?= $block->getViewModel()->isHamburgerEnabled() ? '-hamburger' : '' ?>"
+   href="<?= $escaper->escapeUrl($block->getUrl('')) ?>"
+   title="<?= $escaper->escapeHtmlAttr($block->getLogoAlt()) ?>"
+   aria-label="store logo">
+        <img src="<?= $escaper->escapeUrl($block->getLogoSrc()) ?>"
+             title="<?= $escaper->escapeHtmlAttr($block->getLogoAlt()) ?>"
+             alt="<?= $escaper->escapeHtmlAttr($block->getLogoAlt()) ?>"
+             <?= $block->getLogoWidth() ? 'width="' . $escaper->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
+             <?= $block->getLogoHeight() ? 'height="' . $escaper->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+        />
+</a>

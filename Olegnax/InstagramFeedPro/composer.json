@@ -1,0 +1,28 @@
+{
+  "name": "olegnax/module-instagramfeedpro",
+  "description": "Olegnax Instagram Feed Pro",
+  "version": "1.2.0.1",
+  "type": "magento2-module",
+  "license": "Commercial",
+  "authors": [
+	{
+	  "name": "Olegnax",
+	  "email": "mail@olegnax.com",
+	  "homepage": "https://olegnax.com",
+	  "role": "Technical Support"
+	}
+  ],
+  "require": {
+	"ext-intl": "*",
+	"ext-curl": "*",
+        "olegnax/module-core": ">=1.3.4.3"
+  },
+  "autoload": {
+	"psr-4": {
+	  "Olegnax\\InstagramFeedPro\\": ""
+	},
+	"files": [
+	  "registration.php"
+	]
+  }
+}

@@ -1,0 +1,73 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Olegnax\InstagramFeedPro\Block\Adminhtml\Post\Helper\Form\Gallery\Content;
+
+/** @var $block Content */
+/** @var Escaper|Content $escaper */
+if (!isset($escaper)) {
+    $escaper = $block;
+}
+$firstImage = true;
+?>
+<div id="<?= $escaper->escapeHtmlAttr($block->getHtmlId()) ?>" class="gallery">
+    <?php foreach ($block->getImages() as $image): ?>
+		<div class="image item <?php if($firstImage){ echo 'ox-mousemove-container';} ?>" data-role="<?= $escaper->escapeHtmlAttr(isset($image['video']) ? 'video' : 'image') ?>">
+			<div class="product-image-wrapper">
+				<img class="product-image" data-role="image-element" src="<?= $escaper->escapeHtmlAttr
+                ($image['url'])
+                ?>" alt="<?= $escaper->escapeHtmlAttr($image['label']) ?>"/>
+			</div>
+		</div>
+	<?php if($firstImage){ ?>
+		<div id="ox-coords-container"><span class="ox-pos-x"></span><span class="ox-pos-y"></span></div>
+	<?php } 
+	 $firstImage = 0;
+	?>
+    <?php endforeach; ?>
+</div>
+<div class="ox-inst-admin__gallery-caption">* Hover/click image to check coordinates for hotspots.</div>
+<script>    
+	require(["jquery"], function ($) {
+        "use strict";
+        $(function () {
+			var oxmm_container = $('.ox-mousemove-container').eq(0),
+				oxmm_item = oxmm_container.find('.product-image-wrapper'),
+				coords = $('#ox-coords-container'),
+				xposItem = coords.find('.ox-pos-x'),
+				yposItem = coords.find('.ox-pos-y');
+			if(oxmm_item.length){
+				$('body').on('mousemove click', oxmm_item, function(e) {
+					var offset = oxmm_item.offset(),
+						relativeX = (e.pageX - offset.left),
+						relativeY = (e.pageY - offset.top),
+						twidth = oxmm_item.width(),
+						theight = oxmm_item.outerHeight(),
+						xout = Math.round((relativeX/twidth)*100),
+						yout = Math.round((relativeY/theight)*100);
+						if(xout < 0){
+							xout = 0;
+						} 
+						if(xout > 100){
+							xout=100;
+						}				
+						if(yout < 0){
+							yout = 0;
+						} 
+						if(yout > 100){
+							yout=100;
+						}
+					coords.css("transform","translate3d("+relativeX+"px,"+relativeY+"px,0px)");
+					xposItem.html('x: ' + xout + '%');
+					yposItem.html('y:' + yout + '%');
+				});
+			}
+		});
+	});
+</script>

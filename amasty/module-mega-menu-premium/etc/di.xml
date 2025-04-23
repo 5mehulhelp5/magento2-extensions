@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\MegaMenuLite\Model\Provider\FieldsByStore">
+        <arguments>
+            <argument name="fieldsByStoreCustom" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="icon" xsi:type="string">icon</item>
+                </item>
+                <item name="am_mega_menu_fieldset" xsi:type="array">
+                    <item name="submenu_animation" xsi:type="string">submenu_animation</item>
+                </item>
+                <item name="am_mega_menu_mobile_fieldset" xsi:type="array">
+                    <item name="mobile_content" xsi:type="string">mobile_content</item>
+                    <item name="hide_mobile_content" xsi:type="string">hide_mobile_content</item>
+                </item>
+            </argument>
+            <argument name="fieldsByStoreCategory" xsi:type="array">
+                <item name="am_mega_menu_fieldset" xsi:type="array">
+                    <item name="submenu_animation" xsi:type="string">submenu_animation</item>
+                </item>
+                <item name="am_mega_menu_mobile_fieldset" xsi:type="array">
+                    <item name="show_mobile_content" xsi:type="string">show_mobile_content</item>
+                    <item name="mobile_content" xsi:type="string">mobile_content</item>
+                    <item name="hide_mobile_content" xsi:type="string">hide_mobile_content</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\MegaMenuPremium\Model\DataProvider\GetAllowedWidgets">
+        <arguments>
+            <argument name="allowedWidgets" xsi:type="array">
+                <item name="cms_page_link" xsi:type="string">cms_page_link</item>
+                <item name="catalog_product_link" xsi:type="string">catalog_product_link</item>
+                <item name="catalog_category_link" xsi:type="string">catalog_category_link</item>
+                <item name="ammenu_products_list" xsi:type="string">ammenu_products_list</item>
+                <item name="amasty_custom_button" xsi:type="string">amasty_custom_button</item>
+                <item name="am_megamenu_banner" xsi:type="string">am_megamenu_banner</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

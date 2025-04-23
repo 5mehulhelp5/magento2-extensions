@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Base::vendor/slick/amslick.min.css"/>
+    </head>
+
+    <body>
+        <attribute name="class" value="amasty-mega-menu"/>
+        <referenceContainer name="header.container"
+                            htmlId="ammenu-header-container"
+                            htmlClass="ammenu-header-container page-header"/>
+        <referenceBlock name="head.additional">
+            <referenceBlock name="header-wrapper">
+                <referenceBlock name="logo" remove="true"/>
+                <referenceBlock name="header.navigation.icon" remove="true"/>
+                <block class="Amasty\MegaMenuLite\Block\Container"
+                       name="amasty.menu.toggle"
+                       before="-"
+                       template="Amasty_MegaMenuLite::components/toggle.phtml">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">
+                            Amasty\MegaMenuLite\ViewModel\Store\Menu
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Theme\Block\Html\Header\Logo"
+                       name="ammenu.logo"
+                       after="amasty.menu.toggle"
+                       template="Amasty_MegaMenuLite::components/logo.phtml">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">
+                            Amasty\MegaMenuLite\ViewModel\Header\Logo
+                        </argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+        </referenceBlock>
+        <referenceContainer name="page.top">
+            <referenceBlock name="navigation.sections">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Amasty_MegaMenuLite::sections.phtml</argument>
+                </action>
+                <block class="Amasty\MegaMenuLite\Block\Container"
+                       name="amasty.store.menu"
+                       template="Amasty_MegaMenuLite::container.phtml">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">
+                            Amasty\MegaMenuLite\ViewModel\Store\Menu
+                        </argument>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="lite" xsi:type="object">
+                                    Amasty\MegaMenuLite\Model\DataProvider\Config\Lite
+                                </item>
+                            </item>
+                            <item name="settings" xsi:type="array">
+                                <item name="switcher" xsi:type="object">
+                                    Amasty\MegaMenuLite\Model\DataProvider\Switcher
+                                </item>
+                                <item name="currency" xsi:type="object">
+                                    Amasty\MegaMenuLite\Model\DataProvider\Currency
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="ammenu.robots.data"
+                           template="Amasty_MegaMenuLite::components/robots_data/robots_data.phtml">
+                        <block class="Magento\Framework\View\Element\Template"
+                               name="ammenu.robots.data.item"
+                               template="Amasty_MegaMenuLite::components/robots_data/item.phtml">
+                        </block>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="ammenu.top.menu"
+                           template="Amasty_MegaMenuLite::components/top_menu/wrapper.phtml">
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">
+                                Amasty\MegaMenuLite\ViewModel\Store\Menu
+                            </argument>
+                        </arguments>
+                        <block class="Magento\Framework\View\Element\Template"
+                               name="ammenu.top.menu.item"
+                               template="Amasty_MegaMenuLite::components/top_menu/item.phtml">
+                            <arguments>
+                                <argument name="view_model" xsi:type="object">
+                                    Amasty\MegaMenuLite\ViewModel\Store\Menu
+                                </argument>
+                            </arguments>
+                            <block class="Magento\Framework\View\Element\Template"
+                                   name="ammenu.top.menu.link"
+                                   template="Amasty_MegaMenuLite::components/link.phtml">
+                                <arguments>
+                                    <argument name="view_model" xsi:type="object">
+                                        Amasty\MegaMenuLite\ViewModel\Store\Menu
+                                    </argument>
+                                </arguments>
+                                <block class="Magento\Framework\View\Element\Template"
+                                       name="ammenu.top.menu.icon"
+                                       template="Amasty_MegaMenu::components/icon.phtml">
+                                    <arguments>
+                                        <argument name="view_model" xsi:type="object">
+                                            Amasty\MegaMenuLite\ViewModel\Store\Menu
+                                        </argument>
+                                    </arguments>
+                                </block>
+                            </block>
+                        </block>
+                    </block>
+                </block>
+                <referenceBlock name="amtheme.store.compare" remove="true"/>
+                <referenceBlock name="store.links" remove="true"/>
+                <referenceBlock name="store.settings" remove="true"/>
+            </referenceBlock>
+        </referenceContainer>
+        <move element="top.search" destination="header-wrapper" after="ammenu.logo" />
+    </body>
+</layout>

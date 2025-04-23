@@ -1,0 +1,159 @@
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+//
+//  Common
+//  _____________________________________________
+
+//noinspection ALL
+& when (@media-common = true) {
+    .ox-instagram-feed {
+        &.-s-overlay{
+            .ox-instagram-item {
+                .-content.-c-over {
+                    position: absolute;
+                    top: 4px;
+                    left: 4px;
+                    height: ~"calc(100% - 8px)";
+                    width: ~"calc(100% - 8px)";
+                    display: flex;
+                    padding: 20px;
+                    text-align: center;
+                    overflow:auto;
+                    transition: opacity 0.3s ease;
+                    opacity:0;
+                    .actions{
+                        display: flex;
+                        justify-content: center;
+                        .action {
+                            padding: 10px;
+                            min-width: 43px;
+                            height: 42px;
+                            background: #000000;
+                            color: #ffffff;
+                            transition: all 300ms ease;  
+                            span{
+                                margin-left: 7px;
+                            }
+                            &:before {
+                                line-height: 43px;
+                            }
+                        }
+                    }
+                    .actions,
+                    .button,
+                    .caption,
+                    .date{
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                    }
+                    .actions + .button{
+                        margin-top: -5px;
+                    }
+                    .caption,
+                    .date{
+                         display: block;
+                         color:white;
+                    }
+                    .-scroll{
+                        margin: auto;
+                    }
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+                    &::-webkit-scrollbar-track {
+                        -webkit-border-radius: 3px;
+                        border-radius: 3px;
+                        background-color: rgba(255, 255, 255, 0.44);
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        -webkit-border-radius: 3px;
+                        border-radius: 3px;
+                        background-color: white;
+                    }    
+                    &::-webkit-scrollbar-thumb:window-inactive {
+                        background-color: rgba(255, 255, 255, 0.65);
+                    }
+                }
+                &.-v-hover:hover{
+                    .-content.-c-over{
+                        opacity:0;
+                    }
+                }
+                &:hover{
+                    .-content.-c-over{
+                        opacity:1;
+                    }
+                    .-media-type{
+                        opacity:0;
+                    }
+                }
+            }
+            &.-item-h-fade{
+                .ox-instagram-item {
+                    &:hover{
+                        .-content.-c-over{
+                            .action {
+                                opacity:1;
+                                visibility:visible;
+                            }
+                        }
+                    }
+                }
+            }
+            &.-item-h-moveup{
+                .ox-instagram-item {
+                    .-content.-c-over{
+                        .button,
+                        .action {
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: all 600ms ease-in-out;  
+                            transform: translateY(10px) perspective(1px);
+                            will-change: transform;
+                            position: relative;
+                            animation: move-action-bottom 0.15s cubic-bezier(0.33, 0.975, 0.245, 0.91) forwards;
+                        }
+                    }
+                    &:hover{
+                        .-content.-c-over{
+                            .action {
+                                visibility: visible;
+                                animation: move-action-top 0.15s cubic-bezier(0.33, 0.975, 0.245, 0.91) forwards;
+
+                                &.comments {
+                                    animation-delay: 100ms;
+                                }
+                            }
+                            .button{
+                                visibility: visible;
+                                animation: move-action-top 0.15s cubic-bezier(0.33, 0.975, 0.245, 0.91) forwards;
+                                animation-delay: 150ms;
+                            }
+                        }
+                    }
+                }
+            }
+            &.-img-circle{
+                .ox-instagram-item {
+                    .inner {
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .ox-instagram-feed {
+        &.-s-overlay{
+            .ox-instagram-item {
+                .-content.-c-over {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}

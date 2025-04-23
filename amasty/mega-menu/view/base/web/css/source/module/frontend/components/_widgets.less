@@ -1,0 +1,143 @@
+//
+//  Amasty MegaMenu Product Widget
+//  ----------------------------------------------
+
+@ammenuprem-slick-dots__size: 6px;
+@ammenuprem-slick-dots__color__active: #ff5502;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    // Inheriting colors for all product cards in menu
+    .ammenu-nav-sections .widget-product-carousel,
+    .ammenu-nav-sections .widget {
+        *:not(button):not(button span) {
+            color: inherit;
+        }
+
+        &.-slider .slick-slide {
+            vertical-align: top;
+        }
+
+        &:not(.-slider):not(.slick-slider) .product-item .product-item-info:hover *:not(button):not(button span) {
+            color: initial;
+        }
+
+        .slick-slide .product-item {
+            max-width: 100%;
+        }
+
+        .slick-list {
+            padding: 0;
+        }
+
+        .slick-dots {
+            & {
+                display: flex;
+                justify-content: center;
+                margin: @ammenu__indent__xl 0 0;
+                position: initial;
+            }
+
+            li:not(:last-child):not(:first-child) button {
+                opacity: 1;
+            }
+
+            button {
+                & {
+                    border: 1px solid @ammenuprem-slick-dots__color__active;
+                    border-radius: 50%;
+                    box-sizing: border-box;
+                    height: @ammenuprem-slick-dots__size;
+                    line-height: 0;
+                    opacity: .5;
+                    padding: 0;
+                    width: @ammenuprem-slick-dots__size;
+                }
+
+                &:before {
+                    content: none;
+                }
+            }
+
+            li {
+                cursor: pointer;
+                align-items: center;
+                display: flex;
+                height: 20px;
+                justify-content: center;
+                margin: 0;
+                width: 20px;
+            }
+
+            li.slick-active button {
+                background: @ammenuprem-slick-dots__color__active;
+            }
+        }
+
+        .actions-secondary .action:hover {
+            color: inherit;
+            opacity: .75;
+        }
+
+        .product-item,
+        .product-item-info {
+            background: transparent;
+        }
+
+        .actions-secondary .action {
+            & {
+                color: inherit;
+                opacity: 1;
+            }
+
+            &:hover {
+                opacity: .75;
+            }
+        }
+
+        .ammenu-product-list {
+            & {
+                max-width: 100%;
+                list-style: none;
+            }
+
+            .product-item {
+                list-style: none;
+            }
+        }
+    }
+
+    // END Inheriting colors for all product cards in menu
+
+    .ammenu-submenu-wrapper .amreview-widget-container {
+        .amreview-title,
+        .review-item {
+            background: none !important; // Amasty Reviews override
+        }
+    }
+
+    .ammenu-submenu-wrapper .ammenu-product-list.-grid {
+        margin: 0;
+        padding: 0 @ammenu__indent;
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .ammenu-nav-sections .widget-product-carousel,
+    .ammenu-nav-sections .widget {
+        & {
+            max-width: initial;
+        }
+
+        .slick-slide .product-item {
+            max-width: initial;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Azaleasoft Team
+ * @copyright Copyright (c) 2018 Azaleasoft (https://www.azaleasoft.com)
+ * @package Azaleasoft_Asaddressvalidation
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+        <azaleasoft_asaddressvalidation>
+           	<general>
+          		<enable>1</enable>
+          		<original_address_checkout>1</original_address_checkout>
+          		<service_name>ups</service_name>
+           	</general>
+           	<ups>
+           		<maximum_list_size>3</maximum_list_size>
+           	</ups>
+        </azaleasoft_asaddressvalidation>
+    </default>
+</config>

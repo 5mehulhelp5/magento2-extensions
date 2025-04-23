@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Labels for Magento 2
+ */
+/**
+ * @var $block Amasty\Label\Block\Label
+ * @var $escaper Magento\Framework\Escaper
+ * @var $label Amasty\Label\Api\Data\LabelInterface
+ * @var $textProcessor Amasty\Label\ViewModel\Label\TextProcessor
+ */
+
+use Amasty\Label\Model\ResourceModel\Label\Collection;
+
+$label = $block->getLabel();
+$textProcessor = $block->getData('text_processor');
+$frontendSettings = $label->getExtensionAttributes()->getFrontendSettings()[0] ?? null;
+if ($frontendSettings === null) {
+    return;
+}
+$mode = $frontendSettings->getType() === Collection::MODE_LIST ? 'cat' : 'prod';
+$renderSettings = $label->getExtensionAttributes()->getRenderSettings();
+$productId = $renderSettings->getProduct()->getId();
+$key = $label->getLabelId() . '-' . $productId . '-' . $mode;
+$text = $textProcessor->renderLabelText($frontendSettings->getLabelText(), $label);
+$altTag = $textProcessor->renderLabelAltTag($frontendSettings->getAltTag(), $label);
+$redirectUrl = $frontendSettings->getRedirectUrl();
+?>
+
+<?php if ($renderSettings->isLabelVisible()): ?>
+    <div class="amasty-label-container
+            amasty-label-container-<?= $escaper->escapeHtml($key); ?>
+            amasty-label-for-<?= $escaper->escapeHtml($productId); ?>"
+         style="display: none; <?= $escaper->escapeHtml($frontendSettings->getStyle()); ?>"
+         data-mage-init='{"Amasty_Label/js/initLabel":{
+             "mode": "<?= $escaper->escapeHtml($mode); ?>",
+             "isAdminArea": "<?= /* @noEscape */ $block->isAdminArea(); ?>",
+             "config": <?= /* @noEscape */ $block->getJsonConfig(); ?>,
+             "productId": "<?= $escaper->escapeHtml($productId); ?>",
+             "selector": "<?= $escaper->escapeHtml('.amasty-label-container-' . $key); ?>"
+        }}'>
+        <div class="amlabel-text">
+            <?= /* @noEscape */ strip_tags($text, '<br>,<a>,<b>'); ?>
+        </div>
+
+        <?php if ($block->getImageSrc()): ?>
+            <img id="amasty-label-image-<?= $escaper->escapeHtml($key); ?>"
+                 class="amasty-label-image"
+                 width="100%"
+                 height="100%"
+                 src="<?= $escaper->escapeUrl($block->getImageSrc()); ?>"
+                 style="opacity: 1 !important;vertical-align: top;"
+                 title="<?= $escaper->escapeHtmlAttr($altTag); ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($altTag); ?>"
+            >
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

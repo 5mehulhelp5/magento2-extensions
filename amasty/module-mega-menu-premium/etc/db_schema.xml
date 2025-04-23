@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_menu_item_content" resource="default" engine="innodb" comment="Amasty Mega Menu Link Table">
+        <column xsi:type="mediumtext" name="mobile_content" nullable="true" comment="Amasty Menu Mobile Content"/>
+        <column xsi:type="smallint" name="show_mobile_content" padding="6" unsigned="false" nullable="true" identity="false" comment="Amasty Menu Display Content"/>
+        <column xsi:type="smallint" name="hide_mobile_content" padding="6" unsigned="false" nullable="true" identity="false" comment="Hide Mobile Content"/>
+        <column xsi:type="varchar" name="submenu_animation" nullable="true" length="255" comment="Submenu Animation"/>
+    </table>
+</schema>

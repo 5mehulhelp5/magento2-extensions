@@ -1,0 +1,29 @@
+<!--
+/**
+ * Copyright © Michał Biarda. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<li id="finalization" data-bind="fadeVisible: isVisible">
+    <div id="checkout-step-finalization" class="step-content" data-role="content">
+        <form novalidate="novalidate">
+            <div class="checkout-agreements-block">
+                <!-- ko foreach: getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <div role="alert"
+                 if="errorValidationMessage().length"
+                 class="message notice">
+                <span text="errorValidationMessage()" />
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button click="placeOrder" data-role="opc-place-order" type="submit" class="button action place-order primary">
+                        <span><!-- ko i18n: 'Place order'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>

@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Review\Block\Product\View\ListView">
+        <plugin name="Amasty_MegaMenuLite::fix-magento-bug-with-varnish-cache-on-product-view-page"
+                type="Amasty\MegaMenuLite\Plugin\MagentoReviews\Block\Product\View\ListView" />
+    </type>
+
+    <type name="Magento\Store\Model\BaseUrlChecker">
+        <plugin name="Amasty_MegaMenuLite::fix-magento-bug-with-varnish-cache-and-ssl"
+                type="Amasty\MegaMenuLite\Plugin\MagentoStore\Model\BaseUrlChecker" />
+    </type>
+
+    <type name="Magento\Store\Model\PathConfig">
+        <plugin name="Amasty_MegaMenuLite::fix-magento-bug-with-varnish-cache-and-ssl-suppress-redirect"
+                type="Amasty\MegaMenuLite\Plugin\MagentoStore\Model\PathConfig" />
+    </type>
+
+    <type name="Magento\Theme\Block\Html\Header\Logo">
+        <plugin name="Amasty_MegaMenuLite::logo-resolver"
+                type="Amasty\MegaMenuLite\Plugin\Theme\Block\Html\Header\Logo\ResolveLogoSrc" />
+    </type>
+
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="Amasty_MegaMenuLite::varnishHighLite" type="Amasty\MegaMenuLite\Plugin\Theme\Block\Html\TopmenuPlugin" />
+        <plugin name="Amasty_MegaMenuLite::addCurrencyCacheKey" type="Amasty\MegaMenuLite\Plugin\Theme\Block\Html\Topmenu\AddCurrencyCacheKey" />
+    </type>
+    <type name="Magento\PageCache\Controller\Block\Esi">
+        <plugin name="Amasty_MegaMenuLite::varnishHighLite" type="Amasty\MegaMenuLite\Plugin\PageCache\Controller\Block\EsiPlugin" />
+    </type>
+
+    <virtualType name="Amasty\MegaMenuLite\Helper\Invitation" type="Amasty\MegaMenuLite\Model\Di\Wrapper">
+        <arguments>
+            <argument name="name" xsi:type="string">Magento\Invitation\Helper\Data</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\MegaMenuLite\Model\DataProvider\Config\Lite">
+        <arguments>
+            <argument name="invitationHelper" xsi:type="object">Amasty\MegaMenuLite\Helper\Invitation</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\ViewModel\Tree">
+        <arguments>
+            <argument name="modifyDataPool" xsi:type="array">
+                <item name="modifyNodeDataLite"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\Menu\Frontend\ModifyNodeData</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\ComponentDeclaration\DeclarationPool">
+        <arguments>
+            <argument name="componentDeclarations" xsi:type="array">
+                <item name="ammenu_account_wrapper" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="login" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\LoginItem</item>
+                <item name="create_account" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\CreateAccountItem</item>
+                <item name="account" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\AccountItem</item>
+                <item name="wishlist" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\WishlistItem</item>
+                <item name="help_and_settings" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\HelpAndSettings</item>
+                <item name="logout" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\LogoutItem</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="urlProvider"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\UrlProvider\DefaultProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\LoginItem"
+                 type="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">login</item>
+                <item name="sort_order" xsi:type="number">10</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/sign_in</item>
+                <item name="name" xsi:type="string" translatable="true">Sign In</item>
+                <item name="url" xsi:type="const">Amasty\MegaMenuLite\Model\ComponentDeclaration\UrlProvider\DefaultProvider::LOGIN_URL</item>
+            </argument>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Visibility\NotLoggedIn</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\CreateAccountItem"
+                 type="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">create</item>
+                <item name="sort_order" xsi:type="number">20</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/create_account</item>
+                <item name="name" xsi:type="string" translatable="true">Create an Account</item>
+                <item name="url" xsi:type="const">Amasty\MegaMenuLite\Model\ComponentDeclaration\UrlProvider\DefaultProvider::REGISTER_URL</item>
+            </argument>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Visibility\NotLoggedIn</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\AccountItem"
+                 type="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">account</item>
+                <item name="sort_order" xsi:type="number">30</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/user</item>
+                <item name="name" xsi:type="string" translatable="true">My Account</item>
+                <item name="url" xsi:type="const">Amasty\MegaMenuLite\Model\ComponentDeclaration\UrlProvider\DefaultProvider::ACCOUNT_URL</item>
+            </argument>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Visibility\LoggedIn</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\WishlistItem"
+                 type="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">wishlist</item>
+                <item name="sort_order" xsi:type="number">40</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/wishlist</item>
+                <item name="name" xsi:type="string" translatable="true">My Wish Lists</item>
+                <item name="url" xsi:type="string">wishlist</item>
+            </argument>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Visibility\LoggedIn</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\HelpAndSettings">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">settings</item>
+                <item name="sort_order" xsi:type="number">50</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/settings</item>
+                <item name="name" xsi:type="string" translatable="true">Help &amp; Settings</item>
+                <item name="content_template" xsi:type="string">Amasty_MegaMenuLite/account/settings/settings</item>
+                <item name="elems" xsi:type="array">
+                    <item name="currency" xsi:type="array">
+                        <item name="id" xsi:type="string">currency</item>
+                        <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/currency</item>
+                        <item name="name" xsi:type="string" translatable="true">Currency</item>
+                    </item>
+                    <item name="language" xsi:type="array">
+                        <item name="id" xsi:type="string">language</item>
+                        <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/language</item>
+                        <item name="name" xsi:type="string" translatable="true">Language</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\LogoutItem"
+                 type="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\Item">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="id" xsi:type="string">logout</item>
+                <item name="sort_order" xsi:type="number">60</item>
+                <item name="icon_template" xsi:type="string">Amasty_MegaMenuLite/components/icons/exit</item>
+                <item name="name" xsi:type="string" translatable="true">Log Out</item>
+                <item name="url" xsi:type="const">Amasty\MegaMenuLite\Model\ComponentDeclaration\UrlProvider\DefaultProvider::LOGOUT_URL</item>
+            </argument>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenuLite\Model\ComponentDeclaration\Visibility\LoggedIn</argument>
+        </arguments>
+    </virtualType>
+</config>

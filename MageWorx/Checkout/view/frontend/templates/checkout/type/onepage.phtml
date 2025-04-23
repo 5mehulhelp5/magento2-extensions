@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\Checkout\Block\Onepage $block */
+?>
+<script>
+    window.isMageWorxCheckout = true;
+</script>
+<?= $block->getChildHtml('coloring'); ?>
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container">
+
+    <!-- ko template: getTemplate() --><!-- /ko -->
+
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            },
+            "loader": {}
+        }
+    </script>
+
+    <script>
+        window.checkoutConfig = <?= /* @noEscape */ $block->getSerializedCheckoutConfig() ?>;
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        window.customerData = window.checkoutConfig.customerData;
+    </script>
+
+    <script>
+        require([
+            'mage/url'
+        ], function (url) {
+            return url.setBaseUrl('<?= $block->escapeUrl($block->getBaseUrl()); ?>');
+        });
+    </script>
+</div>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Olegnax\InstagramFeedPro\Block\Item\MediaType;
+
+/** @var MediaType $block */
+/** @var Escaper $escaper */
+if (!isset($escaper)) {
+    $escaper = $block;
+}
+?>
+<div class="owl-carousel -album" data-role="product-owlCarousel" data-mage-init='{"OXowlCarousel":{
+		"items":1,
+		"rewind": true,
+		"nav":true
+		 }}'>
+    <?php /** @noinspection PhpUnhandledExceptionInspection */
+    foreach ($block->getPost()->getChildrenUrls() as $id => $imageUrl): ?>
+		<a href="<?= $escaper->escapeUrl($block->getPost()->getURL()); ?>" class="item"
+		   id="<?= $escaper->escapeHtmlAttr($id); ?>">
+			<img src="<?= $escaper->escapeUrl($imageUrl); ?>"
+                <?php if ($block->getPost()->getDimensionsHeight()): ?>
+					height="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsHeight()) ?>"
+                <?php
+                endif;
+                if ($block->getPost()->getDimensionsHeight()):
+                    ?>
+					width="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsWidth()) ?>"
+                <?php endif; ?>
+				 alt="<?= $escaper->escapeHtmlAttr($block->getPost()->getCleanedCaption()) ?>"
+			/>
+		</a>
+    <?php endforeach; ?>
+</div>

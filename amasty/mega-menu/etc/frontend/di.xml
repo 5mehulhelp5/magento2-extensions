@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\MegaMenuLite\ViewModel\Tree">
+        <arguments>
+            <argument name="modifyDataPool" xsi:type="array">
+                <item name="modifyNodeDataPro"
+                      xsi:type="object">Amasty\MegaMenu\Model\Menu\Frontend\ModifyNodeData</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\ComponentDeclaration\Account\HelpAndSettings">
+        <arguments>
+            <argument name="visibility" xsi:type="object">Amasty\MegaMenu\Model\ComponentDeclaration\Visibility\HelpAndSettings</argument>
+            <argument name="nameProvider" xsi:type="object">Amasty\MegaMenu\Model\ComponentDeclaration\Name\HelpAndSettings</argument>
+        </arguments>
+    </type>
+</config>

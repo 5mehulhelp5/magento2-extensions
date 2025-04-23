@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Labels for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <observer name="labels_product_label_indexer"
+                  instance="Amasty\Label\Model\Observer\Backend\CatalogProductSaveAfterObserver"/>
+    </event>
+    <event name="catalog_entity_attribute_delete_after">
+        <observer name="Amasty_Label::DisableAttributeRules"
+                  instance="Amasty\Label\Observer\CatalogAttribute\DeleteAfterObserver"/>
+    </event>
+    <event name="catalog_entity_attribute_save_after">
+        <observer name="Amasty_Label::DisableAttributeRules"
+                  instance="Amasty\Label\Observer\CatalogAttribute\SaveAfterObserver"/>
+    </event>
+</config>

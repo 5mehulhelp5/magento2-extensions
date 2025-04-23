@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mageworx_checkout">
+            <resource>MageWorx_Checkout::config</resource>
+            <group id="shipping_methods" translate="label" type="text" sortOrder="410" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipping Methods</label>
+                <field id="add_icons" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Add Icons]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="configuration" translate="label" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Methods Icons</label>
+                    <frontend_model>MageWorx\ExtendedShippingMethods\Block\Adminhtml\Form\Field\MethodsConfiguration</frontend_model>
+                    <backend_model>MageWorx\ExtendedShippingMethods\Model\System\Config\Backend\MethodsConfiguration</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">mageworx/extended_shipping_methods/icons</upload_dir>
+                    <base_url type="media" scope_info="1">mageworx/extended_shipping_methods/icons</base_url>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

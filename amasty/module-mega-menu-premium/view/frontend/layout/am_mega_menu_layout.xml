@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="amasty.store.menu">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="megamenu_premium" xsi:type="object">
+                            Amasty\MegaMenuPremium\Model\DataProvider\Config\MegaMenuPremium
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</layout>

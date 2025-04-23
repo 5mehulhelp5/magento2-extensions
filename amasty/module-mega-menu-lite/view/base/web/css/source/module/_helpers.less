@@ -1,0 +1,189 @@
+//
+//  Mixins
+//  ______________________________________________
+
+.ammenu-flex(
+    @horiz-pos: none,
+    @vert-pos: none,
+    @wrap: none
+) {
+    & {
+        display: flex;
+    }
+
+    & when not (@horiz-pos = none) {
+        justify-content: @horiz-pos;
+    }
+
+    & when not (@vert-pos = none) {
+        align-items: @vert-pos;
+    }
+
+    & when not (@wrap = none) {
+        flex-wrap: @wrap;
+    }
+}
+
+.ammenu-sticky {
+    left: 0;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+
+/* phpcs:disable */
+.ammenu-column-width(@i) when (@i > 0) {
+    .ammenu-column-width(@i - 1);
+    &.-col-@{i} .ammenu-column {
+        width: ~'calc(100% / @{i})';
+    }
+}
+/* phpcs:enable */
+
+/* phpcs:ignore Magento2.Less.SelectorDelimiter.LineBreakAfterDelimiter */
+.ammenu-transition(@del: .3, @style: none) {
+    & when (@style = none) {
+        transition: ~'@{del}s all ease-in';
+    }
+
+    & when not (@style = none) {
+        transition-duration: ~'@{del}s';
+        transition-property: @style;
+    }
+}
+
+.ammenu-scrollbar(
+    @color: #adadad,
+    @second-color: #f0f0f0,
+    @direction: y,
+    @width: 6px,
+    @shadow-color: #fff
+) {
+    & {
+        /* phpcs:ignore Magento2.Less.BracesFormatting.SpacingBeforeOpen,Magento2.Less.BracesFormatting.SpacingBeforeClose */
+        overflow-@{direction}: auto;
+        scrollbar-color: @color fade(@color, 20%);
+        scrollbar-width: thin;
+    }
+
+    &::-webkit-scrollbar {
+        background: @second-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: @color;
+        border-radius: @width;
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px @shadow-color;
+    }
+
+    & when not (@direction = x) {
+        &::-webkit-scrollbar {
+            height: 12px;
+            width: @width;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            height: @width;
+            width: @width;
+        }
+
+        ::-webkit-scrollbar-track {
+            height: @width;
+            width: @width;
+        }
+    }
+}
+
+.ammenu-icon(@icon-url: none) {
+    .ammenu-flex(center, center);
+
+    background-image: @icon-url;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+}
+
+.ammenu-reset(@type: '') {
+    & when (@type = button) {
+        .reset-button {
+            background: none;
+            border-color: transparent;
+            box-shadow: none;
+            color: inherit;
+            font-weight: inherit;
+            outline: none;
+        }
+
+        & {
+            .reset-button;
+
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        &:focus {
+            .reset-button;
+            .lib-css(box-shadow, @focus__box-shadow);
+        }
+
+        &:hover {
+            .reset-button;
+        }
+    }
+}
+
+.ammmenu-word-break {
+    & {
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+
+    .ie11 & {
+        word-break: break-all;
+    }
+}
+
+._ammenu-link {
+    &.-first {
+        min-height: 60px;
+        padding: 17px 0;
+    }
+
+    &.-second {
+        font-size: 1.6rem;
+        font-weight: 400;
+        min-height: 50px;
+        padding: 14px 0;
+    }
+}
+
+.ammenu-keyframes(@name, @rules) {
+    @-webkit-keyframes @name {
+        @rules();
+    }
+
+    @-moz-keyframes @name {
+        @rules();
+    }
+
+    @-ms-keyframes @name {
+        @rules();
+    }
+
+    @-o-keyframes @name {
+        @rules();
+    }
+
+    @keyframes @name {
+        @rules();
+    }
+}

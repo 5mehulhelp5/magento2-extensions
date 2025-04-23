@@ -1,0 +1,44 @@
+.header {
+  background-color: @color-accent-header;
+  .get-rem(padding-top, 25);
+  .get-rem(padding-bottom, 25);
+  padding-left: 0;
+  padding-right: 0;
+  .get-rem(margin-bottom, 33);
+
+  @media @screen-sm {
+    .get-rem(padding-top, 35);
+    .get-rem(padding-bottom, 35);
+    padding-left: 0;
+    padding-right: 0;
+    .get-rem(margin-bottom, 50);
+  }
+
+  &__breadcrumbs {
+    .get-rem(margin-bottom, 29);
+
+    @media @screen-sm {
+      .get-rem(margin-bottom, 45);
+    }
+  }
+
+  .button {
+    &--outline-inverted {
+      background-color: @color-accent-header;
+
+      &:hover {
+        background-color: lighten(@color-accent-header, 50%);
+        color: @color-accent-header;
+      }
+
+      &:disabled {
+        color: lighten(@color-accent-header, 30%);
+        border-color: lighten(@color-accent-header, 30%);
+      }
+
+      &:not(:active):focus {
+        box-shadow: 0 0 0 2px fade(@color-accent-header, 40%);
+      }
+    }
+  }
+}

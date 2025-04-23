@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit" name="partialpayment_partiallypaidorders_edit"/>
+        </referenceContainer>   
+       <referenceContainer name="left">
+            <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit\Tabs" name="partialpayment_partiallypaidorders_edit_tabs">
+				<!-- all information tab -->
+                <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit\Tab\AllInformation" name="partialpayment_partiallypaidorders_edit_tab_allInformation">
+				</block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">all_information_section</argument>
+                    <argument name="block" xsi:type="string">partialpayment_partiallypaidorders_edit_tab_allInformation</argument>
+                </action>
+				<!-- order information tab -->
+                <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit\Tab\OrderInformation" name="partialpayment_partiallypaidorders_edit_tab_orderInformation"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">order_information_section</argument>
+                    <argument name="block" xsi:type="string">partialpayment_partiallypaidorders_edit_tab_orderInformation</argument>
+                </action>
+				<!-- product information tab -->
+                <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit\Tab\ProductInformation" name="partialpayment_partiallypaidorders_edit_tab_productInformation"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">product_information_section</argument>
+                    <argument name="block" xsi:type="string">partialpayment_partiallypaidorders_edit_tab_productInformation</argument>
+                </action>
+				<!-- installment information tab -->
+                <block class="Milople\Depositpayment\Block\Adminhtml\Partiallypaidorders\Edit\Tab\InstallmentInformation" name="partialpayment_partiallypaidorders_edit_tab_installmentInformation">
+					<block class="Milople\Depositpayment\Block\Adminhtml\Payment\Method\Form" template="payment/method/form.phtml" name="payment_methods">
+						<action method="setMethodFormTemplate">
+							<argument name="method" xsi:type="string">braintree_cc_vault</argument>						
+							<argument name="template" xsi:type="string">Milople_Depositpayment::braintree/ccVault.phtml</argument>
+						</action>
+						<action method="setMethodFormTemplate">
+							<argument name="method" xsi:type="string">braintree_paypal_vault</argument>						
+							<argument name="template" xsi:type="string">Milople_Depositpayment::braintree/paypalVault.phtml</argument>
+						</action>
+                        <action method="setMethodFormTemplate">
+                            <argument name="method" xsi:type="string">stripe</argument>                     
+                            <argument name="template" xsi:type="string">Milople_Depositpayment::stripe/form.phtml</argument>
+                        </action>
+					</block>
+				</block>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">installment_information_section</argument>
+                    <argument name="block" xsi:type="string">partialpayment_partiallypaidorders_edit_tab_installmentInformation</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

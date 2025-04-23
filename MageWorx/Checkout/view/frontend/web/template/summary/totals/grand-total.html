@@ -1,0 +1,56 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isTaxDisplayedInGrandTotal && isDisplayed() -->
+    <div class="summary__field summary__field--style-no-border summary__field--align-bottom">
+        <div class="summary__cell">
+            <p class="text text--variation-strong" data-bind="i18n: inclTaxLabel"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong text--size-xxl" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="summary__field summary__field--style-no-border summary__field--align-bottom">
+        <div class="summary__cell">
+            <p class="text text--variation-strong" data-bind="i18n: exclTaxLabel"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong text--size-xxl" data-bind="text: getGrandTotalExclTax(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+<!-- ko if: !isTaxDisplayedInGrandTotal && isDisplayed() -->
+    <div class="summary__field summary__field--style-no-border summary__field--align-bottom">
+        <div class="summary__cell">
+            <p class="text text--variation-strong" data-bind="i18n: title"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong text--size-xxl" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+<!-- ko if: isBaseGrandTotalDisplayNeeded() && isDisplayed() -->
+    <div class="summary__field summary__field--style-no-border summary__field--align-bottom">
+        <div class="summary__cell">
+            <p class="text text--variation-strong" data-bind="i18n: basicCurrencyMessage"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong text--size-xxl" data-bind="text: getBaseValue(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->

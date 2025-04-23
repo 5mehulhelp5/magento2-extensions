@@ -1,0 +1,37 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+?>
+<?php
+$params = $block->getParams();
+$helper = $block->getHelper('adminhtml');
+?>
+<html>
+    <head>
+        <script>
+        <?php if (isset($params['redirect'])): ?>
+            window.location="<?php echo $block->escapeUrl($params['redirect']); ?>";
+        <?php endif; ?>
+        <?php if (isset($params['redirect_parent'])): ?>
+            window.top.location="<?php echo $block->escapeUrl($params['redirect_parent']); ?>";
+        <?php endif; ?>
+        <?php if (isset($params['error_msg'])): ?>
+            window.top.directPostModel.showError(<?php /* @noEscape */ echo json_encode((array)$params['error_msg']); ?>);
+            <?php if (isset($params['x_invoice_num'])): ?>
+                window.top.directPostModel.successUrl="<?php echo $block->escapeUrl($helper->getSuccessOrderUrl($params)); ?>";
+            <?php endif; ?>
+        <?php endif; ?>
+        </script>
+    </head>
+    <body></body>
+</html>

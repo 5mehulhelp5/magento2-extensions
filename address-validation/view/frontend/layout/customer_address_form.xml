@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Azaleasoft Team
+ * @copyright Copyright (c) 2017 Azaleasoft (https://www.azaleasoft.com)
+ * @package Azaleasoft_Asaddressvalidation
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block class="Azaleasoft\Asaddressvalidation\Block\Common" ifconfig="azaleasoft_asaddressvalidation/general/enable" template="Azaleasoft_Asaddressvalidation::myaccount/address/edit.phtml" name="azaleasoft_asaddressvalidation_customer_address_form" />
+    	</referenceContainer>
+    </body>
+</page>

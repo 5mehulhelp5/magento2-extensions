@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="styles"/>
+	<body>
+		<referenceContainer name="page.content">
+			<block name="olegnax.InstagramFeedPro.notice" class="Olegnax\InstagramFeedPro\Block\Adminhtml\Notice" after="page.main.actions"/>
+			<block name="olegnax.InstagramFeedPro.addmanually.form" class="Olegnax\InstagramFeedPro\Block\Adminhtml\AddUserForm"></block>
+		</referenceContainer>
+		<referenceContainer name="content">
+			<uiComponent name="olegnax_instagramfeedpro_intsuser_listing"/>
+		</referenceContainer>
+	</body>
+</page>

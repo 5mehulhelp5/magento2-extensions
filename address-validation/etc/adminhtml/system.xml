@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Azaleasoft Team
+ * @copyright Copyright (c) 2018 Azaleasoft (https://www.azaleasoft.com)
+ * @package Azaleasoft_Asaddressvalidation
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="azaleasoft" translate="label" sortOrder="60">
+            <label>Azaleasoft Extensions</label>
+        </tab>
+        <section id="azaleasoft_asaddressvalidation" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Shipping Address Validation</label>
+            <tab>azaleasoft</tab>
+            <resource>Azaleasoft_Asaddressvalidation::config_asaddressvalidation</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="original_address_checkout" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow original address checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="service_name" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Service API</label>
+                    <source_model>Azaleasoft\Asaddressvalidation\Model\System\Config\Service</source_model>
+                </field>
+            </group>
+            <group id="ups" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>UPS</label>
+                <field id="username" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                </field>
+                <field id="password" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                </field>
+                <field id="access_key" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Access Key</label>
+                </field>
+                <field id="maximum_list_size" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Maximum Address List Size</label>
+                </field>
+            </group>
+            <group id="usps" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>USPS</label>
+                <field id="username" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                </field>
+                <field id="password" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                </field>
+            </group>
+            <group id="fedex" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>FedEx</label>
+                <field id="key" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Key</label>
+                </field>
+                <field id="password" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                </field>
+                <field id="account_number" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Account Number</label>
+                </field>
+                <field id="meter_number" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Meter Number</label>
+                </field>
+                <field id="sandbox_mode" translate="label comment" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Sandbox Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

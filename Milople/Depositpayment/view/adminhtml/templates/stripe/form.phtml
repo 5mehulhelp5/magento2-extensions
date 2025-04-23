@@ -1,0 +1,181 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Partialpaymentauto
+* @copyright   Copyright (c) 2019 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/partial-payment-m2.html
+*
+**/
+
+$code = $block->escapeHtml($block->getMethodCode());
+$ccType = $block->getInfoData('cc_type');
+$ccExpMonth = $block->getInfoData('cc_exp_month');
+$ccExpYear = $block->getInfoData('cc_exp_year');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$tokenManagement = $objectManager->create('\Magento\Vault\Model\PaymentTokenManagement');
+$request = $objectManager->get('\Magento\Framework\App\Request\Http');
+$partialOderId = $request->getParam('id');
+$partialOrder = $objectManager->create('\Milople\Depositpayment\Model\PartialpaymentOrders')->load($partialOderId);
+$order = $objectManager->create('\Magento\Sales\Model\Order')->load($partialOrder->getOrderId());
+//if (count($tokenManagement->getListByCustomerId($order->getCustomerId())) !== 0){
+$StripePaymentModel = $objectManager->create('\Milople\Stripe\Model\Payment');
+$stripeCustomerId = $StripePaymentModel->getStripeCustomerByEmail($order->getCustomerEmail());
+?>
+<fieldset class="admin__fieldset payment-method" id="payment_form_<?= /* @noEscape */ $code ?>" style="display:none">
+	<?php
+	if ($stripeCustomerId){
+	$cards = $StripePaymentModel->getCreditcard($stripeCustomerId);
+	if($cards){
+	?>
+		<div class="admin__field _required">
+			<label class="admin__field-label" for="stripe_cc_type">
+				<span>Select From Existing Card	</span>
+			</label>
+			<div class="admin__field-control control">
+				<select id="lastfour" class="required-entry" name="payment[lastfour]">
+					<option value="new">Use other card</option>
+					<?php foreach($cards as $card){ ?>
+					<option value="<?php echo $card['last4'] ?>"><?php echo "XXXX-".$card['last4'] ?></option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+	<?php } ?>
+	<?php } ?>
+	<div id="stripe-credit-card" class="admin__fieldset">	  
+		<div class="field-type admin__field _required">
+        <label class="admin__field-label" for="<?= /* @noEscape */ $code ?>_cc_type">
+            <span><?= $block->escapeHtml(__('Credit Card Type')) ?></span>
+        </label>
+        <div class="admin__field-control">
+            <select id="<?= /* @noEscape */ $code ?>_cc_type" name="payment[cc_type]"
+                    class="required-entry validate-cc-type-select admin__control-select">
+                <option value=""></option>
+                <?php foreach ($block->getCcAvailableTypes() as $typeCode => $typeName): ?>
+                    <option value="<?= $block->escapeHtml($typeCode) ?>" <?php if ($typeCode == $ccType): ?>selected="selected"<?php endif ?>>
+                        <?= $block->escapeHtml($typeName) ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </div>
+    </div>
+    <!--script type="text/javascript">
+        if(ele == 'stripe'){
+            jQuery('#payment_form_stripe').show();
+        }
+    </script-->
+    <div class="field-number admin__field _required">
+        <label class="admin__field-label" for="<?= /* @noEscape */ $code ?>_cc_number">
+            <span><?= $block->escapeHtml(__('Credit Card Number')) ?></span>
+        </label>
+        <div class="admin__field-control">
+            <input type="text" id="<?= /* @noEscape */ $code ?>_cc_number" name="payment[cc_number]"
+                   title="<?= $block->escapeHtml(__('Credit Card Number')) ?>" class="admin__control-text validate-cc-number"
+                   value="<?= /* @noEscape */ $block->getInfoData('cc_number') ?>"/>
+        </div>
+    </div>
+    <div class="field-date admin__field _required">
+        <label class="admin__field-label" for="<?= /* @noEscape */ $code ?>_expiration">
+            <span><?= $block->escapeHtml(__('Expiration Date')) ?></span>
+        </label>
+        <div class="admin__field-control">
+            <select id="<?= /* @noEscape */ $code ?>_expiration" name="payment[cc_exp_month]"
+                    class="admin__control-select admin__control-select-month validate-cc-exp required-entry">
+                <?php foreach ($block->getCcMonths() as $k => $v): ?>
+                    <option value="<?= $block->escapeHtml($k) ?>"
+                            <?php if ($k == $ccExpMonth): ?>selected="selected"<?php endif ?>>
+                        <?= $block->escapeHtml($v) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <select id="<?= /* @noEscape */ $code ?>_expiration_yr" name="payment[cc_exp_year]"
+                    class="admin__control-select admin__control-select-year required-entry">
+                <?php foreach ($block->getCcYears() as $k => $v): ?>
+                    <option value="<?= /* @noEscape */ $k ? $block->escapeHtml($k) : '' ?>"
+                            <?php if ($k == $ccExpYear): ?>selected="selected"<?php endif ?>>
+                        <?= $block->escapeHtml($v) ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </div>
+    </div>
+
+    <?php if ($block->hasVerification()): ?>
+        <div class="field-number required admin__field _required">
+            <label class="admin__field-label" for="<?= /* @noEscape */ $code ?>_cc_cid">
+                <span><?= $block->escapeHtml(__('Card Verification Number')) ?></span>
+            </label>
+            <div class="admin__field-control">
+                <input type="text" title="<?= $block->escapeHtml(__('Card Verification Number')) ?>"
+                       class="required-entry validate-cc-cvn admin__control-cvn admin__control-text"
+                       id="<?= /* @noEscape */ $code ?>_cc_cid"
+                       name="payment[cc_cid]" value="<?= /* @noEscape */ $block->getInfoData('cc_cid') ?>"/>
+            </div>
+        </div>
+    <?php endif; ?>
+	</div>
+</fieldset>
+<?php if(count($cards) > 0):
+    ?>
+    <script>
+        require([
+            'jquery',
+            ], function(){
+                console.log("Test-123");
+                jQuery('#lastfour').on('change', function() {
+						console.log("lastfour-change");
+                        var currentValue = jQuery(this).val();
+                        console.log("currentValue");
+                        console.log(currentValue);
+                        var cVVElement = jQuery('#<?php echo $code ?>_cc_cid');
+                         if(currentValue == 'new'){
+                             console.log("In New");
+							  jQuery('#stripe-credit-card').show();
+                              jQuery('#<?php echo $code ?>_cc_type').attr('data-validate',JSON.stringify({required:true, 'validate-cc-type-select':'#<?php echo $code ?>_cc_number'}));
+                              jQuery('#<?php echo $code ?>_cc_number').attr('data-validate',JSON.stringify({required:true, 'validate-cc-number':'#<?php echo $code ?>_cc_type'}));
+                              jQuery('#<?php echo $code ?>_expiration').attr('data-validate',JSON.stringify({required:true, 'validate-cc-exp':'#<?php echo $code ?>_expiration_yr'}));
+                              jQuery('#<?php echo $code ?>_expiration_yr').attr('data-validate',JSON.stringify({required:true}));
+
+                            }
+                           else{
+							 console.log("else of new");
+							 jQuery('#stripe-credit-card').hide();
+                             jQuery('#<?php echo $code ?>_cc_type').removeAttr('data-validate');
+                             jQuery('#<?php echo $code ?>_cc_number').removeAttr('data-validate');
+                             jQuery('#<?php echo $code ?>_expiration').removeAttr('data-validate');
+                             jQuery('#<?php echo $code ?>_expiration_yr').removeAttr('data-validate');
+                           }
+
+                        jQuery(".<?php echo $code ?>_new").each(function(){
+							console.log("each-");
+                            if(currentValue == 'new'){
+                                jQuery(this).show();
+                            }else{
+                                jQuery(this).hide();
+                            }
+                        });
+                        if(cVVElement){
+                            cVVElement.show();
+                            if(currentValue == 'new'){
+                                 cVVElement.attr('data-validate',JSON.stringify({required:true, 'validate-cc-cvn':'#<?php echo $code ?>_cc_type'}));
+                            }else{
+                              console.log('yes, removing validation from the CVV');
+                                cVVElement.removeAttr("data-validate");
+                            }
+                        }
+                });
+
+        });
+
+</script>
+<style>
+#payment_form_stripe{
+	margin:0;
+}
+</style>
+ <?php endif; ?>

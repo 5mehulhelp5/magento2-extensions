@@ -1,0 +1,76 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<div class="radio radiogroup__header radiogroup__header--side-top"
+     data-bind="css: { 'radiogroup__header--is-selected': isSelected,
+                       'radiogroup__header--side-top': $index() == 0,
+                        'radiogroup__header--side-bottom': $index() == ($parent.addressListLength - 1)
+                      },
+                event: {click: selectAddress}"
+>
+
+    <input class="radio__control radiogroup__control"
+           type="radio"
+           attr="'checked': isSelected"
+           data-bind="attr: {'id': 'billing-' + $index(), 'name': 'billing-' + $index()}"
+    >
+    <label class="radio__label radiogroup__label" data-bind="attr: {'for': 'billing-' + $index()}">
+        <div class="radio__box"></div>
+        <div class="radiogroup__label-item">
+            <span class="text text--variation-strong">
+                <text args="address().prefix"></text>
+                <text args="address().firstname"></text>
+                <text args="address().middlename"></text>
+                <text args="address().lastname"></text>
+                <text args="address().suffix"></text>
+            </span>
+        </div>
+        <!-- ko if: address().isDefaultBilling() -->
+        <div class="radiogroup__label-item">
+            <span style="position: fixed;right: 20px;background-color: #d6e0fd;padding: 4px 10px;border-radius: 5px;color: #3367ee;" data-bind="i18n: 'Default'"></span>
+        </div>
+        <!-- /ko -->
+    </label>
+    <div class="radiogroup__content" style="display: block;">
+        <div class="form form--condensed">
+            <div class="form__field">
+                <div class="radiogroup__label-item">
+                    <span class="text">
+                        <text args="_.values(address().street).join(', ')"></text>
+                        <br/>
+                        <text args="address().city "></text>
+                        , <span text="address().region"></span>
+                        <text args="address().postcode"></text>
+                        <br/>
+                        <text args="getCountryName(address().countryId)"></text>
+                        <br/>
+                        <a if="address().telephone" attr="'href': 'tel:' + address().telephone"
+                           text="address().telephone"></a><br/>
+
+                        <each args="data: address().customAttributes, as: 'element'">
+                            <each args="data: Object.keys(element), as: 'attribute'">
+                                <if args="typeof element[attribute] === 'object'">
+                                    <if args="element[attribute].label">
+                                        <text args="element[attribute].label"></text>
+                                    </if>
+                                    <ifnot args="element[attribute].label">
+                                        <if args="element[attribute].value">
+                                            <text args="element[attribute].value"></text>
+                                        </if>
+                                    </ifnot>
+                                </if>
+                                <if args="typeof element[attribute] === 'string'">
+                                    <text args="element[attribute]"></text>
+                                </if>
+                                <br/>
+                            </each>
+                        </each>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

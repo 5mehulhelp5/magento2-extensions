@@ -1,0 +1,77 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<div class="sign-in-button" data-modal="1"
+     data-bind="click: togglePopUp, 'visible': isActive()">
+    <button type="button" class="action primary"><!-- ko i18n: 'SIGN IN' --><!-- /ko --></button>
+</div>
+
+<div class="co-modal co-modal--on-load co-modal--size-sm"
+     role="dialog"
+     data-modal-id="1"
+     data-bind="css: {'co-modal--is-visible': visible}, style: { display: popupDisplayStyle }"
+>
+    <div class="co-modal__dialog" role="document" tabindex="-1">
+        <div class="co-modal__header">
+            <h2 class="heading"><!-- ko i18n: 'Sign in' --><!-- /ko --></h2>
+            <button class="button button--plain co-modal__close" aria-label="Close" data-bind="click: closePopUp">
+                <svg class="icon ">
+                    <use xlink:href="#icon--close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="co-modal__content">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <!-- ko foreach: getRegion('before') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+            <form class="form form--condensed"
+                  action="#"
+                  data-role="login"
+                  data-bind="submit:login"
+                  method="post"
+            >
+                <div class="form__field field-email required">
+                    <div class="input ">
+                        <label class="input__label" for="login-email"><!-- ko i18n: 'Email' --><!-- /ko --></label>
+                        <input class="input__control"
+                               type="email"
+                               id="login-email"
+                               name="username"
+                               data-bind="attr: {autocomplete: autocomplete}"
+                               data-validate="{required:true, 'validate-email':true}"/>
+                    </div>
+                </div>
+                <div class="form__field field-password required">
+                    <div class="input">
+                        <label class="input__label" for="login-password"><!-- ko i18n: 'Password' --><!-- /ko --></label>
+                        <a class="link link--variation-accent link--variation-strong input__label-addon" href="#" data-bind="attr: { href: forgotPasswordUrl }">
+                            <!-- ko i18n: 'Forgot your password?' --><!-- /ko -->
+                        </a>
+                        <input class="input__control"
+                               type="password"
+                               id="login-password"
+                               name="password"
+                               data-bind="attr: {autocomplete: autocomplete}"
+                               data-validate="{required:true}"
+                               autocomplete="off"
+                        >
+                    </div>
+                </div>
+                <!-- ko foreach: getRegion('additional-login-form-fields') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+                <input name="context" type="hidden" value="checkout" />
+                <div class="form__field form__field--content-right form__field--no-margin">
+                    <button class="button button--plain" type="button" data-bind="click: closePopUp()"><!-- ko i18n: 'Back' --><!-- /ko --></button>
+                    <button class="button button--primary action-login"><!-- ko i18n: 'Continue' --><!-- /ko --></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

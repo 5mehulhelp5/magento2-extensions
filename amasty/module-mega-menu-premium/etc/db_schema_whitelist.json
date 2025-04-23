@@ -1,0 +1,10 @@
+{
+    "amasty_menu_item_content": {
+        "column": {
+            "mobile_content": true,
+            "show_mobile_content": true,
+            "hide_mobile_content": true,
+            "submenu_animation": true
+        }
+    }
+}

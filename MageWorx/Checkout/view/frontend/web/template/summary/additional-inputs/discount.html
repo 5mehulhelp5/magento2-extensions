@@ -1,0 +1,69 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<div class="summary__cell">
+    <dl class="collapsible"
+        id="discount-container"
+        data-bind="css: {'collapsible--expanded': contentVisible}, afterRender: initTooltip()">
+        <dt class="collapsible__header" data-bind="click: toggleCollapsible">
+        <span class="link link--variation-accent link--variation-strong"
+              data-bind="text: label"></span>
+        </dt>
+        <dd class="collapsible__content">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <form class="form form-discount" id="discount-form">
+                <div class="addon">
+                    <div class="control-group">
+                        <div class="input">
+                            <label class="input__label" for="discount-code" data-bind="text: fieldLabel"></label>
+                            <input class="input__control"
+                                   type="text"
+                                   id="discount-code"
+                                   name="discount_code"
+                                   data-validate="{'required-entry':true}"
+                                   data-bind="value: couponCode, attr:{disabled:isApplied() , placeholder: fieldPlaceholder } "
+                            >
+                        </div>
+                        <!-- ko ifnot: isApplied() -->
+                        <button class="button button--primary"
+                                type="submit"
+                                data-bind="'value': $t('Apply Discount'), click: apply, text: $t('Apply')"
+                        ></button>
+                        <!-- /ko -->
+                        <!-- ko if: isApplied() -->
+                        <button class="button button--primary"
+                                type="submit"
+                                data-bind="'value': $t('Cancel'), click: cancel, text: $t('Cancel')"
+                        ></button>
+                        <!-- /ko -->
+
+                        <!-- ko if: tooltipMessage() -->
+                        <div class="tooltip"
+                             id="discount-tooltip"
+                             data-bind="attr: {'data-content': tooltipMessage}"
+                             tabindex="0">
+                            <div class="tooltip__activator">
+                                <svg class="icon ">
+                                    <use xlink:href="#icon--hint"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- ko foreach: getRegion('captcha') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </form>
+            
+            <div class="payment-info">
+                <p>Book your package with a $250 per person deposit, 50% of the remaining balance due on May 20, 2025, and final payment due on October 16, 2025.</p>
+            </div>
+        </dd>
+    </dl>
+</div>

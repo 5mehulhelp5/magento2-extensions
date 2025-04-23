@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="ammegamenu" translate="label" type="text" sortOrder="130507" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Mega Menu Configuration</label>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="sticky" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Sticky Menu</label>
+                    <source_model>Amasty\MegaMenu\Model\OptionSource\Sticky</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="hide_view_all_link" translate="label" type="select" showInDefault="1" sortOrder="40" showInWebsite="1" showInStore="1">
+                    <label>Hide “View All” Links for Categories</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>When set to Yes, parent category title will become clickable.</comment>
+                </field>
+
+                <field id="mobile_template" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Template for Mobile View</label>
+                    <source_model>Amasty\MegaMenu\Model\OptionSource\MobileTemplate</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="show_icons" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Mega Menu Icons on</label>
+                    <source_model>Amasty\MegaMenu\Model\OptionSource\IconStatus</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="help_and_settings_display" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Help &amp; Settings Tab</label>
+                    <source_model>Amasty\MegaMenu\Model\OptionSource\HelpAndSettings</source_model>
+                </field>
+
+                <field id="help_and_settings_tab_name" translate="label" type="text" sortOrder="66" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tab Custom Name</label>
+                    <backend_model>Amasty\MegaMenu\Model\Config\Backend\HelpAndSettingsTabName</backend_model>
+                    <depends>
+                        <field id="help_and_settings_display">3</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

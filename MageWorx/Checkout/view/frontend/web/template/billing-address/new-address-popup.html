@@ -1,0 +1,25 @@
+<div class="co-modal co-modal--on-load co-modal--size-xl co-modal--is-visible"
+     role="dialog"
+     data-modal-id="2"
+     style="display: flex;"
+     data-bind="css: {'co-modal--is-visible': isFormPopUpVisible}, style: { display: isFormPopUpVisible ? 'flex' : 'none' }"
+>
+    <div class="co-modal__dialog" role="document" tabindex="-1">
+        <div class="co-modal__header">
+            <h2 class="heading" data-bind="i18n: 'Billing Address'"></h2>
+            <button class="button button--plain co-modal__close" aria-label="Close" data-bind="click: cancelNewAddress">
+                <svg class="icon ">
+                    <use xlink:href="#icon--close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="co-modal__content">
+            <render args="formTemplate"></render>
+
+            <div class="form__field form__field--content-right form__field--no-margin">
+                <button class="button button--plain" data-bind="i18n: 'Back', click: cancelNewAddress"></button>
+                <button class="button button--primary" data-bind="i18n: 'Add address', click: submitNewAddress"></button>
+            </div>
+        </div>
+    </div>
+</div>

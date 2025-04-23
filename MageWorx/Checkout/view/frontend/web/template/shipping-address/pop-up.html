@@ -1,0 +1,22 @@
+<div class="co-modal co-modal--on-load co-modal--is-visible"
+     role="dialog"
+     data-modal-id="2"
+     style="display: flex;"
+     data-bind="css: {'co-modal--is-visible': selectAddressPopUpVisible}, style: { display: selectAddressPopUpVisible ? 'flex' : 'none' }"
+>
+    <div class="co-modal__dialog" role="document" tabindex="-1">
+        <div class="co-modal__header">
+            <h2 class="heading" data-bind="i18n: 'Shipping Address'"></h2>
+            <button class="button button--plain co-modal__close" aria-label="Close" data-bind="click: closeSelectAddressPopUp">
+                <svg class="icon ">
+                    <use xlink:href="#icon--close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="co-modal__content">
+            <each args="getRegion('address-list')" render=""></each>
+
+            <each args="getRegion('address-list-additional-addresses')" render=""></each>
+        </div>
+    </div>
+</div>

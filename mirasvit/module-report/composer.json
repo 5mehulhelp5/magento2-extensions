@@ -1,0 +1,28 @@
+{
+    "name": "mirasvit/module-report",
+    "description": "Reports Core",
+    "require": {
+        "magento/framework": "102.0.*|103.0.*",
+        "mirasvit/module-core": "dev-master|>=1.4.39",
+        "mirasvit/module-report-api": "dev-master|>=1.0.61"
+    },
+    "conflict": {
+        "mirasvit/module-report-api": "<=1.0.40",
+        "mirasvit/module-report-builder": "<=1.1.3",
+        "mirasvit/module-dashboard": "<=1.3.17",
+        "mirasvit/module-bookmarker": "<1.2.0"
+    },
+    "type": "magento2-module",
+    "version": "1.4.41",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "src/Report/registration.php"
+        ],
+        "psr-4": {
+            "Mirasvit\\Report\\": "src/Report"
+        }
+    }
+}

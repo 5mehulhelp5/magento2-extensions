@@ -1,0 +1,200 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+?>
+<?php 
+$collection 			= $this->getCollection();//PartialpaymentOrder Table
+$productCollection 		= $this->getProductCollection();//PartialpayemntProduct Table
+$installmentCollection 	= $this->getInstallmentsCollection();//PartialpaymentInstallments Table
+$orderCollection 		= $this->getOrderCollection($collection->getOrderId());//Order Table
+if($orderCollection->getCustomerIsGuest()){
+	$billingAddress = $orderCollection->getBillingAddress();
+	$firstName = $billingAddress->getFirstName();
+	$lastName = $billingAddress->getLastName();
+}else{
+	$firstName = $orderCollection->getCustomerFirstname();
+	$lastName = $orderCollection->getCustomerLastname();
+}
+?>
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+		<span class="title">Deposit Payment Detail of Order <a href="<?php echo $this->urlBuilder->getUrl('sales/order/view', $paramsHere = array('order_id'=>$orderCollection->getId()));?>">#<?php echo $orderCollection->getIncrementId() ?></a></span>
+	</div>
+	<div class="admin__page-section-content">
+		<table class="admin__table-secondary">
+			<tbody>
+				<tr>
+					<td>
+						<table class="admin__table-secondary">
+							<tbody>
+								<tr>
+									<td><?php echo __('First Name'); ?></td>
+									<td><?php echo $firstName; ?></td>
+									</tr>
+									<tr>
+										<td><?php echo __('Last Name'); ?></td>
+										<td><?php echo $lastName; ?></td>
+									</tr>
+									<tr>
+										<td><?php echo __('Email Address'); ?></td>
+										<td><?php echo $orderCollection->getCustomerEmail(); ?></td>
+									</tr>
+									<tr>
+										<td><?php echo __('Order Date'); ?></td>
+										<td><?php echo $this->formatDate($orderCollection->getCreatedAt()); ?></td>
+									</tr>
+									<tr>
+										<td><?php echo __('Status'); ?></td>
+										<td><?php echo $orderCollection->getStatus(); ?></td>
+									</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<tr>
+							<td>
+								<div class="admin__page-section-title">
+									<span class="title"><u>Order Items</u></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<table class="table-data admin__table-primary edit-order-table">
+									<thead>
+										<tr class="headings">
+											<th><?php echo __('Product Name'); ?></th>
+											<th><?php echo __('SKU'); ?></th>
+											<th><?php echo __('Quantity'); ?></th>
+											<th><?php echo __('Total Installments'); ?></th>
+											<th><?php echo __('Paid Installments'); ?></th>
+											<th><?php echo __('Remaining Installments'); ?></th>
+											<th><?php echo __('Total Amount'); ?></th>
+											<th><?php echo __('Paid Amount'); ?></th>
+											<th><?php echo __('Remaining Amount'); ?></th>
+										</tr>
+									</thead>
+									<?php foreach($productCollection as $item)
+									{
+										$salesOrderItem = $this->getOrderItemCollection($item->getSalesFlatOrdersItemId());
+										$product = $this->getProductInformation($salesOrderItem->getProductId());
+										$paid=$item->getPaidAmount()+$orderCollection->getBaseDiscountAmount();
+										
+									?>									
+									<tbody>
+										<tr>
+											<td><?php echo $salesOrderItem->getName(); ?></td>
+											<td><?php echo $salesOrderItem->getSku(); ?></td>
+											<td><?php echo $salesOrderItem->getQtyOrdered(); ?></td>
+											<td><?php echo $item->getTotalInstallments(); ?></td>
+											<td><?php echo $item->getPaidInstallments(); ?></td>
+											<td><?php echo $item->getRemainingInstallments(); ?></td>
+											<td><?php echo $this->priceHelper->currency($item->getTotalAmount()); ?></td>
+											<td><?php echo $this->priceHelper->currency($paid); ?></td>
+											<td><?php echo $this->priceHelper->currency($item->getRemainingAmount()); ?></td>
+										</tr>
+									</tbody>
+									<?php
+									} ?>
+								</table>
+							</td>
+						</tr>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="admin__table-secondary">
+							<tbody>
+								<tr>
+									<td>
+										<div class="admin__page-section-title">
+											<span class="title"><u>Totals</u></span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><?php echo __('Sub Total'); ?></td>
+									<td><?php echo $this->priceHelper->currency($orderCollection->getBaseSubTotal()); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo __('Shipping & Handling'); ?></td>
+									<td><?php echo $this->priceHelper->currency($orderCollection->getBaseShippingAmount()); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo __('Tax'); ?></td>
+									<td><?php echo $this->priceHelper->currency($orderCollection->getBaseTaxAmount()); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo __('Discount'); ?></td>
+									<td><?php echo $this->priceHelper->currency($orderCollection->getBaseDiscountAmount()); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo __('Grand Total'); ?></td>
+									<td><?php echo $this->priceHelper->currency($orderCollection->getBaseGrandTotal()); ?></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<tr>
+							<td>
+								<div class="admin__page-section-title">
+									<span class="title"><u>Installments</u></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<table class="table-data admin__table-primary edit-order-table">
+									<thead>
+										<tr class="headings">
+											<th><?php echo __('Installment Amount'); ?></th>
+											<th><?php echo __('Due Date'); ?></th>
+											<th><?php echo __('Paid Date'); ?></th>
+											<th><?php echo __('Installment Status'); ?></th>
+											<th><?php echo __('Payment Method'); ?></th>
+										</tr>
+									</thead>
+									<?php foreach($installmentCollection as $installment)
+									{
+									?>									
+									<tbody>
+										<tr>
+											<td><?php echo $this->priceHelper->currency($installment->getInstallmentAmount()); ?></td>
+											<td><?php if($installment->getInstallmentDueDate() != NULL){echo $this->formatDate($installment->getInstallmentDueDate());} ?></td>
+											<td><?php if($installment->getInstallmentPaidDate() != NULL){echo $this->formatDate($installment->getInstallmentPaidDate());}else{echo __('Not Paid');} ?></td>
+											<td><?php echo $installment->getInstallmentStatus(); ?></td>
+											<td><?php if($installment->getPaymentMethod() != NULL){echo $installment->getPaymentMethod();}else{echo __('Not Paid');} ?></td>
+										</tr>
+									</tbody>
+									<?php
+									} ?>
+								</table>
+							</td>
+						</tr>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+<script>
+	require(['jquery', 'jquery/ui'], function($){ 
+		jQuery('#edit_form').attr('data-order-config', 'demo-order');
+	});
+	
+</script>

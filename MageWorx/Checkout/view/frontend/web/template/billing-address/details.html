@@ -1,0 +1,66 @@
+<div data-bind="visible: (quoteIsVirtual || isAddressDifferent)" class="form">
+    <div class="form__field">
+        <div class="radiogroup radiogroup--size-fullwidth">
+            <div class="radio radiogroup__header radiogroup__header--side-top radiogroup__header--side-bottom radiogroup__header--is-selected">
+                <input class="radio__control radiogroup__control"
+                       type="radio"
+                       id="default-billing"
+                       name="default-billing"
+                       checked="checked" />
+                <label class="radio__label radiogroup__label" for="default-billing">
+                    <div class="radio__box"></div>
+                    <div class="radiogroup__label-item">
+                        <span class="text"><!-- ko i18n: 'Default Billing Address'--><!-- /ko --></span>
+                    </div>
+                </label>
+                <div class="radiogroup__content">
+                    <div class="form form--condensed">
+                        <!-- ko if: currentBillingAddress() -->
+                        <div class="form__field">
+                            <div class="radiogroup__label-item">
+                                <span class="text">
+                                    <text args="currentBillingAddress().prefix"></text>
+                                    <text args="currentBillingAddress().firstname"></text>
+                                    <text args="currentBillingAddress().middlename"></text>
+                                    <text args="currentBillingAddress().lastname"></text>
+                                    <text args="currentBillingAddress().suffix"></text>
+                                    <br/>
+                                    <text args="_.values(currentBillingAddress().street).join(', ')"></text>
+                                    <br/>
+                                    <text args="currentBillingAddress().city"></text>
+                                    , <span text="currentBillingAddress().region"></span>
+                                    <text args="currentBillingAddress().postcode"></text>
+                                    <br/>
+                                    <text args="getCountryName(currentBillingAddress().countryId)"></text>
+                                    <br/>
+                                    <a if="currentBillingAddress().telephone" attr="'href': 'tel:' + currentBillingAddress().telephone"
+                                       text="currentBillingAddress().telephone"></a><br/>
+
+                                    <each args="data: currentBillingAddress().customAttributes, as: 'element'">
+                                        <if args="typeof element === 'object'">
+                                            <if args="element.label">
+                                                <text args="element.label"></text>
+                                            </if>
+                                            <ifnot args="element.label">
+                                                <if args="element.value">
+                                                    <text args="element.value"></text>
+                                                </if>
+                                            </ifnot>
+                                        </if>
+                                        <if args="typeof element === 'string'">
+                                            <text args="element"></text>
+                                        </if>
+                                        <br/>
+                                    </each>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko template: 'MageWorx_Checkout/billing-address/actions' --><!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">
+				olegnax_instagramfeedpro_related_product_listing.olegnax_instagramfeedpro_related_product_listing_data_source
+			</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>product_columns</spinner>
+		<deps>
+			<dep>
+				olegnax_instagramfeedpro_related_product_listing.olegnax_instagramfeedpro_related_product_listing_data_source
+			</dep>
+		</deps>
+	</settings>
+	<dataSource name="olegnax_instagramfeedpro_related_product_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+			<storageConfig>
+				<param name="cacheRequests" xsi:type="boolean">false</param>
+			</storageConfig>
+		</settings>
+		<dataProvider class="Olegnax\InstagramFeedPro\Ui\DataProvider\Post\Related\ProductDataProvider"
+					  name="olegnax_instagramfeedpro_related_product_listing_data_source">
+			<settings>
+				<primaryFieldName>entity_id</primaryFieldName>
+				<requestFieldName>id</requestFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<filters name="listing_filters">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="statefull" xsi:type="array">
+						<item name="applied" xsi:type="boolean">false</item>
+					</item>
+					<item name="params" xsi:type="array">
+						<item name="filters_modifier" xsi:type="array"/>
+					</item>
+					<item name="observers" xsi:type="array">
+						<item name="filters" xsi:type="object">Magento\Catalog\Ui\Component\Listing\Filters</item>
+					</item>
+				</item>
+			</argument>
+		</filters>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="childDefaults" xsi:type="array">
+					<item name="fieldAction" xsi:type="array">
+						<item name="provider" xsi:type="string">relatedProductGrid</item>
+						<item name="target" xsi:type="string">selectProduct</item>
+						<item name="params" xsi:type="array">
+							<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						</item>
+					</item>
+				</item>
+			</item>
+		</argument>
+		<selectionsColumn name="ids" sortOrder="0">
+			<settings>
+				<indexField>entity_id</indexField>
+				<preserveSelectionsOnFilter>true</preserveSelectionsOnFilter>
+			</settings>
+		</selectionsColumn>
+		<column name="entity_id" sortOrder="10">
+			<settings>
+				<filter>textRange</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail"
+				component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+			<settings>
+				<label translate="true">Thumbnail</label>
+				<altField>name</altField>
+				<addField>true</addField>
+				<sortable>false</sortable>
+				<hasPreview>1</hasPreview>
+			</settings>
+		</column>
+		<column name="name" sortOrder="30">
+			<settings>
+				<filter>text</filter>
+				<addField>true</addField>
+				<label translate="true">Name</label>
+			</settings>
+		</column>
+		<column name="attribute_set_id" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+			<settings>
+				<filter>select</filter>
+				<dataType>select</dataType>
+				<options class="Magento\Catalog\Model\Product\AttributeSet\Options"/>
+				<label translate="true">Attribute Set</label>
+			</settings>
+		</column>
+		<column name="attribute_set_text" class="Magento\Catalog\Ui\Component\Listing\Columns\AttributeSetText"
+				sortOrder="80">
+			<settings>
+				<label translate="true">AttributeSetText</label>
+				<visible>false</visible>
+			</settings>
+		</column>
+		<column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
+			<settings>
+				<filter>select</filter>
+				<options class="Magento\Catalog\Model\Product\Attribute\Source\Status"/>
+				<dataType>select</dataType>
+				<label translate="true">Status</label>
+			</settings>
+		</column>
+		<column name="status_text" class="Magento\Catalog\Ui\Component\Listing\Columns\StatusText" sortOrder="90">
+			<settings>
+				<label translate="true">StatusText</label>
+				<visible>false</visible>
+			</settings>
+		</column>
+		<column name="type_id" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
+			<settings>
+				<filter>select</filter>
+				<options class="Magento\Catalog\Model\Product\Type"/>
+				<dataType>select</dataType>
+				<label translate="true">Type</label>
+			</settings>
+		</column>
+		<column name="sku" sortOrder="70">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">SKU</label>
+			</settings>
+		</column>
+		<column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
+			<settings>
+				<filter>textRange</filter>
+				<addField>true</addField>
+				<label translate="true">Price</label>
+			</settings>
+		</column>
+	</columns>
+</listing>

@@ -1,0 +1,94 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+namespace Milople\Depositpayment\Model\Directpost;
+
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Directpost;
+
+class Request extends \Magento\Authorizenet\Model\Directpost\Request
+{
+   public function setDataFromOrder(
+        \Magento\Sales\Model\Order $order,
+        \Magento\Authorizenet\Model\Directpost $paymentMethod
+    ) 
+    {
+        $payment = $order->getPayment();
+
+        $this->setXType($payment->getAnetTransType());
+        $this->setXFpSequence($order->getQuoteId());
+        $this->setXInvoiceNum($order->getIncrementId());
+        if($order->getBasePaidAmount() > 0 && $order->getBaseRemainingAmount() > 0)
+        {
+           $this->setXAmount($order->getBasePaidAmount());
+          
+        }
+        else
+        {
+            $this->setXAmount($payment->getBaseAmountAuthorized());
+        }
+        $this->setXCurrencyCode($order->getBaseCurrencyCode());
+        $this->setXTax(
+            sprintf('%.2F', $order->getBaseTaxAmount())
+        )->setXFreight(
+            sprintf('%.2F', $order->getBaseShippingAmount())
+        );
+
+        //need to use strval() because NULL values IE6-8 decodes as "null" in JSON in JavaScript,
+        //but we need "" for null values.
+        $billing = $order->getBillingAddress();
+        if (!empty($billing)) {
+            $this->setXFirstName(strval($billing->getFirstname()))
+                ->setXLastName(strval($billing->getLastname()))
+                ->setXCompany(strval($billing->getCompany()))
+                ->setXAddress(strval($billing->getStreetLine(1)))
+                ->setXCity(strval($billing->getCity()))
+                ->setXState(strval($billing->getRegion()))
+                ->setXZip(strval($billing->getPostcode()))
+                ->setXCountry(strval($billing->getCountry()))
+                ->setXPhone(strval($billing->getTelephone()))
+                ->setXFax(strval($billing->getFax()))
+                ->setXCustId(strval($billing->getCustomerId()))
+                ->setXCustomerIp(strval($order->getRemoteIp()))
+                ->setXCustomerTaxId(strval($billing->getTaxId()))
+                ->setXEmail(strval($order->getCustomerEmail()))
+                ->setXEmailCustomer(strval($paymentMethod->getConfigData('email_customer')))
+                ->setXMerchantEmail(strval($paymentMethod->getConfigData('merchant_email')));
+        }
+
+        $shipping = $order->getShippingAddress();
+        if (!empty($shipping)) {
+            $this->setXShipToFirstName(
+                strval($shipping->getFirstname())
+            )->setXShipToLastName(
+                strval($shipping->getLastname())
+            )->setXShipToCompany(
+                strval($shipping->getCompany())
+            )->setXShipToAddress(
+                strval($shipping->getStreetLine(1))
+            )->setXShipToCity(
+                strval($shipping->getCity())
+            )->setXShipToState(
+                strval($shipping->getRegion())
+            )->setXShipToZip(
+                strval($shipping->getPostcode())
+            )->setXShipToCountry(
+                strval($shipping->getCountry())
+            );
+        }
+
+        $this->setXPoNum(strval($payment->getPoNumber()));
+
+        return $this;
+    }
+}

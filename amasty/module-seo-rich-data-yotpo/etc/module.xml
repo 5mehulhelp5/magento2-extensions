@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Seo Rich Data Yotpo (System)
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Amasty_SeoRichDataYotpo">
+        <sequence>
+            <module name="Amasty_Base"/>
+            <module name="Amasty_SeoRichData"/>
+            <module name="Amasty_Yotpo"/>
+        </sequence>
+    </module>
+</config>

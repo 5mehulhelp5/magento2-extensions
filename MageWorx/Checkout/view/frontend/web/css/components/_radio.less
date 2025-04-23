@@ -1,0 +1,88 @@
+.radio {
+  .get-checkbox();
+
+  /*
+  &--is-required {
+  }
+  */
+
+  &__control {
+    .get-checkbox__control();
+
+    &:checked {
+      & + .radio {
+        &__label {
+          .radio {
+            &__box {
+              background-color: @color-accent;
+              border-color: @color-accent;
+            }
+
+            &__icon {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    &:focus,
+    &:active {
+      & + .radio {
+        &__label {
+          .radio {
+            &__box {
+              border-color: @color-accent;
+            }
+          }
+        }
+      }
+    }
+
+    &:disabled {
+      & + .radio {
+        &__label {
+          .radio__box {
+            &:after {
+              background-color: lighten(@color-wild-sand, 2%);
+            }
+          }
+        }
+      }
+
+      &:checked {
+        & + .radio {
+          &__label {
+            .radio__box {
+              &:after {
+                background-color: darken(@color-zircon, 10%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__box {
+    .get-checkbox__box();
+    border-radius: 50%;
+
+    &::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background-color: @color-white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+    }
+  }
+
+  &__label {
+    .get-checkbox__label();
+  }
+}

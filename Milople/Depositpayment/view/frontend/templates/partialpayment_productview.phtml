@@ -1,0 +1,122 @@
+<?php
+/**
+ *
+ * Do not edit or add to this file if you wish to upgrade the module to newer
+ * versions in the future. If you wish to customize the module for your
+ * needs please contact us to https://www.milople.com/contact-us.html
+ *
+ * @category    Ecommerce
+ * @package     Milople_Depositpayment
+ * @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+ * @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+ *
+ **/
+?>
+<?php
+$allowPartialPayment = NULL;
+$product = $this->getProduct();
+$isAllowFullPayment = $this->partialpaymentHelper->isAllowFullPayment($product->getAllowFullPayment());
+$partialpaymentLabel = $this->partialpaymentHelper->getPartialpaymentLabel();
+$isFlexy = $this->partialpaymentHelper->isAllowFlexyPayment($product);
+$price = $product->getFinalPrice();
+$isAddTocartFail = $this->partialpaymentHelper->isAddToCartFail();
+?>
+<?php
+
+if($this->partialpaymentHelper->canShowPartialPayment($product))
+{ ?>
+    <input type="hidden" id="isAddTocartFail" value="<?php echo $isAddTocartFail; ?>" />
+    <section class="partialpayment">
+        <div class="wait-loader">
+            <img src="<?php echo $this->getViewFileUrl('images/loader-2.gif'); ?>" alt="Loading...">
+        </div>
+        <div class="partial-payment-label">
+            <h4><?php echo __('This product is available with') ?>
+                <strong><?php echo strip_tags($partialpaymentLabel); ?>
+                    <?php if($isAllowFullPayment)
+                    {
+                        ?>
+                        <sup><label class="required"><em>*</em></label></sup>
+                        <?php
+                    }
+                    ?>
+                    <?php if(!$isAllowFullPayment && !$isFlexy): ?>
+                        <a onclick="installmentChecked(2,'<?php echo $product->getId(); ?>','<?php echo $this->getUrl('depositpayment/index/displaytable');?>','<?php echo $this->partialpaymentHelper->getCurrencySymbol(); ?>','<?php echo $this->partialpaymentHelper-> getCurrencyCode(); ?>');" href="javascript:void(0)" class="info">?</a>
+                    <?php endif; ?>
+                </strong>
+            </h4>
+        </div>
+        <?php if($isAllowFullPayment && !$isFlexy)
+        {?>
+            <label class="paywith"><?php echo __('Pay With') ?> :-</label>
+            <ul class="partial-payment">
+                <li id="full-payment" <?php if($allowPartialPayment!=NULL){?>class="_active"<?php } ?>>
+                    <input type="radio" value="0" onclick = "fullpaymentChecked(1)" <?php if($allowPartialPayment!=NULL){?>checked='checked'<?php } ?> name="allow_partial_payment" class="allow-partialpayment-radio" id="full-payment-radio" data-validate="{'validate-one-required-by-name':true}" />
+                    <label for="full-payment-radio" class="allow-partialpayment-radio-label"><?php echo __('Full Payment') ?><label class="validation-error"><?php echo __('Please Selection One Option') ?></label></label>
+                </li>
+                <li id="installment" <?php if($allowPartialPayment==1){?>class="_active"<?php } ?>>
+                    <input type="radio" value="1" onclick ="installmentChecked(1,'<?php echo $product->getId(); ?>','<?php echo $this->getUrl('depositpayment/index/displaytable');?>','<?php echo $this->partialpaymentHelper->getCurrencySymbol(); ?>','<?php echo $this->partialpaymentHelper-> getCurrencyCode(); ?>');"  <?php if($allowPartialPayment==1){?>checked='checked'<?php } ?> name="allow_partial_payment" class="allow-partialpayment-radio" id="installment-radio"/>
+                    <label for="installment-radio" class="allow-partialpayment-radio-label"><?php echo __('Installment') ?> <img id="ajax-load" src="<?php echo $this->getViewFileUrl('Milople_Depositpayment::images/refresh-white.png'); ?>" /></label>
+                </li>
+            </ul>
+            <?php
+        }elseif($isFlexy){
+            ?>
+            <label class="paywith"><?php echo __('Pay With') ?> :-</label>
+            <select id="allow_partial_payment" name="allow_partial_payment" class="required-entry flexy-dropdown" onChange="installmentChecked(1,'<?php echo $product->getId(); ?>','<?php echo $this->getUrl('depositpayment/index/displaytable');?>','<?php echo $this->partialpaymentHelper->getCurrencySymbol(); ?>','<?php echo $this->partialpaymentHelper-> getCurrencyCode(); ?>',1);">
+                <option value=""><?php echo __('Please Select') ?></option>
+                <?php if($isAllowFullPayment)
+                {?>
+                    <?php if($allowPartialPayment!=NULL): ?>
+                    <option value="0" selected="selected" ><?php echo __('Full Payment') ?></option>
+                <?php else: ?>
+                    <option value="0"><?php echo __('Full Payment ') ?></option>
+                <?php endif; ?>
+                <?php } ?>
+                <?php for ($i=2;$i<=$this->partialpaymentHelper->getTotalIinstallments($product);$i++)
+                {
+                    if($allowPartialPayment==$i)
+                    {?>
+                        <option value="<?php echo $i ?>" selected="selected" ><?php echo $i." ". __('Installments'); ?></option>
+                        <?php
+                    }
+                    else
+                    {
+                        ?>
+                        <option value="<?php echo $i ?>"><?php echo  $i ." ". __('Installments')  ?></option>
+                        <?php
+                    }
+                }
+                ?>
+            </select>
+            <!--img id="ajax-load" class="rotate-me" src="<?php //echo $this->getViewFileUrl('Milople_Partialpaymentpro::images/refresh-white.png') ?>"></img-->
+            <?php
+        }
+        else
+        { ?>
+            <input type="hidden" value="1" name="allow_partial_payment" class="allow-partialpayment-radio" id="installment-radio"/>
+            <?php
+        }
+        ?>
+        <div id="partial-payment-detail-table"></div>
+    </section>
+    <div class="clear"></div>
+    <script>
+        require(['jquery','domReady'],function($,domReady) {
+            if($('#isAddTocartFail').val() != 0 ){
+                if($('#maincontent .page.messages').length){
+                    $('#maincontent .page.messages').prepend('<div class="message-error error message"><div>Please specify the product\'s required option.</div></div>');
+                }
+            }
+        });
+    </script>
+    <?php
+}
+else if (!$this->partialpaymentHelper->isValidCustomer() && $this->partialpaymentHelper->isAllowForRegisteredCustomerOnly()) // show login or create an account message on product page
+{	?>
+    <div class="clear"></div>
+    <?php echo __("To avail Partial Payment")?>
+    <a href="<?php echo $this->_urlInterface->getUrl('customer/account/create')?>"><?php echo __('create an account')?></a>
+    <?php echo __('or')?>
+    <a href="<?php echo $this->_urlInterface->getUrl('customer/account/login')?>"><?php echo __('log in')?></a>.
+<?php } ?>

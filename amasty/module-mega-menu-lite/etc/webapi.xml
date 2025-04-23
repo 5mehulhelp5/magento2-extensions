@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/amasty_megaMenuLite/link" method="POST">
+        <service class="Amasty\MegaMenuLite\Api\LinkRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/link/:entityId" method="PUT">
+        <service class="Amasty\MegaMenuLite\Api\LinkRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/link/:entityId" method="DELETE">
+        <service class="Amasty\MegaMenuLite\Api\LinkRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/link" method="GET">
+        <service class="Amasty\MegaMenuLite\Api\LinkRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/link/all" method="GET">
+        <service class="Amasty\MegaMenuLite\Api\LinkRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_megaMenuLite/item" method="POST">
+        <service class="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/item/:entityId" method="PUT">
+        <service class="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/item/:entityId" method="DELETE">
+        <service class="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/item" method="GET">
+        <service class="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_megaMenuLite/item/all" method="GET">
+        <service class="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="Amasty_MegaMenu::menu_links" />
+        </resources>
+    </route>
+</routes>

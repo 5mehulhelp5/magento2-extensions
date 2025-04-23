@@ -1,0 +1,133 @@
+"Payment Method","Payment Method"
+Image,Image
+Add,Add
+"Wrong column name specified.","Wrong column name specified."
+"For delivery questions.","For delivery questions."
+Home,Home
+Cart,Cart
+Checkout,Checkout
+"Guest checkout is disabled.","Guest checkout is disabled."
+"Unable to upload a file: %1","Unable to upload a file: %1"
+"The base directory to upload file is not specified.","The base directory to upload file is not specified."
+"This setting can be enabled/disabled in %1 section.","This setting can be enabled/disabled in %1 section."
+"This setting can be enabled/disabled in %1 section.
+        It sets a default number of products shown in the order summary.
+        Other products will be hidden by the “See more” link.","This setting can be enabled/disabled in %1 section.
+        It sets a default number of products shown in the order summary.
+        Other products will be hidden by the “See more” link."
+Yes,Yes
+No,No
+Empty,Empty
+"There is no record for specified cart id","There is no record for specified cart id"
+"You are successfully registered","You are successfully registered"
+Action,Action
+"Add after","Add after"
+Delete,Delete
+Loading...,Loading...
+"Log in","Log in"
+"Sign in","Sign in"
+Email,Email
+Password,Password
+"Forgot your password?","Forgot your password?"
+Back,Back
+Continue,Continue
+"Select address","Select address"
+"Add new address","Add new address"
+"Billing Address","Billing Address"
+Default,Default
+"Default Billing Address","Default Billing Address"
+"Save in address book","Save in address book"
+Select,Select
+"Add address","Add address"
+"I have a different billing address","I have a different billing address"
+"No Payment method available.","No Payment method available."
+"Email Address","Email Address"
+"Confirm Password","Confirm Password"
+Delivery,Delivery
+"Card number","Card number"
+"Please, enter valid Credit Card Number","Please, enter valid Credit Card Number"
+"Expiration Date","Expiration Date"
+"Please, enter valid Expiration Date","Please, enter valid Expiration Date"
+"Card Verification Number","Card Verification Number"
+"Please, enter valid Card Verification Number","Please, enter valid Card Verification Number"
+"What is this?","What is this?"
+"Save for later use.","Save for later use."
+"Make Check payable to:","Make Check payable to:"
+"Send Check to:","Send Check to:"
+"Purchase Order Number","Purchase Order Number"
+"Please update your billing address to proceed.","Please update your billing address to proceed."
+"Buy now with Apple Pay","Buy now with Apple Pay"
+"Or use a card below","Or use a card below"
+exp,exp
+"Use a new card","Use a new card"
+"Your card details are protected using PCI DSS v3.2 security standards.","Your card details are protected using PCI DSS v3.2 security standards."
+"Save card for future purchases","Save card for future purchases"
+"Place Order","Place Order"
+"Select address for delivery","Select address for delivery"
+"Default Shipping Address","Default Shipping Address"
+"Shipping Address","Shipping Address"
+"Redeem and use Gift Card","Redeem and use Gift Card"
+"See Balance","See Balance"
+"Gift Card:","Gift Card:"
+"Current Balance: ","Current Balance: "
+Qty,Qty
+"New Address","New Address"
+"By clicking 'Agree & place order' you agree to our Terms & Conditions and Privacy Policy","By clicking 'Agree & place order' you agree to our Terms & Conditions and Privacy Policy"
+"I want to create an account","I want to create an account"
+"Order Comment","Order Comment"
+"Please specify a payment method.","Please specify a payment method."
+"Select a new payment method","Select a new payment method"
+"Shipping Method","Shipping Method"
+"The shipping method is missing. Select the shipping method and try again.","The shipping method is missing. Select the shipping method and try again."
+"Please specify a regionId in shipping address.","Please specify a regionId in shipping address."
+Free,Free
+"Order Summary","Order Summary"
+"Discount Code","Discount Code"
+"Enter discount code","Enter discount code"
+"Tooltip text example","Tooltip text example"
+"I want to subscribe for newsletters","I want to subscribe for newsletters"
+"Agree & Place Order","Agree & Place Order"
+"Main Settings","Main Settings"
+Enabled,Enabled
+"Checkout Page Title","Checkout Page Title"
+"Enable Order Comment","Enable Order Comment"
+"Order Comment Title","Order Comment Title"
+"Enable Newsletters Check-box","Enable Newsletters Check-box"
+"Email Subscription Title","Email Subscription Title"
+"Add ""Create an account"" check-box","Add ""Create an account"" check-box"
+"""Create an account"" title","""Create an account"" title"
+"""Create an account"" checked by default","""Create an account"" checked by default"
+"Maximum Number of Items to Display in Order Summary","Maximum Number of Items to Display in Order Summary"
+"Allow Guest Checkout","Allow Guest Checkout"
+"Coupon Code block Settings","Coupon Code block Settings"
+"Display Coupon Code block","Display Coupon Code block"
+"Tooltip Message","Tooltip Message"
+"Default Values","Default Values"
+"Default Shipping Method","Default Shipping Method"
+"Default Payment Method","Default Payment Method"
+Translations,Translations
+"""Shipping Address"" section","""Shipping Address"" section"
+"""Billing Address"" section","""Billing Address"" section"
+"""Shipping Methods"" section","""Shipping Methods"" section"
+"""Payment Methods"" section","""Payment Methods"" section"
+"""Discounts"" section","""Discounts"" section"
+"Discount Code Label","Discount Code Label"
+"This setting allows you to change the label of the discount code field.","This setting allows you to change the label of the discount code field."
+"Discount Field Placeholder","Discount Field Placeholder"
+"This setting allows you to change the placeholder of the discount code field.","This setting allows you to change the placeholder of the discount code field."
+"""Order Summary"" section","""Order Summary"" section"
+"""Place Order"" button","""Place Order"" button"
+"This setting allows you to change the title of the 'Place order' button.","This setting allows you to change the title of the 'Place order' button."
+"Checkout Agreements","Checkout Agreements"
+"Checkout Agreements Message","Checkout Agreements Message"
+"By default located between the ""Place Order"" button and checkout agreements section.","By default located between the ""Place Order"" button and checkout agreements section."
+"Payment Methods","Payment Methods"
+"Add Icons","Add Icons"
+"Payment Methods Icons","Payment Methods Icons"
+Payment,Payment
+"Cart Subtotal","Cart Subtotal"
+Discount,Discount
+Shipping,Shipping
+"Not yet calculated","Not yet calculated"
+MageWorx_Checkout/summary/totals/tax,MageWorx_Checkout/summary/totals/tax
+"Order Total","Order Total"

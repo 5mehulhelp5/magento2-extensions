@@ -1,0 +1,550 @@
+Back,Back
+"Delete Hotspot","Delete Hotspot"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Save and Continue Edit","Save and Continue Edit"
+"Save Hotspot","Save Hotspot"
+"Delete Post","Delete Post"
+"Save Post","Save Post"
+"Extensions is not activated!","Extensions is not activated!"
+"Cron is disabled! Automatic post updates will not run.","Cron is disabled! Automatic post updates will not run."
+"Next Cron Job is scheduled for %1","Next Cron Job is scheduled for %1"
+"Cron: Last successful execution %1","Cron: Last successful execution %1"
+"Cron Job has not yet been scheduled to run.","Cron Job has not yet been scheduled to run."
+"User Guide","User Guide"
+"Extension is not activated! Some functionality is disabled.","Extension is not activated! Some functionality is disabled."
+"Click here to Activate","Click here to Activate"
+"What's New","What's New"
+Support,Support
+Renew,Renew
+Active,Active
+"Dev License Activated. <br>Do not use on live store.","Dev License Activated. <br>Do not use on live store."
+"Extension is not activated! Sync is disabled.","Extension is not activated! Sync is disabled."
+"Extension Docs","Extension Docs"
+Olegnax,Olegnax
+Hotspot,Hotspot
+"You deleted the Hotspot.","You deleted the Hotspot."
+"We can't find a Hotspot to delete.","We can't find a Hotspot to delete."
+"This Hotspot no longer exists.","This Hotspot no longer exists."
+"Edit Hotspot","Edit Hotspot"
+"New Hotspot","New Hotspot"
+Hotspots,Hotspots
+"Edit Hotspot %1","Edit Hotspot %1"
+HotSpot,HotSpot
+"Please correct the data sent.","Please correct the data sent."
+"You saved the Hotspot.","You saved the Hotspot."
+"Something went wrong while saving the Hotspot.","Something went wrong while saving the Hotspot."
+Intspost,Intspost
+"You deleted the Post.","You deleted the Post."
+"We can't find a Post to delete.","We can't find a Post to delete."
+"This Post no longer exists.","This Post no longer exists."
+"Edit Post","Edit Post"
+"New Post","New Post"
+Posts,Posts
+"Edit %1 Post %2","Edit %1 Post %2"
+"Instagram Posts","Instagram Posts"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Nothing selected!","Nothing selected!"
+"Something went wrong while updating status for %1.","Something went wrong while updating status for %1."
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"You saved the Post.","You saved the Post."
+"Something went wrong while saving the Post.","Something went wrong while saving the Post."
+"Updating too often! Interaction with external servers paused at %1","Updating too often! Interaction with external servers paused at %1"
+"Extension is not activated! You can't update posts and sync with instagram.","Extension is not activated! You can't update posts and sync with instagram."
+"No posts were found! Perhaps the profile is private?","No posts were found! Perhaps the profile is private?"
+"User ""%1"": %2","User ""%1"": %2"
+"You need to add User first in order to get Posts.","You need to add User first in order to get Posts."
+days,days
+hours,hours
+minutes,minutes
+seconds,seconds
+"Unable to download image from ""' . . '""!","Unable to download image from ""' . . '""!"
+"Added ""%1"" posts.","Added ""%1"" posts."
+"Updated ""%1"" posts.","Updated ""%1"" posts."
+"The following posts will be added during automatic update.","The following posts will be added during automatic update."
+"An unexpected error occurred with the user's posts ""%1"": %2","An unexpected error occurred with the user's posts ""%1"": %2"
+"Instagram User","Instagram User"
+"User was added successfully!","User was added successfully!"
+"Empty response","Empty response"
+"No data provided","No data provided"
+"User deleted successfully!","User deleted successfully!"
+"Unable to find User to delete.","Unable to find User to delete."
+"Instagram Users","Instagram Users"
+"Received an empty token!","Received an empty token!"
+"Error converting token!","Error converting token!"
+"Token save error!","Token save error!"
+"No posts were found!","No posts were found!"
+"License Key can not be empty.","License Key can not be empty."
+Deactivated.,Deactivated.
+"Invalid content received","Invalid content received"
+"Closure must return an object instance of LicenseRequest.","Closure must return an object instance of LicenseRequest."
+Fade,Fade
+"Move Up","Move Up"
+All,All
+"Default (Bag, Rounded)","Default (Bag, Rounded)"
+"Bag, Sharp","Bag, Sharp"
+Cart,Cart
+"Default Grid","Default Grid"
+"First Image Big","First Image Big"
+"Every nth Image is Big","Every nth Image is Big"
+None,None
+"Small Plus","Small Plus"
+"Bag Roudned, Outline","Bag Roudned, Outline"
+"Same as on Desktop","Same as on Desktop"
+Minimize,Minimize
+Hide,Hide
+"Default (Outline)","Default (Outline)"
+Filled,Filled
+Contain,Contain
+Cover,Cover
+"Zoom Out","Zoom Out"
+"Zoom In","Zoom In"
+"None, Original Size","None, Original Size"
+"Max Height","Max Height"
+Square,Square
+"Image Only","Image Only"
+"Content Overlay Image on Hover","Content Overlay Image on Hover"
+"Content Below Image","Content Below Image"
+"Content Below Image, Centered","Content Below Image, Centered"
+"Content Overlay Image on Hover, Likes and Comments Below","Content Overlay Image on Hover, Likes and Comments Below"
+Default,Default
+"Tag Icon, 45 degree","Tag Icon, 45 degree"
+"Tag Shape, Horizontal","Tag Shape, Horizontal"
+"Square Tag Shape, Horizontal","Square Tag Shape, Horizontal"
+"Bag Shape, Filled","Bag Shape, Filled"
+"Outlined Bag Icon in Circle","Outlined Bag Icon in Circle"
+"Outlined Cart Icon in Circle","Outlined Cart Icon in Circle"
+"Default (Rounded, Filled)","Default (Rounded, Filled)"
+"Sharp Outlined","Sharp Outlined"
+"Sharp Filled","Sharp Filled"
+Image,Image
+Album,Album
+Video,Video
+"In Gallery Block","In Gallery Block"
+"After Gallery Block","After Gallery Block"
+"In Info Block, after all","In Info Block, after all"
+"In Info Block, after description","In Info Block, after description"
+"After Tabs","After Tabs"
+"Before Tabs","Before Tabs"
+"In content before all","In content before all"
+"In content after all","In content after all"
+Yes,Yes
+No,No
+"Show all posts if there are no related posts","Show all posts if there are no related posts"
+"None, Use theme styles","None, Use theme styles"
+Circles,Circles
+"Half outside","Half outside"
+Inside,Inside
+Sharp,Sharp
+"Grid, First Image Big","Grid, First Image Big"
+"None. Don't play in grid","None. Don't play in grid"
+"Play on Hover","Play on Hover"
+"Play on Click","Play on Click"
+"Use Global Settings","Use Global Settings"
+"Failed generating file: %1<br/>Message: %2","Failed generating file: %1<br/>Message: %2"
+"Could not save the hotSpot: %1","Could not save the hotSpot: %1"
+"Could not delete the HotSpot: %1","Could not delete the HotSpot: %1"
+"HotSpot with id ""%1"" does not exist.","HotSpot with id ""%1"" does not exist."
+"Could not save the intsPost: %1","Could not save the intsPost: %1"
+"Could not delete the IntsPost: %1","Could not delete the IntsPost: %1"
+"IntsPost with id ""%1"" does not exist.","IntsPost with id ""%1"" does not exist."
+"No available accounts were found!","No available accounts were found!"
+"Access token not found!","Access token not found!"
+"Could not save the intsUser: %1","Could not save the intsUser: %1"
+"Could not delete the IntsUser: %1","Could not delete the IntsUser: %1"
+"IntsUser with id ""%1"" does not exist.","IntsUser with id ""%1"" does not exist."
+"Olegnax Instagram Pro: %s","Olegnax Instagram Pro: %s"
+"Incorrect response from server","Incorrect response from server"
+"Connect with Facebook","Connect with Facebook"
+"Connect with Instagram","Connect with Instagram"
+"Add Manually","Add Manually"
+Edit,Edit
+Delete,Delete
+"Delete ""%1""","Delete ""%1"""
+"Are you sure you wan't to delete a ""%1"" record?","Are you sure you wan't to delete a ""%1"" record?"
+"Are you sure you want to delete this Post?","Are you sure you want to delete this Post?"
+"Extend Token","Extend Token"
+Expired,Expired
+"Add Access Token:","Add Access Token:"
+Submit,Submit
+"How to generate Instagram token","How to generate Instagram token"
+"Hotspot Icon","Hotspot Icon"
+"Add to Cart","Add to Cart"
+"Add to Wish List","Add to Wish List"
+"Play Video","Play Video"
+"OX Instagram: Token form not found","OX Instagram: Token form not found"
+"Error occurred while adding user.","Error occurred while adding user."
+Previous,Previous
+Next,Next
+Close,Close
+Like(s),Like(s)
+Comment(s),Comment(s)
+follow,follow
+Loading,Loading
+"Share URL","Share URL"
+"Copy to Clipboard","Copy to Clipboard"
+"URL Copied to Clipboard!","URL Copied to Clipboard!"
+"Photo by","Photo by"
+"profile photo","profile photo"
+Facebook,Facebook
+Twitter,Twitter
+Pinterest,Pinterest
+" days ago"," days ago"
+" hours ago"," hours ago"
+" minutes ago"," minutes ago"
+" seconds ago"," seconds ago"
+Users,Users
+"Hot Spots","Hot Spots"
+Settings,Settings
+Appearance,Appearance
+License,License
+"Instagram Feed Pro","Instagram Feed Pro"
+General,General
+Enable,Enable
+"Automatic Update","Automatic Update"
+"Only New Posts","Only New Posts"
+"Modal Settings","Modal Settings"
+"Show Next/Prev Post Buttons","Show Next/Prev Post Buttons"
+"Show Post Date","Show Post Date"
+"Show Post Description","Show Post Description"
+"Show Likes Count","Show Likes Count"
+"Show Comments Count","Show Comments Count"
+"Show Social Share","Show Social Share"
+"Show Follow Link near Name","Show Follow Link near Name"
+"Linked Products Layout","Linked Products Layout"
+"Show Price in Linked Products","Show Price in Linked Products"
+"Show Add To Cart in Linked Products","Show Add To Cart in Linked Products"
+"Show Wishlist in Linked Products","Show Wishlist in Linked Products"
+"Product Page","Product Page"
+"Show Custom Block on Product Page","Show Custom Block on Product Page"
+"You can add custom block in various locations on product page. After that add your instagram widget and any custom content to this block in order to show product related instagram posts or simply instagram gallery.","You can add custom block in various locations on product page. After that add your instagram widget and any custom content to this block in order to show product related instagram posts or simply instagram gallery."
+"Custom Block Position on Product Page","Custom Block Position on Product Page"
+"Custom Block Content","Custom Block Content"
+"You can add instagram widget here. Choose ""Show Product related posts only"" to show only instagram posts linked to specific product on product page.","You can add instagram widget here. Choose ""Show Product related posts only"" to show only instagram posts linked to specific product on product page."
+"Enable Second Column/Content Block","Enable Second Column/Content Block"
+"Width of a First Content Block","Width of a First Content Block"
+"Percent(%) value for Width of the first custom block for desktop. Set value between 10 and 75, number only. Default is 55. Use this option to add responsive block size in %. The rest of the space will be used by second content block.","Percent(%) value for Width of the first custom block for desktop. Set value between 10 and 75, number only. Default is 55. Use this option to add responsive block size in %. The rest of the space will be used by second content block."
+"Custom Block 2 Content","Custom Block 2 Content"
+"Add any Text/HTML here. Tags are allowed.","Add any Text/HTML here. Tags are allowed."
+"Align to center blocks vertically","Align to center blocks vertically"
+"Show Second block first on mobile","Show Second block first on mobile"
+"Instagram Feed Appearance","Instagram Feed Appearance"
+"Enable Dynamic Css","Enable Dynamic Css"
+"If disabled, most of the theme appearace options like colors, fonts will not work. Only settings which are not creating custom css will still work (e.g.: enable/disabled options; icons, arrows, dots  styles).","If disabled, most of the theme appearace options like colors, fonts will not work. Only settings which are not creating custom css will still work (e.g.: enable/disabled options; icons, arrows, dots  styles)."
+"Save Dynamic Css Inline","Save Dynamic Css Inline"
+"If disabled styles will be saved in file. Because dynamic css file is loaded after main styles, you can see appearance jump from default styles on slow connections.","If disabled styles will be saved in file. Because dynamic css file is loaded after main styles, you can see appearance jump from default styles on slow connections."
+"Add version to Url for dynamic CSS","Add version to Url for dynamic CSS"
+"Enable this option to create dynamic css with unique name each time you click save. In this case your website visitors will load new styles even if they were cached.","Enable this option to create dynamic css with unique name each time you click save. In this case your website visitors will load new styles even if they were cached."
+dynamic_file_arg,dynamic_file_arg
+Feed,Feed
+"Overlay Color","Overlay Color"
+"Image overlay color for grid layouts which usually appear on hover. Show Image Overlay should be enabled in widget.","Image overlay color for grid layouts which usually appear on hover. Show Image Overlay should be enabled in widget."
+"Media Background Color","Media Background Color"
+"Background color for media (image/video/carousel) in feed.","Background color for media (image/video/carousel) in feed."
+"Text Color","Text Color"
+"Icons Style (Likes, Comments)","Icons Style (Likes, Comments)"
+"Media Icons Style (Play, Album)","Media Icons Style (Play, Album)"
+"Icons Color","Icons Color"
+"Icons Background Color","Icons Background Color"
+"Media Icons Color","Media Icons Color"
+"Video play icon, media type icons (album, video) in grid.","Video play icon, media type icons (album, video) in grid."
+"Slider Navigation(Arrows) Style","Slider Navigation(Arrows) Style"
+"Slider Navigation Position","Slider Navigation Position"
+"Slider Arrows Color","Slider Arrows Color"
+"Slider Arrows Background Color","Slider Arrows Background Color"
+"Slider Arrows Color on Hover","Slider Arrows Color on Hover"
+"Slider Arrows Background Color on Hover","Slider Arrows Background Color on Hover"
+"Slider Dots Style","Slider Dots Style"
+"Slider Dots Color","Slider Dots Color"
+"Slider Dots  Color Active","Slider Dots  Color Active"
+"Album Item Slider Navigation(Arrows) Style","Album Item Slider Navigation(Arrows) Style"
+"Album Item Slider Arrows Color","Album Item Slider Arrows Color"
+"Album Item Slider Arrows Background Color","Album Item Slider Arrows Background Color"
+"Album Item Slider Arrows Color on Hover","Album Item Slider Arrows Color on Hover"
+"Album Item Slider Arrows Background Color on Hover","Album Item Slider Arrows Background Color on Hover"
+"Album Item Slider Dots Style","Album Item Slider Dots Style"
+"Album Item Slider Dots Color","Album Item Slider Dots Color"
+"Album Item Slider Dots  Color Active","Album Item Slider Dots  Color Active"
+"Button Text Color","Button Text Color"
+"Button Background Color","Button Background Color"
+"Button Text Color on Hover","Button Text Color on Hover"
+"Button Background Color on Hover","Button Background Color on Hover"
+"Button Border Color*","Button Border Color*"
+"Depends on theme design","Depends on theme design"
+"Button Border Radius","Button Border Radius"
+"Hotspot Style","Hotspot Style"
+"Hotspot Text","Hotspot Text"
+"Hotspot Text Font Size","Hotspot Text Font Size"
+"Hotspot Text Font Weight","Hotspot Text Font Weight"
+"Hotspot Text Letter Spacing","Hotspot Text Letter Spacing"
+"Hotspot Text Icon","Hotspot Text Icon"
+"Hotspot Point Width","Hotspot Point Width"
+"Hotspot Point Height","Hotspot Point Height"
+"Hotspot Icon/Text Color","Hotspot Icon/Text Color"
+"Hotspot Background Color","Hotspot Background Color"
+"Hotspot Pulse Animation","Hotspot Pulse Animation"
+"Pulse Animation Color","Pulse Animation Color"
+"Hotspot Shadow","Hotspot Shadow"
+"Hotspot Shadow Color","Hotspot Shadow Color"
+"Hotspot Shape Radius","Hotspot Shape Radius"
+"Hotspot Behavior on Mobile","Hotspot Behavior on Mobile"
+"Hotspot Tooltips","Hotspot Tooltips"
+"Hotspot Tooltip Text Color","Hotspot Tooltip Text Color"
+"Hotspot Tooltip Background Color","Hotspot Tooltip Background Color"
+"Hotspot Tooltip Border Radius","Hotspot Tooltip Border Radius"
+"Hotspot Tooltip Shadow Color","Hotspot Tooltip Shadow Color"
+"Hotspot Tooltip Width","Hotspot Tooltip Width"
+"Hotspot Tooltip Font Size","Hotspot Tooltip Font Size"
+"Hotspot Tooltip Font Weight","Hotspot Tooltip Font Weight"
+Tooltips,Tooltips
+"Tooltips Text Color","Tooltips Text Color"
+"Tooltips Background Color","Tooltips Background Color"
+"Tooltips Border Radius","Tooltips Border Radius"
+"Tooltips Width","Tooltips Width"
+"Tooltips Font Size","Tooltips Font Size"
+"Tooltips Font Weight","Tooltips Font Weight"
+Modal,Modal
+"Modal max width","Modal max width"
+"Number only. Default value is 940.","Number only. Default value is 940."
+"Background Color","Background Color"
+"Shadow Color","Shadow Color"
+"Modal edges roundness (Border Radius)","Modal edges roundness (Border Radius)"
+"Zero for square shape.","Zero for square shape."
+"Dividers Color","Dividers Color"
+"Links Color","Links Color"
+"Links Hover Color","Links Hover Color"
+"Social Icons Color","Social Icons Color"
+"Video play icon","Video play icon"
+"Video Icon Background","Video Icon Background"
+"Media Block Background Color","Media Block Background Color"
+"Media Block Right Border Color","Media Block Right Border Color"
+"A divider between media and info columns. Can be useful for images with white background","A divider between media and info columns. Can be useful for images with white background"
+"Space Around Media Block","Space Around Media Block"
+"Next/Prev Post Arrows Color","Next/Prev Post Arrows Color"
+"Next/Prev Post Arrows Background Color","Next/Prev Post Arrows Background Color"
+"Next/Prev Post Arrows Color on Hover","Next/Prev Post Arrows Color on Hover"
+"Next/Prev Post Arrows Background Color on Hover","Next/Prev Post Arrows Background Color on Hover"
+"Slider Navigation Style","Slider Navigation Style"
+"Close Button Color","Close Button Color"
+"Close Button Background Color","Close Button Background Color"
+"Close Button Color on Hover","Close Button Color on Hover"
+"Close Button Background on Hover","Close Button Background on Hover"
+"Products Active/Hover Background","Products Active/Hover Background"
+"Products Active/Hover Border Color","Products Active/Hover Border Color"
+"Cart Icon Style","Cart Icon Style"
+"Products Add to Cart Icon Color","Products Add to Cart Icon Color"
+"Products Add to Cart Background","Products Add to Cart Background"
+"Products Add to Cart Icon Color, Hover","Products Add to Cart Icon Color, Hover"
+"Products Add to Cart Background, Hover","Products Add to Cart Background, Hover"
+"Products Wishlist Button Icon Color","Products Wishlist Button Icon Color"
+"Products Wishlist Button Background","Products Wishlist Button Background"
+"Products Wishlist Button Icon Color, Hover","Products Wishlist Button Icon Color, Hover"
+"Products Wishlist Button Background, Hover","Products Wishlist Button Background, Hover"
+"Products Actions Edges Roundness (Border Radius)","Products Actions Edges Roundness (Border Radius)"
+"Add to cart, Wishlist. Zero for square shape.","Add to cart, Wishlist. Zero for square shape."
+"Products Image Edges Roundness (Border Radius)","Products Image Edges Roundness (Border Radius)"
+"Zero for square image shape. Half of the image height/widht for circle image shape","Zero for square image shape. Half of the image height/widht for circle image shape"
+"Product Page Block","Product Page Block"
+"Border Size","Border Size"
+"Border Color","Border Color"
+"Border Radius (Edges Roundness)","Border Radius (Edges Roundness)"
+"Block Padding","Block Padding"
+"Block Padding on Mobile","Block Padding on Mobile"
+"Space Above Block (Margin Top)","Space Above Block (Margin Top)"
+"Space Below Block (Margin Bottom)","Space Below Block (Margin Bottom)"
+"Custom CSS","Custom CSS"
+"Enable Custom CSS","Enable Custom CSS"
+"Add your custom css style here.","Add your custom css style here."
+"Instagram Feed License","Instagram Feed License"
+"Olegnax Instagram Activation","Olegnax Instagram Activation"
+"License Key","License Key"
+"<div class=""ox-license-description""><div class=""ox-subtitle"">Register</div>
+        <p>Enter purchase code and click <strong>Save Config</strong> button above to register theme on current domain.</p>
+        <p>One purchase code per one Domain/Magento installation.</p>
+        <p>&nbsp;</p>
+        <div class=""ox-subtitle"">Deregister</div>
+        <p>After you registered domain you can deregister it and use same purchase code to register module on another domain. To do this you need to remove purchase code from this field (leave it empty) and click <strong>Save Config</strong> button. You should do this before migrate to another domain name/magento installation.</p>
+                                </div>
+                                <div class=""ox-license-description""><div class=""ox-subtitle"">More Info</div>
+                                <p><a href=""https://olegnax.com/how-to-manage-product-keys/"">How to manage License Keys?</a></p>
+                                </div>","<div class=""ox-license-description""><div class=""ox-subtitle"">Register</div>
+        <p>Enter purchase code and click <strong>Save Config</strong> button above to register theme on current domain.</p>
+        <p>One purchase code per one Domain/Magento installation.</p>
+        <p>&nbsp;</p>
+        <div class=""ox-subtitle"">Deregister</div>
+        <p>After you registered domain you can deregister it and use same purchase code to register module on another domain. To do this you need to remove purchase code from this field (leave it empty) and click <strong>Save Config</strong> button. You should do this before migrate to another domain name/magento installation.</p>
+                                </div>
+                                <div class=""ox-license-description""><div class=""ox-subtitle"">More Info</div>
+                                <p><a href=""https://olegnax.com/how-to-manage-product-keys/"">How to manage License Keys?</a></p>
+                                </div>"
+"Purchase Code Confirm","Purchase Code Confirm"
+"Purchase Item Name","Purchase Item Name"
+"Purchase Created At","Purchase Created At"
+"Purchase Licence","Purchase Licence"
+"Purchase Supported Until","Purchase Supported Until"
+"Olegnax - Instagram Feed Pro","Olegnax - Instagram Feed Pro"
+"Posts Owner","Posts Owner"
+"You can show instagram posts from your multiple accounts in a same feed.","You can show instagram posts from your multiple accounts in a same feed."
+"Show Product related posts only.","Show Product related posts only."
+"If you add widget on prodduct page and check this option, it will show posts linked to the current product only.","If you add widget on prodduct page and check this option, it will show posts linked to the current product only."
+"Media Type","Media Type"
+"Choose what type of posts to show in instagram feed.","Choose what type of posts to show in instagram feed."
+"Show Images Only for all Media Types in Grid.","Show Images Only for all Media Types in Grid."
+"Same as instagram does. In grid you see image placeholders for all media types but when you click on post a modal opens with full content.","Same as instagram does. In grid you see image placeholders for all media types but when you click on post a modal opens with full content."
+"Center Album Carousel Items Vetically","Center Album Carousel Items Vetically"
+"Usefull if images in album carousel are not square.","Usefull if images in album carousel are not square."
+"Show Media Type Icons","Show Media Type Icons"
+"Show icons above the image (top right) which indicate the media type (image, video, album)","Show icons above the image (top right) which indicate the media type (image, video, album)"
+"Video Behaviour in Grid","Video Behaviour in Grid"
+"Play video on click or hover in instagram feed grid. Or leave it to the modal and show only place holder in grid.","Play video on click or hover in instagram feed grid. Or leave it to the modal and show only place holder in grid."
+"Display Page Control","Display Page Control"
+"Number of Images per Page","Number of Images per Page"
+"Number of Images to Display","Number of Images to Display"
+"Columns Desktop","Columns Desktop"
+"Columns Tablet","Columns Tablet"
+"Columns Mobile","Columns Mobile"
+"Carousel Slider","Carousel Slider"
+"Show Instagram posts in a carousel slider. For default template(Layout) only.","Show Instagram posts in a carousel slider. For default template(Layout) only."
+"Loop Carousel","Loop Carousel"
+"Rewind Carousel","Rewind Carousel"
+"Slide to first item when the last one has reached.","Slide to first item when the last one has reached."
+"Carousel Arrows","Carousel Arrows"
+"Carousel Dots","Carousel Dots"
+"Carousel Dots Align","Carousel Dots Align"
+Left,Left
+Center,Center
+"Carousel Autoplay","Carousel Autoplay"
+"Carousel Autoplay Timeout","Carousel Autoplay Timeout"
+"Set timeout in milliseconds. 1000ms = 1 second. Minimum value is 500.
+				","Set timeout in milliseconds. 1000ms = 1 second. Minimum value is 500.
+				"
+"Carousel, Pause on Hover","Carousel, Pause on Hover"
+"Grid Layout","Grid Layout"
+"Grid behaviour on Tablet","Grid behaviour on Tablet"
+"For layouts with big images. Show the same big images as on tablet as on desktop or adapt images to tablet columns. Enable simple grid option to show all images in the same size.","For layouts with big images. Show the same big images as on tablet as on desktop or adapt images to tablet columns. Enable simple grid option to show all images in the same size."
+"Adapt to Mobile Columns","Adapt to Mobile Columns"
+"Same Products as on Desktop","Same Products as on Desktop"
+"Only first image is big","Only first image is big"
+"Simple grid","Simple grid"
+"Grid behaviour on mobile","Grid behaviour on mobile"
+"For layouts with big images. Show the same big images as on mobile as on desktop or adapt images to mobile columns. Enable simple grid option to show all images in the same size.","For layouts with big images. Show the same big images as on mobile as on desktop or adapt images to mobile columns. Enable simple grid option to show all images in the same size."
+"Item Style","Item Style"
+"Stretch Blocks Height","Stretch Blocks Height"
+"For content Below Layouts Only","For content Below Layouts Only"
+"Boxed Style","Boxed Style"
+"Add shadow to items","Add shadow to items"
+"Item Outer Padding","Item Outer Padding"
+"Space between feed items.","Space between feed items."
+"Feed Outer Padding","Feed Outer Padding"
+"Padding for entire feed block.","Padding for entire feed block."
+"Item Border Radius","Item Border Radius"
+"Show Image Overlay","Show Image Overlay"
+"Half transparent layer above the image on hover.","Half transparent layer above the image on hover."
+"Image fit in Feed","Image fit in Feed"
+"Cover - will stretch image to its smaller size to cover the feed item container, part of the image can be cut/hidden for non square images. Contain - will scale down image to its bigger side to make sure the entire image is visible, in this can you can see empty spaces for non square images.","Cover - will stretch image to its smaller size to cover the feed item container, part of the image can be cut/hidden for non square images. Contain - will scale down image to its bigger side to make sure the entire image is visible, in this can you can see empty spaces for non square images."
+"Images Animation on Hover","Images Animation on Hover"
+"Elements Animation on Hover","Elements Animation on Hover"
+"Hover animation for elements which overlay image. Buttons, likes and comments icons.","Hover animation for elements which overlay image. Buttons, likes and comments icons."
+"Image Border Radius","Image Border Radius"
+"Circle Image Shape","Circle Image Shape"
+"Show Feed Images as Circles instead of Square","Show Feed Images as Circles instead of Square"
+"Hide Post Date on Mobile","Hide Post Date on Mobile"
+"Hide Description on Mobile","Hide Description on Mobile"
+"Hide Likes Count on Mobile","Hide Likes Count on Mobile"
+"Hide Comments Count on Mobile","Hide Comments Count on Mobile"
+"Show Zero Counts (Likes and Comments)","Show Zero Counts (Likes and Comments)"
+"Show Button in Grid","Show Button in Grid"
+"Hide Button on Mobile","Hide Button on Mobile"
+"Button Text","Button Text"
+"Button Classes","Button Classes"
+"Default: action primary button. Laeve empty to remove all classes from button.","Default: action primary button. Laeve empty to remove all classes from button."
+"Show Widget Title","Show Widget Title"
+"Widget Title Text","Widget Title Text"
+"Title Align","Title Align"
+"Title Size","Title Size"
+strong,strong
+H1,H1
+H2,H2
+H3,H3
+H4,H4
+H5,H5
+H6,H6
+"Show Modal","Show Modal"
+"You can change modal settings in Olegnax / Instagram Pro / Settings and appearance in Olegnax / Instagram Pro / Appearance","You can change modal settings in Olegnax / Instagram Pro / Settings and appearance in Olegnax / Instagram Pro / Appearance"
+"Show Advanced Settings","Show Advanced Settings"
+"Disable Lazy Load","Disable Lazy Load"
+"Use browser native lazy load.","Use browser native lazy load."
+"Tablet Media Breakpoint","Tablet Media Breakpoint"
+"Number only. Default: 1024","Number only. Default: 1024"
+"Mobile Media Breakpoint","Mobile Media Breakpoint"
+"Number only. Default: 639","Number only. Default: 639"
+"Custom Class","Custom Class"
+"Cache Lifetime (Seconds)","Cache Lifetime (Seconds)"
+"86400 by default, if not set. To refresh instantly, clear the Blocks HTML
+					Output cache.
+				","86400 by default, if not set. To refresh instantly, clear the Blocks HTML
+					Output cache.
+				"
+"General Information","General Information"
+Name,Name
+"Enable HotSpot","Enable HotSpot"
+"Hotspot Point Text","Hotspot Point Text"
+"Hotspot Point Style","Hotspot Point Style"
+"Hotspot Width","Hotspot Width"
+"Hotspot Height","Hotspot Height"
+"Pulse animation color","Pulse animation color"
+"Custom Css","Custom Css"
+"Tooltip Width","Tooltip Width"
+"Tooltip Border Radius","Tooltip Border Radius"
+"Tooltip Text Color","Tooltip Text Color"
+"Tooltip Background Color","Tooltip Background Color"
+"Tooltip Shadow Color","Tooltip Shadow Color"
+"Tooltip Content","Tooltip Content"
+"Add new HotSpot","Add new HotSpot"
+ID,ID
+Status,Status
+"Marker Style","Marker Style"
+"Enable Post","Enable Post"
+"Media Gallery","Media Gallery"
+"Post in Websites","Post in Websites"
+"Store View","Store View"
+"Related Products and HotSpots","Related Products and HotSpots"
+"Related Products","Related Products"
+"<div style=""padding:12px 16px; background:#f8f8f8;""><p>Related products are shown below instagram post details in modal. Also you can show linked/related instagram posts on product pages.</p><p>Do not forget to set hotspot coordinates for related product after you set the Hotspot style.</p><p>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>
+						","<div style=""padding:12px 16px; background:#f8f8f8;""><p>Related products are shown below instagram post details in modal. Also you can show linked/related instagram posts on product pages.</p><p>Do not forget to set hotspot coordinates for related product after you set the Hotspot style.</p><p>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>
+						"
+"Add Related Product","Add Related Product"
+"Add Related Products","Add Related Products"
+Cancel,Cancel
+"Add Selected Products","Add Selected Products"
+Remove,Remove
+"Hot Spot Style","Hot Spot Style"
+"Position Left HotSpot","Position Left HotSpot"
+"Position Top HotSpot","Position Top HotSpot"
+"Index Image","Index Image"
+Position,Position
+Actions,Actions
+HotSpots,HotSpots
+"<div style=""padding:12px 16px; background:#f8f8f8;""><p>You can add independent hotspots to your instagram post image without linking them to the products. <br>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>","<div style=""padding:12px 16px; background:#f8f8f8;""><p>You can add independent hotspots to your instagram post image without linking them to the products. <br>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>"
+"Add HotSpots","Add HotSpots"
+"Add Selected HotSpots","Add Selected HotSpots"
+"Update Posts","Update Posts"
+"Are you sure you want to delete selected Posts?","Are you sure you want to delete selected Posts?"
+"Delete Posts","Delete Posts"
+Disable,Disable
+"URL Code","URL Code"
+Owner,Owner
+Thumbnail,Thumbnail
+Created,Created
+"Are you sure you want to delete selected Users?","Are you sure you want to delete selected Users?"
+"Delete Users","Delete Users"
+"Profile Picture","Profile Picture"
+Username,Username
+"Account Type","Account Type"
+Expire,Expire
+Style,Style
+"Attribute Set","Attribute Set"
+AttributeSetText,AttributeSetText
+StatusText,StatusText
+Type,Type
+SKU,SKU
+Price,Price

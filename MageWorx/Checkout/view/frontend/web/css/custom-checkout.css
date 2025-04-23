@@ -1,0 +1,612 @@
+/* Custom Checkout Styles */
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Header and Logo */
+.checkout-header {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    max-width: 200px;
+}
+
+/* Checkout Title Section */
+.checkout-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.checkout-title h1 {
+    color: #002855;
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.checkout-title p {
+    margin: 0;
+    color: #666;
+}
+
+.sign-in-button button {
+    background-color: #8B0000;
+    border-color: #8B0000;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+/* Main Layout */
+.checkout-main-column {
+    flex: 1 1 65%;
+    padding-right: 30px;
+}
+
+.checkout-sidebar {
+    flex: 1 1 35%;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+/* Checkout Sections */
+.checkout-section {
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.checkout-section-title {
+    background-color: #002855;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 16px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-toggle:after {
+    content: '\e622';
+    font-family: 'luma-icons';
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.checkout-section-content {
+    padding: 20px;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group label.required:after {
+    content: '*';
+    color: #e02b27;
+    margin-left: 5px;
+}
+
+.form-group .control {
+    width: 100%;
+}
+
+.input-text {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.checkbox {
+    margin-right: 5px;
+}
+
+/* Room and Traveler Styles */
+.room-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.room-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.room-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333333;
+}
+
+.traveler-form {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #eeeeee;
+}
+
+.traveler-form:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Order Summary Styles */
+.checkout-sidebar .checkout-section {
+    border: none;
+    background-color: #f9f9f9;
+}
+
+.checkout-sidebar .checkout-section-content {
+    padding: 0;
+}
+
+/* Cart Items Styles */
+.product-item-details {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-item-details:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.product-item-name-block {
+    margin-bottom: 15px;
+}
+
+.product-item-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.product-item-rooms {
+    font-size: 14px;
+    color: #666666;
+}
+
+.product-item-options {
+    margin-top: 10px;
+}
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.option-label {
+    font-weight: 600;
+    color: #333333;
+}
+
+.option-value {
+    text-align: right;
+}
+
+.option-detail {
+    padding-left: 15px;
+    color: #666666;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: 600;
+}
+
+/* Sidebar Summary */
+.sidebar-summary {
+    padding: 20px;
+}
+
+/* Reservation Summary */
+.reservation-summary {
+    margin-bottom: 30px;
+}
+
+.reservation-summary h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #002855;
+}
+
+.reservation-details p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Price Details */
+.price-details {
+    margin-bottom: 30px;
+}
+
+.price-details h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #002855;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.price-row:nth-child(even) {
+    padding-left: 15px;
+    color: #666;
+}
+
+.subtotal {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Coupon Section */
+.coupon-section {
+    margin-top: 20px;
+}
+
+.coupon-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    color: #002855;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.toggle-icon:after {
+    content: '\e622';
+    font-family: 'luma-icons';
+    font-size: 12px;
+}
+
+.payment-info {
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+.payment-info p {
+    margin: 0;
+}
+
+/* Checkout Agreements Styles */
+.checkout-agreements-block {
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.checkout-agreements-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    color: #333333;
+}
+
+.checkout-agreements-content {
+    margin-bottom: 20px;
+}
+
+.checkout-agreements-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #333333;
+}
+
+.checkout-agreements-checkbox {
+    margin-top: 15px;
+}
+
+.checkout-agreements-checkbox .field.choice {
+    display: flex;
+    align-items: flex-start;
+}
+
+.checkout-agreements-checkbox .checkbox {
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+.checkout-agreements-checkbox label {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.checkout-agreements-checkbox .terms-link,
+.checkout-agreements-checkbox .privacy-link {
+    color: #cc0000;
+    text-decoration: underline;
+}
+
+.checkout-agreements-checkbox .terms-link:hover,
+.checkout-agreements-checkbox .privacy-link:hover {
+    text-decoration: none;
+}
+
+/* Checkout Review Styles */
+.checkout-review-section {
+    padding: 0;
+}
+
+.checkout-review-section .section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.package-details, .cancellation-policy {
+    margin-bottom: 30px;
+}
+
+.package-details-list, .cancellation-policy-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.package-details-list li, .cancellation-policy-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.payment-info {
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+#mwCheckoutReviewBlock .checkout-section-title {
+    background-color: #002855;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-section-title:after {
+    content: '\e622';
+    font-family: 'luma-icons';
+    font-size: 12px;
+}
+
+/* Place Order Button */
+.checkout-place-order-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+.place-order-button {
+    background-color: #00a651;
+    border-color: #00a651;
+    color: #ffffff;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.place-order-button:hover {
+    background-color: #008c44;
+    border-color: #008c44;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+
+    .checkout-main-column {
+        padding-right: 0;
+        order: 2;
+    }
+
+    .checkout-sidebar {
+        order: 1;
+        margin-bottom: 30px;
+    }
+
+    .checkout-title-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sign-in-button {
+        margin-top: 15px;
+    }
+}
+
+/* Shipping Address Selection Styles */
+.shipping-address-selection {
+    margin-bottom: 30px;
+}
+
+.collapsible-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.collapsible-section-title {
+    background-color: #002855;
+    color: #ffffff;
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.collapsible-section-icon:after {
+    content: '\e622';
+    font-family: 'luma-icons';
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.collapsible-section._active .collapsible-section-icon:after {
+    content: '\e621';
+}
+
+.collapsible-section-content {
+    padding: 20px;
+    background-color: #ffffff;
+    display: none;
+}
+
+.collapsible-section._active .collapsible-section-content {
+    display: block;
+}
+
+.address-selection-container {
+    width: 100%;
+}
+
+.address-row {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.address-column {
+    padding: 15px;
+    flex: 1;
+}
+
+.address-column-left {
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+}
+
+.address-selection {
+    display: flex;
+    align-items: flex-start;
+}
+
+.address-selection-radio {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.address-details {
+    line-height: 1.5;
+}
+
+.customer-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.ship-here-button-container {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.ship-here-button {
+    background-color: #8B0000;
+    border: none;
+    color: #ffffff;
+    padding: 8px 15px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ship-here-button:hover {
+    background-color: #6B0000;
+}
+
+.no-addresses-message {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-new-address {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.add-address-button {
+    background-color: #f0f0f0;
+    border: 1px solid #cccccc;
+    color: #333333;
+    padding: 8px 15px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-address-button:hover {
+    background-color: #e0e0e0;
+}

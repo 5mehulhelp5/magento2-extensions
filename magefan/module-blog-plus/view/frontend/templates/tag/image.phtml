@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+?>
+<?php
+/**
+ * Blog tag image template
+ *
+ * @var $block \Magefan\BlogPlus\Block\Tag\Image
+ */
+?>
+<?php if ($imageUrl = $block->getImageUrl()) { ?>
+    <div class="blog-top-image blog-tag-top-image">
+        <img src="<?= $block->escapeHtml($imageUrl)?>"
+             alt="<?= $block->escapeHtml($block->getImageAlt())?>"
+             width="<?= $block->getImageWidth() ?>"
+             height="<?= $block->getImageHeight() ?>"
+        />
+    </div>
+<?php } ?>

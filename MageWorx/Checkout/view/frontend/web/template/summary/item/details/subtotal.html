@@ -1,0 +1,34 @@
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="summary__cell summary__cell--content-right">
+    <!-- ko if: isPriceExclTaxDisplayed() && !getRegion('row_excl_tax') -->
+        <p class="text text--size-xl text--variation-strong"
+              data-bind ="text: getValueExclTax($parents[1]), attr:{'data-label': $t('Excl. Tax')}">
+        </p>
+    <!-- /ko -->
+    <!-- ko if: isPriceExclTaxDisplayed() && getRegion('row_excl_tax') -->
+        <p class="text text--size-xl text--variation-strong" data-bind ="attr:{'data-label': $t('Excl. Tax')}">
+            <!-- ko foreach: getRegion('row_excl_tax') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </p>
+    <!-- /ko -->
+
+    <!-- ko if: isPriceInclTaxDisplayed() && !getRegion('row_incl_tax') -->
+        <p class="text text--variation-subdued"
+           data-bind ="text: getValueInclTax($parents[1]), attr:{'data-label': $t('Incl. Tax')}">
+        </p>
+    <!-- /ko -->
+
+    <!-- ko if: isPriceInclTaxDisplayed() && getRegion('row_incl_tax') -->
+        <p class="text text--variation-subdued" data-bind ="attr:{'data-label': $t('Incl. Tax')}">
+            <!-- ko foreach: getRegion('row_incl_tax') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </p>
+    <!-- /ko -->
+</div>

@@ -1,0 +1,114 @@
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"Enable mage-menu-pagebuilder module to activate PageBuilder and Mega Menu integration. Please, run the following command in the SSH: composer require amasty/mega-menu-page-builder","Enable mage-menu-pagebuilder module to activate PageBuilder and Mega Menu integration. Please, run the following command in the SSH: composer require amasty/mega-menu-page-builder"
+"Enable mega-menu-graphql module to activate GraphQl and Mega Menu. Please, run the following command in the SSH: composer require amasty/mega-menu-graphql","Enable mega-menu-graphql module to activate GraphQl and Mega Menu. Please, run the following command in the SSH: composer require amasty/mega-menu-graphql"
+"Help &amp; Settings","Help &amp; Settings"
+"We don't recognize or support the extension type of a file uploaded to
+            Menu Icon setting. Please make sure you are using the allowed format: .jpg or .png","We don't recognize or support the extension type of a file uploaded to
+            Menu Icon setting. Please make sure you are using the allowed format: .jpg or .png"
+"Choose an option","Choose an option"
+(Disabled),(Disabled)
+Bold,Bold
+Regular,Regular
+"Both Desktop and Mobile","Both Desktop and Mobile"
+No,No
+"Desktop Only","Desktop Only"
+"Mobile Only","Mobile Only"
+Disabled,Disabled
+"Full Width","Full Width"
+Auto,Auto
+Custom,Custom
+Accordion,Accordion
+"Drill Down","Drill Down"
+"On Desktop","On Desktop"
+"On Mobile","On Mobile"
+"On Both Desktop and Mobile","On Both Desktop and Mobile"
+Vertical,Vertical
+Horizontal,Horizontal
+"Do not show","Do not show"
+"Column View","Column View"
+"Custom View","Custom View"
+"CMS Page","CMS Page"
+"Amasty Landing Page","Amasty Landing Page"
+"Not installed","Not installed"
+Grid,Grid
+Slider,Slider
+"You can use the menu item Add Content for showing child categories.","You can use the menu item Add Content for showing child categories."
+"You can use the variable: {{child_categories_content}} for showing child categories.","You can use the variable: {{child_categories_content}} for showing child categories."
+"Add to Cart","Add to Cart"
+"In stock","In stock"
+"Out of stock","Out of stock"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Other options are available only for the main categories.","Other options are available only for the main categories."
+"All Сategory","All Сategory"
+"Go back to all categories","Go back to all categories"
+"Go Back to ","Go Back to "
+"Mega Menu Configuration","Mega Menu Configuration"
+General,General
+"Enable Sticky Menu","Enable Sticky Menu"
+"Hide “View All” Links for Categories","Hide “View All” Links for Categories"
+"Template for Mobile View","Template for Mobile View"
+"Show Mega Menu Icons on","Show Mega Menu Icons on"
+"Enable Help & Settings Tab","Enable Help & Settings Tab"
+"Tab Custom Name","Tab Custom Name"
+"Amasty MegaMenu Products","Amasty MegaMenu Products"
+"List of Products","List of Products"
+Title,Title
+"Block Layout","Block Layout"
+"Number of Visible Items","Number of Visible Items"
+"
+                    This option is only available for desktop slider. For mobile content slider this setting is ignored.
+                ","
+                    This option is only available for desktop slider. For mobile content slider this setting is ignored.
+                "
+"Slider Width(px)","Slider Width(px)"
+"Slider Autoplay","Slider Autoplay"
+"Slider Autoplay Speed(ms)","Slider Autoplay Speed(ms)"
+"Show Product Options & 'Add to Cart' Button","Show Product Options & 'Add to Cart' Button"
+"Display Page Control","Display Page Control"
+"Number of Products per Page","Number of Products per Page"
+"Number of Products to Display","Number of Products to Display"
+Template,Template
+"Amasty Products Grid Template","Amasty Products Grid Template"
+"Cache Lifetime (Seconds)","Cache Lifetime (Seconds)"
+"
+                    Time in seconds between the widget updates.
+                    <br/>If not set, equals to 86400 seconds (24 hours). To update widget instantly, go to Cache Management and clear Blocks HTML Output cache.
+                    <br/>Widget will not show products that begin to match the specified conditions until cache is refreshed.
+                ","
+                    Time in seconds between the widget updates.
+                    <br/>If not set, equals to 86400 seconds (24 hours). To update widget instantly, go to Cache Management and clear Blocks HTML Output cache.
+                    <br/>Widget will not show products that begin to match the specified conditions until cache is refreshed.
+                "
+Conditions,Conditions
+"Content (For Desktop Only)","Content (For Desktop Only)"
+"Mega Menu Font","Mega Menu Font"
+"Display as Single Menu Item","Display as Single Menu Item"
+"Item will be displayed without any content.","Item will be displayed without any content."
+"Submenu Width","Submenu Width"
+"Width (px)","Width (px)"
+"Content (For Mobile)","Content (For Mobile)"
+"Mega Menu (For Desktop)","Mega Menu (For Desktop)"
+"Menu Label Text","Menu Label Text"
+"Label Background Color (hex)","Label Background Color (hex)"
+"Label Text Color (hex)","Label Text Color (hex)"
+"Mega Menu Icon","Mega Menu Icon"
+"
+                        
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        
+                    ","
+                        
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        
+                    "
+"Hide Menu Item Content","Hide Menu Item Content"
+"Category will be displayed without any content, including subcategories","Category will be displayed without any content, including subcategories"
+"Submenu Template","Submenu Template"
+"Number of Columns","Number of Columns"
+"If the value is 0, the number of columns equals to the number of child categories. The maximum is 10.","If the value is 0, the number of columns equals to the number of child categories. The maximum is 10."
+"Subcategories Template","Subcategories Template"
+Content,Content
+"Mega Menu (For Mobile)","Mega Menu (For Mobile)"

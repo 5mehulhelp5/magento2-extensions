@@ -1,0 +1,70 @@
+//
+//  Amasty Tree of Categories Component
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-category-tree {
+        .ammenu-title {
+            & {
+                display: inline-block;
+                width: 100%;
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin: 0;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &.-parent {
+                margin: 0 0 @ammenu__indent__xxl;
+            }
+
+            &[href='']:not(.-back),
+            &[href='javascript:void(0)']:not(.-back) {
+                cursor: none;
+                pointer-events: none;
+            }
+
+            .ammenu-icon-block {
+                margin-right: @ammenu__indent;
+                transform: translateY(3px);
+            }
+        }
+
+        .ammenu-label {
+            margin: 0 0 0 @ammenu__indent;
+            min-width: min-content;
+            white-space: pre-wrap;
+        }
+
+        .ammenu-list {
+            & {
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+            }
+
+            > .ammenu-item:last-child .ammenu-link {
+                padding: 0;
+            }
+        }
+
+        .ammenu-item {
+            & {
+                align-items: center;
+                flex-basis: 100%;
+            }
+
+            .ammenu-icon-block.-toggle {
+                margin-left: @ammenu__indent;
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

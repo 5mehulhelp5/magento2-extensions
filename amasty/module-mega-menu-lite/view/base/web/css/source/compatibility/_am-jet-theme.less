@@ -1,0 +1,171 @@
+//
+//  Compatibility with Amasty Jet Theme
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@ammenu-menu__max-width: 1320px;
+@ammenu-header-icon__width: calc(~'40px + @{indent__base}');
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-sticky {
+        z-index: 100;
+    }
+
+    .amasty-mega-menu {
+        .minisearch .control,
+        .ammenu-header-container .header.content {
+            .lib-css(background, @header__background-color);
+        }
+
+        .header.content {
+            margin-bottom: 0;
+        }
+
+        .page-header .minisearch .control {
+            top: auto;
+            background: transparent;
+        }
+
+        .page-header.-sticky-header .ammenu-nav-sections,
+        .page-header.-sticky-header .ammenu-menu-wrapper {
+            margin-bottom: 0;
+        }
+
+        .page-header.-sticky-header .ammenu-nav-sections.-topmenu {
+            margin: 0;
+        }
+
+        .ammenu-nav-sections.-topmenu {
+            margin-bottom: 30px;
+        }
+
+        .ammenu-nav-sections.-topmenu.-hamburger {
+            & {
+                padding: 0;
+                margin: 0;
+            }
+
+            .ammenu-main-container {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .ammenu-items.-root {
+                margin: auto;
+                padding: 0 20px;
+                max-width: @ammenu-menu__max-width;
+            }
+        }
+
+        .ammenu-nav-sections.-left-menu {
+            .ammenu-link.-main > .ammenu-icon-block {
+                transition: background .4s ease-in-out;
+            }
+
+            .amtheme-item {
+                .ammenu-flex(none, center);
+            }
+
+            .amtheme-icon {
+                margin: 0 @ammenu__indent 0 0;
+            }
+
+            .amtheme-item-bottom {
+                &:extend(.ammenu-link.-main all);
+            }
+
+            .amtheme-item-bottom .section-item-content {
+                padding: @ammenu__indent 0;
+                background: initial;
+            }
+
+            .amtheme-item-bottom .title {
+                display: none;
+            }
+        }
+
+        .ammenu-header-container .ammenu-menu-wrapper {
+            margin: 0;
+        }
+
+        .ammenu-header-container.-sticky .ammenu-button.-hamburger {
+            margin-left: 0;
+        }
+
+        .ammenu-menu-overlay {
+            .lib-css(z-index, @search-form__z-index);
+        }
+
+        .ammenu-menu-greetings {
+            .lib-css(background, @amtheme__secondary__color);
+        }
+
+        .ammenu-product-list .product-item-info {
+            position: relative;
+        }
+    }
+
+    .ammenu-submenu-block .widget-product-carousel {
+        .actions-secondary {
+            display: none;
+        }
+
+        .action.primary {
+            padding: 12px 20px;
+            width: 100%;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ----------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-mega-menu {
+        .header.content {
+            padding-right: @ammenu__indent__xl;
+            padding-left: @ammenu__indent__xl;
+            max-width: 1360px;
+        }
+    }
+
+}
+
+//
+//  Mobile
+//  ----------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amasty-mega-menu {
+        .block-search {
+            order: 3;
+        }
+
+        .block-search.-header > .block-content {
+            margin-top: @ammenu__indent__l;
+        }
+
+        .header.content .ammenu-logo {
+            min-width: auto;
+            max-width: calc(~'100% - @{ammenu-header-icon__width} * 3');
+        }
+    }
+}
+
+//
+//  Tablet only
+//  ----------------------------------------------
+
+@media (max-width: @screen__l + 1) {
+    .amasty-mega-menu .header.content {
+        padding: @ammenu__indent__xl;
+    }
+}

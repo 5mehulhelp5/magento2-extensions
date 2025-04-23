@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageworx" sortOrder="2001">
+            <label>MageWorx</label>
+        </tab>
+        <section id="mageworx_checkout" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Checkout</label>
+            <tab>mageworx</tab>
+            <resource>MageWorx_Checkout::config</resource>
+            <group id="main" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Main Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Enabled]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="checkout_page_title" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Checkout Page Title]]></label>
+                </field>
+                <!-- Order Comment -->
+                <field id="order_comment_enabled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Enable Order Comment]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_comment_title" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Order Comment Title]]></label>
+                    <depends>
+                        <field id="order_comment_enabled" negative="1">0</field>
+                    </depends>
+                </field>
+                <!-- Email subscription -->
+                <field id="email_subscription_enabled" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Enable Newsletters Check-box]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email_subscription_title" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Email Subscription Title]]></label>
+                    <depends>
+                        <field id="email_subscription_enabled" negative="1">0</field>
+                    </depends>
+                </field>
+                <!-- Create account -->
+                <field id="create_account_enabled" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Add "Create an account" check-box]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="create_account_forced" translate="label" type="select" sortOrder="63" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- Guest checkout for virtual quotes with forced registration -->
+                    <label><![CDATA[Forced Registration]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="create_account_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="create_account_title" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Create an account" title]]></label>
+                    <depends>
+                        <field id="create_account_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="create_account_checked" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Create an account" checked by default]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="create_account_enabled">1</field>
+                    </depends>
+                </field>
+                <!-- Default values -->
+                <field id="number_of_products" translate="label comment" type="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Number of Items to Display in Order Summary</label>
+                    <frontend_model>MageWorx\Checkout\Model\Config\Frontend\NumberOfProducts</frontend_model>
+                    <comment model="MageWorx\Checkout\Model\Config\Comment\NumberOfProducts"/>
+                </field>
+                <field id="allow_guest_checkout" translate="label comment" type="label" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Guest Checkout</label>
+                    <frontend_model>MageWorx\Checkout\Model\Config\Frontend\AllowGuestCheckout</frontend_model>
+                    <comment model="MageWorx\Checkout\Model\Config\Comment\AllowGuestCheckout"/>
+                </field>
+                <field id="use_custom_shipping_address_template" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Use Custom Shipping Address Template]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable to use the custom two-column shipping address selection template.]]></comment>
+                </field>
+                <field id="merge_js_css" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Merge JS and CSS files]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="design" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Design Settings</label>
+                <field id="header_color" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Header Color]]></label>
+                    <comment><![CDATA[The static content should be re-generated after changing this setting.]]></comment>
+                    <frontend_model>MageWorx\Checkout\Block\Adminhtml\Config\Frontend\ColorPicker</frontend_model>
+                </field>
+                <field id="main_color" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA['Place order' Color]]></label>
+                    <comment><![CDATA[The static content should be re-generated after changing this setting.]]></comment>
+                    <frontend_model>MageWorx\Checkout\Block\Adminhtml\Config\Frontend\ColorPicker</frontend_model>
+                </field>
+                <field id="accent_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Color Scheme]]></label>
+                    <comment><![CDATA[The static content should be re-generated after changing this setting.]]></comment>
+                    <frontend_model>MageWorx\Checkout\Block\Adminhtml\Config\Frontend\ColorPicker</frontend_model>
+                </field>
+            </group>
+            <group id="coupon_code" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Coupon Code block Settings</label>
+                <field id="visible" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Display Coupon Code block]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tooltip" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Tooltip Message]]></label>
+                    <depends>
+                        <field id="visible">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="experience" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Values</label>
+                <field id="default_shipping_method" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Default Shipping Method]]></label>
+                    <source_model>MageWorx\Checkout\Model\Config\Source\ShippingMethods</source_model>
+                </field>
+                <field id="default_payment_method" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Default Payment Method]]></label>
+                    <source_model>MageWorx\Checkout\Model\Config\Source\PaymentMethods</source_model>
+                </field>
+            </group>
+            <group id="labels" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Translations</label>
+                <field id="shipping_address" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Shipping Address" section]]></label>
+                </field>
+                <field id="billing_address" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Billing Address" section]]></label>
+                </field>
+                <field id="shipping_methods" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Shipping Methods" section]]></label>
+                </field>
+                <field id="billing_methods" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Payment Methods" section]]></label>
+                </field>
+                <field id="discount" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Discounts" section]]></label>
+                </field>
+                <field id="discount_code_label" translate="label comment" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Discount Code Label]]></label>
+                    <comment><![CDATA[This setting allows you to change the label of the discount code field.]]></comment>
+                </field>
+                <field id="discount_field_placeholder" translate="label comment" sortOrder="64" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Discount Field Placeholder]]></label>
+                    <comment><![CDATA[This setting allows you to change the placeholder of the discount code field.]]></comment>
+                </field>
+                <field id="order_summary" translate="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Order Summary" section]]></label>
+                </field>
+                <field id="place_order_button" translate="label comment" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA["Place Order" button]]></label>
+                    <comment><![CDATA[This setting allows you to change the title of the 'Place order' button.]]></comment>
+                </field>
+            </group>
+            <group id="checkout_agreements" translate="label" type="text" sortOrder="410" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Checkout Agreements</label>
+                <field id="message" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label><![CDATA[Checkout Agreements Message]]></label>
+                    <comment><![CDATA[By default located between the "Place Order" button and checkout agreements section.]]></comment>
+                </field>
+            </group>
+            <group id="payment_methods" translate="label" type="text" sortOrder="420" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Payment Methods</label>
+                <field id="add_icons" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Add Icons]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="configuration" translate="label" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Methods Icons</label>
+                    <frontend_model>MageWorx\Checkout\Block\Adminhtml\Form\Field\MethodsConfiguration</frontend_model>
+                    <backend_model>MageWorx\Checkout\Model\Config\Backend\MethodsConfiguration</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">mageworx/payment_methods/icons</upload_dir>
+                    <base_url type="media" scope_info="1">mageworx/payment_methods/icons</base_url>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

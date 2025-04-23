@@ -1,0 +1,444 @@
+<?xml version="1.0" ?>
+<!--suppress XmlDefaultAttributeValue -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">olegnax_instagramfeedpro_hotspot_form.hotspot_form_data_source
+			</item>
+		</item>
+		<item name="label" translate="true" xsi:type="string">General Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\HotSpot\Edit\BackButton" name="back"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\HotSpot\Edit\DeleteButton" name="delete"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\HotSpot\Edit\SaveButton" name="save"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\HotSpot\Edit\SaveAndContinueButton" name="save_and_continue"/>
+		</buttons>
+		<namespace>olegnax_instagramfeedpro_hotspot_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>olegnax_instagramfeedpro_hotspot_form.hotspot_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="hotspot_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider class="Olegnax\InstagramFeedPro\Model\HotSpot\DataProvider" name="hotspot_form_data_source">
+			<settings>
+				<requestFieldName>hotspot_id</requestFieldName>
+				<primaryFieldName>hotspot_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general">
+		<settings>
+			<label>General</label>
+		</settings>
+		<field formElement="input" name="name" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Name</label>
+				<dataScope>name</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="checkbox" name="status" sortOrder="20">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+					<item name="default" xsi:type="number">1</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>boolean</dataType>
+				<label translate="true">Enable HotSpot</label>
+				<dataScope>status</dataScope>
+			</settings>
+			<formElements>
+				<checkbox>
+					<settings>
+						<valueMap>
+							<map name="false" xsi:type="number">0</map>
+							<map name="true" xsi:type="number">1</map>
+						</valueMap>
+						<prefer>toggle</prefer>
+					</settings>
+				</checkbox>
+			</formElements>
+		</field>
+		<field formElement="input" name="hotspot_text" sortOrder="30">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Point Text</label>
+				<dataScope>hotspot_text</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="select" name="marker_style" sortOrder="40">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Point Style</label>
+				<dataScope>marker_style</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Olegnax\InstagramFeedPro\Model\Config\Source\MarkerStyle"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="select" name="hotspot_text_icon" sortOrder="41">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Icon</label>
+				<dataScope>hotspot_text_icon</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Olegnax\InstagramFeedPro\Model\Config\Source\HotspotIcon"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="input" name="hotspot_width" sortOrder="50">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Width</label>
+				<dataScope>hotspot_width</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="hotspot_height" sortOrder="60">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Height</label>
+				<dataScope>hotspot_height</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="hotspot_color" sortOrder="70" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Icon/Text Color</label>
+				<dataScope>hotspot_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="hotspot_bg" sortOrder="80" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Background Color</label>
+				<dataScope>hotspot_bg</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="select" name="hotspot_pulse" sortOrder="90">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Pulse Animation</label>
+				<dataScope>hotspot_pulse</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Olegnax\InstagramFeedPro\Model\Config\Source\YesNo"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="input" name="hotspot_pulse_color" sortOrder="100" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Pulse animation color</label>
+				<dataScope>hotspot_pulse_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="select" name="hotspot_shadow" sortOrder="109">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Shadow</label>
+				<dataScope>hotspot_shadow</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Olegnax\InstagramFeedPro\Model\Config\Source\YesNo"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="input" name="hotspot_shadow_color" sortOrder="110" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Shadow Color</label>
+				<dataScope>hotspot_shadow_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="hotspot_radius" sortOrder="120">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Shape Radius</label>
+				<dataScope>hotspot_radius</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="select" name="hotspot_mobile" sortOrder="130">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Hotspot Behavior on Mobile</label>
+				<dataScope>hotspot_mobile</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Olegnax\InstagramFeedPro\Model\Config\Source\HotspotMobile"/>
+					</settings>
+				</select>
+			</formElements>
+		</field>
+		<field formElement="input" name="hotspot_custom_class" sortOrder="140">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Custom Css</label>
+				<dataScope>hotspot_custom_css</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+	</fieldset>
+	<fieldset name="tooltips">
+		<settings>
+			<label>Tooltip</label>
+		</settings>
+		<field formElement="input" name="tooltip_width" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Tooltip Width</label>
+				<dataScope>tooltip_width</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="tooltip_border_radius" sortOrder="20">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Tooltip Border Radius</label>
+				<dataScope>tooltip_border_radius</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="tooltip_text_color" sortOrder="30" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Tooltip Text Color</label>
+				<dataScope>tooltip_text_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="tooltip_bg_color" sortOrder="40" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Tooltip Background Color</label>
+				<dataScope>tooltip_bg_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="tooltip_shadow_color" sortOrder="50" component="Olegnax_Core/js/form/element/color-select" template="ui/form/field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Tooltip Shadow Color</label>
+				<dataScope>shadow_color</dataScope>
+				<elementTmpl>Olegnax_Core/form/element/color-select</elementTmpl>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="wysiwyg" name="content" sortOrder="200">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">HotSpot</item>
+					<item name="wysiwygConfigData" xsi:type="array">
+						<item name="add_variables" xsi:type="boolean">false</item>
+						<item name="add_widgets" xsi:type="boolean">false</item>
+						<item name="add_images" xsi:type="boolean">true</item>
+						<item name="add_directives" xsi:type="boolean">false</item>
+					</item>
+				</item>
+			</argument>
+			<settings>
+				<additionalClasses>
+					<class name="admin__field-wide">true</class>
+				</additionalClasses>
+				<label translate="true">Tooltip Content</label>
+				<dataScope>content</dataScope>
+			</settings>
+			<formElements>
+				<wysiwyg>
+					<settings>
+						<wysiwyg>true</wysiwyg>
+					</settings>
+				</wysiwyg>
+			</formElements>
+		</field>
+	</fieldset>
+</form>

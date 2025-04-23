@@ -1,0 +1,7 @@
+<div class="radiogroup radiogroup--size-fullwidth" id="checkout-shipping-method-load">
+    <!-- ko foreach: { data: rates(), as: 'method'} -->
+        <!-- ko if: method.carrier_code != 'mageworxpickup' -->
+            <!-- ko template: { name: $parent.shippingMethodItemTemplate } --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+</div>

@@ -1,0 +1,14 @@
+<form class="form" action="#" data-bind="visible: visible">
+    <div class="form__field">
+        <div class="input">
+            <label class="input__label" data-bind="text: label"></label>
+            <textarea class="input__control"
+                      data-bind="value: comment,
+                                event: {
+                                    change: changeComment
+                                },
+                                valueUpdate: 'afterkeydown'"
+                      rows="5"></textarea>
+        </div>
+    </div>
+</form>

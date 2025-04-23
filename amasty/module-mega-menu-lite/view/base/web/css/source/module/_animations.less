@@ -1,0 +1,41 @@
+//
+//  Animations Descriptions
+//  ______________________________________________
+
+.ammenu-keyframes(ammenu-animation__fadeIn, {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+});
+
+.ammenu-keyframes(ammenu-animation__fadeInLeft, {
+    0% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0)
+    }
+    to {
+        -webkit-transform: translateZ(0);
+        opacity: 1;
+        transform: translateZ(0)
+    }
+});
+
+.ammenu-animation__fadeIn(
+    @delay: .3
+) {
+    -webkit-animation: ~'ammenu-animation__fadeIn @{delay}s forwards';
+    animation: ~'ammenu-animation__fadeIn @{delay}s forwards';
+}
+
+.ammenu-animation__fadeInLeft(@delay: .3) {
+    &:extend(._ammenu-animation);
+
+    animation-duration: ~'@{delay}s';
+    -webkit-animation-name: 'ammenu-animation__fadeInLeft';
+    animation-name: 'ammenu-animation__fadeInLeft';
+}

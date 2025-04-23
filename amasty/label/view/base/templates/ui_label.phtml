@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Labels for Magento 2
+ */
+/**
+ * @var $block Magento\Framework\View\Element\Template
+ * @var $viewModel Amasty\Label\ViewModel\Label\Ui\Configuration
+ */
+
+$viewModel = $block->getViewModel();
+?>
+
+<script type="text/x-magento-init">
+     {
+         "*": {
+             "amInitLabelUi": <?= /* @noEscape */ $viewModel->getConfig() ?>
+         }
+     }
+</script>

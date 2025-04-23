@@ -1,0 +1,67 @@
+None,None
+bounceInLeft,bounceInLeft
+fadeInLeft,fadeInLeft
+slideInLeft,slideInLeft
+"Before Subcategories","Before Subcategories"
+"After Subcategories","After Subcategories"
+fadeIn,fadeIn
+bounceInDown,bounceInDown
+fadeInDown,fadeInDown
+flipInX,flipInX
+flipInY,flipInY
+rotateInUpLeft,rotateInUpLeft
+slideInUp,slideInUp
+slideInDown,slideInDown
+rollIn,rollIn
+zoomIn,zoomIn
+Left,Left
+Center,Center
+Right,Right
+Blank,Blank
+Self,Self
+Auto,Auto
+Custom,Custom
+"Banner Image","Banner Image"
+"Please enter a number from 0 to 5. You can use up to one decimal place.","Please enter a number from 0 to 5. You can use up to one decimal place."
+"Animation Time","Animation Time"
+"Enter the default animation time in seconds. Animation type is configured on the top category level. 0 value disables animations.","Enter the default animation time in seconds. Animation type is configured on the top category level. 0 value disables animations."
+"Animation Effect for Hamburger","Animation Effect for Hamburger"
+"Choose an animation type for hamburger menu opening (both mobile and desktop).","Choose an animation type for hamburger menu opening (both mobile and desktop)."
+"Amasty Menu Banner","Amasty Menu Banner"
+"Add a custom banner. Link will lead to the specified URL.","Add a custom banner. Link will lead to the specified URL."
+"Image Upload","Image Upload"
+Width,Width
+"Max width, px","Max width, px"
+"Margin, px","Margin, px"
+"Border Radius, px","Border Radius, px"
+Alignment,Alignment
+"Target URL","Target URL"
+"Target URL Type","Target URL Type"
+"Amasty MegaMenu Products","Amasty MegaMenu Products"
+"List of Products","List of Products"
+"Block Layout","Block Layout"
+"Mega Menu Icon","Mega Menu Icon"
+"
+                        
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        
+                    ","
+                        
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        
+                    "
+"Content (For Desktop)","Content (For Desktop)"
+"Submenu Animation","Submenu Animation"
+"Content (For Mobile)","Content (For Mobile)"
+"Display as Single Menu Item","Display as Single Menu Item"
+"Item will be displayed without any content.","Item will be displayed without any content."
+"Please note: manually added widgets not from the ""Insert Widget"" list, might not work properly.","Please note: manually added widgets not from the ""Insert Widget"" list, might not work properly."
+"Mega Menu (For Desktop)","Mega Menu (For Desktop)"
+"Mega Menu (For Mobile)","Mega Menu (For Mobile)"
+"Hide Menu Item Content","Hide Menu Item Content"
+"Category will be displayed without any content, including subcategories","Category will be displayed without any content, including subcategories"
+"Display Content","Display Content"
+Content,Content
+"Applicable for mobile view too.","Applicable for mobile view too."

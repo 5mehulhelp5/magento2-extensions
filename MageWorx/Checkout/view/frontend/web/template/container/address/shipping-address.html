@@ -1,0 +1,34 @@
+<div id="shipping" data-bind="fadeVisible: visible()">
+    <!-- ko ifnot: isFormInline-->
+        <!-- ko if: window.checkoutConfig.useCustomShippingAddressTemplate -->
+            <!-- ko foreach: getRegion('shipping-address-selection') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: window.checkoutConfig.useCustomShippingAddressTemplate -->
+            <!-- ko template: 'MageWorx_Checkout/shipping-address/details' --><!-- /ko -->
+            <!-- ko template: getAddressListPopUpTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- Address form pop up -->
+    <if args="!isFormInline">
+        <!-- ko template: getNewAddressPopUpTemplate() --><!-- /ko -->
+    </if>
+
+    <each args="getRegion('before-form')" render=""></each>
+
+    <!-- ko if: isFormInline -->
+
+        <!-- Email -->
+        <each if="!quoteIsVirtual" args="getRegion('customer-email')" render=""></each>
+
+        <!-- Inline address form -->
+        <render if="isFormInline" args="shippingFormTemplate"></render>
+
+    <!-- /ko -->
+
+    <div id="onepage-checkout-shipping-method-additional-load">
+        <each args="getRegion('shippingAdditional')" render=""></each>
+    </div>
+</div>

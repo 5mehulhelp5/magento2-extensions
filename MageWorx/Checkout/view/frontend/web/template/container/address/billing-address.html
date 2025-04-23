@@ -1,0 +1,52 @@
+<div class="checkout-billing-address" data-bind="visible: visible">
+    <div class="form__field" data-bind="visible: canUseShippingAddress() && !quoteIsVirtual">
+        <div class="checkbox">
+            <input type="checkbox"
+                   name="billing-address-different"
+                   class="checkbox__control"
+                   data-bind="checked: (isAddressDifferent || quoteIsVirtual),
+                                event: { click: useDifferentAddress } ,
+                                attr: { id: 'billing-address-different-share' }"
+            />
+            <label class="checkbox__label"
+                   data-bind="attr: {for: 'billing-address-different-share'}">
+                <div class="checkbox__box">
+                    <svg class="icon checkbox__icon">
+                        <use xlink:href="#icon--check"></use>
+                    </svg>
+                </div>
+                <!-- ko i18n: 'I have a different billing address' --><!-- /ko -->
+            </label>
+        </div>
+    </div>
+
+    <!-- ko if: isCustomerLoggedIn -->
+        <!-- ko if: isSelectAddressAvailable -->
+            <!-- ko template: 'MageWorx_Checkout/billing-address/details' --><!-- /ko -->
+            <!-- ko template: getAddressListPopUpTemplate() --><!-- /ko -->
+            <!-- ko if: isCustomerLoggedIn -->
+                <!-- ko template: getNewAddressPopUpTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: isSelectAddressAvailable -->
+            <!-- ko if: quoteIsVirtual -->
+                <render args="formTemplate"></render>
+            <!-- /ko -->
+            <!-- ko ifnot: quoteIsVirtual -->
+                <div data-bind="visible: isAddressFormVisible">
+                    <render args="formTemplate"></render>
+                </div>
+            <!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko ifnot: isCustomerLoggedIn -->
+    <div data-bind="visible: isAddressFormVisible">
+        <!-- Email start -->
+        <each args="getRegion('customer-email')" render=""></each>
+        <!-- Email end -->
+        <render args="formTemplate"></render>
+    </div>
+    <!-- /ko -->
+
+</div>

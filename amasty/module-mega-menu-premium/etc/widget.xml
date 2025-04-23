@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="am_megamenu_banner" class="Amasty\MegaMenuPremium\Block\Widget\Wrapper" is_email_compatible="true"
+            placeholder_image="Magento_Cms::images/widget_block.png">
+        <label translate="true">Amasty Menu Banner</label>
+        <description translate="true">Add a custom banner. Link will lead to the specified URL.</description>
+        <parameters>
+            <parameter name="image" xsi:type="block" required="true" visible="true" sort_order="10">
+                <label translate="true">Image Upload</label>
+                <description>Maximum file size: 2 MB. Allowed file types: JPG, PNG, GIF.</description>
+                <block class="Amasty\MegaMenuPremium\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="width" xsi:type="select" visible="true" sort_order="20"
+                       source_model="Amasty\MegaMenuPremium\Model\OptionSource\Widget\Banner\Width">
+                <label translate="true">Width</label>
+            </parameter>
+            <parameter name="max_width" xsi:type="text" visible="true" sort_order="30">
+                <label translate="true">Max width, px</label>
+                <depends>
+                    <parameter name="width" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="margin" xsi:type="text" visible="true" sort_order="40">
+                <label translate="true">Margin, px</label>
+                <depends>
+                    <parameter name="width" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="border_radius" xsi:type="text" visible="true" sort_order="50">
+                <label translate="true">Border Radius, px</label>
+            </parameter>
+            <parameter name="alignment" xsi:type="select" visible="true" sort_order="60"
+                       source_model="Amasty\MegaMenuPremium\Model\OptionSource\Widget\Banner\Alignment">
+                <label translate="true">Alignment</label>
+            </parameter>
+            <parameter name="target_url" xsi:type="text" visible="true" sort_order="70">
+                <label translate="true">Target URL</label>
+            </parameter>
+            <parameter name="target_url_type" xsi:type="select" visible="true" sort_order="80"
+                       source_model="Amasty\MegaMenuPremium\Model\OptionSource\Widget\Banner\TargetUrlType">
+                <label translate="true">Target URL Type</label>
+            </parameter>
+        </parameters>
+        <containers>
+            <container name="content">
+                <template name="grid" value="default" />
+            </container>
+            <container name="content.top">
+                <template name="grid" value="default" />
+            </container>
+            <container name="content.bottom">
+                <template name="grid" value="default" />
+            </container>
+            <container name="sidebar.main">
+                <template name="default" value="list_default" />
+                <template name="names_only" value="list_names" />
+                <template name="images_only" value="list_images" />
+            </container>
+            <container name="sidebar.additional">
+                <template name="default" value="list_default" />
+                <template name="names_only" value="list_names" />
+                <template name="images_only" value="list_images" />
+            </container>
+        </containers>
+    </widget>
+    <widget id="ammenu_products_list" class="Amasty\MegaMenu\Block\Product\ProductsSlider" is_email_compatible="true"
+            placeholder_image="Magento_CatalogWidget::images/products_list.png" ttl="86400">
+        <label translate="true">Amasty MegaMenu Products</label>
+        <description translate="true">List of Products</description>
+        <parameters>
+            <parameter name="block_layout" xsi:type="select" required="true" visible="true" sort_order="30"
+                       source_model="\Amasty\MegaMenu\Model\OptionSource\Widget\Products\BlockLayout">
+                <label translate="true">Block Layout</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

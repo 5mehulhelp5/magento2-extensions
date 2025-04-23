@@ -1,0 +1,34 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .ox-tooltip{
+        position: absolute;
+        top: 0;
+        opacity:0;
+        visibility:hidden;
+        padding:@ox-tooltip__padding;
+        color:@ox-tooltip__color;
+        background: @ox-tooltip__bg;
+        box-shadow: @ox-hotspot-tooltip__shadow;
+        width:@ox-tooltip__width;
+        transform: translateY(-100%) translateX(-50%);
+        transition: all 0.15s ease;
+        line-height:1.4;
+        text-align:center;
+        &:before{
+            content: '';
+            background: inherit;
+            width: 12px;
+            height: 12px;
+            transform: rotate(45deg);
+            display: block;
+            position: absolute;
+            bottom: -6px;
+            left: ~"calc(50% - 6px)";
+            z-index: -1;
+        }
+    }
+    
+}

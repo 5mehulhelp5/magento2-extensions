@@ -1,0 +1,78 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+?>
+<?php if ($block->hasMethods()): ?>
+<div id="order-billing_method_form">
+    <dl class="admin__payment-methods">
+    <?php
+        $_methods       = $block->getMethods();
+        $_methodsCount  = count($_methods);
+        $_counter = 0;
+    ?>
+    <?php foreach ($_methods as $_method): $_code = $_method->getCode(); $_counter++; ?>
+        <dt class="admin__field-option">
+        <?php if ($_methodsCount > 1): ?>
+            <input id="p_method_<?php /* @escapeNotVerified */ echo $_code ?>" value="<?php /* @escapeNotVerified */ echo $_code ?>" type="radio" name="payment[method]"
+                   title="<?php echo $block->escapeHtml($_method->getTitle()) ?>"
+                   onclick="payment.switchMethod('<?php /* @escapeNotVerified */ echo $_code ?>')"<?php if ($block->getSelectedMethodCode() == $_code): ?> checked="checked"<?php endif; ?>
+                   class="admin__control-radio<?php if ($_counter == $_methodsCount) : ?> validate-one-required-by-name<?php endif; ?>"/>
+        <?php else :?>
+            <span class="no-display">
+                <input id="p_method_<?php /* @escapeNotVerified */ echo $_code ?>" value="<?php /* @escapeNotVerified */ echo $_code ?>" type="radio"
+                       name="payment[method]" class="admin__control-radio"
+                       checked="checked"/>
+            </span>
+        <?php endif;?>
+
+            <label class="admin__field-label" for="p_method_<?php /* @escapeNotVerified */ echo $_code ?>"><?php echo $block->escapeHtml($_method->getTitle()) ?></label>
+        </dt>
+        <dd class="admin__payment-method-wapper">
+            <?php /* @escapeNotVerified */ echo $block->getChildHtml('payment.method.' . $_code) ?>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+	<dl class="pay-button">
+		<dt>
+			<button id="pay-installment"class="action tocart primary" title="Pay Installment" type="submit">
+				<span><?php echo __("Pay"); ?></span>
+			</button>
+		</dt>
+	</dl>
+</div>
+    <script>
+        require(["Milople_Depositpayment/js/customer/order/form"], function(){
+        <?php if($_methodsCount == 1):?>
+            order.switchPaymentMethod('<?php /* @escapeNotVerified */ echo $block->getSelectedMethodCode(); ?>');
+        <?php else: ?>
+            order.setPaymentMethod('<?php /* @escapeNotVerified */ echo $block->getSelectedMethodCode(); ?>');
+        <?php endif; ?>
+        });
+        require(["jquery"], function ($) {
+            $(document).ready(function () {
+                $('#pay-installment').click(function () { // The button type should be "button" and not submit
+                       var atLeastOneIsChecked = $('input:checkbox').is(':checked');
+                       if(atLeastOneIsChecked)  {
+                        return true;
+                       } else {
+                          alert("Please select atleast one installment");
+                          return false;
+                       }
+
+                });
+            });
+        });
+    </script>
+<?php else: ?>
+    <div class="admin__message-empty"><?php /* @escapeNotVerified */ echo __('No Payment Methods') ?></div>
+<?php endif; ?>

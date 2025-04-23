@@ -1,0 +1,64 @@
+<!--
+/**
+ * Custom shipping address selection template
+ */
+-->
+<div class="shipping-address-selection">
+    <div class="collapsible-section" data-bind="css: {'_active': isActive}">
+        <div class="collapsible-section-title" data-bind="click: toggleActive">
+            <span data-bind="i18n: 'Shipping Address'"></span>
+            <span class="collapsible-section-icon"></span>
+        </div>
+        <div class="collapsible-section-content">
+            <div class="address-selection-container">
+                <div class="address-row" >
+                    <!-- ko foreach: { data: shippingAddressList, as: 'address' } -->
+                        <div class="address-column" data-bind="css: {'selected-item': $parent.selectedShippingAddress() === address}, click: function() { $parent.selectShippingAddress(address); }">
+                            <div class="address-details">
+                                <div class="customer-name">
+                                    <text args="address.firstname"></text>
+                                    <text args="address.lastname"></text>
+                                </div>
+                                <div class="street-address">
+                                    <text args="_.values(address.street).join(', ')"></text>
+                                </div>
+                                <div class="city-region-postcode">
+                                    <text args="address.city"></text>,
+                                    <span data-bind="text: address.region"></span>
+                                    <text args="address.postcode"></text>
+                                </div>
+                                <div class="country">
+                                    <text args="$parent.getCountryName(address.countryId)"></text>
+                                </div>
+                                <div class="phone">
+                                    <text args="address.telephone"></text>
+                                </div>
+                            </div>
+                            <div class="ship-here-button-container">
+                                <button type="button"
+                                        class="ship-here-button action primary"
+                                        data-bind="click: function() { $parent.selectShippingAddress(address); }">
+                                    <span data-bind="i18n: 'SHIP HERE'"></span>
+                                </button>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                </div>
+
+                <!-- ko if: !shippingAddressList().length -->
+                <div class="no-addresses-message">
+                    <span data-bind="i18n: 'No shipping addresses available'"></span>
+                </div>
+                <!-- /ko -->
+
+                <div class="add-new-address">
+                    <button type="button"
+                            class="add-address-button action primary"
+                            data-bind="click: showFormPopUp">
+                        <span data-bind="i18n: 'New Address'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

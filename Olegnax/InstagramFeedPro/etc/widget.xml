@@ -1,0 +1,531 @@
+<?xml version="1.0" ?>
+<!--suppress XmlDefaultAttributeValue -->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget class="Olegnax\InstagramFeedPro\Block\Widget\Instagram" id="olegnax_instagramfeedpro_instagram">
+		<label translate="true">Olegnax - Instagram Feed Pro</label>
+		<description translate="true"/>
+		<parameters>
+			<parameter name="info_block" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Info" />
+			</parameter>     
+			<parameter name="owner" xsi:type="multiselect" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\AnyUsers">
+				<label translate="true">Posts Owner</label>
+				<description translate="true">You can show instagram posts from your multiple accounts in a same feed.</description>
+			</parameter>
+			<parameter name="check_related" xsi:type="select" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\RelatedWidget">
+				<label translate="true">Show Product related posts only.</label>
+				<description translate="true">If you add widget on prodduct page and check this option, it will show posts linked to the current product only.</description>
+			</parameter>
+			<parameter name="media_type" xsi:type="multiselect" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\AnyMediaType">
+				<label translate="true">Media Type</label>
+				<description translate="true">Choose what type of posts to show in instagram feed.</description>
+			</parameter>
+			<parameter name="images_only" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Images Only for all Media Types in Grid.</label>
+				<description translate="true">Same as instagram does. In grid you see image placeholders for all media types but when you click on post a modal opens with full content.</description>
+			</parameter>
+ 			<parameter name="album_v_a" xsi:type="select" visible="true">
+				<label translate="true">Center Album Carousel Items Vetically</label>
+				<description translate="true">Usefull if images in album carousel are not square.</description>
+				<depends>
+					<parameter name="images_only" value="0" />
+				</depends>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="show_media_type" xsi:type="select" visible="true">
+				<label translate="true">Show Media Type Icons</label>
+				<description translate="true">Show icons above the image (top right) which indicate the media type (image, video, album)</description>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="video_behaviour" xsi:type="select" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\VideoBehaviour">
+				<label translate="true">Video Behaviour in Grid</label>
+				<description translate="true">Play video on click or hover in instagram feed grid. Or leave it to the modal and show only place holder in grid.</description>
+				<depends>
+					<parameter name="images_only" value="0" />
+				</depends>
+			</parameter>
+			<parameter name="spacer01" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>
+			<parameter name="show_pager" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Display Page Control</label>
+				<depends>
+					<parameter name="carousel" value="0" />
+				</depends>
+			</parameter>
+			<parameter name="images_per_page" xsi:type="text" required="true" visible="true">
+				<label translate="true">Number of Images per Page</label>
+				<depends>
+					<parameter name="show_pager" value="1" />
+				</depends>
+				<value>5</value>
+			</parameter>
+			<parameter name="images_count" xsi:type="text" required="true" visible="true">
+				<label translate="true">Number of Images to Display</label>
+				<value>12</value>
+			</parameter>
+			<parameter name="columns_desktop" xsi:type="text" required="false" visible="true">
+				<label translate="true">Columns Desktop</label>
+				<value>6</value>
+			</parameter>
+			<parameter name="columns_tablet" xsi:type="text" required="false" visible="true">
+				<label translate="true">Columns Tablet</label>
+				<value>4</value>
+			</parameter>
+			<parameter name="columns_mobile" xsi:type="text" required="false" visible="true">
+				<label translate="true">Columns Mobile</label>
+				<value>2</value>
+			</parameter>
+			<parameter name="spacer02" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>
+			<parameter name="carousel" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Carousel Slider</label>
+				<description translate="true">Show Instagram posts in a carousel slider. For default template(Layout) only.</description>
+			</parameter>
+			<parameter name="loop" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Loop Carousel</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+				</depends>
+			</parameter>
+			<parameter name="rewind" xsi:type="select" visible="true">
+				<label translate="true">Rewind Carousel</label>
+				<description translate="true">Slide to first item when the last one has reached.</description>
+				<depends>
+					<parameter name="carousel" value="1" />
+					<parameter name="loop" value="0" />
+				</depends>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="nav" xsi:type="select" visible="true">
+				<label translate="true">Carousel Arrows</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+				</depends>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="dots" xsi:type="select" visible="true">
+				<label translate="true">Carousel Dots</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+				</depends>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="dots_align" xsi:type="select" visible="true">
+				<label translate="true">Carousel Dots Align</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+					<parameter name="dots" value="1" />
+				</depends>
+				<options>
+					<option name="left" value="left">
+						<label translate="true">Left</label>
+					</option>
+					<option name="center" value="center" selected="true">
+						<label translate="true">Center</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="autoplay" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Carousel Autoplay</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+				</depends>
+			</parameter>
+			<parameter name="autoplay_time" xsi:type="text" required="false" visible="true">
+				<label translate="true">Carousel Autoplay Timeout</label>
+				<description translate="true">Set timeout in milliseconds. 1000ms = 1 second. Minimum value is 500.
+				</description>
+				<depends>
+					<parameter name="carousel" value="1" />
+					<parameter name="autoplay" value="1" />
+				</depends>
+			</parameter>
+			<parameter name="pause_on_hover" xsi:type="select" visible="true">
+				<label translate="true">Carousel, Pause on Hover</label>
+				<depends>
+					<parameter name="carousel" value="1" />
+					<parameter name="autoplay" value="1" />
+				</depends>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="spacer03" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>
+			<parameter name="grid_layout" xsi:type="select" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\GridLayout">
+				<label translate="true">Grid Layout</label>
+				<depends>
+					<parameter name="carousel" value="0" />
+				</depends>
+			</parameter>
+			<parameter name="tablet_layout_behavior" xsi:type="select" visible="true">
+				<label translate="true">Grid behaviour on Tablet</label>
+				<description translate="true">For layouts with big images. Show the same big images as on tablet as on desktop or adapt images to tablet columns. Enable simple grid option to show all images in the same size.</description>
+				<depends>
+					<parameter name="carousel" value="0"/>
+				</depends>
+				<options>
+					<option name="adapt" value="adapt" selected="true">
+						<label translate="true">Adapt to Mobile Columns</label>
+					</option>
+					<option name="desktop" value="desktop" >
+						<label translate="true">Same Products as on Desktop</label>
+					</option>
+					<option name="first" value="first" >
+						<label translate="true">Only first image is big</label>
+					</option>
+					<option name="simple" value="simple" >
+						<label translate="true">Simple grid</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="mobile_layout_behavior" xsi:type="select" visible="true">
+				<label translate="true">Grid behaviour on mobile</label>
+				<description translate="true">For layouts with big images. Show the same big images as on mobile as on desktop or adapt images to mobile columns. Enable simple grid option to show all images in the same size.</description>
+				<depends>
+					<parameter name="carousel" value="0"/>
+				</depends>
+				<options>
+					<option name="adapt" value="adapt" selected="true">
+						<label translate="true">Adapt to Mobile Columns</label>
+					</option>
+					<option name="desktop" value="desktop" >
+						<label translate="true">Same Products as on Desktop</label>
+					</option>
+					<option name="first" value="first" >
+						<label translate="true">Only first image is big</label>
+					</option>
+					<option name="simple" value="simple" >
+						<label translate="true">Simple grid</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="item_style" xsi:type="select" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\ItemStyle">
+				<label translate="true">Item Style</label>
+			</parameter>
+			<parameter name="stretch_items" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Stretch Blocks Height</label>
+				<description translate="true">For content Below Layouts Only</description>
+			</parameter>
+			<parameter name="boxed" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Boxed Style</label>
+				<description translate="true">Add shadow to items</description>
+			</parameter>
+			<parameter name="item_outer_padding" xsi:type="text" visible="true">
+				<label translate="true">Item Outer Padding</label>
+				<description translate="true">Space between feed items.</description>
+			</parameter>
+			<parameter name="block_outer_padding" xsi:type="text" visible="true">
+				<label translate="true">Feed Outer Padding</label>
+				<description translate="true">Padding for entire feed block.</description>
+			</parameter>
+			<parameter name="border_radius" xsi:type="text" visible="true">
+				<label translate="true">Item Border Radius</label>
+			</parameter>
+			<parameter name="overlay" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Image Overlay</label>
+				<description translate="true">Half transparent layer above the image on hover.</description>
+			</parameter>
+			<parameter name="image_fit" xsi:type="select" required="false" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\ImageFit">
+				<label translate="true">Image fit in Feed</label>
+				<description translate="true">Cover - will stretch image to its smaller size to cover the feed item container, part of the image can be cut/hidden for non square images. Contain - will scale down image to its bigger side to make sure the entire image is visible, in this can you can see empty spaces for non square images.</description>
+			</parameter>
+			<parameter name="image_hover" xsi:type="select" required="false" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\ImageHover">
+				<label translate="true">Images Animation on Hover</label>
+			</parameter>
+			<parameter name="items_hover" xsi:type="select" required="false" visible="true"
+				source_model="Olegnax\InstagramFeedPro\Model\Config\Source\AnimStyle">
+				<label translate="true">Elements Animation on Hover</label>
+				<description translate="true">Hover animation for elements which overlay image. Buttons, likes and comments icons.</description>
+			</parameter>
+			<parameter name="img_border_radius" xsi:type="text" visible="true">
+				<label translate="true">Image Border Radius</label>
+			</parameter>
+			<parameter name="image_circle" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Circle Image Shape</label>
+				<description translate="true">Show Feed Images as Circles instead of Square</description>
+			</parameter>
+			<parameter name="spacer04" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>       
+			<parameter name="show_date" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Post Date</label>
+			</parameter>
+			<parameter name="hide_date_mobile" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Hide Post Date on Mobile</label>
+				<depends>
+					<parameter name="show_date" value="1"/>
+				</depends>
+			</parameter>
+			<parameter name="show_caption" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Post Description</label>
+			</parameter>
+			<parameter name="hide_caption_mobile" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Hide Description on Mobile</label>
+				<depends>
+					<parameter name="show_caption" value="1"/>
+				</depends>
+			</parameter>
+			<parameter name="show_likes" xsi:type="select" visible="true">
+				<label translate="true">Show Likes Count</label>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="hide_likes_mobile" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Hide Likes Count on Mobile</label>
+				<depends>
+					<parameter name="show_likes" value="1"/>
+				</depends>
+			</parameter>
+			<parameter name="show_comments" xsi:type="select" visible="true">
+				<label translate="true">Show Comments Count</label>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="hide_comments_mobile" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Hide Comments Count on Mobile</label>
+				<depends>
+					<parameter name="show_comments" value="1"/>
+				</depends>
+			</parameter>
+			<parameter name="show_zero" xsi:type="select" visible="true">
+				<label translate="true">Show Zero Counts (Likes and Comments)</label>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="show_button" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Button in Grid</label>
+			</parameter>
+			<parameter name="hide_button_mobile" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Hide Button on Mobile</label>
+				<depends>
+					<parameter name="show_button" value="1" />
+				</depends>
+			</parameter>
+			<parameter name="button_text" xsi:type="text" required="false" visible="true">
+				<label translate="true">Button Text</label>
+				<depends>
+					<parameter name="show_button" value="1" />
+				</depends>
+				<value>Shop now</value>
+			</parameter>
+			<parameter name="button_classes" xsi:type="text" required="false" visible="true">
+				<label translate="true">Button Classes</label>				
+				<description translate="true">Default: action primary button. Laeve empty to remove all classes from button.</description>
+				<depends>
+					<parameter name="show_button" value="1"/>
+				</depends>
+				<value>action primary button</value>
+			</parameter>
+			<parameter name="show_title" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Widget Title</label>
+			</parameter>
+			<parameter name="title_text" xsi:type="text" required="false" visible="true">
+				<label translate="true">Widget Title Text</label>
+				<depends>
+					<parameter name="show_title" value="1"/>
+				</depends>
+				<value>Instagram</value>
+			</parameter>
+			<parameter name="title_align" xsi:type="select" visible="true">
+				<label translate="true">Title Align</label>
+				<depends>
+					<parameter name="show_title" value="1"/>
+				</depends>
+				<options>
+					<option name="left" value="left">
+						<label translate="true">Left</label>
+					</option>
+					<option name="center" value="center" selected="true">
+						<label translate="true">Center</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="title_tag" xsi:type="select" visible="true">
+				<label translate="true">Title Size</label>
+				<depends>
+					<parameter name="show_title" value="1"/>
+				</depends>
+				<options>
+					<option name="strong" value="strong" >
+						<label translate="true">strong</label>
+					</option>
+					<option name="h1" value="h1" >
+						<label translate="true">H1</label>
+					</option>
+					<option name="h2" value="h2" selected="true">
+						<label translate="true">H2</label>
+					</option>
+					<option name="h3" value="h3" >
+						<label translate="true">H3</label>
+					</option>
+					<option name="h4" value="h4">
+						<label translate="true">H4</label>
+					</option>
+					<option name="h5" value="h5" >
+						<label translate="true">H5</label>
+					</option>
+					<option name="h6" value="h6">
+						<label translate="true">H6</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="spacer05" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>       
+			<parameter name="show_modal" xsi:type="select" visible="true">
+				<label translate="true">Show Modal</label>
+				<description translate="true">You can change modal settings in Olegnax / Instagram Pro / Settings and appearance in Olegnax / Instagram Pro / Appearance</description>
+				<options>
+					<option name="yes" value="1" selected="true">
+						<label translate="true">Yes</label>
+					</option>
+					<option name="no" value="0">
+						<label translate="true">No</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="spacer06" visible="true" xsi:type="block">
+				<block class="Olegnax\InstagramFeedPro\Block\Widget\Divider" />
+			</parameter>       
+			<parameter name="advanced" xsi:type="select" visible="true"
+				source_model="Olegnax\Core\Model\Config\Source\Noyes">
+				<label translate="true">Show Advanced Settings</label>
+			</parameter>
+			<parameter name="lazy_load" xsi:type="select" visible="true">
+				<label translate="true">Disable Lazy Load</label>
+				<description translate="true">Use browser native lazy load.</description>
+				<depends>
+					<parameter name="advanced" value="1" />
+				</depends>
+				<options>
+					<option name="noexclude" value="noexclude" selected="true">
+						<label translate="true">No</label>
+					</option>
+					<option name="exclude" value="exclude">
+						<label translate="true">Yes</label>
+					</option>
+				</options>
+			</parameter>
+			<parameter name="grid_tablet_mq" xsi:type="text" required="false" visible="true">
+				<label translate="true">Tablet Media Breakpoint</label>
+				<description translate="true">Number only. Default: 1024</description>
+				<depends>
+					<parameter name="advanced" value="1" />
+				</depends>
+				<value>1024</value>
+			</parameter>
+			<parameter name="grid_mobile_mq" xsi:type="text" required="false" visible="true">
+				<label translate="true">Mobile Media Breakpoint</label>
+				<description translate="true">Number only. Default: 639</description>
+				<depends>
+					<parameter name="advanced" value="1" />
+				</depends>
+				<value>639</value>
+			</parameter>
+			<parameter name="custom_class" xsi:type="text" visible="true">
+				<label translate="true">Custom Class</label>
+				<depends>
+					<parameter name="advanced" value="1" />
+				</depends>
+			</parameter>
+			<parameter name="cache_lifetime" xsi:type="text" visible="true">
+				<label translate="true">Cache Lifetime (Seconds)</label>
+				<description translate="true">86400 by default, if not set. To refresh instantly, clear the Blocks HTML
+					Output cache.
+				</description>
+				<depends>
+					<parameter name="advanced" value="1" />
+				</depends>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>

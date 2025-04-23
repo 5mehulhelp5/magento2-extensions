@@ -1,0 +1,29 @@
+.get-select__control() {
+  .get-input__control();
+  padding-right: 40px;
+
+  background-image: url("@{images}/chevron-down.svg");
+  background-repeat: no-repeat;
+  background-size: 10px 7px;
+  background-position: right 15px center;
+}
+
+.select {
+  .input();
+
+  &--is-required {
+    .get-input--is-required();
+  }
+
+  & + & {
+    .get-rem(margin-top, 10);
+  }
+
+  &__label {
+    .get-input__label();
+  }
+
+  &__control {
+    .get-select__control();
+  }
+}

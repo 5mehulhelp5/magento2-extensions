@@ -1,0 +1,185 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .ox-inst-product{
+        padding: 10px;
+        transition:background 0.3s ease;
+        .-photo{
+            display: block;            
+            height: 0;
+            padding-bottom: 100%;
+            background: @ox-instagram-modal-product-photo__bg-color;
+            overflow: hidden;
+            position: relative;
+        }
+
+        &.ox-inst__hs-active,
+        &:hover{
+            background: @ox-instagram-modal-product__bg-color;
+        }
+        .-actions{
+            .action{
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                transition: all .3s ease;
+                &,
+                &:active,
+                &:hover{
+                    text-decoration: none;
+                }
+                span{
+                    display: none;
+                }
+                &.towishlist{
+                    &:before{
+                        content: @ox-instagram-modal__wishlist-icon;
+                        font-family: "ox-instagram" !important;
+                        font-size:16px;
+                        font-style: normal !important;
+                        font-weight: normal !important;
+                        font-variant: normal !important;
+                        text-transform: none !important;
+                        speak: none;
+                        line-height: 1;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                    }
+                }
+            }
+        }
+    }
+    /* Preloader for add to cart */
+    /*
+    .ox-inst-product{
+        .ox-add-to-cart-loading{
+            .action{
+                &:before{
+                    content: '';
+                    display: block;
+                    width: 14px;
+                    height: 14px;
+                    border: 2px solid rgba(0, 0, 0, 0);
+                    border-radius: 14px;
+                    border-left: 2px solid @grid-action-icon-color;
+                    border-right: 2px solid @grid-action-icon-color;
+                    border-top: 2px solid @grid-action-icon-color;
+                    animation: spin .65s infinite linear;
+                    transition: all 600ms ease-in-out;
+                }
+                &:hover{
+                    &:before{
+                        border-left: 2px solid @grid-action-icon-hover;
+                        border-right: 2px solid @grid-action-icon-hover;
+                        border-top: 2px solid @grid-action-icon-hover;
+                        transition: all 10ms ease-in-out;
+                    }
+                }
+                svg{
+                    display:none!important;
+                }
+            }
+        }
+    }*/
+    .ox-instagram__related-products{
+        &.list{
+            .ox-inst-product{
+                margin:0 10px;
+                display:flex;
+                align-items: center;
+                &:first-child{
+                    margin-top: 10px;
+                }
+                .-image-wrap{
+                    width: @ox-instagram-modal-product-list-image__width;
+                    flex: 0 0 @ox-instagram-modal-product-list-image__width;
+                }
+                .-details{
+                    margin-left: 12px;
+                }
+                .-actions{
+                    padding-left:7px;
+                    margin-left: auto;
+                    .action{
+                         margin-left: auto;
+                    }
+                }
+            }
+        }
+        &.grid{
+            display: flex;
+            flex-wrap: wrap;
+            .ox-inst-product{
+                margin:10px 10px 0 10px;
+                width: 100%;
+                max-width: ~"calc(50% - 10px)";
+                -webkit-flex-basis: ~"calc(50% - 10px)";
+                -ms-flex-preferred-size: ~"calc(50% - 10px)";
+                flex-basis: ~"calc(50% - 10px)";
+                .-details{
+                    margin-top:10px;
+                    text-align: center;
+                }
+                .-actions{
+                    display: flex;
+                    justify-content: center;
+                }
+                > .-actions{
+                    margin-top:10px;
+                    .action{
+                        margin-left:3px;
+                        margin-right:3px;
+                    }
+                }
+                &:nth-child(even){
+                    margin-left:0;
+                }
+                &:nth-child(odd){
+                    margin-right:0;
+                }
+            }
+            &.-v2{
+                 .ox-inst-product{
+                     .-image-wrap{
+                         position:relative;
+                     }
+                     .-actions{
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translateY(-50%) translateX(-50%);
+                            z-index: 2;
+                            display: inline-flex;
+                         .action{
+                            width: 38px;
+                            height: 36px;
+                            transform: translateY(10px) perspective(1px);
+                            transition: all .6s ease-in-out;
+                            opacity: 0;
+                            visibility: hidden;
+                           animation: move-action-bottom .15s cubic-bezier(.33,.975,.245,.91) forwards;
+                            will-change: transform;
+                         }
+                     }
+                     &:hover{
+                         .-actions{
+                            .action{
+                                visibility: visible;
+                                animation: move-action-top .15s cubic-bezier(.33,.975,.245,.91) forwards;
+                                &.towishlist{
+                                    animation-delay: 50ms;
+                                }
+                            }
+                         }
+                     }
+                 }
+            }
+        }
+    }
+    
+}

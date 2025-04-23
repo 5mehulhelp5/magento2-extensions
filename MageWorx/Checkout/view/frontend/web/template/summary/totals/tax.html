@@ -1,0 +1,49 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<!-- ko if: ifShowValue() && !ifShowDetails() -->
+    <div class="summary__field">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+    </div>
+<!-- /ko -->
+<!-- ko if: ifShowValue() && ifShowDetails() -->
+<div class="summary__field summary__field--collapsible" data-bind="css: {'summary__field--collapsible-expanded': contentVisible}">
+    <div class="summary__field--collapsible-header" data-bind="click: toggleCollapsible">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+    </div>
+    <div class="summary__field--collapsible-content">
+    <!-- ko foreach: getDetails() -->
+        <!-- ko foreach: rates -->
+            <div class="summary__field totals-tax-details">
+                <!-- ko if: percent -->
+                <div class="summary__cell">
+                    <p class="text text--variation-strong text--variation-subdued" data-bind="text: title + ' (' + percent + '%)'"></p>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: !percent -->
+                <div class="summary__cell">
+                    <p class="text text--variation-strong text--variation-subdued" data-bind="text: title"></p>
+                </div>
+                <!-- /ko -->
+                <div class="summary__cell summary__cell--content-right">
+                    <p class="text text--variation-subdued" data-bind="text: $parents[1].getTaxAmount($parents[0], percent)"></p>
+                </div>
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

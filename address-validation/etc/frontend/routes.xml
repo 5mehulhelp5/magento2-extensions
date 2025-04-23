@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Azaleasoft Team
+ * @copyright Copyright (c) 2017 Azaleasoft (http://www.azaleasoft.com)
+ * @package Azaleasoft_Asaddressvalidation
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="asaddressvalidation" frontName="asaddressvalidation">
+            <module name="Azaleasoft_Asaddressvalidation" />
+        </route>
+    </router>
+</config>

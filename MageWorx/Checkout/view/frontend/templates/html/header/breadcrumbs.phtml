@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * @var $block \MageWorx\Checkout\Block\Html\Header\Breadcrumbs
+ */
+?>
+<?php
+$breadcrumbs = $block->getBreadcrumbs();
+if (!empty($breadcrumbs)):
+    $count = count($breadcrumbs);
+    $i       = 0;
+    $isLast  = false;
+    ?>
+    <div class="breadcrumbs header__breadcrumbs">
+        <?php foreach ($breadcrumbs as $breadcrumb): ?>
+            <?php
+            $i++;
+            $isLast = $i === $count;
+            ?>
+            <?php if (!empty($breadcrumb['title'])): ?>
+                <?php if (!empty($breadcrumb['url'])): ?>
+                    <?php if (!$isLast): ?>
+                        <a href="<?= $block->escapeUrl($breadcrumb['url']); ?>"
+                           class="breadcrumbs__link"><?= $block->escapeHtml($breadcrumb['title']); ?></a>
+                    <?php else: ?>
+                        <span class="breadcrumbs__current"><?= $block->escapeHtml($breadcrumb['title']); ?></span>
+                    <?php endif; ?>
+                    <?php if (!$isLast): ?><span class="breadcrumbs__separator">/</span><?php endif; ?>
+                <?php else: ?>
+                    <span class="breadcrumbs__current"><?= $block->escapeHtml($breadcrumb['title']); ?></span>
+                    <?php if (!$isLast): ?><span class="breadcrumbs__separator">/</span><?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

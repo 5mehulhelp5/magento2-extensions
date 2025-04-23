@@ -1,0 +1,74 @@
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="summary__cell">
+    <form id="giftcard-form" method="post" data-bind="blockLoader: isLoading">
+        <dl class="collapsible giftcardaccount"
+            data-bind="css: {'collapsible--expanded': contentVisible}"
+            id="giftcardaccount-placer">
+            <dt class="collapsible__header" data-bind="click: toggleCollapsible">
+            <span class="link link--variation-accent link--variation-strong"
+                  data-bind="text: $t('Apply Gift Card')"></span>
+            </dt>
+            <dd class="collapsible__content">
+
+                <!-- ko foreach: getRegion('messages') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+                <div class="addon">
+                    <div class="control-group">
+                        <div class="input">
+                            <label class="input__label" for="giftcard-code">
+                                <!-- ko i18n: 'Redeem and use Gift Card'--><!-- /ko -->
+                            </label>
+                            <input class="input__control"
+                                   type="text"
+                                   id="giftcard-code"
+                                   name="giftcard_code"
+                                   data-validate="{'required-entry':true}"
+                                   data-bind="value: giftCartCode, attr:{placeholder: $t('Enter the gift card code')} "
+                            >
+                        </div>
+
+                        <button class="button button--primary"
+                                type="submit"
+                                data-bind="'value': $t('Apply'), click: setGiftCard, text: $t('Apply')"
+                        ></button>
+                    </div>
+                </div>
+
+                <p class="text text--variation-subdued"
+                   data-bind="style: {'display': giftCartCode() ? 'block' : 'none'}">
+                    <a href="#" class="action button" data-bind="text: $t('See Balance'), click: checkBalance"></a>
+                </p>
+
+                <!-- ko if: giftCardAccount.isChecked-->
+                <!-- ko if: giftCardAccount.isValid-->
+                <div class="giftcard-account-info">
+                    <div class="giftcard-account-number">
+                        <!-- ko i18n: 'Gift Card:'--><!-- /ko -->
+                        <span class="giftcard-number">
+                            <!-- ko i18n: giftCardAccount.code--><!-- /ko -->
+                        </span>
+                    </div>
+
+                    <div class="giftcard-account-balance">
+                        <!-- ko i18n: 'Current Balance: '--><!-- /ko -->
+                        <span class="price">
+                            <!-- ko text: getAmount(giftCardAccount.amount())--><!-- /ko -->
+                        </span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <!-- ko foreach: getRegion('captcha') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </dd>
+        </dl>
+    </form>
+</div>

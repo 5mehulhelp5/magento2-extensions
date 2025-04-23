@@ -1,0 +1,52 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2024 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+?>
+<?php 
+$scriptString = 'require(["jquery"], function ($) {
+    "use strict";
+    $(function () {
+        let ns = ".OXInstagramVideo",
+            s_hover = ".ox-instagram-item.-v-hover";
+        $("body")
+            .off("click" + ns + " mouseenter" + ns + " mouseleave" + ns)
+            .on("click" + ns, ".ox-instagram-item.-v-click,.ox-instagram__media.-v-click", function (e) {
+                let video = $(this).find("video").get(0);
+                if (video) {
+                    e.preventDefault();
+                    if (video.paused) {
+                        video.play();
+                        $(this).addClass("playing");
+                    } else if (video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2) {
+                        video.pause();
+                        $(this).removeClass("playing");
+                    }
+                }
+            })
+            .on("mouseenter" + ns, s_hover, async function () {
+                let video = $(this).find("video").get(0);
+                if (video) {
+                    try {
+                        await video.play();
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+            })
+            .on("mouseleave" + ns, s_hover, function () {
+                let video = $(this).find("video").get(0);
+                if (video && video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2) {
+                    video.pause();
+                }
+            });
+    });
+});';
+
+if (isset($secureRenderer)){
+    echo /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false);
+} else{
+    echo /* @noEscape */ '<script>' .  $scriptString . '</script>';
+}

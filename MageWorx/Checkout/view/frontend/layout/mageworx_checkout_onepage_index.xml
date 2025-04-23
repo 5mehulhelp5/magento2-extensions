@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="mageworx_checkout"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_index_index"/>
+    <head>
+        <css src="MageWorx_Checkout::css/main.css"/>
+        <css src="MageWorx_Checkout::css/lib/normalize.css"/>
+        <css src="MageWorx_Checkout::css/additional.css"/>
+        <css src="MageWorx_Checkout::css/custom-components.css"/>
+        <css src="MageWorx_Checkout::css/custom-checkout.css"/>
+    </head>
+    <body>
+        <attribute name="class" value="body"/>
+        <referenceContainer name="header.panel" remove="false"/>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="minicart" remove="true"/>
+        <referenceBlock name="checkout.root" template="MageWorx_Checkout::checkout/type/onepage.phtml">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="authentication" xsi:type="array">
+                            <item name="sortOrder" xsi:type="string">1</item>
+                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/authentication</item>
+                            <item name="displayArea" xsi:type="string">authentication</item>
+                            <item name="deps" xsi:type="string">checkoutProvider</item>
+                            <item name="children" xsi:type="array">
+                                <!--Additional authentication fields-->
+                                <item name="errors" xsi:type="array">
+                                    <item name="sortOrder" xsi:type="string">0</item>
+                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication-messages</item>
+                                    <item name="displayArea" xsi:type="string">messages</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="checkout" xsi:type="array">
+                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/onepage</item>
+                            <item name="config" xsi:type="array">
+                                <item name="template" xsi:type="string">MageWorx_Checkout/onepage</item>
+                            </item>
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="custom-customer-email" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/form/element/email</item>
+                                                    <item name="displayArea" xsi:type="string">custom-customer-email</item>
+                                                    <item name="namespace" xsi:type="string">delivery-form</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="visible" xsi:type="string">!customer.isLoggedIn()</item>
+                                                    </item>
+                                                </item>
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping-address</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="shipping-address-selection" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping-address-selection</item>
+                                                            <item name="displayArea" xsi:type="string">shipping-address-selection</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="customer-email" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="address-list" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping-address/list</item>
+                                                            <item name="displayArea" xsi:type="string">address-list</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                    <item name="1" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="shipping-address-fieldset" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping-address/fieldset</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                </item>
+                                                            </item>
+                                                            <item name="displayArea" xsi:type="string">additional-fieldsets</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="country_id" xsi:type="array">
+                                                                    <item name="sortOrder" xsi:type="number">70</item>
+                                                                </item>
+                                                                <!-- Overwritten in the \MageWorx\Checkout\Block\Checkout\Onepage\LayoutProcessor -->
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="billingAddress" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/billing-address-container</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">checkoutProvider</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="billing-address-fieldset" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="template" xsi:type="string">ui/collection</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                </item>
+                                                            </item>
+                                                            <item name="displayArea" xsi:type="string">additional-fieldsets</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="country_id" xsi:type="array">
+                                                                    <item name="sortOrder" xsi:type="number">70</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="shippingMethods" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping-methods</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">checkoutProvider</item>
+                                                            <item name="1" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="price" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/shipping_method/price</item>
+                                                            <item name="displayArea" xsi:type="string">price</item>
+                                                        </item>
+                                                        <item name="shipping_method_additional_data" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiCollection</item>
+                                                            <item name="displayArea" xsi:type="string">shipping_method_additional_data</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <!-- Child elements must be added in third-party module -->
+                                                            </item>
+                                                        </item>
+                                                        <item name="shippingAdditional" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">shippingAdditional</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <!-- Child elements must be added in third-party module -->
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/payment</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="title" xsi:type="string" translate="true">Payment</item>
+                                                        <item name="isVisible" xsi:type="boolean">true</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="renders" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <!-- merge payment method renders here -->
+
+                                                                <item name="offline-payments" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Magento_OfflinePayments/js/view/payment/offline-payments</item>
+                                                                    <item name="methods" xsi:type="array">
+                                                                        <item name="purchaseorder" xsi:type="array">
+                                                                            <item name="config" xsi:type="array">
+                                                                                <item name="template" xsi:type="string">MageWorx_Checkout/payment-method/payments/purchaseorder-form</item>
+                                                                            </item>
+                                                                            <item name="template" xsi:type="string">MageWorx_Checkout/payment-method/payments/purchaseorder-form</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="payments-list" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/payment/list</item>
+                                                            <item name="displayArea" xsi:type="string">payment-methods-list</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">MageWorx_Checkout/payment-method/list</item>
+                                                                <item name="deps" xsi:type="array">
+                                                                    <item name="0" xsi:type="string">checkout.steps.billing-step.payment.renders</item>
+                                                                    <item name="1" xsi:type="string">checkout.steps.billing-step.payment.additional-payment-validators</item>
+                                                                </item>
+                                                            </item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="before-place-order" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                                    <item name="displayArea" xsi:type="string">before-place-order</item>
+                                                                    <item name="dataScope" xsi:type="string">before-place-order</item>
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="template" xsi:type="string">Magento_Checkout/payment/before-place-order</item>
+                                                                    </item>
+                                                                    <item name="children" xsi:type="array">
+                                                                        <!-- Add elements in jsLayout -->
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="traveler-information" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/traveler-information</item>
+                                                    <item name="displayArea" xsi:type="string">traveler-information</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="title" xsi:type="string" translate="true">Traveler Information</item>
+                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                    </item>
+                                                </item>
+
+                                                <!-- Checkout Review -->
+                                                <item name="checkout-review" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/checkout-review</item>
+                                                    <item name="displayArea" xsi:type="string">checkout-review</item>
+                                                    <item name="sortOrder" xsi:type="string">80</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="title" xsi:type="string" translate="true">Reservation Summary</item>
+                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                    </item>
+                                                </item>
+                                                <item name="order_comment" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/order_comment</item>
+                                                    <item name="displayArea" xsi:type="string">order_comment</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="title" xsi:type="string" translate="true">Order Comment</item>
+                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                        <item name="template" xsi:type="string">MageWorx_Checkout/order_comment</item>
+                                                    </item>
+                                                </item>
+
+                                                <!-- Place Order button -->
+                                                <item name="place-order" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/place-order</item>
+                                                    <item name="displayArea" xsi:type="string">place-order</item>
+                                                    <item name="sortOrder" xsi:type="string">86</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="sortOrder" xsi:type="string">50</item>
+                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/sidebar</item>
+                                    <item name="displayArea" xsi:type="string">sidebar</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">MageWorx_Checkout/sidebar</item>
+                                        <item name="deps" xsi:type="array">
+                                            <item name="0" xsi:type="string">checkout.steps</item>
+                                        </item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/summary</item>
+                                            <item name="displayArea" xsi:type="string">summary</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">MageWorx_Checkout/summary</item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <!-- Add reservation summary component -->
+                                                <!--                                                <item name="reservation-summary" xsi:type="array">-->
+                                                <!--                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/reservation-summary</item>-->
+                                                <!--                                                    <item name="sortOrder" xsi:type="string">5</item>-->
+                                                <!--                                                </item>-->
+                                                <item name="itemsBefore" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="sortOrder" xsi:type="string">10</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <!-- merge your components here -->
+                                                    </item>
+                                                </item>
+                                                <item name="cart_items" xsi:type="array">
+                                                    <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/cart-items</item>
+                                                    <item name="sortOrder" xsi:type="string">20</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="details" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/item/details</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">MageWorx_Checkout/summary/item/details</item>
+                                                            </item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="thumbnail" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+<!--                                                                <item name="subtotal" xsi:type="array">-->
+<!--                                                                    <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>-->
+<!--                                                                    <item name="displayArea" xsi:type="string">after_details</item>-->
+<!--                                                                    <item name="config" xsi:type="array">-->
+<!--                                                                        <item name="template" xsi:type="string">MageWorx_Checkout/summary/item/details/subtotal</item>-->
+<!--                                                                    </item>-->
+<!--                                                                </item>-->
+                                                                <item name="message" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/item/details/message</item>
+                                                                    <item name="displayArea" xsi:type="string">item_message</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="template" xsi:type="string">MageWorx_Checkout/summary/item/details/message</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="itemsAfter" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="sortOrder" xsi:type="string">30</item>
+                                                    <item name="children" xsi:type="array">
+                                                        <!-- merge your components here -->
+                                                    </item>
+                                                </item>
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/totals</item>
+                                                    <item name="sortOrder" xsi:type="string">40</item>
+                                                    <item name="displayArea" xsi:type="string">totals</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="template" xsi:type="string">MageWorx_Checkout/summary/totals</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="discount" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/totals/discount</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Use a coupon, credit, or promotion code</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="giftCardAccount" xsi:type="array">
+                                                            <item name="template" xsi:type="string">MageWorx_Checkout/summary/totals/gift-card-magento</item>
+                                                        </item>
+                                                        <item name="shipping" xsi:type="array">
+                                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/totals/shipping</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Shipping</item>
+                                                                <item name="notCalculatedMessage" xsi:type="string" translate="true">Not yet calculated</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="tax" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/totals/tax</item>
+                                                                <item name="template" xsi:type="string" translate="true">MageWorx_Checkout/summary/totals/tax</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+
+                                        <!-- Additional blocks (fees, donations etc. -->
+                                        <item name="additionalInputs" xsi:type="array">
+                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/additional-inputs</item>
+                                            <item name="displayArea" xsi:type="string">additional_inputs</item>
+                                            <item name="template" xsi:type="string">MageWorx_Checkout/summary/additional-inputs</item>
+                                            <item name="sortOrder" xsi:type="string">50</item>
+                                            <item name="children" xsi:type="array">
+                                                <!-- merge your components here -->
+                                            </item>
+                                        </item>
+
+                                        <!-- Grand total -->
+                                        <item name="grand-total" xsi:type="array">
+                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/totals/grand-total</item>
+                                            <item name="displayArea" xsi:type="string">after_summary</item>
+                                            <item name="sortOrder" xsi:type="string">60</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="title" xsi:type="string" translate="true">Subtotal</item>
+                                                <item name="exclTaxLabel" xsi:type="string" translate="true">Order Total Excl. Tax</item>
+                                                <item name="inclTaxLabel" xsi:type="string" translate="true">Order Total Incl. Tax</item>
+                                                <item name="basicCurrencyMessage" xsi:type="string" translate="true">You will be charged for</item>
+                                            </item>
+                                        </item>
+
+                                        <!-- Discount component after Order Total -->
+                                        <item name="discount" xsi:type="array">
+                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/additional-inputs/discount</item>
+                                            <item name="displayArea" xsi:type="string">after_summary</item>
+                                            <item name="sortOrder" xsi:type="string">70</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">MageWorx_Checkout/summary/additional-inputs/discount</item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="errors" xsi:type="array">
+                                                    <item name="sortOrder" xsi:type="string">0</item>
+                                                    <item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/discount-messages</item>
+                                                    <item name="displayArea" xsi:type="string">messages</item>
+                                                </item>
+                                                <item name="captcha" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/captcha</item>
+                                                    <item name="displayArea" xsi:type="string">captcha</item>
+                                                    <item name="formId" xsi:type="string">sales_rule_coupon_request</item>
+                                                    <item name="configSource" xsi:type="string">checkoutConfig</item>
+                                                </item>
+                                            </item>
+                                        </item>
+
+                                        <!-- Checkboxes newsletter subscriptions -->
+<!--                                        <item name="newsletter-subscription" xsi:type="array">-->
+<!--                                            <item name="component" xsi:type="string">MageWorx_Checkout/js/view/summary/newsletter-subscription</item>-->
+<!--                                            <item name="displayArea" xsi:type="string">after_summary</item>-->
+<!--                                            <item name="sortOrder" xsi:type="string">70</item>-->
+<!--                                        </item>                                       -->
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

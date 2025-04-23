@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Category\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="check_category_mobile_level" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenuPremium\Ui\DataProvider\Form\Category\Modifier\HideItems</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Widget\Model\Widget">
+        <plugin name="Amasty_MegaMenuPremium::removeForbiddenWidgets" type="Amasty\MegaMenuPremium\Plugin\Widget\Model\Widget\RemoveForbiddenWidgets" />
+    </type>
+
+    <type name="Magento\Cms\Model\Wysiwyg\Config">
+        <plugin name="Amasty_MegaMenuPremium::disableImagesButton" type="Amasty\MegaMenuPremium\Plugin\Cms\Model\Wysiwyg\Config\DisableImages" />
+    </type>
+</config>

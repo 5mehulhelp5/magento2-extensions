@@ -1,0 +1,308 @@
+/**
+ * Olegnax
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Olegnax.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.olegnax.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2010-2021 Olegnax (http://www.olegnax.com/)
+ * @license     https://www.olegnax.com/license
+ */
+.ox-cron-status{
+    background: #f6f9fc;
+    padding: 14px;
+    margin: 10px 0;
+    display: block;
+    &.-error{
+        font-weight: bold;
+        background: rgba(255, 0, 0, 0.14);
+    }
+    &.-success{
+        background: rgba(193, 236, 76, 0.34);
+    }
+}
+.ox-inst-admin__post-info{
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 5px;
+    box-shadow: 0px 2px 20px rgba(216, 225, 234, 0.45);
+    p{
+        margin: 0 0 1em;
+    }
+}
+.ox-inst-admin__post-link{
+    margin-top: 20px;
+    margin-bottom: 0;
+    border-top: 1px solid #e6e6e6;
+    padding-top: 17px;
+    a{
+        color:black;
+    }
+}
+.ox-inst-admin__gallery-caption{
+    padding: 11px 13px;
+    background: #ebf2fa;
+    display: inline-block;
+    margin: 5px;
+    min-width: 400px;
+    font-weight: 600;
+}
+.ox-inst-admin__date{
+    font-weight: bold;
+}
+.ox-inst-admin__user{
+    color:#000;
+    font-size: 18px;    
+    font-weight: bold;
+}
+.ox-inst-admin__counters{
+    display:flex;
+    align-items: center;
+    font-size:16px;    
+    font-weight: bold;
+    .action{
+        display:flex;
+        align-items: center;
+        margin-right: 14px;
+    }
+    svg{
+        margin-right: 6px;
+    }
+}
+#ox-coords-container{
+    display: inline-block;
+    background: black;
+    padding: 6px 11px;
+    border-radius: 4px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
+    color: white;
+    position: absolute;
+    left: 20px;
+    z-index: 10;
+    top: -20px;
+    opacity:0;
+    transition:opacity 0.3s;
+}
+.ox-mousemove-container:hover + #ox-coords-container{
+    opacity:1;
+}
+.olegnax_instagramfeedpro-intspost-edit{
+    .gallery{
+        overflow:visible;
+        position: relative;
+        .image{
+            padding: 10px;
+            box-shadow: 0px 2px 20px rgba(10, 33, 65, 0.10);
+            margin:1.2rem 5px;
+            width: 100%;
+            max-width: 400px;
+            .product-image-wrapper{
+                cursor: crosshair;
+                border:none;
+                width: 100%;
+                height:0;
+                padding-bottom: 100%;
+                margin-bottom: 0;
+                &:hover {
+                    .product-image{
+                        opacity:1;
+                    }
+                }
+            }
+            .product-image{
+                transition: opacity 0.25s;
+                will-change: opacity;
+            }
+            &[data-role="video"]{
+
+                &:after{                    
+                    content: '';
+                    position: absolute;
+                    left: ~"calc(50% - 20px)";
+                    top: ~"calc(50% - 20px)";
+                    width: 40px;
+                    height: 40px;
+                    z-index: 1;
+                    filter: drop-shadow(1px 2px 11px rgba(0, 0, 0, 0.3));
+                    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.001 320.001"><path d="M295.84,146.049l-256-144c-4.96-2.784-11.008-2.72-15.904,0.128C19.008,5.057,16,10.305,16,16.001v288c0,5.696,3.008,10.944,7.936,13.824c2.496,1.44,5.28,2.176,8.064,2.176c2.688,0,5.408-0.672,7.84-2.048l256-144c5.024-2.848,8.16-8.16,8.16-13.952S300.864,148.897,295.84,146.049z" fill="white"/></svg>');
+                }
+            }
+        }
+    }
+
+}
+
+/* license page */
+
+#olegnax_instagram_license_general_code.input-text{
+    height: 50px;
+    border-width: 2px;
+}
+.ox-license-description{
+    padding:40px;
+    box-shadow:1px 4px 27px rgba(210, 225, 240, 0.54);
+    margin-bottom: 20px;
+    ul{
+        padding-left: 17px;
+    }
+}
+.ox-subtitle{
+    font-weight:700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color:#1d1d1d;
+}
+
+
+/* modal */
+
+.ox-admin__modal{
+    background: rgba(105, 105, 105, 0.36);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 880;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    &.opened{
+        display: flex;
+
+    }
+}
+.ox-admin-modal__inner{
+    position: relative;
+    background-color: #ffffff;
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+    max-height: 100vh;
+    overflow:auto;
+    h3,
+    h2{
+        font-weight: @font-weight__bold;
+    }
+    h2{
+        font-size: 1.7em;
+        margin-bottom: 25px;
+    }
+    .small{
+        font-size: 13px;
+        margin-top: 5px;
+    }
+    &.ox-inst-modal__add-user{
+        max-width: 400px;
+    }
+}
+.ox-overlay-close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 10px;
+    z-index: 90;
+    transition: transform .3s ease .3s;
+    transition-property: transform, -webkit-transform, opacity;
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      position: relative;
+      overflow: hidden;
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          height: 2px;
+          width: 100%;
+          top: 50%;
+          left: 0;
+          margin-top: -1px;
+          background-color: #ffffff;
+          transform-origin: 50% 50%;
+          opacity: 1;
+          transition: transform ease 0.3s;
+        }
+        &:before {
+          transform: rotate(45deg);
+        }        
+        &:after {
+        transform: rotate(-45deg);
+      }
+    
+    }
+    &:hover span{
+        &:before,
+        &:after {
+          transform: rotate(0);
+        }
+    }
+}
+
+.ox-inst__add-user-section{
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        label{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input{
+            height: 44px;
+        }
+        .action-primary{
+            width: 100%;
+            padding: 12px;
+        }
+    }
+
+}
+.ox-inst__add-user-messages{
+    .message{
+        margin-bottom: 10px;
+    }
+}
+.ox-inst__add-user-info{
+    padding: 8px 12px;
+    background: #f6f9fc;
+    &:before{
+        font-size: 18px;
+        line-height: 1;
+        color: #008acf;
+        content: '\e633';
+        font-family: 'Admin Icons';
+        vertical-align: bottom;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+    }
+}
+.ox-inst__status-label{
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 5px;
+    background: rgba(168, 231, 84, 0.18);
+    &.error{
+        background: #e31313;
+        color: white;
+    }
+    &.warn{
+        background: rgba(255, 200, 31, 0.20);
+        color: #a33f02;
+    }
+}

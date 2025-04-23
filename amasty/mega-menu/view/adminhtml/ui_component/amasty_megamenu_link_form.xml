@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="page_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">CMS Page</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\MegaMenu\Model\OptionSource\CmsPage</item>
+            </argument>
+        </field>
+
+        <field name="landing_page">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Amasty Landing Page</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\MegaMenu\Model\OptionSource\LandingPage</item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="am_mega_menu_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Content (For Desktop Only)</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">20</item>
+            </item>
+        </argument>
+
+        <field name="desktop_font" sortOrder="10" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string">bold</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Mega Menu Font</label>
+                <elementTmpl>Amasty_MegaMenuLite/form/element/select</elementTmpl>
+                <dataType>string</dataType>
+                <componentType>field</componentType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Amasty\MegaMenu\Model\OptionSource\Font"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="hide_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Display as Single Menu Item</item>
+                    <item name="notice" xsi:type="string" translate="true">Item will be displayed without any content.</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="width" component="Amasty_MegaMenu/js/form/fields/width">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Submenu Width</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">60</item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\MegaMenu\Model\OptionSource\MenuWidth</item>
+            </argument>
+        </field>
+
+        <field name="width_value" component="Amasty_MegaMenu/js/form/fields/width-value">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Width (px)</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string">width_value</item>
+                    <item name="sortOrder" xsi:type="string">70</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="greater-than-equals-to" xsi:type="number">0</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="label" xsi:type="string">Content</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">content</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="string">110</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="am_mega_menu_mobile_fieldset" sortOrder="30">
+        <settings>
+            <label translate="true">Content (For Mobile)</label>
+            <visible>true</visible>
+            <collapsible>true</collapsible>
+        </settings>
+
+        <field name="mobile_font" sortOrder="10" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string">bold</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Mega Menu Font</label>
+                <elementTmpl>Amasty_MegaMenuLite/form/element/select</elementTmpl>
+                <dataType>string</dataType>
+                <componentType>field</componentType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Amasty\MegaMenu\Model\OptionSource\Font"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

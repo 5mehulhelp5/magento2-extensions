@@ -1,0 +1,37 @@
+<!--@subject Deposit Payment Installment Confirmation for Order #{{var order_id}}@-->
+<!--@vars
+"var logo_url":"Email Logo Image Url",
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#ffffff" style="margin:0; padding:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none;">
+<table   cellspacing="0" cellpadding="1" border="0" id = "emailcontainer" style = "margin:0 auto; max-width:620px; width:100%; background-color:#fff">
+	<tr id = "emailheadertop" style = "height:30px; width:100%;" >
+			<td id = "emailheaderbpttomleft" style ="float: left;padding-left: 3%;padding-top: 25px;width: 97%;">
+				<a href= "{{var store_url}}"><img src = "{{var logo_url }}" alt="{{var logo_alt}}" border="0" /></a>  		
+			</td>
+	</tr>
+	<tr id = "emailheadertop" style = "float: left;padding:20px 3% 15px; width: 94%;" >
+		<td id = "emailheaderbpttomleft" style ="float:left;width:100%;">
+			<p style="color:#000000; font-size:15px; margin-bottom: 20px;"><strong>Dear {{var customer_name}},</strong></p>
+			<p style="color:#000000; font-size:15px; margin-bottom: 20px;">Thank you for your installment payment of <strong>{{var installment_amount|raw}}</strong> for the order <strong>#{{var order_id}}</strong>.</p>
+			<p style="color:#000000; font-size:15px; margin-bottom: 20px;">We appreciate of being able to serve you. Check the status of your payment by <strong><a href= "{{var user_partial_payment}}">logging into your account</a></strong>.
+			<p style="color:#000000; font-size:15px;">Your <strong>{{var brand_label}}</strong> details for order <strong>#{{var order_id}}</strong> are as follows:</p>
+		</td>
+	</tr>
+	<tr>
+         <td bgcolor="#EAEAEA" align="center" style="background:#fff; text-align:center;">
+		    {{var partialpayment_installment_grid|raw}}
+		</td>
+     </tr>
+	<tr>
+         <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0; font-size: 15px; padding: 10px 0;">Thank you for using our services. Visit our <strong><a href= "{{var store_url}}">store</a></strong> for more products and exciting offers.</p></center></td>
+    </tr>
+	<tr>	
+		<td align="left"><p style="font-size:13px;">Note: Installment payment is subject to approval from payment method / gateway.</p></td>
+		  
+     </tr>
+</table>
+</body>

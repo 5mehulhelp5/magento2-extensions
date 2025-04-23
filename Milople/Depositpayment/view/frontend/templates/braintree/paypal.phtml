@@ -1,0 +1,39 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2019 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/partial-payment-m2.html
+*
+**/
+?>
+<fieldset class="fieldset payment items ccard braintree_paypal" id="payment_form_braintree_paypal" style="display: none;padding: 20px;margin: 0 auto;">
+	<input type="hidden" id="payment_method_nonce" name="payment[payment_method_nonce]" />	
+	<div id="paypal-container"></div>
+</fieldset>
+<script>
+	require([
+		'jquery',
+		'braintree',
+		'mage/url'	
+	], function ($,braintree,urlBuilder) {			
+		braintree.setup(
+			"<?php echo $block->getLayout()->createBlock('Milople\Depositpayment\Block\Customer\Payment\Method\Braintree\Paypal')->getClientToken(); ?>", 
+			'custom', 
+			{
+				paypal: {
+				  container: "paypal-container",
+				},
+				onPaymentMethodReceived: function (obj) {						
+					$("#payment_method_nonce").val(obj.nonce);
+					return false;						
+				}
+			}
+		);				
+	});	
+</script>

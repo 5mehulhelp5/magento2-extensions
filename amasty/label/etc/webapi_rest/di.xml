@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Labels for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\InventorySalesApi\Api\PlaceReservationsForSalesEventInterface">
+        <plugin name="Amasty_Label::ReindexLabelsWithQtyCondition"
+                type="Amasty\Label\Plugin\InventorySalesApi\Api\PlaceReservationsForSalesEventInterface\ReindexLabelsWithQtyCondition"/>
+    </type>
+    <type name="Magento\InventoryIndexer\Indexer\SourceItem\Strategy\Sync">
+        <plugin name="Amasty_Label::ReindexProduct"
+                type="Amasty\Label\Plugin\InventoryIndexer\Indexer\SourceItem\Strategy\Sync\ReindexProduct" />
+    </type>
+</config>

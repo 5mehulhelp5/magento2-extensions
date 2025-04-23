@@ -1,0 +1,43 @@
+.text {
+  .get-rem(font-size, 14);
+  .get-rem(line-height, 16);
+  font-weight: @font-weight-normal;
+  color: @color-rangoon;
+  margin: 0;
+
+  &--variation-strong {
+    font-weight: @font-weight-bold;
+  }
+
+  &--variation-subdued {
+    color: @color-armadillo;
+  }
+
+  &--variation-warning {
+    color: @color-sea-buckthorn;
+  }
+
+  &--variation-distant {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  &--variation-light {
+    color: @color-white;
+  }
+
+  &--size-sm {
+    .get-rem(font-size, 11);
+    .get-rem(line-height, 16);
+  }
+
+  &--size-xl {
+    .get-rem(font-size, 16);
+    .get-rem(line-height, 18);
+  }
+
+  &--size-xxl {
+    .get-rem(font-size, 20);
+    .get-rem(line-height, 22);
+  }
+}

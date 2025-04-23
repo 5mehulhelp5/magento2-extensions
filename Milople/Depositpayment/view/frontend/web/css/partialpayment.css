@@ -1,0 +1,398 @@
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Partialpaymentauto
+* @copyright   Copyright (c) 2019 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/partial-payment-m2.html
+*
+**/
+
+/*CSS PROPERTY FOR RADIO START*/
+.partialpayment {
+	background-color: #f4f4f4;
+	border: 1px solid #c5c5c5;
+	float: left;
+	width: 450px;
+	padding:5px 5px 20px;
+	color:#636363;
+	max-width:100%;
+	box-shadow:0 1px 4px #006bb4;
+	position:relative;
+}
+.partialpayment-wholecart-block {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    padding: 5px 0;
+    width: 100%;
+}
+#wholecart_partialpayment_form .confirm-button {
+	width: 95%;
+	margin-top: 10px;
+	text-align: center;
+}
+.partialpayment-wholecart-block a
+{
+	white-space: nowrap;
+}
+
+#wholecart_partialpayment_form{
+	text-align: center;
+}
+
+.partialpayment .wait-loader{
+	z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(200,200,200,0.5);
+    left: 0;
+    top: 0;
+	display: none;
+}
+.partialpayment .wait-loader>img{
+	margin:auto;
+	display:block;
+}
+.partialpayment:before, .partialpayment:after
+{
+	content:"";
+    position:absolute; 
+    z-index:-1;
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    bottom:0;
+    left:10px;
+    right:10px;
+    border-radius:100px / 10px;
+}
+.partial-payment-label {
+	margin: 0 auto;
+	width: 95%;
+}
+.partialpayment h4 {
+	font-size: 16px;
+	color:#636363;
+}
+.partialpayment .info {
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #999999;
+	border-radius: 50%;
+	box-shadow: 2px 2px 1px #999999;
+	color: #999999;
+	float: right;
+	font-size: 12px;
+	line-height: 1;
+	padding: 3px 6px;
+	width: auto;
+}
+
+.paywith
+{
+	width:95%;
+	margin:0 auto;
+	display:block;
+	text-align:left;
+}
+input[type=radio].allow-partialpayment-radio{
+	position:absolute; 
+	z-index:-1000; 
+	left:-1000px; 
+	overflow: hidden; 
+	clip: rect(0 0 0 0); 
+	height:1px; 
+	width:1px; 
+	margin:-1px; 
+	padding:0; 
+	border:0;
+	float:left;
+}
+label.allow-partialpayment-radio-label{
+	background-image:url(../images/radio.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	float:left;
+}
+input[type=radio].allow-partialpayment-radio + label.allow-partialpayment-radio-label {
+	height:27px; 
+	display:inline-block;
+	line-height:27px;
+	background-repeat:no-repeat;
+	background-position: 15% 0;
+	vertical-align:middle;
+	cursor:pointer;
+	width:100%;
+}
+input[type=radio].allow-partialpayment-radio:checked + label.allow-partialpayment-radio-label,input[type=radio].allow-partialpayment-radio:hover + label.allow-partialpayment-radio-label {
+	background-position: 15% -27px;
+	font-weight:600;
+}
+.validation-error
+{
+	display:none;
+	bottom: -24px;
+    color: #ff0000;
+    left: 0;
+    position: absolute;
+	font-weight:normal;
+}
+input[aria-invalid="true"] + label .validation-error{
+	display:block;
+}
+.page-product-grouped section.partialpayment { /*Only FOR grouped Product*/
+    margin-bottom: 20px;
+}
+/*CSS PROPERTY FOR RADIO END*/
+
+/* calculation table start */
+.white_content
+{
+	background: #ffffff none repeat scroll 0 0;
+	border: 1px solid #c5c5c5;
+	height: 50%;
+	margin: 15px auto;
+	overflow: auto;
+	position: relative;
+	top: 15px;
+	width: 100%;
+	z-index: 1002;
+}
+#partial-payment-detail-table
+{
+	clear: both;
+	height: 0;
+	margin: 0 auto;
+	visibility: hidden;
+	width: 95%;
+	position:relative;
+	z-index:9;
+}
+#partial-payment-detail-table #close-table {
+	float: right;
+	position: absolute;
+	right: -10px;
+	top: 5px;
+	z-index: 9999;
+	cursor:pointer;
+}
+#refresh-only-table {
+	cursor: pointer;
+	display:inline-block;
+	padding-left:15px;
+}
+.partial-payment-calculation thead td {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px;
+}
+.partial-payment-calculation td {
+	border-right: 1px solid #c9c9c9;
+	padding: 0 5px;
+	width: 25%;
+	border-bottom:1px solid #c9c9c9;
+}
+.partial-payment-calculation tbody td:last-child {
+  text-align: right;
+}
+.partial-payment-calculation tbody .total td{
+	text-align:right;
+	font-weight:600;
+}
+.partial-payment-calculation tbody .totalpp td
+{
+	background:#006BB4;
+	text-align:right;
+	color:#ffffff;
+	font-weight:600;
+}
+/*rotate refresh*/
+.rotate-me
+{
+	width:14px;
+	color:#0000ff;
+	font-size:30px;
+	overflow:hidden;
+	height:14px;
+	font-style:normal;
+	animation-name:first;
+	animation-duration:2s;
+	animation-iteration-count: infinite; 
+	transform: rotate(0deg);
+	-webkit-transition-timing-function: linear;
+}
+@keyframes first{
+	0%{transform: rotate(0deg);} 
+	100%{ transform: rotate(500deg);}
+}
+/* calculation table end */
+.white_content > p {
+  background: #fff url("../images/bullet.png") no-repeat scroll 0 5px;
+  float: left;
+  font-size: 13px;
+  margin-left: 3px;
+  padding-left: 10px;
+  text-align: left;
+  width: 95%;
+}
+.partial-payment {
+    clear: both;
+	margin: 0 auto;
+	padding-left: 0;
+	width: 95%;
+}
+.partial-payment > li {
+	float: left;
+	width:49.5%;
+	text-align: center;
+	padding:4px 0px;
+	list-style:none;
+	margin-bottom:0;
+	border:1px solid #c5c5c5;
+	position:relative;
+}
+.partial-payment > li:first-child{
+	border-right:none;
+}
+.partial-payment ._active
+{
+	background: #006BB4;
+	color: #ffffff;
+}
+._display
+{
+	visibility:visible !important;
+	height:auto !important;
+}
+#ajax-load
+{
+	display:none;
+}
+#ajax-load._display
+{
+	display:block;
+}
+.clear {
+  clear: both;
+}
+
+
+/* cart page */
+tr.paid, tr.remaining {
+	background: rgba(0, 107, 180, 0.1) none repeat scroll 0 0;
+}
+.cart-totals tr.remaining td.amount,.cart-totals tr.remaining th.mark
+{
+	border-bottom:1px solid #ccc;
+	font-size:1.7rem;
+}
+.partialpayment-wholecart-block {
+  	border: 1px solid #cccccc;
+  	width: 100%;
+	padding:5px 0;
+	background: rgba(0, 107, 180, 0.1) none repeat scroll 0 0;
+}
+.partialpayment-wholecart-block .overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	z-index: 99;
+	display:none;
+	overflow:auto;
+}
+.partialpayment-wholecart-block .overlay.show
+{
+	display:block;
+}
+.partialpayment-wholecart-block .overlay .partialpayment {
+	float:none;
+	margin: 5% auto 0;
+	position:relative;
+}
+.close_partialpayment_option {
+  	position: absolute;
+  	right: 0;
+	top:0;
+	cursor:pointer;
+}
+.corner-image {
+    max-width: 100%;
+    height: auto;
+}
+.image-corner-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    max-width: 80px;
+}
+
+/* media queries for responsive layout */
+@media screen and (min-width:901px) and (max-width: 1024px)
+{
+	input[type=radio].allow-partialpayment-radio+ label.allow-partialpayment-radio-label {
+		background-position: 5% 0;
+	}
+	input[type=radio].allow-partialpayment-radio:checked + label.allow-partialpayment-radio-label {
+		background-position: 5% -27px;
+	}
+}
+@media screen and (min-width:768px) and (max-width: 900px)
+{
+	input[type=radio].allow-partialpayment-radio+ label.allow-partialpayment-radio-label {
+		background-position: 15% 0;
+	}
+	input[type=radio].allow-partialpayment-radio:checked + label.allow-partialpayment-radio-label {
+		background-position: 15% -27px;
+	}
+	.partial-payment > li{
+		width:100%;
+	}
+	.partial-payment > li:first-child
+	{
+		border-right:1px solid #c5c5c5;
+		border-bottom:none;
+	}
+}
+@media screen and (min-width:481px) and (max-width: 767px)
+{
+	.partialpayment{
+		margin: 0 auto;
+		float:none;
+		width:450px;
+	}
+}
+@media screen and (max-width:480px)
+{
+	.partialpayment{
+		width:auto;
+		float:none;
+	}
+	input[type=radio].allow-partialpayment-radio+ label.allow-partialpayment-radio-label {
+		background-position: 15% 0;
+	}
+	input[type=radio].allow-partialpayment-radio:checked + label.allow-partialpayment-radio-label {
+		background-position: 15% -27px;
+	}
+	.partial-payment > li{
+		width:100%;
+	}
+	.partial-payment > li:first-child
+	{
+		border-right:1px solid #c5c5c5;
+		border-bottom:none;
+	}
+	#my-orders-table > tr th:nth-child(1)::before
+	{
+		content:attr(data-th) "test: ";
+	}
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Preferences -->
+    <preference for="MageWorx\Checkout\Api\CheckoutConfigInterface" type="MageWorx\Checkout\Helper\CheckoutConfig" />
+    <preference for="MageWorx\Checkout\Api\CheckoutTypeInterface" type="MageWorx\Checkout\Model\Onepage" />
+    <preference for="MageWorx\Checkout\Api\CartManagerInterface" type="MageWorx\Checkout\Model\CartManager" />
+    <preference for="MageWorx\Checkout\Api\GuestCustomerManagementInterface" type="MageWorx\Checkout\Model\GuestCustomerManagement" />
+    <preference for="MageWorx\Checkout\Api\OrderCommentsManagementInterface" type="MageWorx\Checkout\Model\OrderCommentsManagement" />
+    <preference for="MageWorx\Checkout\Api\EmailSubscriptionManagerInterface" type="MageWorx\Checkout\Model\EmailSubscriptionManager" />
+    <preference for="MageWorx\Checkout\Api\BillingAddressManagementInterface" type="MageWorx\Checkout\Model\BillingAddressManagement" />
+
+    <type name="MageWorx\Checkout\Plugin\AddLayoutProcessorAfterAll">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\JsonHexTag</argument>
+        </arguments>
+    </type>
+    <type name="MageWorx\Checkout\Model\Config\Backend\MethodsConfiguration">
+        <arguments>
+            <argument name="resourceCollection" xsi:type="object">Magento\Config\Model\ResourceModel\Config\Data\Collection\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Api\CartManagementInterface">
+        <plugin name="mageworx_checkout_save_comment"
+                type="MageWorx\Checkout\Plugin\SaveOrderComment"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <!-- Fix quote id for guest -->
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="mageworx_checkout_fix_guest_quote_id"
+                type="MageWorx\Checkout\Plugin\FixQuoteIdForGuest"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <!-- Set default country to shipping address -->
+    <type name="Magento\Quote\Api\PaymentMethodManagementInterface">
+        <plugin name="mageworx_checkout_set_shipping_default_country"
+                type="MageWorx\Checkout\Plugin\SetDefaultShippingCountry"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <!-- Save shipping address on each change for guest for better compatibility with external payments (e.g. Braintree PayPal) -->
+    <type name="Magento\Quote\Api\GuestShipmentEstimationInterface">
+        <plugin name="mageworx_checkout_guest_save_shipping_address_on_each_change"
+                type="MageWorx\Checkout\Plugin\SaveShippingAddressOnEachChangeByGuest"
+                sortOrder="10"
+                disabled="false" />
+    </type>
+    <!-- Allow Forced registration for virtual orders -->
+    <type name="Magento\Downloadable\Observer\IsAllowedGuestCheckoutObserver">
+        <plugin name="mageworx_checkout_allow_forced_registration_during_checkout"
+                type="MageWorx\Checkout\Plugin\AllowForcedRegistrationForVirtualOrders"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <!-- Disable error on empty quote id: just log it and don't show to customer in error messages -->
+    <type name="Magento\Quote\Api\ShippingMethodManagementInterface">
+        <plugin name="mageworx_checkout_disable_error_on_empty_quote_id"
+                type="MageWorx\Checkout\Plugin\DisableEmptyQuoteIdError"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+
+    <!-- Less preprocessors -->
+    <virtualType name="AssetPreProcessorPool" type="Magento\Framework\View\Asset\PreProcessor\Pool">
+        <arguments>
+            <argument name="preprocessors" xsi:type="array">
+                <item name="less" xsi:type="array">
+                    <item name="mageworx_checkout" xsi:type="array">
+                        <item name="class" xsi:type="string">\MageWorx\Checkout\Preprocessor\Adapter\Less\ConfigVariables</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AssetPreProcessorPoolForSourceThemeDeploy" type="Magento\Framework\View\Asset\PreProcessor\Pool">
+        <arguments>
+            <argument name="preprocessors" xsi:type="array">
+                <item name="less" xsi:type="array">
+                    <item name="mageworx_checkout" xsi:type="array">
+                        <item name="class" xsi:type="string">\MageWorx\Checkout\Preprocessor\Adapter\Less\ConfigVariables</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\App\View\Asset\Publisher">
+        <plugin name="removeCheckoutMainCssFileBeforeDeploy"
+                type="MageWorx\Checkout\Preprocessor\Plugin\DeployEachTimeNewCssFilePlugin"
+                sortOrder="10"
+        />
+    </type>
+    <type name="Magento\Framework\View\Asset\PreProcessor\Chain">
+        <plugin name="regenerateMwscssContentEachTime" type="MageWorx\Checkout\Preprocessor\Plugin\ChainPluginToRegenerateMWSCSSEachTime"/>
+    </type>
+</config>

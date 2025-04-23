@@ -1,0 +1,159 @@
+// /**
+//  * Copyright © Michał Biarda. All rights reserved.
+//  * See LICENSE.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+  #checkout-payment-method-load {
+    .payment-method {
+      .checkout-agreements-block,
+      .actions-toolbar {
+        &:extend(.abs-visually-hidden all);
+        display: none !important;
+      }
+    }
+  }
+  .checkout-payment-method .actions-toolbar .action.primary,
+  #checkout-step-finalization .actions-toolbar .action.primary {
+    &:extend(.abs-button-l all);
+  }
+  .tsc-step-finalization {
+    .checkout-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .opc-wrapper {
+      order: 100;
+      width: 100%;
+      padding-right: 0;
+    }
+    .opc-sidebar {
+      background: transparent;
+      width: 100%;
+      margin-top: 0;
+
+      header {
+        display: none;
+      }
+    }
+    .opc-block-summary {
+      background: transparent;
+      padding: 0;
+
+      > .title {
+        .lib-css(border-bottom, @checkout-step-title__border);
+        margin: 0 0 @indent__base;
+      }
+      .table-totals {
+        border-top: none;
+
+        .grand {
+          td, th {
+            border-top: none;
+          }
+        }
+      }
+    }
+    .minicart-wrapper {
+      display: none;
+    }
+    .billing-information {
+      .bill-to,
+      .pay-via {
+        margin: 0 0 @indent__base;
+      }
+      .billing-information-title {
+        &:extend(.abs-checkout-title all);
+        .lib-css(border-bottom, @checkout-step-title__border);
+        margin: 0 0 @indent__base;
+        position: relative;
+
+        .action-edit {
+          &:extend(.abs-action-button-as-link all);
+          .lib-css(top, @checkout-sidebar-shipping-information-edit-icon__top);
+          .lib-icon-font(
+            @checkout-sidebar-shipping-information-edit-icon__content,
+            @_icon-font-size: @checkout-sidebar-shipping-information-edit-icon__font-size,
+            @_icon-font-line-height: @checkout-sidebar-shipping-information-edit-icon__line-height,
+            @_icon-font-text-hide: true,
+            @_icon-font-color: @checkout-sidebar-shipping-information-edit-icon__color,
+            @_icon-font-color-hover: @checkout-sidebar-shipping-information-edit-icon__hover__color,
+            @_icon-font-color-active: @checkout-sidebar-shipping-information-edit-icon__color
+          );
+          margin: 0;
+          position: absolute;
+          right: 0;
+        }
+      }
+      .billing-information-content {
+        .lib-css(line-height, @checkout-sidebar-shipping-information__line-height);
+
+        img {
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+      }
+    }
+    .actions-toolbar {
+      text-align: right;
+
+      > .primary {
+        float: none;
+      }
+    }
+  }
+  .tsc-virtual-quote .opc-block-shipping-information {
+    display: none;
+  }
+  #checkout-step-finalization .fieldset > .field.choice::before {
+    width: 0;
+    padding: 0;
+  }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+  .opc-progress-bar {
+    display: flex;
+    flex-direction: row;
+  }
+  .opc-progress-bar-item {
+    width: auto;
+    flex: 1
+  }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  .tsc-step-finalization {
+    #opc-sidebar {
+      display: flex;
+
+      > div {
+        width: ~'calc((100% - 40px) / 3)';
+        float: left;
+      }
+    }
+    .opc-block-shipping-information {
+      order: 1;
+      padding-left: 0;
+    }
+    .billing-information {
+      order: 2;
+      padding-right: 20px;
+    }
+    .opc-block-summary {
+      order: 3
+    }
+  }
+}

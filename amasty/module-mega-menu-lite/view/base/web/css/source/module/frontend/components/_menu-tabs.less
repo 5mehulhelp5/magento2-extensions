@@ -1,0 +1,44 @@
+//
+//  Amasty Menu Tabs Component
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-tabs-list {
+        & {
+            .ammenu-flex();
+
+            border-radius: 8px;
+            font-size: 1.6rem;
+            margin: 0 @ammenu__indent__xl @ammenu__indent__xl;
+            padding: 8px;
+        }
+
+        .ammenu-item {
+            .ammenu-flex(center, center);
+
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .ammenu-button {
+            & {
+                .ammenu-reset(button);
+                .ammenu-transition(.1);
+
+                border-radius: 6px;
+                font-size: 1.6rem;
+                min-height: 32px;
+                padding: 5px;
+                width: 100%;
+            }
+
+            &.-active {
+                font-weight: 700;
+            }
+        }
+    }
+}

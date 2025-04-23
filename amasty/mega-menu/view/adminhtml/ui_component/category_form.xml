@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="am_mega_menu_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Mega Menu (For Desktop)</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">40</item>
+                <item name="imports" xsi:type="array">
+                    <item name="visible" xsi:type="string">ns = ${ $.ns }, index = include_in_menu :checked</item>
+                </item>
+            </item>
+        </argument>
+
+        <field name="desktop_font" sortOrder="3" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string">bold</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Mega Menu Font</label>
+                <elementTmpl>Amasty_MegaMenuLite/form/element/select</elementTmpl>
+                <dataType>string</dataType>
+                <componentType>field</componentType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Amasty\MegaMenu\Model\OptionSource\Font"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="category_level_error" component="Amasty_MegaMenu/js/form/fields/error">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="sortOrder" xsi:type="string">150</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="label">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Menu Label Text</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="dataScope" xsi:type="string">label</item>
+                    <item name="sortOrder" xsi:type="string">5</item>
+                </item>
+            </argument>
+        </field>
+
+        <container name="label_group">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="additionalClasses" xsi:type="string">admin__control-grouped-date ammenu-label-group</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                </item>
+            </argument>
+
+            <field name="label_background_color">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Label Background Color (hex)</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-group-show-label</item>
+                        <item name="component" xsi:type="string">Amasty_MegaMenuLite/js/form/element/color-picker</item>
+                        <item name="elementTmpl" xsi:type="string">Amasty_MegaMenuLite/form/element/color-picker</item>
+                        <item name="colorPickerConfig" xsi:type="array">
+                            <item name="preferredFormat" xsi:type="string">hex</item>
+                            <item name="colorPickerMode" xsi:type="string">full</item>
+                        </item>
+                        <item name="template" xsi:type="string">ui/form/field</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">mega_menu</item>
+                        <item name="dataScope" xsi:type="string">label_background_color</item>
+                        <item name="sortOrder" xsi:type="string">50</item>
+                    </item>
+                </argument>
+            </field>
+
+            <field name="label_text_color">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Label Text Color (hex)</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-group-show-label</item>
+                        <item name="component" xsi:type="string">Amasty_MegaMenuLite/js/form/element/color-picker</item>
+                        <item name="elementTmpl" xsi:type="string">Amasty_MegaMenuLite/form/element/color-picker</item>
+                        <item name="colorPickerConfig" xsi:type="array">
+                            <item name="preferredFormat" xsi:type="string">hex</item>
+                            <item name="colorPickerMode" xsi:type="string">full</item>
+                        </item>
+                        <item name="template" xsi:type="string">ui/form/field</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="source" xsi:type="string">mega_menu</item>
+                        <item name="dataScope" xsi:type="string">label_text_color</item>
+                        <item name="sortOrder" xsi:type="string">60</item>
+                    </item>
+                </argument>
+            </field>
+        </container>
+
+        <field name="icon" formElement="imageUploader" class="Amasty\MegaMenu\Ui\Component\Form\Field\Icon">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Mega Menu Icon</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        <![CDATA[
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        ]]>
+                    </item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/image</item>
+                    <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
+                    <item name="openDialogTitle" xsi:type="string">Media Gallery</item>
+                    <item name="initialMediaGalleryOpenSubpath" xsi:type="string">amasty/ammegamenu</item>
+                    <item name="allowedExtensions" xsi:type="string">jpg jpeg png</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                    </item>
+                    <item name="sortOrder" xsi:type="string">15</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="hide_content" component="Amasty_MegaMenu/js/form/fields/hide-content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Hide Menu Item Content</item>
+                    <item name="notice" xsi:type="string" translate="true">Category will be displayed without any content, including subcategories</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">category_form.category_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">category_form.category_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="width" component="Amasty_MegaMenu/js/form/fields/width">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Submenu Width</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">30</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\MegaMenu\Model\OptionSource\MenuWidth</item>
+            </argument>
+        </field>
+
+        <field name="width_value" component="Amasty_MegaMenu/js/form/fields/width-value">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Width (px)</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string">width_value</item>
+                    <item name="sortOrder" xsi:type="string">35</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="greater-than-equals-to" xsi:type="number">0</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="submenu_type" component="Amasty_MegaMenu/js/form/fields/submenu-type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Submenu Template</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="elementTmpl" xsi:type="string">Amasty_MegaMenuLite/form/element/select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">category_form.category_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">showNotice</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">category_form.category_form.am_mega_menu_fieldset.content</item>
+                                        <item name="callback" xsi:type="string">hideNotice</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+
+                <item name="options" xsi:type="object">Amasty\MegaMenu\Model\OptionSource\SubmenuType</item>
+            </argument>
+        </field>
+
+        <field name="column_count" component="Amasty_MegaMenu/js/form/fields/column-count">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Number of Columns</item>
+                    <item name="notice" xsi:type="string" translate="true">If the value is 0, the number of columns equals to the number of child categories. The maximum is 10.</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="dataScope" xsi:type="string">column_count</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="greater-than-equals-to" xsi:type="number">0</item>
+                        <item name="less-than-equals-to" xsi:type="number">10</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="string">45</item>
+                    <item name="default" xsi:type="number">4</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="subcategories_position" component="Amasty_MegaMenu/js/form/fields/subcategories-position">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Subcategories Template</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">Amasty_MegaMenuLite/form/element/select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">50</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="label" xsi:type="string" translate="true">Content</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">content</item>
+                    <item name="sortOrder" xsi:type="string">60</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="am_mega_menu_mobile_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Mega Menu (For Mobile)</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">41</item>
+            </item>
+        </argument>
+
+        <field name="category_level_error" formElement="input" component="Amasty_MegaMenu/js/form/fields/error">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>string</dataType>
+            </settings>
+        </field>
+
+        <field name="mobile_font" sortOrder="5" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string">bold</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Mega Menu Font</label>
+                <elementTmpl>Amasty_MegaMenuLite/form/element/select</elementTmpl>
+                <dataType>string</dataType>
+                <componentType>field</componentType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Amasty\MegaMenu\Model\OptionSource\Font"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

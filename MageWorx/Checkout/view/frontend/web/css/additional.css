@@ -1,0 +1,219 @@
+.agreement-button {
+    line-height: 1.42857143;
+    padding: 0;
+    color: #1979c3;
+    text-decoration: none;
+    background: none;
+    border: 1px transparent;
+    display: inline;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: 400;
+}
+
+.stripe-payments-brand {
+    top: -12px;
+    left: 2px;
+}
+
+.pci-dss-info-block {
+    width: auto;
+    margin: auto;
+}
+
+.payment-group > .radiogroup__header > .radiogroup__label > .radiogroup__label-item > img {
+    width: 50px;
+}
+
+form > .summary > .summary__field:first-child {
+    padding-top: 0;
+}
+
+.collapsible__content > .summary > .summary__field:last-child {
+    border-bottom: none;
+}
+
+.message--error {
+    background-color: #fce6e6;
+}
+
+/** CC styles of payment methods */
+.credit-card-types {
+    padding: 0;
+}
+
+.credit-card-types .item {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px 0 0;
+    vertical-align: top;
+}
+/** Totals: no-wrap negative totals */
+.negative-total {
+    color:red;
+    white-space: nowrap;
+}
+
+#checkout div.mage-error[generated] {
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    margin-top: 0.5em;
+    color: #ff0000;
+}
+/** Make tax details visible as sub-item */
+.summary__field.totals-tax-details {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+}
+/** Fix brtaintree CC form card image */
+#payment_form_braintree .braintree-credit-card-selected {
+    left: -1px;
+    top: -7px;
+}
+/** Fix brtaintree CC form CVV */
+#payment_form_braintree .hosted-cid {
+    width: 7rem;
+}
+#payment_form_braintree .cvv .field-tooltip {
+    top: 1px;
+    right: 100px;
+}
+
+.summary__cell > .cart.item.message {
+    margin: 10px 0 10px;
+}
+
+.body {
+    height: auto!important;
+    position: relative;
+}
+
+.summary__field.product {
+    flex-wrap:wrap;
+}
+.summary__cell:not(.flex-new-line) {
+    order:0;
+}
+.flex-before-new-line:before {
+    content:'';
+    width:100%;
+    order:0;
+}
+.flex-new-line {
+    order:1;
+}
+
+.payment-method-content .message:empty {
+    display: none;
+}
+
+#mwPaymentBlock form.payments {
+    padding: 0;
+}
+
+#mwPaymentBlock .payment-method-title input {
+    display: none;
+}
+#mwPaymentBlock .payment-method-title input + label:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%;
+    margin-right: 7px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 1px solid #E0E0E0;
+    margin-top: 2rem;
+}
+#mwPaymentBlock .payment-method-title input + label:after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: white;
+    position: absolute;
+    border-radius: 50%;
+    top: 6px;
+    left: 6px;
+    opacity: 0;
+    transform: scale(0, 0);
+    transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+    margin-top: 2rem;
+}
+#mwPaymentBlock .payment-method-title input:checked + label:after {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+#mwPaymentBlock .payment-method-title input:checked + label:before {
+    border: none;
+}
+#mwPaymentBlock .billing-address-same-as-shipping-block,
+#mwPaymentBlock .payment-method .billing-address-details,
+#mwPaymentBlock #review-buttons-container,
+#mwPaymentBlock .actions-toolbar {
+    display: none;
+}
+#payment-method-braintree-paypal > .payment-method-content > .actions-toolbar {
+    display: block;
+}
+#mwPaymentBlock #paypal-express-in-context-button {
+    display: block;
+    padding: 10px;
+}
+#mwPaymentBlock .fieldset {
+    margin: 0;
+    padding: 1rem 1.5rem 1rem 4.5rem;
+    width: 100%;
+}
+#mwPaymentBlock .fieldset .field {
+    margin-bottom: 1.5rem;
+}
+
+/** Stripe payment specific */
+#mwPaymentBlock .stripe-payments .stripe-payments-card-form {
+    padding: 10px;
+}
+
+/** PayPal Express payment specific */
+#mwPaymentBlock #paypal_express + label > a.action {
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    font-size: 1rem;
+}
+#mwPaymentBlock #paypal_express + label > img {
+    max-height: 6rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-right: 2rem;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+#mwPaymentBlock #paypal_express + label > span {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/** Braintree Vault Payment specific */
+#mwPaymentBlock #payment-method-braintree-cc-vault > .payment-method-title > label.label > img {
+    max-height: 6rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-right: 2rem;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+#mwPaymentBlock #payment-method-braintree-cc-vault > .payment-method-title > label.label > span {
+    padding: 0px 2px;
+    display: contents;
+    font-size: 1.2rem;
+}

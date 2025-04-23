@@ -1,0 +1,30 @@
+<div class="product-item-details">
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <strong class="product-item-name" data-bind="text: $parent.name"></strong>
+            <div class="product-item-rooms" data-bind="text: getRoomsAndGuestsText($parent)"></div>
+        </div>
+
+        <div class="product-item-options">
+
+            <!-- ko if: $parent.options && JSON.parse($parent.options).length > 0 -->
+            <div class="option-block">
+                <!-- ko foreach: { data: JSON.parse($parent.options), as: 'option' } -->
+                    <!-- Label + Combined Price -->
+                    <div class="option-row">
+                        <span class="option-label" data-bind="text: option.label"></span>
+                        <span class="option-price" data-bind="text: $parent.formatPriceWithCurrency(option.full_view || option.value)"></span>
+                    </div>
+
+                    <!-- Detail lines -->
+                    <!-- ko foreach: $parent.getOptionDetails(option.full_view || option.value) -->
+                    <div class="option-detail" data-bind="text: $data"></div>
+                    <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+
+        </div>
+
+    </div>
+</div>

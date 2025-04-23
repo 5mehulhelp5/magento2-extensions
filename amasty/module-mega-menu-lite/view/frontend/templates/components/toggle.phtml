@@ -1,0 +1,45 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */
+/**
+ * @var \Amasty\MegaMenuLite\Block\Container $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Amasty\MegaMenuLite\ViewModel\Store\Menu $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+?>
+
+<!-- ko scope: 'index = ammenu_hamburger_toggle' -->
+    <!-- ko if: $data.source.isMobile() || <?= /* @noEscape */ $viewModel->isHamburger() ? 'true' : 'false' ?> -->
+        <button class="ammenu-button -hamburger -trigger"
+                aria-controls="ammenu-sidebar"
+                aria-haspopup="menu"
+                type="button"
+                title="<?= $block->escapeHtml($block->getToggleMenuText()); ?>"
+                data-bind="
+                    style: {
+                        color: color_settings.hamburger_icon_color
+                    },
+                    event: {
+                        click: toggling
+                    },
+                    attr: {
+                        'aria-expanded': isOpen().toString(),
+                        'aria-hidden': $data.source.isMobile() ? 'true' : 'false'
+                    }">
+        </button>
+        <?php if (!$viewModel->isHamburger()): ?>
+            <style>
+                @media (min-width: <?= /* @noEscape */ $viewModel->getMobileMenuWidth() + 1 ?>px) {
+                    .ammenu-button.-hamburger.-trigger {
+                        display: none;
+                    }
+                }
+            </style>
+        <?php endif; ?>
+    <!-- /ko -->
+<!-- /ko -->

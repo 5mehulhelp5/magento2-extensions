@@ -1,0 +1,24 @@
+<?php
+/** 
+* 
+* Do not edit or add to this file if you wish to upgrade the module to newer 
+* versions in the future. If you wish to customize the module for your 
+* needs please contact us to https://www.milople.com/magento-extensions/contacts/
+* 
+* @category		Ecommerce 
+* @package		Milople_Depositpayment
+* @copyright	Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved. 
+* @url			https://www.milople.com/magento-extensions/deposit-payment.html
+* 
+**/
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
+<div class="image-corner-container">
+	<img class="corner-image" src="<?php echo $block->getCornerImageUrl(); ?>" alt="image-corner"/>  
+</div>
+<img class="photo image"
+     <?php /* @escapeNotVerified */ echo $block->getCustomAttributes(); ?>
+     src="<?php /* @escapeNotVerified */ echo $block->getImageUrl(); ?>"
+     width="<?php /* @escapeNotVerified */ echo $block->getWidth(); ?>"
+     height="<?php /* @escapeNotVerified */ echo $block->getHeight(); ?>"
+     alt="<?php /* @escapeNotVerified */ echo $block->stripTags($block->getLabel(), null, true); ?>" />

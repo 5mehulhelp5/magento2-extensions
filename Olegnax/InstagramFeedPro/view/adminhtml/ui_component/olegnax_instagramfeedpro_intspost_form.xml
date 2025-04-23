@@ -1,0 +1,534 @@
+<?xml version="1.0" ?>
+<!--suppress XmlDefaultAttributeValue, CheckTagEmptyBody -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">olegnax_instagramfeedpro_intspost_form.intspost_form_data_source
+			</item>
+		</item>
+		<item name="label" translate="true" xsi:type="string">General Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\IntsPost\Edit\BackButton" name="back"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\IntsPost\Edit\DeleteButton" name="delete"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\IntsPost\Edit\SaveButton" name="save"/>
+			<button class="Olegnax\InstagramFeedPro\Block\Adminhtml\IntsPost\Edit\SaveAndContinueButton" name="save_and_continue"/>
+		</buttons>
+		<namespace>olegnax_instagramfeedpro_intspost_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>olegnax_instagramfeedpro_intspost_form.intspost_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="intspost_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider class="Olegnax\InstagramFeedPro\Model\IntsPost\DataProvider" name="intspost_form_data_source">
+			<settings>
+				<requestFieldName>intspost_id</requestFieldName>
+				<primaryFieldName>intspost_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general" sortOrder="10">
+		<settings>
+			<label>General</label>
+		</settings>
+		<field formElement="checkbox" name="is_active" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Post</item>
+					<item name="default" xsi:type="number">1</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>boolean</dataType>
+				<label translate="true">Enable Post</label>
+				<dataScope>is_active</dataScope>
+			</settings>
+			<formElements>
+				<checkbox>
+					<settings>
+						<valueMap>
+							<map name="false" xsi:type="number">0</map>
+							<map name="true" xsi:type="number">1</map>
+						</valueMap>
+						<prefer>toggle</prefer>
+					</settings>
+				</checkbox>
+			</formElements>
+		</field>
+		<fieldset name="media_gallery" sortOrder="20">
+			<settings>
+				<label translate="true">Media Gallery</label>
+			</settings>
+			<container name="gallery" sortOrder="10">
+				<htmlContent name="gallery">
+					<argument name="block" xsi:type="object">
+						Olegnax\InstagramFeedPro\Block\Adminhtml\Post\Helper\Form\Gallery
+					</argument>
+				</htmlContent>
+			</container>
+		</fieldset>
+		<container name="info" sortOrder="30">
+			<htmlContent name="info">
+				<argument name="block" xsi:type="object">
+					Olegnax\InstagramFeedPro\Block\Adminhtml\Post\Helper\Form\Info
+				</argument>
+			</htmlContent>
+		</container>
+	</fieldset>
+	<fieldset name="websites" class="Magento\Store\Ui\Component\Form\Fieldset\Websites" sortOrder="40">
+		<settings>
+			<label translate="true">Post in Websites</label>
+			<collapsible>true</collapsible>
+		</settings>
+		<field name="storeviews" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">block</item>
+					<item name="default" xsi:type="number">0</item>
+				</item>
+			</argument>
+			<settings>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+				<dataType>int</dataType>
+				<tooltip>
+					<link>https://docs.magento.com/m2/ce/user_guide/configuration/scope.html</link>
+					<description>What is this?</description>
+				</tooltip>
+				<label translate="true">Store View</label>
+				<dataScope>store_id</dataScope>
+			</settings>
+			<formElements>
+				<multiselect>
+					<settings>
+						<options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+					</settings>
+				</multiselect>
+			</formElements>
+		</field>
+	</fieldset>
+	<fieldset name="related" sortOrder="50">
+		<settings>
+			<collapsible>false</collapsible>
+			<label translate="true">Related Products and HotSpots</label>
+		</settings>
+		<fieldset name="product" sortOrder="30">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="additionalClasses" xsi:type="string">admin__fieldset-section</item>
+				</item>
+			</argument>
+			<settings>
+				<label translate="true">Related Products</label>
+			</settings>
+			<container name="button_set" template="ui/form/components/complex">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="label" xsi:type="boolean">false</item>
+						<item name="content" xsi:type="string" translate="true"><![CDATA[<div style="padding:12px 16px; background:#f8f8f8;"><p>Related products are shown below instagram post details in modal. Also you can show linked/related instagram posts on product pages.</p><p>Do not forget to set hotspot coordinates for related product after you set the Hotspot style.</p><p>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>]]>
+						</item>
+					</item>
+				</argument>
+				<container name="button_product">
+					<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="title" xsi:type="string" translate="true">Add Related Product</item>
+							<item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+							<item name="actions" xsi:type="array">
+								<item name="0" xsi:type="array">
+									<item name="targetName" xsi:type="string">
+										olegnax_instagramfeedpro_intspost_form.olegnax_instagramfeedpro_intspost_form.related.product.modal
+									</item>
+									<item name="actionName" xsi:type="string">toggleModal</item>
+								</item>
+								<item name="1" xsi:type="array">
+									<item name="targetName" xsi:type="string">
+										olegnax_instagramfeedpro_intspost_form.olegnax_instagramfeedpro_intspost_form.related.product.modal.olegnax_instagramfeedpro_related_product_listing
+									</item>
+									<item name="actionName" xsi:type="string">render</item>
+								</item>
+							</item>
+							<item name="provider" xsi:type="boolean">false</item>
+						</item>
+					</argument>
+				</container>
+			</container>
+			<modal name="modal" component="Magento_Ui/js/modal/modal-component">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="dataScope" xsi:type="string"/>
+						<item name="options" xsi:type="array">
+							<item name="title" xsi:type="string" translate="true">Add Related Products</item>
+							<item name="buttons" xsi:type="array">
+								<item name="0" xsi:type="array">
+									<item name="text" xsi:type="string" translate="true">Cancel</item>
+									<item name="actions" xsi:type="array">
+										<item name="0" xsi:type="string">closeModal</item>
+									</item>
+								</item>
+								<item name="1" xsi:type="array">
+									<item name="text" xsi:type="string" translate="true">Add Selected Products</item>
+									<item name="class" xsi:type="string">action-primary</item>
+									<item name="actions" xsi:type="array">
+										<item name="0" xsi:type="array">
+											<item name="targetName" xsi:type="string">
+												index=olegnax_instagramfeedpro_related_product_listing
+											</item>
+											<item name="actionName" xsi:type="string">save</item>
+										</item>
+										<item name="1" xsi:type="string">closeModal</item>
+									</item>
+								</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+				<insertListing name="olegnax_instagramfeedpro_related_product_listing" component="Magento_Ui/js/form/components/insert-listing">
+					<settings>
+						<autoRender>false</autoRender>
+						<dataScope>olegnax_instagramfeedpro_related_product_listing</dataScope>
+						<externalProvider>
+							olegnax_instagramfeedpro_related_product_listing.olegnax_instagramfeedpro_related_product_listing_data_source
+						</externalProvider>
+						<selectionsProvider>
+							olegnax_instagramfeedpro_related_product_listing.olegnax_instagramfeedpro_related_product_listing.product_columns.ids
+						</selectionsProvider>
+						<ns>olegnax_instagramfeedpro_related_product_listing</ns>
+						<renderUrl path="mui/index/render"/>
+						<realTimeLink>true</realTimeLink>
+						<dataLinks>
+							<imports>false</imports>
+							<exports>true</exports>
+						</dataLinks>
+						<behaviourType>simple</behaviourType>
+						<externalFilterMode>true</externalFilterMode>
+						<imports>
+							<link name="postId">${ $.provider }:data.post.current_post_id</link>
+						</imports>
+						<exports>
+							<link name="postId">${ $.externalProvider }:data.post.current_post_id</link>
+						</exports>
+					</settings>
+				</insertListing>
+			</modal>
+			<dynamicRows name="product" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" template="ui/dynamic-rows/templates/grid" sortOrder="10">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+						<item name="label" xsi:type="boolean">false</item>
+						<item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+						<item name="renderDefaultRecord" xsi:type="boolean">false</item>
+						<item name="deleteButtonLabel" xsi:type="string" translate="true">Remove</item>
+						<item name="dataProvider" xsi:type="string">
+							data.olegnax_instagramfeedpro_related_product_listing
+						</item>
+						<item name="map" xsi:type="array">
+							<item name="id" xsi:type="string">entity_id</item>
+							<item name="name" xsi:type="string">name</item>
+							<item name="status" xsi:type="string">status</item>
+						</item>
+					</item>
+				</argument>
+				<settings>
+					<componentType>dynamicRows</componentType>
+					<columnsHeader>false</columnsHeader>
+					<addButton>false</addButton>
+					<recordTemplate>record</recordTemplate>
+					<dataScope>data.links</dataScope>
+					<links>
+						<link name="insertData">${ $.provider }:${ $.dataProvider }</link>
+					</links>
+				</settings>
+				<container name="record" component="Magento_Ui/js/dynamic-rows/record">
+					<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="isTemplate" xsi:type="boolean">true</item>
+							<item name="is_collection" xsi:type="boolean">true</item>
+							<item name="componentType" xsi:type="string">container</item>
+							<item name="dataScope" xsi:type="string"/>
+						</item>
+					</argument>
+					<field name="id" component="Magento_Ui/js/form/element/text" formElement="input" sortOrder="10">
+						<settings>
+							<elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+							<dataType>text</dataType>
+							<dataScope>id</dataScope>
+							<label translate="true">ID</label>
+						</settings>
+					</field>
+					<field name="name" formElement="input" component="Magento_Ui/js/form/element/text" sortOrder="20">
+						<settings>
+							<elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+							<dataType>text</dataType>
+							<dataScope>name</dataScope>
+							<label translate="true">Name</label>
+						</settings>
+					</field>
+					<field name="marker_style" formElement="select" sortOrder="30">
+						<settings>
+							<dataType>text</dataType>
+							<label translate="true">Hot Spot Style</label>
+							<dataScope>marker_style</dataScope>
+							<validation>
+								<rule name="required-entry" xsi:type="boolean">false</rule>
+							</validation>
+						</settings>
+						<formElements>
+							<select>
+								<settings>
+									<options class="Olegnax\InstagramFeedPro\Model\Config\Source\MarkerStyleWithCustom"/>
+								</settings>
+							</select>
+						</formElements>
+					</field>
+					<field name="position_left" formElement="input" sortOrder="40">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position_left</dataScope>
+							<label translate="true">Position Left HotSpot</label>
+						</settings>
+					</field>
+					<field name="position_top" formElement="input" sortOrder="50">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position_top</dataScope>
+							<label translate="true">Position Top HotSpot</label>
+						</settings>
+					</field>
+					<field name="image_index" formElement="input" sortOrder="55">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>image_index</dataScope>
+							<label translate="true">Index Image</label>
+						</settings>
+					</field>
+					<field name="position" formElement="input" sortOrder="60">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position</dataScope>
+							<label translate="true">Position</label>
+							<visible>false</visible>
+						</settings>
+					</field>
+					<actionDelete name="actionDelete" sortOrder="70">
+						<settings>
+							<dataType>text</dataType>
+							<label translate="true">Actions</label>
+						</settings>
+					</actionDelete>
+				</container>
+			</dynamicRows>
+		</fieldset>
+		<fieldset name="hotspot" sortOrder="40">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="additionalClasses" xsi:type="string">admin__fieldset-section</item>
+				</item>
+			</argument>
+			<settings>
+				<label translate="true">HotSpots</label>
+			</settings>
+			<container name="button_set" template="ui/form/components/complex">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="label" xsi:type="boolean">false</item>
+						<item name="content" xsi:type="string" translate="true"><![CDATA[<div style="padding:12px 16px; background:#f8f8f8;"><p>You can add independent hotspots to your instagram post image without linking them to the products. <br>Hover/click on image above on this page (Media Gallery block) to check coordinates where you want to place your hotspot.</p></div>]]></item>
+					</item>
+				</argument>
+				<container name="button_hotspot">
+					<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="title" xsi:type="string" translate="true">Add HotSpots</item>
+							<item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+							<item name="actions" xsi:type="array">
+								<item name="0" xsi:type="array">
+									<item name="targetName" xsi:type="string">
+										olegnax_instagramfeedpro_intspost_form.olegnax_instagramfeedpro_intspost_form.related.hotspot.modal
+									</item>
+									<item name="actionName" xsi:type="string">toggleModal</item>
+								</item>
+								<item name="1" xsi:type="array">
+									<item name="targetName" xsi:type="string">
+										olegnax_instagramfeedpro_intspost_form.olegnax_instagramfeedpro_intspost_form.related.hotspot.modal.olegnax_instagramfeedpro_related_hotspot_listing
+									</item>
+									<item name="actionName" xsi:type="string">render</item>
+								</item>
+							</item>
+							<item name="provider" xsi:type="boolean">false</item>
+						</item>
+					</argument>
+				</container>
+			</container>
+			<modal name="modal" component="Magento_Ui/js/modal/modal-component">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="dataScope" xsi:type="string"/>
+						<item name="options" xsi:type="array">
+							<item name="title" xsi:type="string" translate="true">Add HotSpots</item>
+							<item name="buttons" xsi:type="array">
+								<item name="0" xsi:type="array">
+									<item name="text" xsi:type="string" translate="true">Cancel</item>
+									<item name="actions" xsi:type="array">
+										<item name="0" xsi:type="string">closeModal</item>
+									</item>
+								</item>
+								<item name="1" xsi:type="array">
+									<item name="text" xsi:type="string" translate="true">Add Selected HotSpots</item>
+									<item name="class" xsi:type="string">action-primary</item>
+									<item name="actions" xsi:type="array">
+										<item name="0" xsi:type="array">
+											<item name="targetName" xsi:type="string">
+												index=olegnax_instagramfeedpro_related_hotspot_listing
+											</item>
+											<item name="actionName" xsi:type="string">save</item>
+										</item>
+										<item name="1" xsi:type="string">closeModal</item>
+									</item>
+								</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+				<insertListing name="olegnax_instagramfeedpro_related_hotspot_listing" component="Magento_Ui/js/form/components/insert-listing">
+					<settings>
+						<autoRender>false</autoRender>
+						<dataScope>olegnax_instagramfeedpro_related_hotspot_listing</dataScope>
+						<externalProvider>
+							olegnax_instagramfeedpro_related_hotspot_listing.olegnax_instagramfeedpro_related_hotspot_listing_data_source
+						</externalProvider>
+						<selectionsProvider>
+							olegnax_instagramfeedpro_related_hotspot_listing.olegnax_instagramfeedpro_related_hotspot_listing.hotspot_columns.ids
+						</selectionsProvider>
+						<ns>olegnax_instagramfeedpro_related_hotspot_listing</ns>
+						<renderUrl path="mui/index/render"/>
+						<realTimeLink>true</realTimeLink>
+						<dataLinks>
+							<imports>false</imports>
+							<exports>true</exports>
+						</dataLinks>
+						<behaviourType>simple</behaviourType>
+						<externalFilterMode>true</externalFilterMode>
+						<imports>
+							<link name="postId">${ $.provider }:data.post.current_post_id</link>
+						</imports>
+						<exports>
+							<link name="postId">${ $.externalProvider }:data.post.current_post_id</link>
+						</exports>
+					</settings>
+				</insertListing>
+			</modal>
+			<dynamicRows name="hotspot" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid"
+						 template="ui/dynamic-rows/templates/grid" sortOrder="10">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+						<item name="label" xsi:type="boolean">false</item>
+						<item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+						<item name="renderDefaultRecord" xsi:type="boolean">false</item>
+						<item name="deleteButtonLabel" xsi:type="string" translate="true">Remove</item>
+						<item name="dataProvider" xsi:type="string">
+							data.olegnax_instagramfeedpro_related_hotspot_listing
+						</item>
+						<item name="map" xsi:type="array">
+							<item name="id" xsi:type="string">hotspot_id</item>
+							<item name="name" xsi:type="string">name</item>
+							<item name="marker_style" xsi:type="string">marker_style</item>
+							<item name="status" xsi:type="string">status</item>
+						</item>
+					</item>
+				</argument>
+				<settings>
+					<componentType>dynamicRows</componentType>
+					<columnsHeader>false</columnsHeader>
+					<addButton>false</addButton>
+					<recordTemplate>record</recordTemplate>
+					<dataScope>data.links</dataScope>
+					<links>
+						<link name="insertData">${ $.provider }:${ $.dataProvider }</link>
+					</links>
+				</settings>
+				<container name="record" component="Magento_Ui/js/dynamic-rows/record">
+					<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="isTemplate" xsi:type="boolean">true</item>
+							<item name="is_collection" xsi:type="boolean">true</item>
+							<item name="componentType" xsi:type="string">container</item>
+							<item name="dataScope" xsi:type="string"/>
+						</item>
+					</argument>
+					<field name="id" component="Magento_Ui/js/form/element/text" formElement="input" sortOrder="10">
+						<settings>
+							<elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+							<dataType>text</dataType>
+							<dataScope>id</dataScope>
+							<label translate="true">ID</label>
+						</settings>
+					</field>
+					<field name="name" formElement="input" component="Magento_Ui/js/form/element/text" sortOrder="20">
+						<settings>
+							<elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+							<dataType>text</dataType>
+							<dataScope>name</dataScope>
+							<label translate="true">Name</label>
+						</settings>
+					</field>
+					<field name="marker_style" formElement="input" component="Magento_Ui/js/form/element/text" sortOrder="30">
+						<settings>
+							<elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+							<dataType>text</dataType>
+							<dataScope>marker_style</dataScope>
+							<label translate="true">Hot Spot Style</label>
+						</settings>
+					</field>
+					<field name="position_left" formElement="input" sortOrder="40">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position_left</dataScope>
+							<label translate="true">Position Left HotSpot</label>
+						</settings>
+					</field>
+					<field name="position_top" formElement="input" sortOrder="50">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position_top</dataScope>
+							<label translate="true">Position Top HotSpot</label>
+						</settings>
+					</field>
+					<field name="image_index" formElement="input" sortOrder="55">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>image_index</dataScope>
+							<label translate="true">Index Image</label>
+						</settings>
+					</field>
+					<field name="position" formElement="input" sortOrder="60">
+						<settings>
+							<dataType>number</dataType>
+							<dataScope>position</dataScope>
+							<label translate="true">Position</label>
+							<visible>false</visible>
+						</settings>
+					</field>
+					<actionDelete name="actionDelete" sortOrder="70">
+						<settings>
+							<dataType>text</dataType>
+							<label translate="true">Actions</label>
+						</settings>
+					</actionDelete>
+				</container>
+			</dynamicRows>
+		</fieldset>
+	</fieldset>
+</form>

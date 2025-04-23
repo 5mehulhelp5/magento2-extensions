@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="paid" instance="Milople\Depositpayment\Model\Total\Paid" sort_order="500"/>
+            <item name="remaining" instance="Milople\Depositpayment\Model\Total\Remaining" sort_order="600"/>
+            <item name="installment_fee" instance="Milople\Depositpayment\Model\Total\Installmentfee" sort_order="100"/>
+        </group>  
+    </section>
+	<section name="order_invoice">
+		<group name="totals">
+			<item name="installment_fee" instance="Milople\Depositpayment\Model\Invoice\Total\Installmentfee" sort_order="160"/>
+		</group>
+	</section>
+	<section name="order_creditmemo">
+		<group name="totals">
+			<item name="installment_fee" instance="Milople\Depositpayment\Model\Creditmemo\Total\Installmentfee" sort_order="160"/>
+		</group>
+	</section>
+</config>

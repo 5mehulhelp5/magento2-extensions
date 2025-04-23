@@ -1,0 +1,115 @@
+//
+//  Common
+//  _____________________________________________
+
+//noinspection ALL
+& when (@media-common = true) {
+    .owl-nav-sharp(@_ox-instagram-sharp-nav__width: @ox-instagram-sharp-nav-s__width, 
+        @_ox-instagram-sharp-nav__height: @ox-instagram-sharp-nav-s__height ){
+        button{
+            width:@_ox-instagram-sharp-nav__width;
+            height: @_ox-instagram-sharp-nav__height;
+            padding: 0;
+            color:#ffffff;
+            background: #000000;
+            box-shadow: none;
+            border-radius: 0;
+            border: none;
+            span{
+                line-height: 15px;
+                height: 15px;
+                width: 8px;
+                color: transparent;
+                display: inline-block;
+                position: relative;
+                &:after,
+                &:before{
+                    content: ' ';
+                    width: 2px;
+                    height: 9px;
+                    display: block;
+                    background: #ffffff;
+                    position: absolute;
+                    transform: rotate(45deg);
+                    left: 3px;
+                    top: 0px;
+                }
+                &:after{
+                    transform: rotate(-45deg);
+                    top: 6px;
+                }
+            }
+            &:hover{
+                background:#ffffff;
+                color: #000000;
+                span{
+                    &:after,
+                    &:before{
+                        background: #000000;
+                    }
+                }
+            }                        
+            &.owl-next{
+                span{
+                    transform: scale(-1);
+                }
+            }
+        }
+    }
+    .ox-inst__nav-sharp{
+        .ox-instagram__media {
+            .owl-carousel{
+                .owl-nav{
+                    .owl-nav-sharp();
+                }
+            }
+        }
+        .ox-instagram-items{
+            &.owl-carousel{
+                > .owl-nav{
+                    .owl-nav-sharp(@ox-instagram-sharp-nav__width, @ox-instagram-sharp-nav__height);
+                }
+            }
+        }
+    }
+    .ox-inst__a-nav-sharp{
+        .ox-instagram-item{
+            .owl-carousel{
+                .owl-nav{
+                    .owl-nav-sharp();
+                }
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .ox-inst__nav-sharp{
+        .ox-instagram__media {
+            .owl-carousel{
+                .owl-nav{
+                    top: ~"calc(50% - 28px)";
+                    button{
+                        width: @ox-instagram-sharp-nav__width;
+                        height: @ox-instagram-sharp-nav__height;
+                        span{
+                            line-height: 20px;
+                            height: 20px;
+                            width: 9px;
+                            &:after,
+                            &:before{
+                                content: ' ';
+                                height: 14px;
+                                left: 3px;
+                                top: -1px;
+                            }
+                            &:after{
+                                top: 8px;
+                            }
+                        }                        
+                    }
+                }
+            }
+        }
+    }
+}
+

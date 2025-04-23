@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Preferences -->
+    <preference for="MageWorx\Checkout\Api\CheckoutConfigInterface" type="MageWorx\Checkout\Helper\CheckoutConfig" />
+    <preference for="MageWorx\Checkout\Api\CheckoutTypeInterface" type="MageWorx\Checkout\Model\Onepage" />
+    <!-- Plugins -->
+    <type name="Magento\Checkout\Block\Cart">
+        <plugin name="mageworx_checkout_change_checkout_url_in_cart_grid"
+                type="MageWorx\Checkout\Plugin\Cart"
+                sortOrder="10"
+                disabled="false" />
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="mageworx_checkout_change_checkout_url"
+                type="MageWorx\Checkout\Plugin\Sidebar"
+                sortOrder="10"
+                disabled="false" />
+    </type>
+    <type name="Magento\Checkout\Block\Onepage\Link">
+        <plugin name="mageworx_checkout_change_checkout_url_in_cart"
+                type="MageWorx\Checkout\Plugin\Cart"
+                sortOrder="10"
+                disabled="false" />
+    </type>
+    <!-- Update Checkout Config, add new data -->
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="mageworx_checkout_config_provider" xsi:type="object">MageWorx\Checkout\Model\CheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Checkout Layout Processor -->
+    <type name="Magento\Checkout\Block\Onepage">
+        <plugin name="mageworx_checkout_add_own_layout_processor_after_all"
+                type="MageWorx\Checkout\Plugin\AddLayoutProcessorAfterAll"
+                sortOrder="10000"
+                disabled="false" />
+    </type>
+    <!-- Merge and bundle js and css on checkout page -->
+    <type name="Magento\Framework\View\Asset\ConfigInterface">
+        <plugin name="mageworx_checkout_merge_bundle_js_css"
+                type="MageWorx\Checkout\Plugin\MergeBundleJsCss"
+                sortOrder="100"
+                disabled="false" />
+    </type>
+    <!-- Grouped shipping address fields -->
+<!--    <type name="MageWorx\Checkout\Block\Checkout\Onepage\LayoutProcessor">-->
+<!--        <arguments>-->
+<!--            <argument name="addressFieldPairs" xsi:type="array">-->
+<!--                <item name="firstname-lastname" xsi:type="array">-->
+<!--                    <item name="sortOrder" xsi:type="number">0</item>-->
+<!--                    <item name="fields" xsi:type="array">-->
+<!--                        <item name="0" xsi:type="string">firstname</item>-->
+<!--                        <item name="1" xsi:type="string">lastname</item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--                <item name="city-postcode" xsi:type="array">-->
+<!--                    <item name="sortOrder" xsi:type="number">200</item>-->
+<!--                    <item name="fields" xsi:type="array">-->
+<!--                        <item name="0" xsi:type="string">city</item>-->
+<!--                        <item name="1" xsi:type="string">postcode</item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--                <item name="company-telephone" xsi:type="array">-->
+<!--                    <item name="sortOrder" xsi:type="number">300</item>-->
+<!--                    <item name="fields" xsi:type="array">-->
+<!--                        <item name="0" xsi:type="string">company</item>-->
+<!--                        <item name="1" xsi:type="string">telephone</item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+</config>

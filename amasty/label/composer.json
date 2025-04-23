@@ -1,0 +1,28 @@
+{
+    "name": "amasty/label",
+    "description": "Product Labels by Amasty",
+    "require": {
+        "php": ">=7.3.0",
+        "amasty/base": ">=1.17.0",
+        "magento/module-catalog": "*",
+        "amasty/cron-schedule-list": "*",
+        "amasty/module-label-cache-cleaner-for-qty-variable": "*"
+    },
+    "suggest": {
+        "amasty/product-labels-graphql": "Install amasty/product-labels-graphql module to activate GraphQl and Product Labels integration.",
+        "amasty/module-label-mftf-3": "Install module-label-mftf-3 module to implement mftf-tests for Magento 2.4.0+ versions."
+    },
+    "type": "magento2-module",
+    "version": "2.5.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Label\\": ""
+        }
+    }
+}

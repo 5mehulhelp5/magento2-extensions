@@ -1,0 +1,24 @@
+//
+//  Amasty Label Extensions
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .am-labels-rule {
+        /* phpcs:ignore Magento2.Less.TypeSelectors.UpperCaseSelector */
+        .rule-chooser [id^='skuChooserGrid'] {
+            ._clickable {
+                .col-in_products:first-child {
+                    input.checkbox {
+                        height: 1.6rem;
+                        margin: 0;
+                        width: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+}

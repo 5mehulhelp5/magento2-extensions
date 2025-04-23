@@ -1,0 +1,23 @@
+//
+//  Top Menu Hamburger Type
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-topmenu.-hamburger {
+        & {
+            padding: 0 @ammenu__indent__xl;
+        }
+
+        &:not(.-sticky) .ammenu-main-container {
+            max-width: @ammenu-menu__max-width;
+        }
+
+        .ammenu-main-container {
+            padding: 0;
+        }
+    }
+}

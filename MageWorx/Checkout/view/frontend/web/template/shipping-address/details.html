@@ -1,0 +1,65 @@
+<div class="form"
+     data-bind="visible: isAddressDetailsVisible && currentShippingAddress()">
+    <div class="form__field">
+        <div class="radiogroup radiogroup--size-fullwidth">
+            <div class="radio radiogroup__header radiogroup__header--side-top radiogroup__header--side-bottom radiogroup__header--is-selected">
+                <input class="radio__control radiogroup__control"
+                       type="radio"
+                       id="default-shipping"
+                       name="default-shipping"
+                       checked="checked" />
+                <label class="radio__label radiogroup__label" for="default-shipping">
+                    <div class="radio__box"></div>
+                    <div class="radiogroup__label-item">
+                        <span class="text"><!-- ko i18n: 'Default Shipping Address'--><!-- /ko --></span>
+                    </div>
+                </label>
+                <div class="radiogroup__content">
+                    <div class="form form--condensed">
+                        <div class="form__field">
+                            <div class="radiogroup__label-item">
+                                <span class="text">
+                                    <text args="currentShippingAddress().prefix"></text>
+                                    <text args="currentShippingAddress().firstname"></text>
+                                    <text args="currentShippingAddress().middlename"></text>
+                                    <text args="currentShippingAddress().lastname"></text>
+                                    <text args="currentShippingAddress().suffix"></text>
+                                    <br/>
+                                    <text args="_.values(currentShippingAddress().street).join(', ')"></text>
+                                    <br/>
+                                    <text args="currentShippingAddress().city "></text>
+                                    , <span text="currentShippingAddress().region"></span>
+                                    <text args="currentShippingAddress().postcode"></text>
+                                    <br/>
+                                    <text args="getCountryName(currentShippingAddress().countryId)"></text>
+                                    <br/>
+                                    <a if="currentShippingAddress().telephone" attr="'href': 'tel:' + currentShippingAddress().telephone"
+                                       text="currentShippingAddress().telephone"></a><br/>
+
+                                    <each args="data: currentShippingAddress().customAttributes, as: 'element'">
+                                        <if args="typeof element === 'object'">
+                                            <if args="element.label">
+                                                <text args="element.label"></text>
+                                            </if>
+                                            <ifnot args="element.label">
+                                                <if args="element.value">
+                                                    <text args="element.value"></text>
+                                                </if>
+                                            </ifnot>
+                                        </if>
+                                        <if args="typeof element === 'string'">
+                                            <text args="element"></text>
+                                        </if>
+                                        <br/>
+                                    </each>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- ko template: 'MageWorx_Checkout/shipping-address/actions' --><!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\MegaMenuLite\Api\Data\Menu\ItemInterface" type="Amasty\MegaMenu\Model\Menu\Item" />
+    <preference for="Amasty\MegaMenuLite\Api\ItemRepositoryInterface" type="Amasty\MegaMenu\Model\Repository\ItemRepository" />
+    <preference for="Amasty\MegaMenuLite\Model\OptionSource\UrlKey" type="Amasty\MegaMenu\Model\OptionSource\UrlKey" />
+    <preference for="Amasty\MegaMenuLite\Model\Menu\GetItemsCollection" type="\Amasty\MegaMenu\Model\Menu\GetItemsCollection" />
+    <preference for="Amasty\MegaMenu\Api\LinkRepositoryInterface" type="Amasty\MegaMenuLite\Model\Repository\LinkRepository" />
+    <preference for="Amasty\MegaMenu\Api\ItemRepositoryInterface" type="Amasty\MegaMenu\Model\Repository\ItemRepository" />
+
+    <type name="Amasty\MegaMenuLite\Model\Provider\FieldsByStore">
+        <arguments>
+            <argument name="fieldsByStoreCustom" xsi:type="array">
+                <item name="general" xsi:type="array"/>
+                <item name="am_mega_menu_fieldset" xsi:type="array">
+                    <item name="content" xsi:type="string">content</item>
+                    <item name="hide_content" xsi:type="string">hide_content</item>
+                    <item name="desktop_font" xsi:type="string">desktop_font</item>
+                    <item name="width" xsi:type="string">width</item>
+                    <item name="width_value" xsi:type="string">width_value</item>
+                </item>
+                <item name="am_mega_menu_mobile_fieldset" xsi:type="array">
+                    <item name="mobile_font" xsi:type="string">mobile_font</item>
+                </item>
+            </argument>
+            <argument name="fieldsByStoreCategory" xsi:type="array">
+                <item name="am_mega_menu_fieldset" xsi:type="array">
+                    <item name="width" xsi:type="string">width</item>
+                    <item name="width_value" xsi:type="string">width_value</item>
+                    <item name="column_count" xsi:type="string">column_count</item>
+                    <item name="content" xsi:type="string">content</item>
+                    <item name="label" xsi:type="string">label</item>
+                    <item name="label_text_color" xsi:type="string">label_text_color</item>
+                    <item name="label_background_color" xsi:type="string">label_background_color</item>
+                    <item name="icon" xsi:type="string">icon</item>
+                    <item name="submenu_type" xsi:type="string">submenu_type</item>
+                    <item name="subcategories_position" xsi:type="string">subcategories_position</item>
+                    <item name="hide_content" xsi:type="string">hide_content</item>
+                    <item name="desktop_font" xsi:type="string">desktop_font</item>
+                </item>
+                <item name="am_mega_menu_mobile_fieldset" xsi:type="array">
+                    <item name="mobile_font" xsi:type="string">mobile_font</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\Menu\Frontend\ModifyNodeData">
+        <arguments>
+            <argument name="contentResolver" xsi:type="object">Amasty\MegaMenu\Model\Menu\Content\Resolver</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\ResourceModel\Menu\Link\Collection">
+        <plugin name="Amasty_MegaMenu::modifyUrl"
+                type="Amasty\MegaMenu\Plugin\MegaMenuLite\Model\ResourceModel\Menu\Link\Collection\ResolveUrlPlugin"/>
+    </type>
+</config>

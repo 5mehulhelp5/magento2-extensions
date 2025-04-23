@@ -1,0 +1,26 @@
+//
+//  Amasty Sidebar Menu
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@ammenu-mobile-menu__width: 90%;
+@ammenu-mobile-menu__height: 50px;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections {
+        &.-animation-bounce_in_left {
+            .ammenu-animation__bounceInLeft();
+        }
+
+        &.-animation-slide_in_left {
+            .ammenu-animation__slideInLeft();
+        }
+    }
+}

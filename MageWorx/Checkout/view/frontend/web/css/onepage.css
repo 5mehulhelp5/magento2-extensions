@@ -1,0 +1,59 @@
+/** Header */
+.mageworx-checkout-header {
+    min-height: 137px;
+    background: #3367EE;
+    color: white;
+    padding-left: 120px;
+    padding-top: 39px;
+}
+
+.mw-chk-breadcrumb-link, .mw-chk-breadcrumb-link:hover, .mw-chk-breadcrumb-link:visited {
+    color: white;
+}
+
+.mageworx-checkout-header .mw-chk-title {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 54px;
+    line-height: 59px;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+}
+
+.mageworx-checkout-header .mw-chk-breadcrumbs {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    opacity: 0.7;
+    padding-bottom: 37px;
+}
+
+/** Main content */
+.mageworx_checkout-onepage-index > .page-wrapper {
+    padding: 60px 100px 60px 120px;
+}
+
+@media screen and (min-width: 768px) {
+    .mageworx_checkout-onepage-index > .page-wrapper > .page-main {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .mageworx_checkout-onepage-index > .page-wrapper .page-title-wrapper {
+        max-width: 63%;
+    }
+}
+
+.mageworx_checkout-onepage-index > .page-wrapper .page-title-wrapper .page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1px;
+    color: #191919;
+    word-break: break-word;
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageworx_checkout>
+            <main>
+                <enabled>0</enabled>
+                <checkout_page_title><![CDATA[Checkout]]></checkout_page_title>
+                <order_comment_enabled>0</order_comment_enabled>
+                <order_comment_title><![CDATA[Comment for your order]]></order_comment_title>
+                <email_subscription_enabled>0</email_subscription_enabled>
+                <email_subscription_title><![CDATA[I want to subscribe for newsletters]]></email_subscription_title>
+                <create_account_enabled>0</create_account_enabled>
+                <create_account_forced>0</create_account_forced>
+                <create_account_checked>0</create_account_checked>
+                <create_account_title><![CDATA[I want to create an account]]></create_account_title>
+                <use_custom_shipping_address_template>1</use_custom_shipping_address_template>
+                <merge_js_css>0</merge_js_css>
+            </main>
+            <coupon_code>
+                <visible>1</visible>
+                <tooltip><![CDATA[]]></tooltip>
+            </coupon_code>
+            <labels>
+                <shipping_address><![CDATA[Shipping Address]]></shipping_address>
+                <billing_address><![CDATA[Billing Address]]></billing_address>
+                <shipping_methods><![CDATA[Shipping Methods]]></shipping_methods>
+                <billing_methods><![CDATA[Payment Methods]]></billing_methods>
+                <discount><![CDATA[Discounts]]></discount>
+                <discount_code_label><![CDATA[Enter discount code]]></discount_code_label>
+                <discount_field_placeholder><![CDATA[Enter discount code]]></discount_field_placeholder>
+                <order_summary><![CDATA[Order Summary]]></order_summary>
+                <place_order_button><![CDATA[Agree & Place order]]></place_order_button>
+            </labels>
+            <checkout_agreements>
+                <message><![CDATA[By clicking 'Agree & place order' you agree to our Terms & Conditions and Privacy Policy]]></message>
+            </checkout_agreements>
+        </mageworx_checkout>
+    </default>
+</config>

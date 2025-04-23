@@ -1,0 +1,169 @@
+.radiogroup {
+    display: inline-flex;
+    flex-direction: column;
+
+    &--size-fullwidth {
+        width: 100%;
+    }
+
+    &__header {
+        flex: 1 1 auto;
+
+        & + & {
+            margin: -1px 0 0 0;
+        }
+
+        .radiogroup {
+            &__label {
+                width: 100%;
+                .get-rem(padding-top, 20);
+                .get-rem(padding-right, 15);
+                .get-rem(padding-bottom, 10);
+                .get-rem(padding-left, 45);
+                .get-rem(min-height, 40);
+                .get-rem(line-height, 20);
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background-color: transparent;
+                    border: 1px solid @color-zircon;
+                    z-index: -1;
+                }
+
+                .radio__box {
+                    .get-rem(left, 10);
+                    .get-rem(top, 20);
+                    transform: none;
+                }
+            }
+
+            &__label-item {
+                img {
+                    max-height: 100%;
+                    width: auto;
+                }
+            }
+
+            &__label-item.method-image {
+                margin-top: -1rem;
+                margin-bottom: 0;
+                max-height: 6rem;
+                overflow: hidden;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            &__label-item.method-title {
+                min-width: 45%;
+                max-width: 45%;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &--is-selected {
+            .radiogroup {
+                &__content {
+                    display: block;
+                }
+            }
+
+            & > .radio {
+                &__label {
+                    &::after {
+                        border-color: @color-accent;
+                    }
+                }
+            }
+
+            & + .radiogroup__header {
+                .radio {
+                    &__label {
+                        &::after {
+                            border-top: 0;
+                            top: 2px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &--side-top {
+            .radio {
+                &__label {
+                    &::after {
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
+                    }
+                }
+            }
+        }
+
+        &--side-bottom {
+            .radio {
+                &__label {
+                    &::after {
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    &__label {
+        display: flex;
+        justify-content: space-between;
+        /*flex-direction: column;*/
+        flex-wrap: nowrap;
+        cursor: pointer;
+        margin-left: -3px;
+        margin-right: -3px;
+
+        @media @screen-xs {
+            flex-direction: row;
+        }
+
+        &-item {
+            flex: 1;
+            margin-bottom: 10px;
+            padding-left: 3px;
+            padding-right: 3px;
+
+            & > .credit-card {
+                padding-left: 5px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &--size-double {
+                flex-grow: 2;
+            }
+
+            &--alignment-right {
+                text-align: left;
+
+                @media @screen-xs {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    &__content {
+        display: none;
+        .get-rem(padding-top, 10);
+        .get-rem(padding-right, 15);
+        .get-rem(padding-bottom, 10);
+        .get-rem(padding-left, 45);
+    }
+}

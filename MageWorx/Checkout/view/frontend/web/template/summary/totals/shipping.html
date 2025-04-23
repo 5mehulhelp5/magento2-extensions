@@ -1,0 +1,74 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: quoteIsVirtual == 0 -->
+    <!-- ko if: isBothPricesDisplayed() -->
+        <div class="summary__field">
+            <div class="summary__cell">
+                <p class="text text--variation-strong text--variation-distant" data-bind="text: title+ ' ' + excludingTaxMessage"></p>
+                <!-- ko if: haveToShowCoupon() -->
+                    <p class="text text--variation-subdued" data-bind="text: getCouponDescription()"></p>
+                <!-- /ko -->
+                <p class="text text--variation-subdued" data-bind="text: getShippingMethodTitle()"></p>
+            </div>
+            <div class="summary__cell summary__cell--content-right">
+                <p class="text text--variation-strong" data-bind="text: getExcludingValue(), attr:{'data-label': title}"></p>
+            </div>
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div class="summary__field">
+            <div class="summary__cell">
+                <p class="text text--variation-strong text--variation-distant" data-bind="text: title+ ' ' + includingTaxMessage"></p>
+                <!-- ko if: haveToShowCoupon() -->
+                    <p class="text text--variation-subdued" data-bind="text: getCouponDescription()"></p>
+                <!-- /ko -->
+                <p class="text text--variation-subdued" data-bind="text: getShippingMethodTitle()"></p>
+            </div>
+            <div class="summary__cell summary__cell--content-right">
+                <p class="text text--variation-strong" data-bind="text: getIncludingValue(), attr:{'data-label': title}"></p>
+            </div>
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+    <!-- ko if: isIncludingDisplayed() -->
+        <div class="summary__field">
+            <div class="summary__cell">
+                <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+                <!-- ko if: haveToShowCoupon() -->
+                <p class="text text--variation-subdued" data-bind="text: getCouponDescription()"></p>
+                <!-- /ko -->
+                <p class="text text--variation-subdued" data-bind="text: getShippingMethodTitle()"></p>
+            </div>
+            <div class="summary__cell summary__cell--content-right">
+                <p class="text text--variation-strong" data-bind="text: getIncludingValue(), attr:{'data-label': title}"></p>
+            </div>
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+    <!-- ko if: isExcludingDisplayed() -->
+        <div class="summary__field">
+            <div class="summary__cell">
+                <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+                <!-- ko if: haveToShowCoupon() -->
+                <p class="text text--variation-subdued" data-bind="text: getCouponDescription()"></p>
+                <!-- /ko -->
+                <p class="text text--variation-subdued" data-bind="text: getShippingMethodTitle()"></p>
+            </div>
+            <div class="summary__cell summary__cell--content-right">
+                <p class="text text--variation-strong" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+            </div>
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+<!-- /ko -->

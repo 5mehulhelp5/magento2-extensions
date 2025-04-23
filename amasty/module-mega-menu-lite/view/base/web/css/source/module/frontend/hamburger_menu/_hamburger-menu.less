@@ -1,0 +1,69 @@
+//
+//  Hamburger Type
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@ammenu-sidebar__max-width: 355px;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-sidebar.-left-menu {
+        & {
+            max-width: @ammenu-sidebar__max-width;
+            overflow: visible;
+        }
+
+        .ammenu-link:not(.-active) .ammenu-icon-block.-toggle {
+            transform: rotate(180deg);
+        }
+
+        .ammenu-items.-root {
+            & {
+                .ammenu-scrollbar();
+
+                height: ~'calc(100% - 120px)';
+            }
+
+            > .ammenu-item:not(:last-child) > .ammenu-link {
+                border-bottom: 1px solid;
+            }
+        }
+
+        // PageBuilder styling for hamburger
+        .pagebuilder-column {
+            min-width: min-content;
+            min-width: 120px;
+        }
+
+        [data-content-type='html'],
+        [data-content-type='video'] {
+            min-width: 120px;
+        }
+
+        .ammenu-submenu-wrapper {
+            & {
+                border-radius: 0 10px 10px 0;
+                box-shadow: 6px 2px 6px rgba(0, 0, 0, .17), inset 8px 0 8px -7px rgba(0, 0, 0, .3);
+                left: @ammenu-sidebar__max-width;
+                margin: 0;
+                max-width: 64vw;
+                position: fixed;
+                width: fit-content;
+            }
+
+            &.-full {
+                min-width: 70vw;
+            }
+
+            &.-auto {
+                width: max-content;
+            }
+        }
+    }
+}

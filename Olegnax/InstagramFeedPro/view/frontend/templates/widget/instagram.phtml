@@ -1,0 +1,305 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2024 Olegnax (http://olegnax.com/). All rights reserved.
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Olegnax\InstagramFeedPro\Block\Widget\Instagram;
+use Olegnax\InstagramFeedPro\Helper\Helper;
+use Olegnax\InstagramFeedPro\Model\Config\Source\ItemStyle;
+use Olegnax\InstagramFeedPro\Model\Config\Source\MediaType;
+use Olegnax\InstagramFeedPro\Model\Config\Source\VideoBehaviour;
+use Olegnax\InstagramFeedPro\Model\IntsPost;
+
+
+/** @var Instagram $block */
+/** @var Escaper $escaper */
+
+if ($exist = ($block->getImagesCollection() && $block->getImagesCollection()->getSize())) :
+    $items = $block->getImagesCollection()->getItems();
+	$feedId = $escaper->escapeHtmlAttr($block->getUnderlineNameInLayout());
+    /** @var Helper $helper */
+	$helper = $this->helper( Helper::class );
+	$feedAppearance = $helper->getSystemValue('olegnax_instagram_pro_appearance/feed');
+    $format = $block->getDateFormat() ?: IntlDateFormatter::SHORT;
+    $classes = [];
+    $classes[] = 'columns-' . $escaper->escapeHtmlAttr($this->getColumnsDesktop());
+    $classes[] = 'columns-m-' . $escaper->escapeHtmlAttr($this->getColumnsTablet());
+    $classes[] = 'columns-s-' . $escaper->escapeHtmlAttr($this->getColumnsMobile());
+	$classes[] = 'title-align--' . $this->getTitleAlign();
+	$titleTag = $this->getTitleTag() ?: 'h2';
+	$mediaIconStyle = $feedAppearance['media_icons_style'] ?: '-f';
+	$navPos = $feedAppearance['slider_nav_position'];
+    $showDate = $this->getShowDate();
+    $showCaption = $this->getShowCaption();
+    $showLikes = $this->getShowLikes();
+    $showComments = $this->getShowComments();
+	$showZero = $this->getShowZero();
+    $showButton = $this->getShowButton();
+    $buttonText = $escaper->escapeHtmlAttr($this->getButtonText());
+	$buttonClasses = $this->getButtonClasses();
+	$showModal = $this->getShowModal();
+	$showTitle = $this->getShowTitle();
+	$titleText =  $escaper->escapeHtml($this->getTitleText()); 
+	$imgHover = $this->getImageHover();
+	$videoAction = $this->getVideoBehaviour();
+	$showMediaType =  $this->getShowMediaType();
+	$gridLayout =  $this->getGridLayout();
+	$imagesOnly = $this->getImagesOnly();
+	$carousel = $this->getCarousel();
+	if($this->getAlbumVA()){
+		$classes[] = '-a-v-carousel';
+	}
+	if($this->getImageFit()){
+		$classes[] = '-image-fit-' . $this->getImageFit();
+	}
+	if($this->getImageCircle()){
+		$classes[] = '-img-circle';
+	}
+	if(!$carousel && $gridLayout) {
+		$classes[] = '-l-' . $gridLayout;
+	}
+	if($navPos){
+		$classes[] = 'ox-inst__nav-' . $navPos;
+	}
+	if(	$imgHover){
+		 $classes[] = '-img-h-' . $imgHover;
+	}
+	$itemsHover = $this->getItemsHover();
+	if( $itemsHover ){
+		 $classes[] = '-item-h-' . $itemsHover;
+	}
+	$itemStyle = $this->getItemStyle();
+	if( $itemStyle ){
+		 $classes[] = '-s-' . $itemStyle;
+	}
+	if( $this->getStretchItems() ){
+	$classes[] = '-stretch';
+	}
+	if( $this->getBoxed()){
+		$classes[] = '-boxed';
+	}
+	if($carousel){
+		if($feedAppearance['slider_nav_style']) {
+			$classes[] = 'ox-inst__nav-' . $feedAppearance['slider_nav_style'];
+		}
+		if($feedAppearance['slider_dots_style']) {
+			$classes[] = 'ox-inst__dots-' . $feedAppearance['slider_dots_style'];
+		}
+		if($this->getDots()) {
+			$classes[] = 'dots-on';
+			$classes[] = 'dots-align--' . $this->getDotsAlign();
+		}
+	}
+	if(!$imagesOnly){
+		if($feedAppearance['album_slider_dots_style']) {
+			$classes[] = 'ox-inst__a-dots-' . $feedAppearance['album_slider_dots_style'];
+		}
+		if($feedAppearance['album_slider_nav_style']) {
+			$classes[] = 'ox-inst__a-nav-' . $feedAppearance['album_slider_nav_style'];
+		}
+	}
+	
+	$classes[] = 	$escaper->escapeHtmlAttr($this->getCustomClass());
+	$itemLinkAttr = '';
+    ?>
+
+	<div id="ox_<?= $feedId ?>"
+		 class="ox-instagram-feed block widget <?= implode(' ', $classes) ?>"
+        <?php if ($showModal) { ?> data-mage-init='{"OxInstagramFeedModal":<?= $block->getConfig([]) ?>}'<?php } ?>>
+		<?php if($titleText != '' && $showTitle) : ?>
+		<div class="ox-instagram__title"><<?= $titleTag ?>><?= $titleText ?></<?= $titleTag ?>></div>
+		<?php endif; ?>
+		<div class="ox-instagram-items <?php if ($carousel) { ?>owl-carousel<?php } ?>" 
+			 <?php if ($carousel) { ?> data-role="product-owlCarousel" data-mage-init='{"OXowlCarousel":<?= $block->getCarouselOptions() ?>}'<?php } ?>>
+            <?php
+            /** @var IntsPost $_item */
+            foreach ($items as $_item) : ?>
+				<?php
+					$itemClass = '';
+					if(MediaType::VIDEO === $_item->getMediaType() && !$imagesOnly){
+						if($videoAction == VideoBehaviour::CLICK && !$showModal ){
+							$itemClass = '-v-click';
+						}
+						if($videoAction == VideoBehaviour::HOVER ){
+							$itemClass = '-v-hover';
+						}
+					}
+				?>
+				<div class="ox-instagram-item <?= $itemClass ?>"
+					 id="<?= $escaper->escapeHtmlAttr($_item->getFullId()); ?>">
+					<?php
+						 $mediaType = $_item->getMediaType();
+						if ($showModal) {
+							$itemLinkAttr = 'data-instagram-modal=\'' . $block->getJSON($_item) . '\'';
+						} else {
+							if($mediaType == MediaType::CAROUSEL_ALBUM && !$imagesOnly){
+								$itemLinkAttr = ''; 
+							} else{
+								$itemLinkAttr = 'href="' . $escaper->escapeUrl($_item->getURL()) . '" target="_blank"'; 
+							}
+						}
+						if($mediaType == MediaType::CAROUSEL_ALBUM && !$imagesOnly){
+							$innerTag = 'div';
+						} else{
+							$innerTag = 'a';
+						}
+					?>
+					<<?= $innerTag ?> class="inner" <?= $itemLinkAttr ?>>
+						<div class="media-wrapper">
+							<?php echo $block->getMedia($_item)->toHtml(); ?>
+							<?php
+							if(($mediaType ==  MediaType::VIDEO || $mediaType == MediaType::CAROUSEL_ALBUM) && $showMediaType){ ?>
+								<span class="-media-type ox-i-<?= strtolower($mediaType) ?><?= $mediaIconStyle ?>" aria-label="<?= strtolower($mediaType) ?>"></span>
+							<?php } ?>
+							<?php if($this->getOverlay()) { ?>
+								<div class="-overlay"></div>
+							<?php } ?>
+							<?php if($mediaType == MediaType::VIDEO && $videoAction == 'click' && !$showModal && !$imagesOnly): ?>
+									<div aria-label="<?= $escaper->escapeHtmlAttr(__('Play Video')) ?>" class="ox-i-video ox-inst__video-btn"></div>
+							<?php endif; ?>
+							<?php if ( $itemStyle === ItemStyle::LAYOUT_OVERLAY2 && ($mediaType != MediaType::CAROUSEL_ALBUM || $imagesOnly) ) : ?>
+								<?php if(!($mediaType == MediaType::VIDEO && $videoAction == 'click' && !$showModal && !$imagesOnly)): ?>
+									<div class="-content -c-over">
+										<div class="-scroll">
+										<?php if ($showCaption): ?>
+											<span class="caption"><?= $_item->getCaption() ?></span>
+										<?php endif; ?>
+										<?php if ($showDate): ?>
+											<span class="date">
+											<?= $block->formatDate($_item->getTimestamp(), $format) ?>
+											</span>
+										<?php endif; ?>
+										<?php if ($showButton && $buttonText): ?>
+											<button class="<?= $buttonClasses ?>">
+											<span><?= $buttonText ?></span>
+											</button>
+										<?php endif; ?>
+										</div>
+									</div>
+								<?php endif; ?>
+							<?php endif; ?>
+						</div>
+						<?php if ( $itemStyle === ItemStyle::LAYOUT_OVERLAY && ($mediaType != MediaType::CAROUSEL_ALBUM || $imagesOnly) ) : ?>
+							<?php if(!($mediaType == MediaType::VIDEO && $videoAction == 'click' && !$showModal && !$imagesOnly)): ?>
+								<div class="-content -c-over">
+									<div class="-scroll">
+									<?php if ($showCaption): ?>
+										<span class="caption"><?= $_item->getCaption() ?></span>
+									<?php endif; ?>
+									<?php if ($showDate): ?>
+										<span class="date">
+										<?= $block->formatDate($_item->getTimestamp(), $format) ?>
+										</span>
+									<?php endif; ?>
+										<div class="actions">
+										<?php if($showLikes) : ?>
+										<span class="ox-i action likes">
+											<?php if (0 < $_item->getLikeCount() || ($showZero && 0 == $_item->getLikeCount())): ?>
+												<span><?= $_item->getLikeCount() ?></span>
+											<?php endif; ?>
+										</span>
+										<?php endif; ?>
+										<?php if($showComments) : ?>
+											<span class="ox-i action comments">
+												<?php if (0 < $_item->getCommentsCount() || ($showZero && 0 == $_item->getCommentsCount())): ?>
+													<span><?= $_item->getCommentsCount() ?></span>
+												<?php endif; ?>
+											</span>
+										<?php endif; ?>
+										</div>
+									<?php if ($showButton && $buttonText): ?>
+										<button class="<?= $buttonClasses ?>">
+										<span><?= $buttonText ?></span>
+										</button>
+									<?php endif; ?>
+									</div>
+								</div>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php if ( $itemStyle === ItemStyle::LAYOUT_BELOW || $itemStyle === ItemStyle::LAYOUT_BELOW2 ) : ?>
+								<div class="-content -below">
+									<?php if ($showCaption): ?>
+										<span class="caption"><?= $_item->getCaption() ?></span>
+									<?php endif; ?>
+									<?php if ($showButton && $buttonText): ?>
+										<button class="<?= $buttonClasses ?>">
+										<span><?= $buttonText ?></span>
+										</button>
+									<?php endif; ?>
+									<div class="actions">
+										<?php if ($showDate): ?>
+											<span class="date">
+											<?= $block->formatDate($_item->getTimestamp(), $format) ?>
+											</span>
+										<?php endif; ?>
+										<?php if($showLikes) : ?>
+											<span class="ox-i action likes">
+												<?php if (0 < $_item->getLikeCount() || ($showZero && 0 == $_item->getLikeCount())): ?>
+													<span><?= $_item->getLikeCount() ?></span>
+												<?php endif; ?>
+											</span>
+										<?php endif; ?>
+										<?php if($showComments) : ?>
+											<span class="ox-i action comments">
+												<?php if (0 < $_item->getCommentsCount() || ($showZero && 0 == $_item->getCommentsCount())): ?>
+													<span><?= $_item->getCommentsCount() ?></span>
+												<?php endif; ?>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
+						
+						<?php endif; ?>
+						<?php if ( $itemStyle === ItemStyle::LAYOUT_OVERLAY2 ) : ?>
+								<div class="-content -below">
+									<div class="actions">
+										<?php if($showLikes) : ?>
+											<span class="ox-i action likes">
+												<?php if (0 < $_item->getLikeCount() || ($showZero && 0 == $_item->getLikeCount())): ?>
+													<span><?= $_item->getLikeCount() ?></span>
+												<?php endif; ?>
+											</span>
+										<?php endif; ?>
+										<?php if($showComments) : ?>
+											<span class="ox-i action comments">
+												<?php if (0 < $_item->getCommentsCount() || ($showZero && 0 == $_item->getCommentsCount())): ?>
+													<span><?= $_item->getCommentsCount() ?></span>
+												<?php endif; ?>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
+						
+						<?php endif; ?>
+					</<?= $innerTag ?>>
+
+					<!-- FORIX Custom -->
+					<div class="icon-circle">
+						<i class="fa fa-instagram"></i>
+					</div>
+					<a href="#" class="explore-btn action primary">EXPLORE PACKAGE</a>
+					<!-- End FORIX Custom -->
+				</div>
+            <?php endforeach ?>
+		</div>
+        <?= $block->getPagerHtml() ?>
+	</div>
+<?php
+$css = $block->getStyle($feedId);
+if($css){
+	if(isset($secureRenderer)){
+		echo /* @noEscape */ $secureRenderer->renderTag('style', [], $css, false);
+	} else{
+		echo '<style type="text/css">' . $css . '</style>';
+	}
+}
+?>
+<?= $block->createVideoJS() ?>
+<?php else: ?>
+<span data-oxinst-hide></span>
+<?php endif; ?>

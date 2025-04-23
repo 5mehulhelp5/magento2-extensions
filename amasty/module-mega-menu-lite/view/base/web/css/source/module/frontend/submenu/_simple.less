@@ -1,0 +1,68 @@
+//
+//  Submenu type 'Simple' styles
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@ammenu-submenu__padding: 35px;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-submenu-block {
+        & {
+            box-sizing: border-box;
+        }
+
+        &.-root {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .ammenu-submenu-wrapper {
+        & {
+            .ammenu-scrollbar();
+
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-sizing: border-box;
+            cursor: auto;
+            font-weight: 400;
+            max-height: 70vh;
+            max-width: 100%;
+            padding: @ammenu-submenu__padding @ammenu-submenu__padding @ammenu__indent__l @ammenu-submenu__padding;
+            transition: .3s;
+            z-index: 211;
+        }
+
+        &.-full {
+            left: 0;
+        }
+
+        .block {
+            margin-bottom: 0;
+        }
+
+        .ambrands-link {
+            display: none;
+        }
+
+        .ammenu-link.-simple {
+            margin: 0;
+        }
+
+        .ambrands-list-popup {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+            transition: none;
+        }
+    }
+}

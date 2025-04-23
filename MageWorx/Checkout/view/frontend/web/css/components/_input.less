@@ -1,0 +1,130 @@
+.get-input__label() {
+  display: inline-block;
+  .get-rem(font-size, 14);
+  font-weight: @font-weight-bold;
+  color: @color-armadillo;
+  margin-bottom: 10px;
+}
+
+.get-input__control() {
+  display: inline-block;
+  width: 100%;
+  padding: 7px 13px;
+  margin: 0;
+  .get-rem(min-height, 40);
+  .get-rem(line-height, 20);
+  border: 1px solid @color-wild-sand;
+  border-radius: 5px;
+  background-color: @color-wild-sand;
+  outline: 0;
+  .get-rem(font-size, 16);
+  font-weight: @font-weight-bold;
+  z-index: 10;
+  position: relative;
+  color: @color-rangoon;
+  transition: color 0.3s ease-in, background-color 0.3s ease-in,
+    border-color 0.1s ease-in;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+}
+
+.get-input__control-focus() {
+  color: @color-rangoon;
+  background-color: @color-wild-sand;
+  border-color: @color-accent;
+}
+
+.get-input--is-required {
+  & > .input__label {
+    &::after {
+      content: "*";
+      color: @color-red;
+      padding-left: 5px;
+    }
+  }
+}
+
+.input {
+  position: relative;
+
+  & + & {
+    .get-rem(margin-top, 10);
+  }
+
+  &--is-required {
+    .get-input--is-required();
+  }
+
+  &--has-error {
+    .input {
+      &__control {
+        color: @color-mandy;
+        background-color: @color-tutu;
+
+        &::placeholder {
+          color: @color-light-coral;
+        }
+      }
+    }
+  }
+
+  &--has-addon {
+    .input {
+      &__control {
+        .get-rem(padding-right, 70);
+      }
+    }
+  }
+
+  &--size-sm {
+    .get-rem(max-width, 100);
+  }
+
+  &__label {
+    .get-input__label();
+  }
+
+  &__label-addon {
+    float: right;
+  }
+
+  &__control {
+    .get-input__control();
+
+    &::placeholder {
+      color: @color-light-gray;
+    }
+
+    &:focus,
+    &:active {
+      .get-input__control-focus();
+
+      &::placeholder {
+        color: @color-light-gray;
+      }
+    }
+
+    &:disabled {
+      background-color: lighten(@color-wild-sand, 2%);
+      pointer-events: none;
+      color: @color-light-gray;
+    }
+  }
+
+  &__addon {
+    .get-rem(height, 40);
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    z-index: 11;
+
+    & > .icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    & > .button {
+      .get-rem(line-height, 40);
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.tooltip {
+  display: inline-flex;
+  align-items: center;
+  outline: 0;
+
+  &__activator {
+    cursor: help;
+    color: @color-accent;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__content {
+    display: none;
+    background-color: @color-white;
+    .get-rem(font-size, 12);
+    .get-rem(min-width, 90);
+    .get-rem(max-width, 150);
+    .get-rem(line-height, 15);
+    border-radius: 3px;
+    box-shadow: 0px 3px 7px fade(@color-accent, 25%);
+    .get-rem(padding, 7);
+    z-index: 1001;
+
+    &--visible {
+      display: block;
+    }
+
+    &[data-popper-placement='bottom'] {
+      .tooltip__arrow {
+        top: -6px;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 6px solid @color-white;
+      }
+    }
+
+    &[data-popper-placement='top'] {
+      .tooltip__arrow {
+        bottom: -6px;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid @color-white;
+      }
+    }
+
+    &[data-popper-placement='left'] {
+      .tooltip__arrow {
+        right: -6px;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 6px solid @color-white;
+      }
+    }
+
+    &[data-popper-placement='right'] {
+      .tooltip__arrow {
+        left: -6px;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-right: 6px solid @color-white;
+      }
+    }
+  }
+
+  &__arrow {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: calc(50% - 4px);
+  }
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="use_default" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\UseDefault</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="modify_status" xsi:type="array">
+                    <item name="class"
+                          xsi:type="string">Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\ModifyStatus</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\Backend\SaveLink\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">20</item>
+                    <item name="object"
+                          xsi:type="object">Amasty\MegaMenuLite\Model\Backend\SaveLink\DataCollector\General</item>
+                </item>
+                <item name="tree_path" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">40</item>
+                    <item name="object"
+                          xsi:type="object">Amasty\MegaMenuLite\Model\Backend\SaveLink\DataCollector\TreePath</item>
+                </item>
+                <item name="use_defaults" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">100</item>
+                    <item name="object"
+                          xsi:type="object">Amasty\MegaMenuLite\Model\Backend\SaveLink\DataCollector\UseDefaults</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\Backend\DataProvider\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">20</item>
+                    <item name="object" xsi:type="object">Amasty\MegaMenuLite\Model\Backend\DataProvider\DataCollector\General</item>
+                </item>
+                <item name="modify_status" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">30</item>
+                    <item name="object" xsi:type="object">Amasty\MegaMenuLite\Model\Backend\DataProvider\DataCollector\ModifyStatus</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\MegaMenuLite\Model\Provider\UiFieldsByStore"
+                 type="Amasty\MegaMenuLite\Model\Provider\FieldsByStore">
+        <arguments>
+            <argument name="fieldsByStoreCustom" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="internal_url" xsi:type="string">internal_url</item>
+                    <item name="external_url" xsi:type="string">external_url</item>
+                    <item name="link" xsi:type="null"/>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Amasty\MegaMenuLite\Model\Provider\UiFieldsScopeProvider"
+                 type="Magento\Framework\DataObject">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="internal_url" xsi:type="string">link</item>
+                <item name="external_url" xsi:type="string">link</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\UseDefault">
+        <arguments>
+            <argument name="uiFieldsByStore"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\Provider\UiFieldsByStore</argument>
+            <argument name="uiScopeProvider"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\Provider\UiFieldsScopeProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\Backend\SaveLink\DataCollector\UseDefaults">
+        <arguments>
+            <argument name="uiFieldsByStore"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\Provider\UiFieldsByStore</argument>
+            <argument name="uiScopeProvider"
+                      xsi:type="object">Amasty\MegaMenuLite\Model\Provider\UiFieldsScopeProvider</argument>
+        </arguments>
+    </type>
+</config>

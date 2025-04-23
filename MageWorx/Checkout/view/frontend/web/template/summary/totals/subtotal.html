@@ -1,0 +1,58 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isBothPricesDisplayed() -->
+    <div class="summary__field">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+            <p class="text text--variation-subdued" data-bind="i18n: excludingTaxMessage"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="summary__field">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+            <p class="text text--variation-subdued" data-bind="i18n: includingTaxMessage"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValueInclTax(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+<!-- ko if: !isBothPricesDisplayed() && isIncludingTaxDisplayed() -->
+    <div class="summary__field">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValueInclTax(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+<!-- ko if: !isBothPricesDisplayed() && !isIncludingTaxDisplayed() -->
+    <div class="summary__field">
+        <div class="summary__cell">
+            <p class="text text--variation-strong text--variation-distant" data-bind="text: title"></p>
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong" data-bind="text: getValue(), attr:{'data-label': title}"></p>
+        </div>
+        <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->

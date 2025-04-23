@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+        <!-- following row for add a menu option in new created menu tab -->
+		<add id="Milople_Depositpayment::menu" title="Deposit Payment Orders" translate="title" module="Milople_Depositpayment" sortOrder="10" parent="Milople_All::all" action="depositpayment/partiallypaidorders" resource="Milople_Depositpayment::partiallypaidorders"/>
+	 	<add id="Milople_Depositpayment::configuration" title="Configurations" translate="title" module="Milople_Depositpayment" sortOrder="20" parent="Milople_Depositpayment::menu" action="adminhtml/system_config/edit/section/partialpayment" resource="Milople_Depositpayment::configuration"/>
+		<add id="Milople_Depositpayment::partialpaymentreports" title="Milople Deposit Payment" translate="title" module="Milople_Depositpayment" sortOrder="55" parent="Magento_Reports::report" resource="Milople_Depositpayment::partialpaymentreports"/>
+		<add id="Milople_Depositpayment::partialpaymentreports_revenue" resource="Milople_Depositpayment::partialpaymentreports" title="Revenue Generation" action="depositpayment/reports/revenue" module="Milople_Depositpayment" sortOrder="10" parent="Milople_Depositpayment::partialpaymentreports" dependsOnModule="Milople_Depositpayment"/>
+		<add id="Milople_Depositpayment::partialpaymentreports_installments" resource="Milople_Depositpayment::partialpaymentreports" title="Installment Summary" action="depositpayment/reports/installments" module="Milople_Depositpayment" sortOrder="10" parent="Milople_Depositpayment::partialpaymentreports" dependsOnModule="Milople_Depositpayment"/>
+    </menu>
+</config>
+
+
+

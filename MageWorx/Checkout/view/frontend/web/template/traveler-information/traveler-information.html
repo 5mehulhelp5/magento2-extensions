@@ -1,0 +1,110 @@
+<!-- view/frontend/web/template/checkout/traveler-information.html -->
+<div id="custom" class="checkout-section traveler-info" data-bind="if: parsedItems().length">
+    <div class="block-title">
+        <h3 data-bind="i18n: 'Who\'s Checking in?'"></h3>
+        <p class="rooms-travelers-summary" data-bind="text: totalRoomsAndTravelers().rooms + ' Rooms, ' + totalRoomsAndTravelers().travelers + ' Adults'"></p>
+    </div>
+
+    <fieldset>
+        <!-- ko foreach: parsedItems -->
+        <!-- ko foreach: rooms -->
+        <div class="room-container">
+            <h4 class="room-title" data-bind="text: 'Room ' + ($index() + 1)"></h4>
+
+            <div class="field required">
+                <label class="label" for="room-bed-type">
+                    <span data-bind="i18n: 'Room Bed Type'"></span>
+                    <span class="required-marker">*</span>
+                </label>
+                <div class="control">
+                    <select class="select"
+                            data-bind="attr: { name: bedTypeName, id: bedTypeId }, value: bedType">
+                        <option value="1 bed (One King or Queen)">1 bed (One King or Queen)</option>
+                        <option value="2 beds (Two Doubles or Twins)">2 beds (Two Doubles or Twins)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ko foreach: travelers -->
+            <div class="field required">
+                <label class="label" data-bind="attr: { for: inputId }">
+                    <span data-bind="text: 'Traveler ' + ($index() + 1)"></span>
+                    <span class="required-marker">*</span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           class="input-text"
+                           data-bind="attr: { name: inputName, id: inputId, placeholder: 'Enter traveler name' }, value: name" />
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+    </fieldset>
+</div>
+
+<style>
+    .checkout-section.traveler-info {
+        margin-bottom: 30px;
+    }
+
+    .checkout-section.traveler-info .block-title {
+        margin-bottom: 20px;
+    }
+
+    .checkout-section.traveler-info .block-title h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 5px;
+    }
+
+    .checkout-section.traveler-info .rooms-travelers-summary {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+
+    .checkout-section.traveler-info .room-container {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .checkout-section.traveler-info .room-container:last-child {
+        border-bottom: none;
+    }
+
+    .checkout-section.traveler-info .room-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 15px;
+    }
+
+    .checkout-section.traveler-info .field {
+        margin-bottom: 15px;
+    }
+
+    .checkout-section.traveler-info .label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .checkout-section.traveler-info .required-marker {
+        color: #e02b27;
+    }
+
+    .checkout-section.traveler-info .control {
+        width: 100%;
+    }
+
+    .checkout-section.traveler-info .input-text,
+    .checkout-section.traveler-info .select {
+        width: 100%;
+        height: 38px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>

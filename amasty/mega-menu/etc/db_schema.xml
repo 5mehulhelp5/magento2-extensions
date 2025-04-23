@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_menu_link" resource="default" engine="innodb" comment="Amasty Mega Menu Link Table">
+        <column xsi:type="int" name="page_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Page id"/>
+    </table>
+
+    <table name="amasty_menu_item_content" resource="default" engine="innodb" comment="Amasty Mega Menu Link Table">
+        <column xsi:type="mediumtext" name="content" nullable="true" comment="Amasty Menu Content"/>
+        <column xsi:type="smallint" name="width" padding="6" unsigned="false" nullable="true" identity="false" comment="Amasty Menu Item Width"/>
+        <column xsi:type="smallint" name="width_value" padding="6" unsigned="false" nullable="true" identity="false" comment="Amasty Menu Item Width Value"/>
+        <column xsi:type="smallint" name="column_count" padding="6" unsigned="false" nullable="true" identity="false" comment="Amasty Menu Item Column Count"/>
+        <column xsi:type="text" name="icon" nullable="true" comment="Icon"/>
+        <column xsi:type="smallint" name="submenu_type" padding="6" unsigned="false" nullable="true" identity="false" comment="Submenu Type"/>
+        <column xsi:type="smallint" name="subcategories_position" padding="6" unsigned="false" nullable="true" identity="false" comment="Subcategories Template"/>
+        <column xsi:type="smallint" name="hide_content" padding="6" unsigned="false" nullable="true" identity="false" comment="Hide Menu Item Content"/>
+        <column xsi:type="smallint" name="desktop_font" padding="6" unsigned="true" nullable="true" identity="false" comment="Desktop Font"/>
+        <column xsi:type="smallint" name="mobile_font" padding="6" unsigned="true" nullable="true" identity="false" comment="Mobile Font"/>
+    </table>
+</schema>

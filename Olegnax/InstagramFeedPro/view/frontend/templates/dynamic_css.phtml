@@ -1,0 +1,51 @@
+<?php
+/**
+ * Olegnax Instagram Global Styles
+ *
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2024 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Escaper;
+use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\Template;
+use Magento\Store\Api\Data\StoreInterface;
+use Olegnax\InstagramFeedPro\Helper\Helper;
+use Olegnax\InstagramFeedPro\Model\DynamicStyle\Generator as DynamicStyleGenerator;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var Helper $_helper */
+$_helper = $this->helper(Helper::class);
+if ($_helper->getConfig(DynamicStyleGenerator::XML_PATH_DYNAMIC_INLINE)) {
+    $cssViewModel = $block->getData('render_css_view_model');
+    $content = $this->getChildHtml('Ox_InstagramFeedPro_inline_css');
+    if (!empty($content)) {
+        $css = $cssViewModel->escapeCss($content);
+        if(isset($secureRenderer)){
+            echo /* @noEscape */ $secureRenderer->renderTag('style', [], $css, false);
+        } else{
+            echo /* @noEscape */  '<style type="text/css">' . $css . '</style>';
+        }
+    }
+} else {
+    /** @var StoreInterface $store */
+    $store = $_helper->getStore();
+    ?>
+	<link rel="stylesheet" media="all" type="text/css"
+		  href="<?php echo sprintf(
+                  DynamicStyleGenerator::FILE_PATH,
+                  rtrim((string)$store->getBaseUrl(UrlInterface::URL_TYPE_MEDIA), '/'),
+                  DynamicStyleGenerator::DYNAMIC_DIR,
+                  $store->getCode()
+              )
+              . '?v=' . $_helper->getConfig(
+                  DynamicStyleGenerator::XML_PATH_DYNAMIC_FILE_ARG,
+                  null,
+                  ScopeConfigInterface::SCOPE_TYPE_DEFAULT
+              ) . '.0';
+          ?>"/>
+<?php } ?>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="partialpayment_emails_and_notifications_settings_send_partially_paid_orders_confirmation_template" label="Order Confirmation" file="depositpayment_order_confirmation.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_auto_capture_reminder_email_template" label="Auto Capture Reminder" file="depositpayment_auto_capture_installment_reminder.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_installment_reminder_email_template" label="Installment Reminder" file="depositpayment_installment_reminder.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_installment_payment_confirmation_email_template" label="Installment Payment Confirmation" file="depositpayment_installment_confirmation.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_installment_auto_capture_failure_email_template" label="Installment Auto Capture Failed" file="depositpayment_installment_auto_capture_failure.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_installment_failure_email_template" label="Installment Failure" file="depositpayment_installment_failure_reminder.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_installment_over_due_notice_email_template" label="Installment Over Due Notice" file="depositpayment_installment_overdue_notice.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+	<template id="partialpayment_emails_and_notifications_settings_stock_availability_email_template" label="Stock Availability" file="depositpayment_stock_availability.html" type="html" module="Milople_Depositpayment" area="frontend"/>
+</config>

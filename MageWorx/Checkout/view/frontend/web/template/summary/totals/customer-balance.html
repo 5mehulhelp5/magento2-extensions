@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isAvailable() -->
+    <div class="summary__field">
+        <div class="summary__cell">
+            <button id="delete-customer-balance"
+                    class="action"
+                    name="payment[delete_customer_balance]"
+                    data-bind="click: sendRequest">
+                <span><!-- ko text: $t('Remove') --><!-- /ko --></span>
+            </button>
+        </div>
+        <div class="summary__cell">
+            <!-- ko text: -getPureValue()  + ' ' + title --><!-- /ko -->
+        </div>
+        <div class="summary__cell summary__cell--content-right">
+            <p class="text text--variation-strong negative-total" data-bind="text: getValue()"></p>
+        </div>
+    </div>
+<!-- /ko -->

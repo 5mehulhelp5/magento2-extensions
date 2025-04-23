@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Olegnax_Core::Olegnax_Core">
+					<resource id="Olegnax_InstagramFeedPro::InstagramFeedPro" sortOrder="10" title="Instagram Feed Pro">
+						<resource id="Olegnax_InstagramFeedPro::IntsPost" sortOrder="10" title="Posts">
+							<resource id="Olegnax_InstagramFeedPro::IntsPost_save" sortOrder="10" title="Save Post"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsPost_delete" sortOrder="20" title="Delete Post"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsPost_update" sortOrder="30" title="Update Posts"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsPost_view" sortOrder="40" title="View Post"/>
+						</resource>
+						<resource id="Olegnax_InstagramFeedPro::IntsUser" sortOrder="20" title="Users">
+							<resource id="Olegnax_InstagramFeedPro::IntsUser_save" sortOrder="10" title="Save User"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsUser_delete" sortOrder="20" title="Delete User"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsUser_update" sortOrder="30" title="Update User"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsUser_view" sortOrder="40" title="View User"/>
+							<resource id="Olegnax_InstagramFeedPro::IntsUser_add" sortOrder="50" title="Add User"/>
+						</resource>
+						<resource id="Olegnax_InstagramFeedPro::HotSpot" sortOrder="10" title="HotSpots">
+							<resource id="Olegnax_InstagramFeedPro::HotSpot_save" sortOrder="10" title="Save HotSpot"/>
+							<resource id="Olegnax_InstagramFeedPro::HotSpot_delete" sortOrder="20" title="Delete HotSpot"/>
+							<resource id="Olegnax_InstagramFeedPro::HotSpot_update" sortOrder="30" title="Update HotSpot"/>
+							<resource id="Olegnax_InstagramFeedPro::HotSpot_view" sortOrder="40" title="View HotSpot"/>
+						</resource>
+						<resource id="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro" sortOrder="30" title="Configuration"/>
+						<resource id="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_appearance" sortOrder="40" title="Appearance"/>
+						<resource id="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_license" sortOrder="40" title="License"/>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

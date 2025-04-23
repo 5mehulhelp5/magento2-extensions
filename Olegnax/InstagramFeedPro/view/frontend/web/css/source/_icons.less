@@ -1,0 +1,118 @@
+& when (@media-common = true) {
+    @font-face {
+      font-family: "ox-instagram";
+      src:url("@{baseDir}Olegnax_InstagramFeedPro/fonts/ox-instagram.eot");
+      src:url("@{baseDir}Olegnax_InstagramFeedPro/fonts/ox-instagram.eot?#iefix") format("embedded-opentype"),
+        url("@{baseDir}Olegnax_InstagramFeedPro/fonts/ox-instagram.woff") format("woff"),
+        url("@{baseDir}Olegnax_InstagramFeedPro/fonts/ox-instagram.ttf") format("truetype"),
+        url("@{baseDir}Olegnax_InstagramFeedPro/fonts/ox-instagram.svg#ox-instagram") format("svg");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    [data-icon]:before {
+      font-family: "ox-instagram" !important;
+      content: attr(data-icon);
+      font-style: normal !important;
+      font-weight: normal !important;
+      font-variant: normal !important;
+      text-transform: none !important;
+      speak: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    [class^="ox-i"]:before,
+    [class*=" ox-i"]:before {
+      font-family: "ox-instagram" !important;
+      font-style: normal !important;
+      font-weight: normal !important;
+      font-variant: normal !important;
+      text-transform: none !important;
+      speak: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .ox-i{
+        &-carousel_album-f:before {
+          content: "\61";
+        }
+        &-heart-f:before {
+          content: "\62";
+        }
+        &-heart-o:before {
+          content: "\63";
+        }
+        &-video:before,
+        &-video-f:before {
+          content: "\65";
+        }
+        &-comment:before {
+          content: "\66";
+        }
+        &-comment-f:before {
+          content: "\67";
+        }
+        &-share:before {
+          content: "\68";
+        }
+        &-facebook:before {
+          content: "\69";
+        }
+        &-instagram:before {
+          content: "\6a";
+        }
+        &-linkedin-in:before {
+          content: "\6b";
+        }
+        &-whatsapp:before {
+          content: "\6c";
+        }
+        &-letter:before {
+          content: "\6d";
+        }
+        &-pinterest:before {
+          content: "\6e";
+        }
+        &-twitter:before {
+          content: "\6f";
+        }
+        &-heart:before {
+          content: "\70";
+        }
+        &-bubble:before {
+          content: "\71";
+        }
+        &-link:before {
+          content: "\72";
+        }
+        &-cart-o:before {
+          content: "\74";
+        }
+        &-bag-o:before {
+          content: "\75";
+        }
+        &-bag-s:before {
+          content: "\76";
+        }
+        &-video-o-s:before {
+          content: "\77";
+        }
+        &-video-big-o-s:before {
+          content: "\78";
+        }
+        &-video-f-s:before {
+          content: "\79";
+        }
+        &-carousel_album-o-s:before {
+          content: "\73";
+        }
+        &-carousel_album-f-s:before {
+          content: "\7a";
+        }
+    }
+}

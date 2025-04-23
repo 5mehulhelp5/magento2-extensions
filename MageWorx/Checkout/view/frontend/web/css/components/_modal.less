@@ -1,0 +1,124 @@
+.co-modal {
+  display: none;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .22);
+  z-index: 1000;
+
+  &--is-visible {
+    visibility: visible;
+
+    .co-modal {
+      &__dialog {
+        top: 0;
+        transform: translate(0, 0px);
+      }
+    }
+  }
+
+  &--size-sm {
+    .co-modal {
+      &__dialog {
+        @media @screen-sm {
+          .get-rem(max-width, 330);
+        }
+      }
+    }
+  }
+
+  &--size-xl {
+    .co-modal {
+      &__dialog {
+        @media @screen-sm {
+          .get-rem(max-width, 640);
+        }
+      }
+    }
+  }
+
+  &__dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    .get-rem(margin-top, 50);
+    .get-rem(margin-bottom, 50);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: @color-white;
+    box-shadow: 0px 4px 10px fade(@color-accent, 25%);
+    transform: translate(0, -100px);
+    transition: transform .3s ease;
+    border-radius: 0;
+    outline: none;
+
+    @media @screen-sm {
+      .get-rem(max-width, 400);
+      border-radius: 5px;
+      .get-rem(margin-top, 100);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    flex-shrink: 0;
+    .get-rem(padding, 20);
+
+    & > .heading {
+      word-wrap: break-word;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      flex: 1 1 0;
+    }
+  }
+
+  &__content {
+    position: relative;
+    background-color: #fff;
+    height: 100%;
+    border-radius: 0;
+    .get-rem(padding-top, 0);
+    .get-rem(padding-right, 20);
+    .get-rem(padding-bottom, 20);
+    .get-rem(padding-left, 20);
+
+    @media @screen-sm {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  &__close {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 30px;
+    height: 30px;
+    .get-rem(padding, 5);
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    .get-rem(margin-left, 20);
+    min-height: 0;
+    min-width: 0;
+    justify-self: flex-end;
+    transition: background-color .3s ease;
+
+    &:focus {
+      background-color: @color-wild-sand;
+    }
+
+    & > .icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

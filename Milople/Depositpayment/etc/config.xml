@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+ <default>
+ 	<partialpayment>
+		<general>
+			<partialpayment_brand_label>Deposit Payment</partialpayment_brand_label>
+			<partialpayment_customergroups>1</partialpayment_customergroups>
+			<number_of_installments>2</number_of_installments>
+		</general>
+		<payment_calculation_settings>
+			<calculate_downpayment_on>2</calculate_downpayment_on>
+			<down_payment>50</down_payment>
+		</payment_calculation_settings>	
+		<partial_payment_credit_settings>
+			<credit_limit_surpass_message>Sorry, you have surpassed your deposit payment credit limit of {credit_limit}.</credit_limit_surpass_message>
+		</partial_payment_credit_settings>
+		<emails_and_notifications_settings>
+				<send_partially_paid_orders_confirmation_email>1</send_partially_paid_orders_confirmation_email>
+		</emails_and_notifications_settings>
+	</partialpayment>
+ </default>
+</config>

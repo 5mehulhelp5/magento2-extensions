@@ -1,0 +1,125 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+?>
+<?php 
+$collection = $this->getCollection();
+$isAnyRemainingInstallment = FALSE;
+
+?>
+<h3><?php echo $this->getTitle()?></h3>
+<?php if ($collection->count())
+{ ?>
+<form action="<?php echo $this->getUrl('depositpayment/customer/payInstallment') ?>" id="edit_form" data-order-config='<?php /* @escapeNotVerified */ echo $block->getOrderDataJson() ?>' data-load-base-url="<?php /* @escapeNotVerified */ echo $block->getLoadBlockUrl() ?>" action="<?php /* @escapeNotVerified */ echo $block->getSaveUrl() ?>"  novalidate="novalidate" method="post">
+	<?php echo $this->getBlockHtml('formkey')?> 
+	<div class="table-wrapper orders-history">
+		<input type="hidden" value='<?php echo $this->partialpaymentId ?>' name="partialPaymentId" />
+		<table class="data table" id="my-subscription-table">
+			<thead>
+				<tr>
+					<th><?php echo __('Pay') ?></th>
+					<th><?php echo __('Installment Amount') ?></th>
+					<th><?php echo __('Due Date') ?></th>
+					<th><?php echo __('Paid Date') ?></th>
+					<th><?php echo __('Installment Status') ?></th>
+					<th><?php echo __('Payment Method') ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($collection as $data)
+				{ 
+				?>
+				<tr>
+					<td class="col">
+						<?php if($data->getInstallmentStatus() == 'Remaining' || $data->getInstallmentStatus() == 'Failed'){ ?>
+							<input type="checkbox" name="installment_ids[]" value="<?php echo $data->getId(); ?>">
+						<?php } ?>
+					</td>
+					<td class="col total"><span class="price"><?php echo $this->priceHelper->currency($data->getInstallmentAmount(), true, false); ?></span></td>
+					<td class="col total"><?php if($data->getInstallmentDueDate()!=NULL){echo $this->formatDate($data->getInstallmentDueDate());} ?></td>
+					<td class="col total"><?php if($data->getInstallmentPaidDate()!=NULL){echo $this->formatDate($data->getInstallmentPaidDate());} ?></td>
+					<td class="col"><?php echo __("%1",$data->getInstallmentStatus()); ?></td>
+					<td class="col"><?php echo __("%1",$this->getPaymentMethodTitle($data->getPaymentMethod())); ?></td>
+				</tr>
+				<?php
+					if($data->getInstallmentStatus="Pending")
+					{
+						$isAnyRemainingInstallment = TRUE;
+					}
+				} ?>
+			</tbody>
+		</table>
+	</div>
+	<br />
+	<?php if($isAnyRemainingInstallment)//check any installment is remining or not
+	{ ?>
+	<div id="order-billing_method">
+		<h3><?php echo __('Payment Methods') ?></h3>
+		<?php echo $this->getChildHtml('partial.payment.methods'); ?>
+		
+	</div>
+	<?php
+	}  ?>
+</form>
+<div id="product_composite_configure" class="product-configure-popup" style="display:none;">
+    <iframe name="product_composite_configure_iframe" id="product_composite_configure_iframe" style="width:0; height:0; border:0px solid #fff; position:absolute; top:-1000px; left:-1000px" onload="window.productConfigure && productConfigure.onLoadIFrame()"></iframe>
+    <form action="" method="post" id="product_composite_configure_form" enctype="multipart/form-data" onsubmit="productConfigure.onConfirmBtn(); return false;" target="product_composite_configure_iframe">
+        <div class="entry-edit">
+            <div id="product_composite_configure_messages" style="display: none;" >
+                <div class="messages"><div class="message message-error error"><div></div></div></div>
+            </div>
+            <div id="product_composite_configure_form_fields" class="content product-composite-configure-inner"></div>
+            <div id="product_composite_configure_form_additional" style="display:none;"></div>
+            <div id="product_composite_configure_form_confirmed" style="display:none;"></div>
+        </div>
+        <input type="hidden" name="as_js_varname" value="iFrameResponse" />
+        <input type="hidden" name="form_key" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+    </form>
+    <div id="product_composite_configure_confirmed" style="display:none;"></div>
+
+    <script>
+		var FORM_KEY = '<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>'
+        require([
+            "jquery",
+            "mage/mage"
+        ], function(jQuery){
+
+            jQuery('#product_composite_configure_form').mage('form').mage('validation');
+
+        });
+		require([
+			'jquery',
+			'mage/mage'
+		], function($){
+
+			var dataForm = $('#edit_form');
+			var ignore = null;
+
+			dataForm.mage('validation', {
+					ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+				}).find('input:text').attr('autocomplete', 'off');
+
+		});
+
+    </script>
+</div>
+<?php
+}
+else
+{ ?>
+	<div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have no any Installment.'); ?></span></div>
+<?php
+}
+?>
+
+      

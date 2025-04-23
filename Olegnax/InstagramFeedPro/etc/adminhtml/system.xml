@@ -1,0 +1,821 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="olegnax" translate="label" sortOrder="110">
+			<label>Olegnax</label>
+		</tab>
+		<section id="olegnax_instagram_pro" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="110" translate="label">
+			<label>Instagram Feed Pro</label>
+			<tab>olegnax</tab>
+			<resource>Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro</resource>
+			<group id="info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1" translate="label">
+				<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+			</group>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>General</label>
+				<field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label"
+					   type="select">
+					<label>Enable</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			<group id="cron" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
+				<label>Automatic Update</label>
+				<field id="info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="0"
+					   translate="label"
+					   type="text">
+					<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\InfoField</frontend_model>
+				</field>
+				<field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label"
+					   type="select">
+					<label>Enable</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\DisableField</frontend_model>
+				</field>
+				<field id="enabled_only_new" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="12"
+					   translate="label"
+					   type="select">
+					<label>Only New Posts</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\DisableField</frontend_model>
+					<depends>
+						<field id="enabled">1</field>
+					</depends>
+				</field>
+				<field id="enabled_only_new_info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20"
+					   translate="label" type="text">
+					<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\CronNewInfo</frontend_model>
+					<depends>
+						<field id="enabled">1</field>                                                
+					</depends>
+				</field>
+				<field id="enabled_info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="22"
+					   translate="label" type="text">
+					<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\CronInfo</frontend_model>
+					<depends>
+						<field id="enabled">1</field>
+						<field id="enabled_only_new" negative="1">1</field>
+					</depends>
+				</field>
+			</group>
+			<group id="modal" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
+				<label>Modal Settings</label>
+				<field id="next_prev" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label"
+					   type="select">
+					<label>Show Next/Prev Post Buttons</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_date" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="11" translate="label"
+					   type="select">
+					<label>Show Post Date</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_caption" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="12" translate="label"
+					   type="select">
+					<label>Show Post Description</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_likes" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="13" translate="label"
+					   type="select">
+					<label>Show Likes Count</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_comments" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="14" translate="label"
+					   type="select">
+					<label>Show Comments Count</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_share" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="15" translate="label"
+					   type="select">
+					<label>Show Social Share</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_follow" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="16" translate="label"
+					   type="select">
+					<label>Show Follow Link near Name</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+                              <field id="related_layout" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Linked Products Layout</label>    
+                                   <frontend_class>select-image</frontend_class>                
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\RelatedLayout</source_model>
+                                     <depends>
+                                        <field id="enabled">1</field>
+                                     </depends>
+                               </field>
+				<field id="show_price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="21" translate="label"
+					   type="select">
+					<label>Show Price in Linked Products</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_tocart" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="22" translate="label"
+					   type="select">
+					<label>Show Add To Cart in Linked Products</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="show_wishlist" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="23" translate="label"
+					   type="select">
+					<label>Show Wishlist in Linked Products</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+                        <group id="product_page" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label">
+                            <label>Product Page</label>
+                            <field id="show_content_custom" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment"
+                                        type="select">
+                                     <label>Show Custom Block on Product Page</label>
+                                     <frontend_class>on-off-trigger</frontend_class>
+                                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                     <comment>You can add custom block in various locations on product page. After that add your instagram widget and any custom content to this block in order to show product related instagram posts or simply instagram gallery.</comment>
+                            </field>
+                            <field id="custom_content_position" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Custom Block Position on Product Page</label>        
+                                    <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\ProductPagePos</source_model>
+                                    <depends>
+                                        <field id="show_content_custom">1</field>
+                                    </depends>
+                            </field>
+                            <field id="content_custom" translate="label comment" type="editor" sortOrder="30" showInDefault="1"
+                                        showInWebsite="1" showInStore="1">
+                                     <label>Custom Block Content</label>
+                                     <frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Editor</frontend_model>
+                                     <depends>
+                                         <field id="show_content_custom">1</field>
+                                     </depends>
+                                     <comment>You can add instagram widget here. Choose "Show Product related posts only" to show only instagram posts linked to specific product on product page.</comment>
+                            </field>
+                            <field id="two_columns" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label"
+                                       type="select">
+                                    <label>Enable Second Column/Content Block</label>
+                                     <depends>
+                                         <field id="show_content_custom">1</field>
+                                     </depends>
+                                    <frontend_class>on-off-trigger</frontend_class>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <comment>Enable/Disable to swtich between two and one columns layout.</comment>
+                            </field>
+                            <field id="content_custom_ratio" translate="label comment" type="text" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Width of a First Content Block</label>
+                                    <depends>
+                                        <field id="show_content_custom">1</field>
+                                        <field id="two_columns">1</field>
+                                    </depends>
+                                    <comment>Percent(%) value for Width of the first custom block for desktop. Set value between 10 and 75, number only. Default is 55. Use this option to add responsive block size in %. The rest of the space will be used by second content block.</comment>
+                            </field>
+                            <field id="content_custom2" translate="label comment" type="editor" sortOrder="44" showInDefault="1"
+                                        showInWebsite="1" showInStore="1">
+                                     <label>Custom Block 2 Content</label>
+                                     <frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Editor</frontend_model>
+                                     <depends>
+                                         <field id="show_content_custom">1</field>
+                                          <field id="two_columns">1</field>
+                                     </depends>
+                                     <comment>Add any Text/HTML here. Tags are allowed.</comment>
+                            </field>
+                            <field id="valign_center" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="46" translate="label"
+                                       type="select">
+                                    <label>Align to center blocks vertically</label>
+                                    <depends>
+                                        <field id="show_content_custom">1</field>
+                                        <field id="two_columns">1</field>
+                                    </depends>
+                                    <frontend_class>on-off-trigger</frontend_class>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <comment>When two content block are enabled, block with shortest content will be aligned to center relatively to the second(tallest) block. For desktop only.</comment>
+                            </field>
+                            <field id="revert_position" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="48" translate="label"
+                                       type="select">
+                                    <label>Show Second block first on mobile</label>
+                                    <depends>
+                                        <field id="show_content_custom">1</field>
+                                        <field id="two_columns">1</field>
+                                    </depends>
+                                    <frontend_class>on-off-trigger</frontend_class>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                        </group>
+		</section>
+                <section id="olegnax_instagram_pro_appearance" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="111" translate="label">
+			<label>Instagram Feed Appearance</label>
+			<tab>olegnax</tab>
+			<resource>Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_appearance</resource>
+			<group id="info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1" translate="label">
+				<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+			</group>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>General</label>
+				<field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment"
+					   type="select">
+					<label>Enable Dynamic Css</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                        <comment>If disabled, most of the theme appearace options like colors, fonts will not work. Only settings which are not creating custom css will still work (e.g.: enable/disabled options; icons, arrows, dots  styles). </comment>
+				</field>
+                                <field id="inline_css" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Save Dynamic Css Inline</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <frontend_class>on-off-trigger</frontend_class>
+                                    <comment>If disabled styles will be saved in file. Because dynamic css file is loaded after main styles, you can see appearance jump from default styles on slow connections.</comment>
+                                </field>
+                                <field id="dynamic_file_arg_enable" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Add version to Url for dynamic CSS</label>
+                                    <comment>Enable this option to create dynamic css with unique name each time you click save. In this case your website visitors will load new styles even if they were cached.</comment>
+                                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                    <frontend_class>on-off-trigger</frontend_class>
+                                    <depends>
+                                        <field id="inline_css">0</field>
+                                    </depends>
+                                </field>
+                                <field id="dynamic_file_arg" translate="label" type="hidden" sortOrder="1000" showInDefault="0" showInWebsite="0" showInStore="0">
+                                    <label>dynamic_file_arg</label>
+                                </field>
+			</group>
+                         <group id="feed" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                              <label>Feed</label>
+                                <field id="overlay_color" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Overlay Color</label>
+                                    <comment>Image overlay color for grid layouts which usually appear on hover. Show Image Overlay should be enabled in widget.</comment>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                   <field id="media_bg" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Media Background Color</label>
+                                    <comment>Background color for media (image/video/carousel) in feed.</comment>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="text_color" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="icons_style" translate="label" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Icons Style (Likes, Comments)</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\IconsStyle</source_model>
+                                </field>
+                                <field id="media_icons_style" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Media Icons Style (Play, Album)</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\MediaIconsStyle</source_model>
+                                </field>
+                                <field id="icons_color" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Icons Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="icons_bg" translate="label" type="text" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Icons Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="media_icons_color" translate="label comment" type="text" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Media Icons Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                    <comment>Video play icon, media type icons (album, video) in grid.</comment>
+                                </field>
+                                <field id="spacer_1" sortOrder="29" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="slider_nav_style" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Slider Navigation(Arrows) Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderNavStyle</source_model>
+                                </field>
+                                <field id="slider_nav_position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Slider Navigation Position</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderNavPosition</source_model>
+                                </field>
+                                <field id="slider_arrow_color" translate="label" type="text" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_bg" translate="label" type="text" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_color_hover" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_bg_hover" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Background Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_dots_style" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Slider Dots Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderDotsStyle</source_model>
+                                </field>
+                                <field id="slider_dots_color" translate="label" type="text" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Dots Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_dots_color_active" translate="label" type="text" sortOrder="37" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Dots  Color Active</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="spacer_2" sortOrder="39" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="album_slider_nav_style" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Album Item Slider Navigation(Arrows) Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderNavStyle</source_model>
+                                </field>
+                                <field id="album_slider_arrow_color" translate="label" type="text" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Arrows Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="album_slider_arrow_bg" translate="label" type="text" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Arrows Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="album_slider_arrow_color_hover" translate="label" type="text" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Arrows Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="album_slider_arrow_bg_hover" translate="label" type="text" sortOrder="44" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Arrows Background Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="album_slider_dots_style" translate="label" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Album Item Slider Dots Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderDotsStyle</source_model>
+                                </field>
+                                <field id="album_slider_dots_color" translate="label" type="text" sortOrder="46" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Dots Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="album_slider_dots_color_active" translate="label" type="text" sortOrder="47" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Album Item Slider Dots  Color Active</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="button_color" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="button_bg" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="button_color_hover" translate="label" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Text Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="button_bg_hover" translate="label" type="text" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Background Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="button_border_color" translate="label comment" type="text" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Border Color*</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                    <comment>Depends on theme design</comment>
+                                </field>
+                                <field id="button_border_radius" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Button Border Radius</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                         </group>
+                         <group id="hotspots" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                              <label>Hotspots</label>
+                                <field id="marker_style" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Hotspot Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\MarkerStyle</source_model>
+                               </field>
+                                <field id="hotspot_text" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Text</label>
+                                </field>
+                                <field id="hotspot_text_fontsize" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Text Font Size</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="hotspot_text_fontweight" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Text Font Weight</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="hotspot_text_letterspacing" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Text Letter Spacing</label>
+                                </field>
+                                <field id="hotspot_text_icon" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Hotspot Text Icon</label>
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\HotspotIcon</source_model>
+                               </field>
+                                <field id="hotspot_width" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Point Width</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="hotspot_height" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Point Height</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="hotspot_color" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Icon/Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="hotspot_bg" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+				<field id="hotspot_pulse" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="15" translate="label"
+					   type="select">
+					<label>Hotspot Pulse Animation</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+                                <field id="hotspot_pulse_color" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Pulse Animation Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                     <depends>
+                                        <field id="hotspot_pulse">1</field>
+                                     </depends>
+                                </field>
+				<field id="hotspot_shadow" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="17" translate="label"
+					   type="select">
+					<label>Hotspot Shadow</label>
+					<frontend_class>on-off-trigger</frontend_class>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+                                <field id="hotspot_shadow_color" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Shadow Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                     <depends>
+                                        <field id="hotspot_shadow">1</field>
+                                     </depends>
+                                </field>
+                                <field id="hotspot_radius" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Shape Radius</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                              <field id="hotspot_mobile" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Hotspot Behavior on Mobile</label>
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\HotspotMobile</source_model>
+                               </field>
+                         </group>
+                         <group id="hotspot_tooltips" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                              <label>Hotspot Tooltips</label>
+                                <field id="tooltip_text_color" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="tooltip_bg_color" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="tooltip_border_radius" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Border Radius</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                </field>
+                               <field id="tooltip_shadow_color" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Shadow Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="tooltip_width" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Width</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                     </field>
+                               <field id="tooltip_font_size" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Font Size</label>    
+                                    <validate>validate-digits validate-zero-or-greater</validate>     
+                                </field>
+                                <field id="tooltip_font_weight" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Hotspot Tooltip Font Weight</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                </field>                                
+                         </group>
+                         <group id="tooltips" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                              <label>Tooltips</label>
+                                <field id="tooltip_text_color" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="tooltip_bg_color" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="tooltip_border_radius" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Border Radius</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                </field>
+                                <field id="tooltip_width" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Width</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                     </field>
+                               <field id="tooltip_font_size" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Font Size</label>    
+                                    <validate>validate-digits validate-zero-or-greater</validate>     
+                                </field>
+                                <field id="tooltip_font_weight" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Tooltips Font Weight</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>    
+                                </field>                                
+                         </group>
+                        <group id="modal" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Modal</label>
+                                <field id="width" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Modal max width</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Number only. Default value is 940.</comment>
+                                </field>
+                                <field id="bg_color" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="shadow_color" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Shadow Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="border_radius" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Modal edges roundness (Border Radius)</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Zero for square shape.</comment>
+                                </field>
+                                <field id="dividers_color" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Dividers Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="text_color" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="links_color" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Links Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="links_color_hover" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Links Hover Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="icons_style" translate="label" type="select" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Icons Style (Likes, Comments)</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\IconsStyle</source_model>
+                                </field>
+                                <field id="icons_color" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Icons Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="social_icons_color" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Social Icons Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                 <field id="media_icons_style" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Media Icons Style (Play, Album)</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\MediaIconsStyle</source_model>
+                                </field>
+                                <field id="media_icons_color" translate="label comment" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Media Icons Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                    <comment>Video play icon</comment>
+                                </field>
+                                <field id="media_icons_bg" translate="label" type="text" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Video Icon Background</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="media_bg_color" translate="label" type="text" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Media Block Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="media_border_color" translate="label comment" type="text" sortOrder="24" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Media Block Right Border Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                     <comment>A divider between media and info columns. Can be useful for images with white background</comment>
+                                </field>
+                                <field id="media_margin" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Space Around Media Block</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="spacer_1" sortOrder="29" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="np_arrow_color" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Next/Prev Post Arrows Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="np_arrow_bg" translate="label" type="text" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Next/Prev Post Arrows Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="np_arrow_color_hover" translate="label" type="text" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Next/Prev Post Arrows Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="np_arrow_bg_hover" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Next/Prev Post Arrows Background Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="spacer_2" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="slider_nav_style" translate="label" type="select" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Slider Navigation Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderNavStyle</source_model>
+                                </field>
+                                <field id="slider_arrow_color" translate="label" type="text" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_bg" translate="label" type="text" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_color_hover" translate="label" type="text" sortOrder="44" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_arrow_bg_hover" translate="label" type="text" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Arrows Background Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_dots_style" translate="label" type="select" sortOrder="46" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Slider Dots Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\SliderDotsStyle</source_model>
+                                </field>
+                                <field id="slider_dots_color" translate="label" type="text" sortOrder="47" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Dots Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="slider_dots_color_active" translate="label" type="text" sortOrder="48" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Slider Dots  Color Active</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="spacer_3" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="close_icon_color" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Close Button Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="close_bg_color" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Close Button Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="close_icon_color_hover" translate="label" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Close Button Color on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="close_bg_color_hover" translate="label" type="text" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Close Button Background on Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="spacer_4" sortOrder="59" showInDefault="1" showInWebsite="1" showInStore="1">
+                                        <frontend_model>Olegnax\Core\Model\Spacer</frontend_model>
+                                </field>
+                                <field id="related_active_bg" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Active/Hover Background</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_active_border_color" translate="label" type="text" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Active/Hover Border Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_cart_icon" translate="label" type="select" sortOrder="63" showInDefault="1" showInWebsite="1" showInStore="1">
+                                   <label>Cart Icon Style</label>                    
+                                   <source_model>Olegnax\InstagramFeedPro\Model\Config\Source\CartIconsStyle</source_model>
+                                </field>
+                                <field id="related_cart_color" translate="label" type="text" sortOrder="64" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Add to Cart Icon Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_cart_bg" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Add to Cart Background</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_cart_color_hover" translate="label" type="text" sortOrder="66" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Add to Cart Icon Color, Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_cart_bg_hover" translate="label" type="text" sortOrder="67" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Add to Cart Background, Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_wishllist_color" translate="label" type="text" sortOrder="68" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Wishlist Button Icon Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_wishllist_bg" translate="label" type="text" sortOrder="69" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Wishlist Button Background</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_wishllist_color_hover" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Wishlist Button Icon Color, Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_wishllist_bg_hover" translate="label" type="text" sortOrder="71" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Wishlist Button Background, Hover</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="related_actions_borderradius" translate="label comment" type="text" sortOrder="72" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Actions Edges Roundness (Border Radius)</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Add to cart, Wishlist. Zero for square shape.</comment>
+                                </field>
+                                <field id="related_img_borderradius" translate="label comment" type="text" sortOrder="73" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Products Image Edges Roundness (Border Radius)</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Zero for square image shape. Half of the image height/widht for circle image shape</comment>
+                                </field>
+                        </group>
+                         <group id="product_page_block" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                              <label>Product Page Block</label>
+                                <field id="background" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Background Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="color" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Text Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="shadow" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Shadow Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="border" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Border Size</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="border_color" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Border Color</label>
+                                    <frontend_class>ox-ss-colorpicker</frontend_class>
+                                </field>
+                                <field id="border_radius" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Border Radius (Edges Roundness)</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="padding" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Block Padding</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="padding_mobile" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Block Padding on Mobile</label>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                </field>
+                                <field id="margin_top" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Space Above Block (Margin Top)</label>
+                                    <validate>validate-digits</validate>
+                                </field>
+                                <field id="margin_bottom" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Space Below Block (Margin Bottom)</label>
+                                    <validate>validate-digits</validate>
+                                </field>
+                         </group>
+                        <group id="appearance_custom" translate="label" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Custom CSS</label>
+                            <field id="custom_css_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Enable Custom CSS</label>                    
+                                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                <frontend_class>on-off-trigger</frontend_class>
+                            </field>
+                            <field id="custom_css_content" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Custom CSS</label>
+                                <comment>Add your custom css style here.</comment>
+                                <depends>
+                                    <field id="custom_css_enabled">1</field>
+                                </depends> 
+                            </field>
+                        </group>
+                </section>
+                <section id="olegnax_instagram_license" translate="label" sortOrder="112" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instagram Feed License</label>
+                    <tab>olegnax</tab>
+                    <resource>Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_license</resource>
+			<group id="info" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1" translate="label">
+				<frontend_model>Olegnax\InstagramFeedPro\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+			</group>
+                    <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Olegnax Instagram Activation</label>
+                        <field id="code" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>License Key</label>
+                            <comment><![CDATA[<div class="ox-license-description"><div class="ox-subtitle">Register</div>
+        <p>Enter purchase code and click <strong>Save Config</strong> button above to register theme on current domain.</p>
+        <p>One purchase code per one Domain/Magento installation.</p>
+        <p>&nbsp;</p>
+        <div class="ox-subtitle">Deregister</div>
+        <p>After you registered domain you can deregister it and use same purchase code to register module on another domain. To do this you need to remove purchase code from this field (leave it empty) and click <strong>Save Config</strong> button. You should do this before migrate to another domain name/magento installation.</p>
+                                </div>
+                                <div class="ox-license-description"><div class="ox-subtitle">More Info</div>
+                                <p><a href="https://olegnax.com/how-to-manage-product-keys/">How to manage License Keys?</a></p>
+                                </div>
+        ]]></comment>                  
+                        </field>
+                        <field id="codeconfirm" translate="label" type="hidden" sortOrder="20" showInDefault="0" showInWebsite="0" showInStore="0">
+                            <label>Purchase Code Confirm</label>
+                        </field>
+                        <field id="item_name" translate="label" type="hidden" sortOrder="20" showInDefault="0" showInWebsite="0" showInStore="0">
+                            <label>Purchase Item Name</label>
+                        </field>
+                        <field id="created_at" translate="label" type="hidden" sortOrder="20" showInDefault="0" showInWebsite="0" showInStore="0">
+                            <label>Purchase Created At</label>
+                        </field>
+                        <field id="licence" translate="label" type="hidden" sortOrder="20" showInDefault="0" showInWebsite="0" showInStore="0">
+                            <label>Purchase Licence</label>
+                        </field>
+                        <field id="supported_until" translate="label" type="hidden" sortOrder="20" showInDefault="0" showInWebsite="0" showInStore="0">
+                            <label>Purchase Supported Until</label>
+                        </field>
+                    </group>
+                </section>
+	</system>
+</config>

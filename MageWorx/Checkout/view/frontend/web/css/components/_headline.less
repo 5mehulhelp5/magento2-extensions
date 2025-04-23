@@ -1,0 +1,19 @@
+.headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media @screen-sm {
+    align-items: flex-end;
+    flex-direction: row;
+  }
+
+  &__left {
+    .get-rem(margin-bottom, 15);
+
+    @media @screen-sm {
+      margin-bottom: 0;
+    }
+  }
+}

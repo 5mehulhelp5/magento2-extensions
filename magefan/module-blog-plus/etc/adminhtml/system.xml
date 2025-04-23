@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mfblog">
+            <!--
+            <group id="general">
+                <field id="version_plus" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\BlogPlus\Block\Adminhtml\Config\Form\Info</frontend_model>
+                </field>
+            </group>
+            -->
+            <!--
+            <group id="publish_post_on_fb" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Publish Posts On Facebook (Blog+)</label>
+                <attribute type="expanded">0</attribute>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Auto Publish On Facebook</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="app_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook App ID</label>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="app_secret" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook App Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="page_id" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Page ID</label>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                            To find you Facebook Page ID <a href="https://findmyfbid.com/" target="_blank">click here</a>.
+                        ]]></comment>
+                </field>
+                <field id="generate_access_token" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Magefan\BlogPlus\Block\Adminhtml\Config\Form\LoginUrl</frontend_model>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="post_format" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Post Format</label>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="autopublish_categories" translate="label" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Blog Categories For Auto Publishing</label>
+                    <source_model>Magefan\BlogPlus\Model\Config\Source\FbAutopublishCategory</source_model>
+                    <depends>
+                        <field id="mfblog/publish_post_on_fb/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            -->
+
+        </section>
+    </system>
+</config>

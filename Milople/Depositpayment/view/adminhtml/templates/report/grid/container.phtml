@@ -1,0 +1,43 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+
+?>
+<?php echo $block->getGridHtml() ?>
+
+<div class="reports-content">
+    <?php echo $block->getChildHtml('grid.filter.form') ?>
+</div>
+<script>
+require([
+    'jquery',
+    'mage/backend/validation',
+    "prototype"
+], function(jQuery){
+
+//<![CDATA[
+    jQuery('#filter_form').mage('validation', {errorClass: 'mage-error'});
+    function filterFormSubmit() {
+        var filters = $$('#filter_form input', '#filter_form select');
+        var elements = [];
+        for(var i in filters){
+            if(filters[i].value && filters[i].value.length && !filters[i].disabled) elements.push(filters[i]);
+        }
+        if (jQuery('#filter_form').valid()) {
+            setLocation('<?php /* @escapeNotVerified */ echo $block->getFilterUrl(); ?>filter/'+Base64.encode(Form.serializeElements(elements))+'/');
+        }
+    }
+//]]>
+    window.filterFormSubmit = filterFormSubmit;
+});
+</script>

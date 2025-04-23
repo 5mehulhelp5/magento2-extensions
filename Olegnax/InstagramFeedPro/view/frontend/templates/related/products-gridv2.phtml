@@ -1,0 +1,89 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ * @noinspection PhpDeprecationInspection
+ */
+declare(strict_types=1);
+
+use Magento\Catalog\Model\Product;
+use Magento\Framework\Escaper;
+use Magento\Wishlist\Helper\Data;
+use Olegnax\InstagramFeedPro\Block\Product as Template;
+use Magento\Framework\App\Action\Action;
+use Olegnax\InstagramFeedPro\Helper\Helper;
+use Olegnax\InstagramFeedPro\Model\Config\Source\CartIconsStyle;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var Product $product */
+/** @var Helper $helper */
+$settings = $this->helper(Helper::class)->getModuleConfig('modal');
+$imageDisplayArea = 'category_page_grid';
+$product = $block->getProduct();
+$productImage = $block->getImage($product, $imageDisplayArea);
+$cartIconStyle = $this->helper(Helper::class)->getSystemValue('olegnax_instagram_pro_appearance/modal/related_cart_icon');
+if($cartIconStyle == CartIconsStyle::STYLE_BAG_SHARP){
+$cartIcon = '<svg xmlns="http://www.w3.org/2000/svg" class="minicart-icon-1" width="14" height="16" viewBox="0 0 14 16">
+  <path d="M11,3V0H3V3H0V16H14V3H11ZM5,2H9V3H5V2Zm7,12H2V5H3V7H5V5H9V7h2V5h1v9Z"></path>
+</svg>';
+} elseif($cartIconStyle == CartIconsStyle::STYLE_CART){
+$cartIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M16,0H12.9L12.2,3H0l2,9H12l1.7-7.7h0.2L14.5,2H16V0ZM10.4,10H3.6L2.5,5h9Z"/><circle cx="3.5" cy="14.5" r="1.5"/><circle cx="10.5" cy="14.5" r="1.5"/></svg>';
+} else{
+$cartIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path d="M7,2A2,2,0,0,1,9,4V8h2V4A4,4,0,0,0,7,0H7A4,4,0,0,0,3,4V8H5V4A2,2,0,0,1,7,2"/><path d="M12,6v8H2V6H12m0-2H2A2,2,0,0,0,0,6v8a2,2,0,0,0,2,2H12a2,2,0,0,0,2-2V6a2,2,0,0,0-2-2h0Z"/></svg>';
+}
+$showPrice = $settings['show_price'];
+$showCart = $settings['show_tocart'];
+$showWishlist = $settings['show_wishlist'];
+?>
+<div class="ox-inst-product" data-entity-id="<?= $escaper->escapeHtmlAttr($product->getId()) ?>">
+	<div class="-image-wrap">
+		<a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>" class="-photo" tabindex="-1">
+            <?php echo $productImage->toHtml() ?>
+		</a>
+		<div class="-actions">
+			<?php if ($showCart): ?>
+				<?php $postParams = $block->getAddToCartPostParams($product); ?>
+				<form data-role="tocart-form"
+					  data-product-sku="<?= $block->escapeHtml($product->getSku()) ?>"
+					  action="<?= /* @NoEscape */
+					  $postParams['action'] ?>" method="post">
+					<input type="hidden" name="product"
+						   value="<?= /* @escapeNotVerified */
+						   $postParams['data']['product'] ?>">
+					<input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+						   value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+					<?= $block->getData('formkey') ?>
+					<button type="submit"
+							title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
+							class="action tocart primary">
+						<?= $cartIcon ?><span><?= /* @escapeNotVerified */
+							__('Add to Cart') ?></span>
+					</button>
+				</form>
+			<?php endif; ?>
+			<?php if ($showWishlist): ?>
+				<div class="actions-secondary" data-role="add-to-links">
+					<?php if ($this->helper(Data::class)->isAllow() && $showWishlist): ?>
+						<a href="#"
+						   data-post='<?= /* @noEscape */
+						   $block->getAddToWishlistParams($product) ?>'
+						   class="action towishlist" data-action="add-to-wishlist"
+						   title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>">
+							<span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+						</a>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+	<div class="-details">
+		<strong class="name">
+			<a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>"> <?= $escaper->escapeHtml($product->getName()) ?></a>
+		</strong>
+		<?php if ($showPrice): ?>
+		<div class="price"><?= $product->getFormattedPrice() ?></div>
+		<?php endif; ?>
+	</div>
+</div>

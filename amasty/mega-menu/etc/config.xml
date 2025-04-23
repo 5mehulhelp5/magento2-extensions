@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ammegamenu>
+            <general>
+                <show_icons>desktop</show_icons>
+                <help_and_settings_display>3</help_and_settings_display>
+                <help_and_settings_tab_name>Help &amp; Settings</help_and_settings_tab_name>
+            </general>
+        </ammegamenu>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <media_gallery_image_folders>
+                        <mega_menu_image_folder>amasty/ammegamenu</mega_menu_image_folder>
+                    </media_gallery_image_folders>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
+    </default>
+</config>

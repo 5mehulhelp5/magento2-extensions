@@ -1,0 +1,258 @@
+<?php
+use Mirasvit\Core\Service\CspService;
+use \Mirasvit\Helpdesk\Model\Config as Config;
+
+$nonce = CspService::getNonce();
+/* @var \Mirasvit\Helpdesk\Block\Adminhtml\Ticket\Edit\Tab\Messages $block */
+?>
+<div class="hdmx__ticket-history">
+    <?php foreach ($block->getMessages(true) as $message): ?>
+
+        <?php if ($block->isShowSatisfactions()): ?>
+            <?php foreach ($block->getSatisfactions($message) as $satisfaction): ?>
+                <div class="hdmx__satisfaction-rate rate-<?= $block->escapeHtml($satisfaction->getRate()) ?>"
+                     title="<?= $block->escapeHtml(__('Satisfaction survey')) ?>">
+                    <img
+                        src="<?= $block->escapeUrl($block->getViewFileUrl('Mirasvit_Helpdesk::images/smile/' . $satisfaction->getRate() . '.png', ['_area' => 'frontend'])) ?>"
+                        width="40" height="40" border="0">
+                    <?php if ($satisfaction->getComment()) : ?>
+                        <div class="comment">
+                            <?= $block->escapeHtml($satisfaction->getComment()) ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+                <div class="hdmx__satisfaction-rate-clear"></div>
+            <?php endforeach ?>
+        <?php endif ?>
+
+        <div class="hdmx__message">
+            <div class="hdmx-message__header">
+                <a target="_blank" class="hdmx-message__source"
+                   href="<?= $block->escapeUrl($block->getSourceUrl($message)) ?>">
+                    <?= $block->escapeHtml(__('show source')) ?>
+                </a>&nbsp;
+
+                <?php if ($message->getTriggeredBy() == \Mirasvit\Helpdesk\Model\Config::CUSTOMER): ?>
+                    <?php if ($message->getCustomerName() != ''): ?>
+                        <strong><?= $block->escapeHtml($message->getCustomerName()) ?></strong>,
+                    <?php endif ?>
+                    <?= $block->escapeHtml($message->getCustomerEmail()) ?>
+                <?php elseif ($message->getTriggeredBy() == \Mirasvit\Helpdesk\Model\Config::USER): ?>
+                    <strong><?= $block->escapeHtml($message->getUserName()) ?></strong>
+                    <?php if ($message->isThirdParty()): ?>
+                        <?= $block->escapeHtml(__('to %1 (third party)', $message->getThirdPartyEmail())) ?>
+                    <?php endif ?>
+                <?php elseif ($message->getTriggeredBy() == Config::THIRD): ?>
+                    <?= $block->escapeHtml(__('%1 %2 (third party)', $block->escapeHtml($message->getThirdPartyName()), $block->escapeHtml($message->getThirdPartyEmail()))) ?>
+                <?php endif ?>
+
+                <span class="minor">
+                    <?= $block->escapeHtml(__('added %1 (%2)', $block->getNicetimeSpan($message->getCreatedAt()), $block->formatDateTime($message->getCreatedAt()))) ?>
+                </span>
+            </div>
+            <div class="hdmx-message__body <?= $block->escapeHtml($message->getType()) ?> <?php if ($message->getCustomerEmail()): ?>user<?php else: ?>staff<?php endif ?> ">
+                <?php
+                //DONT CHANGE THIS
+                $message->setIsBackend(true);
+                echo $block->escapeHtml($message->getUnsafeBodyHtml(), $message->getAllowedTags());
+                //END DONT CHANGE THIS
+                ?>
+                <?= $block->escapeHtml($block->getUserSignatureHTML($message), $message->getAllowedTags()); ?>
+
+                <?php $_attachments = $message->getAttachments() ?>
+                <?php if (count($_attachments)): ?>
+                    <div class="hdmx-message__attachments">
+                        <?php foreach ($_attachments as $_attachment): ?>
+                            <?php if ($_attachment->getIsAllowed()): ?>
+
+                                <div class="attachment-item">
+                                    <div class="attachment-thumbnail-container">
+                                        <div class="image-link" >
+                                            <?php if (strpos(strtolower($_attachment->getType()), 'image') !== false): ?>
+                                                <a href="#" class="attachment-link"
+                                                   data-src="<?= $block->escapeUrl($_attachment->getBackendUrl()) ?>"
+                                                   data-name="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                   data-type="mstimage" >
+                                                    <img src="<?= $block->escapeUrl($_attachment->getBackendUrl()) ?>"
+                                                         alt="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                         title="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                         style="cursor: pointer; "/>
+                                                </a>
+
+                                            <?php else: ?>
+                                                <?php if ($_attachment->getBody()): ?>
+
+                                                    <a class="attachment-link" href="<?= $block->escapeUrl($_attachment->getBackendUrl()) ?>"
+                                                       data-src="<?= $block->escapeUrl($_attachment->getBackendUrl()) ?>"
+                                                    data-name="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                    >
+                                                    <img class="attachment-downloadable"
+                                                        src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/plug_item.svg') ?>
+                                                        alt="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                        title="<?= $block->escapeHtml($_attachment->getName()) ?>"
+                                                        style="cursor: pointer;"/>
+                                                    </a>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="attachment-info">
+                                            <div class="attachment-icon">
+                                                <?php if (strpos(strtolower($_attachment->getType()), 'image') !== false): ?>
+                                                    <img src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/img_icon.svg') ?>>
+                                                <?php else: ?>
+                                                    <img src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/doc_icon.svg') ?>>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="attachment-details">
+                                                <span class="attachment-name"><?= $block->escapeHtml($_attachment->getName()) ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="download-info">
+                                            <div class="attachment-icon">
+                                                <img src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/download.svg') ?>>
+                                            </div>
+                                            <div class="attachment-details">
+                                                <span class="download-link"><?= $block->escapeHtml(__('Download')) ?></span>
+                                                <span class="attachment-size"><?= $block->escapeHtml(round($_attachment->getSize() / 1024, 2)) ?> KB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
+<div id="mstAttachmentPopup" class="mst-popup">
+    <div class="mst-popup-action">
+        <span class="mst-popup-close">
+            <img src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/close_icon.svg') ?>>
+        </span>
+        <span>
+            <a id="hdmx-download" href="#" download style="display: none;">
+            <img src=<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/Download.svg') ?>>
+        </a>
+        </span>
+    </div>
+
+    <div class="mst-popup-content">
+        <img id="mstPopupImage" src="" alt="Image Preview">
+        <span id="attachment-name"></span>
+    </div>
+    <div class="mst-popup-navigation">
+        <button id="hdmxPrevImage">
+            <img class="hdmx-arr" src="<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/left.svg'); ?>">
+            <img class="hdmx-arr-hover" src="<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/left_hover.svg'); ?>">
+        </button>
+        <button id="hdmxNextImage">
+            <img class="hdmx-arr" src="<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/right.svg'); ?>">
+            <img class="hdmx-arr-hover" src="<?php echo $block->getViewFileUrl('Mirasvit_Helpdesk::images/right_hover.svg'); ?>">
+        </button>
+    </div>
+</div>
+
+<script <?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    document.addEventListener('DOMContentLoaded', function () {
+        var attachmentLinks = document.querySelectorAll('.attachment-link');
+        var popup = document.getElementById('mstAttachmentPopup');
+        var popupImage = document.getElementById('mstPopupImage');
+        var closeBtn = document.querySelector('.mst-popup-close');
+        var prevBtn = document.getElementById('hdmxPrevImage');
+        var nextBtn = document.getElementById('hdmxNextImage');
+        var downloadBtn = document.getElementById('hdmx-download');
+        var attachmentName = document.getElementById('attachment-name');
+        var currentIndex = 0;
+        var images = [];
+        var imageNames = [];
+        var noScroll = 'hdmx-no-scroll';
+
+        attachmentLinks.forEach(function (link, index) {
+            if (link.getAttribute('data-type') === 'mstimage') {
+                images.push(link.getAttribute('data-src'));
+                imageNames.push(link.getAttribute('data-name'));
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    currentIndex = images.indexOf(link.getAttribute('data-src'));
+                    popupImage.src = images[currentIndex];
+                    downloadBtn.href = images[currentIndex];
+                    downloadBtn.style.display = 'block';
+                    attachmentName.textContent = imageNames[currentIndex];
+                    popup.style.display = 'flex';
+                    document.body.classList.add(noScroll);
+                });
+            }
+        });
+
+        closeBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            popup.style.display = 'none';
+            document.body.classList.remove(noScroll);
+        });
+
+        prevBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            showPrevImage();
+        });
+
+        nextBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            showNextImage();
+        });
+
+        popup.addEventListener('click', function (event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+                document.body.classList.remove(noScroll);
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closePopup();
+            } else if (event.key === 'ArrowLeft') {
+                showPrevImage();
+            } else if (event.key === 'ArrowRight') {
+                showNextImage();
+            }
+        });
+
+        function showPrevImage() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            popupImage.src = images[currentIndex];
+            downloadBtn.href = images[currentIndex];
+            attachmentName.textContent = imageNames[currentIndex];
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            popupImage.src = images[currentIndex];
+            downloadBtn.href = images[currentIndex];
+            attachmentName.textContent = imageNames[currentIndex];
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+            document.body.classList.remove(noScroll);
+        }
+
+        var downloadIcons = document.querySelectorAll('.download-info');
+        downloadIcons.forEach(function (icon) {
+            icon.addEventListener('click', function (event) {
+                var attachmentItem = icon.closest('.attachment-item');
+                var downloadLink = attachmentItem.querySelector('.attachment-link');
+                if (downloadLink) {
+                    var url = downloadLink.getAttribute('data-src');
+                    var link = document.createElement('a');
+                    link.href = url;
+                    link.download = '';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        });
+    });
+</script>

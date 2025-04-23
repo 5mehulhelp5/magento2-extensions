@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Olegnax\InstagramFeedPro\Block\Adminhtml\Post\Helper\Form\Info\Content;
+use Olegnax\InstagramFeedPro\Model\IntsPost;
+
+/** @var $block Content */
+/** @var Escaper|Content $escaper */
+if (!isset($escaper)) {
+    $escaper = $block;
+}
+/** @var mixed $format */
+$format = $block->getDateFormat() ?: IntlDateFormatter::SHORT;
+/** @var IntsPost $post */
+$post = $block->getIntsPost();
+$iconLikes = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.8 16" width="17.8" height="16"><path d="M6,4A3.8,3.8,0,0,1,8.6,5.3L10,6.7l1.4-1.4A3.8,3.8,0,0,1,14,4a3,3,0,0,1,2.7,1.8,3.3,3.3,0,0,1-1,3.7L10,15.2,4.3,9.5a3.3,3.3,0,0,1-1-3.7A3,3,0,0,1,6,4M6,2C2,2-1,7,2.9,10.9L10,18l7.1-7.1C21,7,18,2,14,2a5.7,5.7,0,0,0-4,1.8A5.7,5.7,0,0,0,6,2H6Z" transform="translate(-1.1 -2)"/></svg>';
+$iconComment = '<svg xmlns="http://www.w3.org/2000/svg" width="19.2" height="18.2" viewBox="0 0 19.2 18.2"><path d="M9.5,2h0a6.9,6.9,0,0,1,6.9,6.6,6.8,6.8,0,0,1-.8,3.1l-0.5.8,0.3,0.9L16,15l-1.7-.6-0.8-.3-0.8.4a7.3,7.3,0,0,1-3.5.9H8.9A6.9,6.9,0,0,1,2,8.7H2A6.9,6.9,0,0,1,8.9,2H9.5m0-2H8.9A8.9,8.9,0,0,0,0,8.6H0a8.9,8.9,0,0,0,8.9,8.7H9.2a9.9,9.9,0,0,0,4.4-1.1l5.6,1.9-1.9-5.5a8.4,8.4,0,0,0,1.1-4.1A8.9,8.9,0,0,0,9.5,0h0Z"/></svg>';
+?>
+<div class="ox-inst-admin__post-info">
+	<?php if ($post->getUser()): ?>
+	<p><a target="_blank" rel="nofollow" class="ox-inst-admin__user"
+									  href="<?= $escaper->escapeHtmlAttr($post->getUser()->getURL())
+		?>"><?= $escaper->escapeHtml($post->getUser()->getUsername()) ?></a></p>
+	<?php endif; ?>
+	<p class="ox-inst-admin__caption"><?= $escaper->escapeHtml($post->getCaption()) ?></p>
+	<p class="ox-inst-admin__date"><?= $block->formatDate($post->getTimestamp(), $format) ?></p>
+	<div class="ox-inst-admin__counters">
+	<?php if (0 < $post->getLikeCount()): ?>
+		<span class="action like"><?= $iconLikes ?><span><?= $post->getLikeCount() ?></span></span>
+	<?php endif; ?>
+	<?php if (0 < $post->getCommentsCount()): ?>
+		<span class="action comment"><?= $iconComment ?><span><?= $post->getCommentsCount() ?></span></span>
+	<?php endif; ?>
+	</div>
+	<div class="ox-inst-admin__post-link"><a href="<?= $post->getUrl() ?>" target="_blank" rel="noopener noreferrer nofollow" target="_blank" >Link to post on Instagram</a></div>
+</div>

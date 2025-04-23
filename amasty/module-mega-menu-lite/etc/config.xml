@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ammegamenu>
+            <general>
+                <enabled>0</enabled>
+                <mobile_template>accordion</mobile_template>
+                <mobile_menu_width>1024</mobile_menu_width>
+            </general>
+            <color>
+                <color_template>custom</color_template>
+                <main_menu_background>#F5F8FF</main_menu_background>
+                <main_menu_background_hover>#FFFFFF</main_menu_background_hover>
+                <main_menu_text>#546B92</main_menu_text>
+                <main_menu_text_hover>#376EFB</main_menu_text_hover>
+                <submenu_background_color>#FFFFFF</submenu_background_color>
+                <submenu_background_image> </submenu_background_image>
+                <submenu_text>#546B92</submenu_text>
+                <submenu_text_hover>#376EFB</submenu_text_hover>
+                <current_category_color>#376EFB</current_category_color>
+                <toggle_icon_color>#9EADC7</toggle_icon_color>
+                <hamburger_icon_color>#9EADC7</hamburger_icon_color>
+            </color>
+        </ammegamenu>
+    </default>
+</config>

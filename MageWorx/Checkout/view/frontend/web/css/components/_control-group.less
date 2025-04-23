@@ -1,0 +1,28 @@
+.control-group {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+
+  & > .button {
+    &:last-of-type {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    z-index: 10;
+  }
+
+  & > .input {
+    &:first-child {
+      .input__control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+
+  & > .tooltip {
+    .get-rem(height, 40);
+    margin-left: 10px;
+  }
+}

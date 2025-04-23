@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Seo Rich Data Yotpo (System)
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amseorichdata">
+            <group id="product">
+                <field id="use_yotpo" translate="label comment">
+                    <frontend_model>Amasty\SeoRichDataYotpo\Block\Adminhtml\System\Config\YotpoReviews</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

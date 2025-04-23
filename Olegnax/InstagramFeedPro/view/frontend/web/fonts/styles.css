@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "ox-instagram";
+  src:url("ox-instagram.eot");
+  src:url("ox-instagram.eot?#iefix") format("embedded-opentype"),
+    url("ox-instagram.woff") format("woff"),
+    url("ox-instagram.ttf") format("truetype"),
+    url("ox-instagram.svg#ox-instagram") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "ox-instagram" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="oxi-"]:before,
+[class*=" oxi-"]:before {
+  font-family: "ox-instagram" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.oxi-album-f:before {
+  content: "\61";
+}
+.oxi-heart-f:before {
+  content: "\62";
+}
+.oxi-heart-o:before {
+  content: "\63";
+}
+.oxi-video-f:before {
+  content: "\64";
+}
+.oxi-play-f:before {
+  content: "\65";
+}
+.oxi-comment:before {
+  content: "\66";
+}
+.oxi-comment-f:before {
+  content: "\67";
+}
+.oxi-share-f:before {
+  content: "\68";
+}
+.oxi-facebook-f:before {
+  content: "\69";
+}
+.oxi-instagram:before {
+  content: "\6a";
+}
+.oxi-linkedin-in:before {
+  content: "\6b";
+}
+.oxi-whatsapp:before {
+  content: "\6c";
+}
+.oxi-letter:before {
+  content: "\6d";
+}
+.oxi-pinterest:before {
+  content: "\6e";
+}
+.oxi-twitter:before {
+  content: "\6f";
+}
+.oxi-heart:before {
+  content: "\70";
+}
+.oxi-bubble:before {
+  content: "\71";
+}
+.oxi-link:before {
+  content: "\72";
+}
+.oxi-cart-o:before {
+  content: "\74";
+}
+.oxi-bag-o:before {
+  content: "\75";
+}
+.oxi-bag-s:before {
+  content: "\76";
+}
+.oxi-play-o-s:before {
+  content: "\77";
+}
+.oxi-play-big-o-s:before {
+  content: "\78";
+}
+.oxi-play-f-s:before {
+  content: "\79";
+}
+.oxi-album-o:before {
+  content: "\73";
+}
+.oxi-album-f-s:before {
+  content: "\7a";
+}

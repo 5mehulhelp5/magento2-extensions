@@ -1,0 +1,141 @@
+//
+//  Amasty Sidebar Menu
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@ammenu-mobile-menu__width: 90%;
+@ammenu-mobile-menu__height: 50px;
+@ammenu-sidebar-toggle-icon__size: 40px;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-sidebar {
+        & {
+            .ammenu-transition(.3);
+
+            bottom: 0;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, .17), 4px 4px 10px rgba(0, 0, 0, .1);
+            left: -100%;
+            max-width: 500px;
+            overflow: auto;
+            padding: 0 0 @ammenu-mobile-toolbar__height;
+            position: fixed;
+            top: 0;
+            width: 95vw;
+            z-index: 272;
+        }
+
+        &.-opened {
+            left: 0;
+        }
+
+        .ammenu-account-section {
+            height: 100%;
+        }
+
+        .ammenu-items {
+            flex-basis: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ammenu-items.-root > .ammenu-item {
+            & {
+                margin: 0;
+            }
+
+            > .ammenu-link {
+                & {
+                    &:extend(._ammenu-link.-first);
+
+                    box-sizing: border-box;
+                    flex-basis: 100%;
+                    font-weight: 700;
+                }
+
+                > .ammenu-icon-block.-toggle {
+                    bottom: 0;
+                    height: @ammenu-sidebar-toggle-icon__size;
+                    margin: auto;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: @ammenu-sidebar-toggle-icon__size;
+                }
+
+                > .ammenu-icon-block.-icon {
+                    margin-bottom: auto;
+                    margin-top: 2px;
+                }
+
+                > .ammenu-text-block {
+                    padding: 0 @ammenu-sidebar-toggle-icon__size 0 0;
+                }
+            }
+        }
+
+        .ammenu-label {
+            margin: 3px 5px 3px @ammenu__indent;
+            min-width: 50px;
+        }
+
+        .ammenu-item {
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 1.8rem;
+            position: relative;
+            transition: .5s opacity;
+        }
+
+        .ammenu-link {
+            & {
+                flex-basis: 100%;
+                flex-grow: 1;
+                font-size: inherit;
+                font-weight: inherit;
+                line-height: inherit;
+                margin: 0 @ammenu__indent__xl;
+                text-align: left;
+            }
+
+            &:active {
+                opacity: .6;
+            }
+
+            .ammenu-counter {
+                & {
+                    align-self: center;
+                    font-size: .8em;
+                    opacity: .5;
+                    padding: 0 0 0 5px;
+                    text-transform: capitalize;
+                }
+
+                &:before {
+                    content: '(';
+                }
+
+                &:after {
+                    content: ')';
+                }
+            }
+        }
+
+        .ammenu-text {
+            .ammmenu-word-break();
+
+            box-sizing: border-box;
+            max-height: 100%;
+            overflow: hidden;
+            text-align: left;
+            text-overflow: ellipsis;
+        }
+    }
+}

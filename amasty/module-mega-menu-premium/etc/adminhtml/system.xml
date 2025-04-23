@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="ammegamenu" translate="label" type="text" sortOrder="130507" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="animation_time" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Animation Time</label>
+                    <comment>Enter the default animation time in seconds. Animation type is configured on the top category level. 0 value disables animations.</comment>
+                    <validate>required-entry validate-am-decimal</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="hamburger_animation" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Animation Effect for Hamburger</label>
+                    <comment>Choose an animation type for hamburger menu opening (both mobile and desktop).</comment>
+                    <source_model>Amasty\MegaMenuPremium\Model\OptionSource\HamburgerAnimation</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

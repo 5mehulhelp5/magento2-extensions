@@ -1,0 +1,113 @@
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+Delete,Delete
+"Are you sure you want to delete this?","Are you sure you want to delete this?"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"Toggling menu","Toggling menu"
+"Menu Builder","Menu Builder"
+"Item is not available for requested store.","Item is not available for requested store."
+"There was a item move error.","There was a item move error."
+"You moved the item.","You moved the item."
+"We can't change item right now. Please review the log and try again.","We can't change item right now. Please review the log and try again."
+"A total of %1 record(s) have been changed.","A total of %1 record(s) have been changed."
+"No records have been changed.","No records have been changed."
+"The link have been deleted.","The link have been deleted."
+"Can't delete item right now. Please review the log and try again.","Can't delete item right now. Please review the log and try again."
+"This Custom Menu Item no longer exists.","This Custom Menu Item no longer exists."
+"Edit Custom Menu Item # %1","Edit Custom Menu Item # %1"
+"New Custom Menu Item","New Custom Menu Item"
+"Custom Menu Items","Custom Menu Items"
+"We can't delete item right now. Please review the log and try again.","We can't delete item right now. Please review the log and try again."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"No records have been deleted.","No records have been deleted."
+"The Custom Menu Item was successfully saved.","The Custom Menu Item was successfully saved."
+"Something went wrong while saving the link data. Please review the error log.","Something went wrong while saving the link data. Please review the error log."
+"Provided argument is not in PSR-0 or underscore notation.","Provided argument is not in PSR-0 or underscore notation."
+Custom,Custom
+Blank,Blank
+"Enable For Both Desktop and Mobile","Enable For Both Desktop and Mobile"
+"Enable for Desktop Only","Enable for Desktop Only"
+"Enable for Mobile Only","Enable for Mobile Only"
+Disable,Disable
+"Choose an option","Choose an option"
+"Internal URL","Internal URL"
+"External URL","External URL"
+"Unable to save item with ID %1. Error: %2","Unable to save item with ID %1. Error: %2"
+"Unable to save new item. Error: %1","Unable to save new item. Error: %1"
+"Item with specified ID ""%1"" not found.","Item with specified ID ""%1"" not found."
+"Unable to remove item with ID %1. Error: %2","Unable to remove item with ID %1. Error: %2"
+"Unable to remove item. Error: %1","Unable to remove item. Error: %1"
+"Unable to save link with ID %1. Error: %2","Unable to save link with ID %1. Error: %2"
+"Unable to save new link. Error: %1","Unable to save new link. Error: %1"
+"Link with specified ID ""%1"" not found.","Link with specified ID ""%1"" not found."
+"Unable to remove link with ID %1. Error: %2","Unable to remove link with ID %1. Error: %2"
+"Unable to remove link. Error: %1","Unable to remove link. Error: %1"
+"This Entity no longer exists.","This Entity no longer exists."
+Edit,Edit
+"Delete %1","Delete %1"
+"Are you sure you wan't to delete a %1 link?","Are you sure you wan't to delete a %1 link?"
+"Main Menu","Main Menu"
+Enabled,Enabled
+"Enabled for Desktop Only","Enabled for Desktop Only"
+"Enabled for Mobile Only","Enabled for Mobile Only"
+Disabled,Disabled
+"Close menu","Close menu"
+Welcome,Welcome
+"Toggle item ","Toggle item "
+"Go to ","Go to "
+Apply,Apply
+Cancel,Cancel
+"View All","View All"
+Menu,Menu
+Account,Account
+"Amasty Mega Menu","Amasty Mega Menu"
+"Mega Menu Lite","Mega Menu Lite"
+Information,Information
+General,General
+"Enable Hamburger Menu For Categories on Desktop","Enable Hamburger Menu For Categories on Desktop"
+"Mobile Menu Title","Mobile Menu Title"
+"Mobile Menu Width(px)","Mobile Menu Width(px)"
+"Color Settings","Color Settings"
+"Color Scheme Template","Color Scheme Template"
+"If 'Blank' is selected, plugin will not add color styles dynamically. In that case please define them using Magento LESS files.","If 'Blank' is selected, plugin will not add color styles dynamically. In that case please define them using Magento LESS files."
+"Main Menu Background Color","Main Menu Background Color"
+"Main Menu Background Hover Color","Main Menu Background Hover Color"
+"Active background color for items in desktop menu type","Active background color for items in desktop menu type"
+"Main Menu Text Color","Main Menu Text Color"
+"Main Menu Text Hover Color","Main Menu Text Hover Color"
+"Leave empty if no highlighting for active menu items is required.","Leave empty if no highlighting for active menu items is required."
+"Submenu Background Color","Submenu Background Color"
+"Submenu Background Image","Submenu Background Image"
+"Submenu Text Color","Submenu Text Color"
+"Submenu Text Hover Color","Submenu Text Hover Color"
+"Current Category Text Color","Current Category Text Color"
+"Close and Toggle Buttons Color","Close and Toggle Buttons Color"
+"Hamburger Button Color","Hamburger Button Color"
+Lite,Lite
+Dark,Dark
+Green,Green
+"Sign In","Sign In"
+"Create an Account","Create an Account"
+"My Account","My Account"
+"My Wish Lists","My Wish Lists"
+"Help & Settings","Help & Settings"
+Currency,Currency
+Language,Language
+"Log Out","Log Out"
+Back,Back
+Builder,Builder
+"Custom Menu Item","Custom Menu Item"
+Title,Title
+"URL Key","URL Key"
+"Relative to Web Site Base URL.","Relative to Web Site Base URL."
+"Please insert full URL address.","Please insert full URL address."
+Status,Status
+"Menu Label Text","Menu Label Text"
+"Label Background Color (hex)","Label Background Color (hex)"
+"Label Text Color (hex)","Label Text Color (hex)"
+"Add New Custom Item","Add New Custom Item"
+"All Store Views","All Store Views"
+"Store View","Store View"
+"Delete items","Delete items"
+"Are you sure to delete selected links?","Are you sure to delete selected links?"
+ID,ID

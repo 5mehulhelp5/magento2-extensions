@@ -1,0 +1,167 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_listing_data_source</item>
+            <item name="deps" xsi:type="string">olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">olegnax_instagramfeedpro_intsuser_columns</item>
+        <item name="buttons" xsi:type="array">
+			<item name="AddManually" xsi:type="string">Olegnax\InstagramFeedPro\Ui\Component\Listing\Button\AddManually</item>
+			<item name="AddInstagramAccount" xsi:type="string">Olegnax\InstagramFeedPro\Ui\Component\Listing\Button\AddInstagramAccount</item>
+			<!-- <item name="AddFacebookAccount" xsi:type="string">Olegnax\InstagramFeedPro\Ui\Component\Listing\Button\AddFacebookAccount</item> -->
+        </item>
+    </argument>
+    <dataSource name="olegnax_instagramfeedpro_intsuser_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">olegnax_instagramfeedpro_intsuser_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">intsuser_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">intsuser_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+		<massaction name="listing_massaction">
+			<action name="delete">
+				<settings>
+					<confirm>
+						<message translate="true">Are you sure you want to delete selected Users?</message>
+						<title translate="true">Delete Users</title>
+					</confirm>
+					<url path="*/*/massDelete"/>
+					<type>delete</type>
+					<label translate="true">Delete</label>
+				</settings>
+			</action>
+			<action name="disable">
+				<settings>
+					<url path="*/*/MassStatus/status/0"/>
+					<type>disable</type>
+					<label translate="true">Disable</label>
+				</settings>
+			</action>
+			<action name="enable">
+				<settings>
+					<url path="*/*/MassStatus/status/1"/>
+					<type>enable</type>
+					<label translate="true">Enable</label>
+				</settings>
+			</action>
+		</massaction>
+	</listingToolbar>
+	<columns name="olegnax_instagramfeedpro_intsuser_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">
+					olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_columns.ids
+				</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">intsuser_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" path="olegnax_instagramfeedpro/IntsUser/inlineEdit" xsi:type="url"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">
+						olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_listing.olegnax_instagramfeedpro_intsuser_columns_editor
+					</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>intsuser_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="image" class="Olegnax\InstagramFeedPro\Ui\Component\Listing\Columns\UserThumbnail"
+			component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="1">
+			<settings>
+				<label translate="true">Profile Picture</label>
+				<sortable>false</sortable>
+				<dataType>image</dataType>
+			</settings>
+		</column>
+		<column name="user_id" sortOrder="10">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="username" sortOrder="20">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Username</label>
+				<sorting>asc</sorting>
+			</settings>
+		</column>
+		<column name="account_type" sortOrder="25">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Account Type</label>
+			</settings>
+		</column>
+		<column name="is_active" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+			<settings>
+				<filter>select</filter>
+				<options class="Magento\Cms\Model\Block\Source\IsActive"/>
+				<label translate="true">Status</label>
+				<dataType>select</dataType>
+				<editor>
+					<editorType>select</editorType>
+				</editor>
+				<resizeDefaultWidth>100</resizeDefaultWidth>
+			</settings>
+		</column>
+		<column name="timestamp" sortOrder="40">
+			<settings>
+				<dataType>date</dataType>
+				<label translate="true">Created</label>
+			</settings>
+		</column>
+		<column name="expire" class="Olegnax\InstagramFeedPro\Ui\Component\Listing\Columns\IntsUserExpire"
+				sortOrder="50">
+			<settings>
+				<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+				<label translate="true">Expire</label>
+			</settings>
+		</column>
+		<actionsColumn class="Olegnax\InstagramFeedPro\Ui\Component\Listing\Columns\IntsUserActions" name="actions"
+					   sortOrder="60">
+			<settings>
+				<indexField>intsuser_id</indexField>
+				<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+				<sortable>false</sortable>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>207</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>

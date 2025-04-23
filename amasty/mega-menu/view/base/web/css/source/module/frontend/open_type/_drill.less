@@ -1,0 +1,120 @@
+//
+//  Drill Open Type
+//  ----------------------------------------------
+
+//
+//  Keyframes
+//  ----------------------------------------------
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-500%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(500%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-mobile.-drill {
+        .ammenu-drill-section {
+            overflow: hidden;
+            padding: 0 0 @ammenu-mobile-toolbar__height 0;
+        }
+
+        .ammenu-items.-drill {
+            .ammenu-link {
+                &:extend(._ammenu-link.-first);
+            }
+
+            .ammenu-icon-block.-toggle {
+                margin-left: auto;
+                transform: rotate(180deg);
+            }
+        }
+
+        .ammenu-item:not(:last-child) > .ammenu-link {
+            border-bottom: 1px solid;
+        }
+
+        .-slide-left {
+            animation: slide-left .1s forwards;
+        }
+
+        .-slide-right {
+            animation: slide-right .1s forwards;
+        }
+
+        .ammenu-active-level {
+            & {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .ammenu-item {
+                .ammenu-flex(none, center);
+            }
+        }
+
+        .ammenu-current-title {
+            & {
+                .ammenu-flex(none, center);
+
+                box-sizing: border-box;
+                flex-basis: 100%;
+                font-size: 2.4rem;
+                margin: 0;
+                padding: 18px @ammenu__indent__xl;
+            }
+
+            &:not(.-clickable) {
+                cursor: none;
+                pointer-events: none;
+            }
+
+            .ammenu-icon-block {
+                margin: 0 @ammenu__indent 0 0;
+            }
+        }
+    }
+
+    .ammenu-drill-navigation {
+        & {
+            border-bottom: 1px solid;
+            flex-basis: 100%;
+            margin: 0 @ammenu__indent__xl @ammenu__indent;
+        }
+
+        .ammenu-button {
+            & {
+                .ammenu-flex(none, center);
+                .ammenu-reset(button);
+
+                font-size: 1.8rem;
+                line-height: normal;
+                padding: 18px 0;
+                text-align: left;
+                width: 100%;
+            }
+
+            .ammenu-icon-block {
+                margin: 0 @ammenu__indent__xxl 0 0;
+            }
+        }
+    }
+}

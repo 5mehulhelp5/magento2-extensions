@@ -1,0 +1,13 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+    <!-- ko foreach: elems() -->
+        <!-- ko ifnot: index == 'grand-total' -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

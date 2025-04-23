@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- Save temporary password for customer -->
+    <route url="/V1/guest-carts/:cartId/save-temp-password" method="POST">
+        <service class="MageWorx\Checkout\Api\GuestCustomerManagementInterface" method="saveTempPassword"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Save comment for guest -->
+    <route url="/V1/guest-carts/:cartId/save-comment" method="POST">
+        <service class="MageWorx\Checkout\Api\OrderCommentsManagementInterface" method="saveCommentGuest"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Save comment for registered customer -->
+    <route url="/V1/carts/mine/save-comment" method="POST">
+        <service class="MageWorx\Checkout\Api\OrderCommentsManagementInterface" method="saveComment"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Save email subscription status for guest -->
+    <route url="/V1/guest-carts/:cartId/email-subscription" method="POST">
+        <service class="MageWorx\Checkout\Api\EmailSubscriptionManagerInterface" method="saveSubscriptionGuest"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Save email subscription status for registered customer -->
+    <route url="/V1/carts/mine/email-subscription" method="POST">
+        <service class="MageWorx\Checkout\Api\EmailSubscriptionManagerInterface" method="saveSubscription"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Save billing address -->
+    <route url="/V1/checkout/save-billing-address" method="POST">
+        <service class="MageWorx\Checkout\Api\BillingAddressManagementInterface" method="saveBillingAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

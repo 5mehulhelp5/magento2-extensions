@@ -1,0 +1,83 @@
+.get-collapsible__header-after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 7px;
+  background-image: url("@{images}/chevron-down.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: absolute;
+  top: 6px;
+  right: -20px;
+  transition: transform 0.3s ease;
+  transform: rotate(0);
+}
+
+.collapsible {
+  display: block;
+  width: 100%;
+  margin: 0;
+
+  &--expanded {
+    & > .collapsible {
+      &__header {
+        &::after {
+          transform: rotate(180deg);
+        }
+
+        & > .link {
+          color: darken(@color-accent, 19%);
+        }
+      }
+    }
+
+    & > .collapsible__content {
+      visibility: visible;
+      height: auto;
+      position: relative;
+      left: 0;
+    }
+  }
+
+  &--style-distant {
+    .get-rem(margin-bottom, 10);
+  }
+
+  &__header {
+    display: inline-block;
+    position: relative;
+    .get-rem(line-height, 18);
+    .get-rem(margin-right, 30);
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+
+    &::after {
+      .get-collapsible__header-after();
+    }
+
+    & + .collapsible__content {
+      .get-rem(margin-top, 20);
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .link {
+      transition: color 0.3s ease;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__content {
+    margin: 0;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+    height: 0;
+  }
+}

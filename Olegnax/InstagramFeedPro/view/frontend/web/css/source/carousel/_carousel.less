@@ -1,0 +1,176 @@
+//
+//  Common
+//  _____________________________________________
+
+//noinspection ALL
+& when (@media-common = true) {
+    .ox-instagram__media,
+    .ox-instagram-item {
+        .owl-carousel{
+            .owl-dots{
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                pointer-events: none;
+                padding:0;
+                button.owl-dot{
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+    .ox-instagram-feed{
+        /*&.widget{
+            overflow:hidden;
+        }
+        &.ox-inst__nav-outside{
+            padding-left:12px;
+            padding-right:12px;
+        }*/
+        .ox-instagram-items{
+            &.owl-carousel{
+                max-width: 100%;                
+                padding:0;
+                &:not(.owl-loaded){
+                    display:flex;
+                    flex-wrap: nowrap;
+                    max-width: 100%;
+                    overflow: hidden;
+                    > div {
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                }
+            }
+            .owl-item{
+                > .ox-instagram-item{
+                    width: 100%;
+                    max-width: none !important;
+                }
+            }
+        }
+        &.-boxed{
+            &.-s-below{ 
+                .ox-instagram-items{
+                    &.owl-carousel{
+                        .ox-instagram-item {
+                            padding-top:12px;
+                            padding-bottom:24px;
+                        }
+                        .owl-stage-outer > .owl-stage{
+                            display:flex;
+                            > .owl-item{
+                                display:flex;
+                                .ox-instagram-item{
+                                    -ms-flex: 0 0 100%!important;
+                                    flex: 0 0 100%!important;
+                                    max-width: 100%!important;
+                                }
+                            }
+                        }
+                    }
+                    > .owl-dots{
+                        padding-top: 15px;
+                    }
+                }
+            }
+        }        
+    }
+    .ox-instagram-items{
+        > .owl-nav{
+            .owl-prev{
+                opacity:0;
+                transform:translateX(-20px);
+            }
+            .owl-next{
+                opacity:0;
+                transform:translateX(20px);
+            }
+        }
+        &:hover{
+            > .owl-nav{
+                .owl-prev{
+                    opacity:1;
+                    transform:translateX(10px);
+                }
+                .owl-next{
+                    opacity:1;
+                    transform:translateX(-10px);
+                }
+            }
+        }
+    }
+    &.ox-inst__nav-outside{
+            .ox-instagram-items{
+                &:hover{
+                    > .owl-nav{
+                        .owl-prev{
+                            transform:translateX(-10px);
+                        }
+                        .owl-next{
+                            transform:translateX(10px);
+                        }
+                    }
+                }
+            }
+    }
+    .dots-on{
+        padding-bottom:12px;
+        .ox-instagram-items{        
+            > .owl-nav{
+                .owl-prev,
+                .owl-next{
+                    margin-top:-25px;
+                }
+            }
+        }            
+    }
+    .ox-instagram__media,
+    .ox-instagram-feed {
+        .owl-carousel{
+            .owl-nav{
+                position: absolute;
+                top: ~"calc(50% - 15px)";
+                left:0;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                height:0;
+                button{
+                    transition: .2s ease;
+                }
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .ox-instagram-feed{
+        &.-boxed{
+            &.-s-below{ 
+                .ox-instagram-items{
+                    &.owl-carousel{
+                        .ox-instagram-item {
+                            padding-left: 14px;
+                            padding-right: 14px;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        &.ox-inst__nav-outside{
+            padding-left:20px;
+            padding-right:20px;
+        }*/
+    }
+    .ox-instagram__media {
+        .owl-carousel{
+            .owl-nav{
+                top: ~"calc(50% - 15px)";
+            }
+        }
+    }
+}

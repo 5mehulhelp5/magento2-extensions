@@ -1,0 +1,20 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+<div class="summary__field">
+    <div class="summary__cell">
+        <p class="text text--variation-strong text--variation-distant" data-bind="text: getTitle()"></p>
+        <p class="text text--variation-subdued" data-bind="text: getCouponCode()"></p>
+    </div>
+    <div class="summary__cell summary__cell--content-right">
+        <p class="text text--variation-strong negative-total" data-bind="text: getValue(), attr:{'data-th': name}"></p>
+    </div>
+    <!-- ko foreach: elems() -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->

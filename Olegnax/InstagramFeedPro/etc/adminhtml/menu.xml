@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Olegnax_InstagramFeedPro::top_level"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_Core::Olegnax_Core"
+			 resource="Olegnax_InstagramFeedPro::InstagramFeedPro"
+			 sortOrder="9999"
+			 title="Instagram Pro"
+		/>
+		<add id="Olegnax_InstagramFeedPro::olegnax_instagramfeedpro_intspost"
+			 action="olegnax_instagramfeedpro/intspost/index"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::IntsPost"
+			 sortOrder="10"
+			 title="Posts"
+			 translate="title"
+		/>
+		<add id="Olegnax_InstagramFeedPro::olegnax_instagramfeedpro_intsuser"
+			 action="olegnax_instagramfeedpro/intsuser/index"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::IntsUser"
+			 sortOrder="20"
+			 title="Users"
+			 translate="title"
+		/>
+		<add id="Olegnax_InstagramFeedPro::olegnax_instagramfeedpro_hotspot"
+			 action="olegnax_instagramfeedpro/hotspot/index"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::HotSpot"
+			 sortOrder="20"
+			 title="Hot Spots"
+			 translate="title"
+		/>
+		<add id="Olegnax_InstagramFeedPro::config"
+			 action="adminhtml/system_config/edit/section/olegnax_instagram_pro"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro"
+			 sortOrder="30"
+			 title="Settings"
+			 translate="title"
+		/>
+		<add id="Olegnax_InstagramFeedPro::appearance"
+			 action="adminhtml/system_config/edit/section/olegnax_instagram_pro_appearance"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_appearance"
+			 sortOrder="40"
+			 title="Appearance"
+			 translate="title"
+		/>
+		<add id="Olegnax_InstagramFeedPro::license"
+			 action="adminhtml/system_config/edit/section/olegnax_instagram_license"
+			 module="Olegnax_InstagramFeedPro"
+			 parent="Olegnax_InstagramFeedPro::top_level"
+			 resource="Olegnax_InstagramFeedPro::config_olegnax_instagramfeedpro_license"
+			 sortOrder="50"
+			 title="License"
+			 translate="title"
+		/>
+	</menu>
+</config>

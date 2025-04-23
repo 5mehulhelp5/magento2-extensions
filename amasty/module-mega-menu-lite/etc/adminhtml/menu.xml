@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_MegaMenuLite::menu"
+             title="Amasty Mega Menu"
+             module="Amasty_MegaMenuLite"
+             parent="Magento_Backend::content"
+             sortOrder="160"
+             resource="Amasty_MegaMenu::menu"
+        />
+        <add id="Amasty_MegaMenuLite::menu_links"
+             title="Custom Menu Items"
+             module="Amasty_MegaMenuLite"
+             parent="Amasty_MegaMenuLite::menu"
+             resource="Amasty_MegaMenu::menu_links"
+             action="ammegamenu/link/index"
+             sortOrder="10"
+        />
+        <add id="Amasty_MegaMenuLite::menu_builder"
+             title="Menu Builder"
+             module="Amasty_MegaMenuLite"
+             parent="Amasty_MegaMenuLite::menu"
+             resource="Amasty_MegaMenu::menu_builder"
+             action="ammegamenu/builder/index"
+             sortOrder="20"
+        />
+    </menu>
+</config>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="icon" formElement="imageUploader" class="Amasty\MegaMenu\Ui\Component\Form\Field\Icon">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Mega Menu Icon</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        <![CDATA[
+                                 For desktop and/or mobile view depending on General Configuration. </br>
+                                 Use PNG files to utilize color change on hover. When using PNG files please make sure that the image doesn't have a background.
+                        ]]>
+                    </item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/image</item>
+                    <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
+                    <item name="openDialogTitle" xsi:type="string">Media Gallery</item>
+                    <item name="initialMediaGalleryOpenSubpath" xsi:type="string">amasty/ammegamenu</item>
+                    <item name="allowedExtensions" xsi:type="string">jpg jpeg png</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                    </item>
+                    <item name="sortOrder" xsi:type="string">90</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="am_mega_menu_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Content (For Desktop)</item>
+            </item>
+        </argument>
+
+        <field name="submenu_animation" component="Amasty_MegaMenuPremium/js/form/fields/animation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Submenu Animation</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">Amasty_MegaMenuLite/form/element/select</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\MegaMenuPremium\Model\OptionSource\SubmenuAnimation</item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="am_mega_menu_mobile_fieldset" sortOrder="30">
+        <settings>
+            <label translate="true">Content (For Mobile)</label>
+            <visible>true</visible>
+            <collapsible>true</collapsible>
+        </settings>
+
+        <field name="show_mobile_content" formElement="select">
+            <settings>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="hide_mobile_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Display as Single Menu Item</item>
+                    <item name="notice" xsi:type="string" translate="true">Item will be displayed without any content.</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">15</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_mobile_fieldset.mobile_content</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_mobile_fieldset.show_mobile_content</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_mobile_fieldset.mobile_content</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">amasty_megamenu_link_form.amasty_megamenu_link_form.am_mega_menu_mobile_fieldset.show_mobile_content</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="mobile_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="source" xsi:type="string">mega_menu</item>
+                    <item name="label" xsi:type="string">Content</item>
+                    <item name="notice" xsi:type="string" translate="true"><![CDATA[Please note: manually added widgets not from the "Insert Widget" list, might not work properly.]]></item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">mobile_content</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="am_mega_menu_mobile_content" xsi:type="boolean">true</item>
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

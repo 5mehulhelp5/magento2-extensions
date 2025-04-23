@@ -1,0 +1,14 @@
+//
+//  Mixins
+//  ____________________________________________
+
+.am-word-break {
+    & {
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+
+    .ie11 & {
+        word-break: break-all;
+    }
+}

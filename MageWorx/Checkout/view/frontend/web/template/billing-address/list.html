@@ -1,0 +1,17 @@
+<p>List of billing addresses</p>
+<!-- ko if: (visible)-->
+<form class="form">
+    <div class="form__field">
+        <div class="radiogroup radiogroup--size-fullwidth">
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="form__field form__field--content-right form__field--no-margin">
+        <button class="button button--plain" data-bind="i18n: 'Back', click: cancelSelectedAddress"></button>
+        <button class="button button--primary" data-bind="i18n: 'Select', click: submitSelectedAddress"></button>
+    </div>
+</form>
+<!-- /ko -->

@@ -1,0 +1,47 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Olegnax\InstagramFeedPro\Block\Item\MediaType;
+
+/** @var MediaType $block */
+/** @var Escaper $escaper */
+if (!isset($escaper)) {
+    $escaper = $block;
+}
+$lazy = $block->isLazyLoadEnabled();
+?>
+<img
+    <?php if ($lazy): ?>
+		class="ox-instagram-image lazy"
+		src="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+		data-original="<?= /** @noinspection PhpUnhandledExceptionInspection */
+        $escaper->escapeUrl($block->getPost()->getThumbnailUrl()); ?>"
+    <?php else: ?>
+		src="<?= /** @noinspection PhpUnhandledExceptionInspection */
+        $escaper->escapeUrl($block->getPost()->getThumbnailUrl()); ?>"
+		class="ox-instagram-image no-lazy"
+    <?php endif;
+    if ($block->getPost()->getDimensionsHeight()): ?>
+		height="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsHeight()); ?>"
+    <?php endif;
+    if ($block->getPost()->getDimensionsWidth()): ?>
+		width="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsWidth()); ?>"
+    <?php endif; ?>
+		alt="<?= $escaper->escapeHtmlAttr($block->getPost()->getCleanedCaption()) ?>"/>
+<video preload="none" loop muted tabindex="-1" playsinline class="ox-instagram-image -video"
+    <?php if ($block->getPost()->getDimensionsHeight()): ?>
+		height="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsHeight()); ?>"
+    <?php endif;
+    if ($block->getPost()->getDimensionsWidth()): ?>
+		width="<?= $escaper->escapeHtmlAttr($block->getPost()->getDimensionsWidth()); ?>"
+    <?php endif; ?>
+>
+	<source src="<?= /** @noinspection PhpUnhandledExceptionInspection */
+    $escaper->escapeUrl($block->getPost()->getMediaUrl()); ?>" type="video/mp4">
+</video>

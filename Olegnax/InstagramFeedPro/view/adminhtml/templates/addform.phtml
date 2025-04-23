@@ -1,0 +1,53 @@
+<?php
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2024 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+
+if (!isset($escaper)) {
+    $escaper = $block;
+}
+?>
+<div class="ox-admin__modal ox-inst-modal__add-user">
+	<div class="ox-admin-modal__inner">
+		<div class="ox-overlay-close-btn action-primary"><span></span></div>
+		<div class="ox-inst__add-user-section">
+			<div class="ox-inst__add-user-messages"></div>
+			<form id="ox-inst__add-user-form">
+				<label for="ox-inst-add-user-token"><?php echo $escaper->escapeHtml(__('Add Access Token:')); ?></label>
+				<input type="text" id="ox-inst__add-user-token" name="ox-inst-add-user-token">
+				<button type="button" class="action-primary" id="ox-inst__add-user"><?php echo $escaper->escapeHtml(__('Submit')); ?></button>
+				<div class="ox-inst__add-user-info">
+					<a href="https://olegnax.com/documentation/generate-instagram-graph-api-access-token-for-instagram-business-account/" target="_blank"><?php echo $escaper->escapeHtml(__('How to generate Instagram token')); ?></a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php 
+$scriptString = <<<SCRIPT
+require( [
+	'jquery',
+], function ( $ ) {
+	'use strict';
+	var oxInstAddUserModal = $( '.ox-inst-modal__add-user' );
+	$( 'body' ).on( 'click', '.ox-inst-modal__add-user-trigger', function ( e ) {
+		e.preventDefault();
+		oxInstAddUserModal.addClass( 'opened' );
+	} );
+	oxInstAddUserModal.on( 'click', '.ox-overlay-close-btn', function ( e ) {
+		e.preventDefault();
+		oxInstAddUserModal.removeClass( 'opened' );
+	} );
+} );
+SCRIPT;
+if (isset($secureRenderer)){
+    echo /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false);
+} else{
+    echo /* @noEscape */ '<script>' .  $scriptString . '</script>';
+}
+?>

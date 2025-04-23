@@ -1,0 +1,117 @@
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<div class="page__section" id="mwFullPageBlock">
+    <div class="checkout-container">
+        <div class="checkout-main-column">
+            <!-- Checkout Title and Sign In -->
+            <div class="checkout-title-section">
+                <div class="checkout-title">
+                    <h1>CHECKOUT</h1>
+                    <p>Lorem ipsum about Billing Address.</p>
+                </div>
+
+                <div id="authentication" data-bind="scope:'authentication'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+                <script type="text/x-magento-init">
+                    {
+                        "#authentication": {
+                            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                        }
+                    }
+                </script>
+            </div>
+
+            <!-- Email Address -->
+            <div class="checkout-section" >
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.shipping-step.custom-customer-email'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Billing Address -->
+            <div class="checkout-section" id="mwBillingAddressBlock" style="display: none">
+                <div class="checkout-section-title">
+                    <span>Billing Address</span>
+                    <span class="action-toggle"></span>
+                </div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.shipping-step.billingAddress'">
+                    <!-- ko template: getAddressTemplate() --><!-- /ko -->
+                </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="checkout-section" id="mwShippingAddressBlock">
+                <div class="checkout-section-title">Billing Address</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.shipping-step.shippingAddress'">
+                    <!-- ko template: getAddressTemplate() --><!-- /ko -->
+                </div>
+            </div>
+
+            <!-- Shipping Method -->
+            <div class="checkout-section" id="mwShippingMethodsBlock">
+                <div class="checkout-section-title">Shipping Method</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.shipping-step.shippingMethods'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="checkout-section" id="mwPaymentBlock">
+                <div class="checkout-section-title">Payment Method</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.billing-step.payment'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Traveler Information -->
+            <div class="checkout-section" id="mwTravelerInformationBlock">
+                <div class="checkout-section-title">Traveler Information</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.billing-step.traveler-information'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Checkout Review -->
+            <div class="checkout-section" id="mwCheckoutReviewBlock">
+                <div class="checkout-section-title">Checkout Review</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.billing-step.checkout-review'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Order Comment -->
+            <div class="checkout-section" id="mwOrderCommentBlock">
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.billing-step.order_comment'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="checkout-section" id="mwTermsBlock">
+                <div class="checkout-section-title">Terms and Conditions</div>
+                <div class="checkout-section-content" data-bind="scope: 'checkout.sidebar.agreements'">
+                    <render></render>
+                </div>
+            </div>
+
+            <!-- Place Order Button -->
+            <div class="checkout-place-order-container">
+                <div class="checkout-section-content" data-bind="scope: 'checkout.steps.billing-step.place-order'">
+                    <render></render>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="checkout-sidebar">
+            <div class="checkout-section" id="mwCheckoutSidebarBlock">
+                <div class="checkout-section-content" data-bind="scope: 'checkout.sidebar'">
+                    <render></render>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

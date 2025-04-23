@@ -1,0 +1,26 @@
+{
+    "mageworx_checkout_dummy_data": {
+        "column": {
+            "id": true,
+            "cart_id": true,
+            "data": true,
+            "email_subscription":true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageworx_checkout_order_comments": {
+        "column": {
+            "id": true,
+            "quote_id": true,
+            "order_id": true,
+            "comment": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEWORX_CHECKOUT_ORDER_COMMENTS_QUOTE_ID_QUOTE_ENTITY_ID": true,
+            "MAGEWORX_CHECKOUT_ORDER_COMMENTS_ORDER_ID_SALES_ORDER_ENTITY_ID": true
+        }
+    }
+}

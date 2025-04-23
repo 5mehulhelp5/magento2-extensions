@@ -1,0 +1,52 @@
+//
+//  Menu Greetings Component
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-menu-greetings {
+        & {
+            .ammenu-flex(none, center);
+
+            background: #fffcdd;
+            border-radius: 4px;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0 @ammenu__indent__xl @ammenu__indent__xl;
+            padding: @ammenu__indent__l;
+            position: relative;
+        }
+
+        &:before {
+            content: '👋';
+            margin: 0 @ammenu__indent 0 0;
+        }
+
+        &.-logged {
+            background: #eaffdd;
+        }
+
+        .ammenu-message.-welcome {
+            & {
+                margin: 0 @ammenu__indent / 2 0 0;
+            }
+
+            &:after {
+                content: ',';
+            }
+        }
+
+        .ammenu-name {
+            & {
+                font-weight: 700;
+            }
+
+            &:after {
+                content: '!';
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Michał Biarda. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Original plugins are replaced, because we don't need agreement validation
+    for savePaymentInformation method. -->
+    <type name="Magento\Checkout\Api\PaymentInformationManagementInterface">
+        <plugin name="validate-agreements" type="MB\ThreeStepsCheckout\Plugin\AddAgreementsValidation"/>
+    </type>
+    <type name="Magento\Checkout\Api\GuestPaymentInformationManagementInterface">
+        <plugin name="validate-guest-agreements" type="MB\ThreeStepsCheckout\Plugin\AddGuestAgreementsValidation"/>
+    </type>
+</config>

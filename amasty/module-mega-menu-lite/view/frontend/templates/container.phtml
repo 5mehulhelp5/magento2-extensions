@@ -1,0 +1,70 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */
+/**
+ * @var \Amasty\MegaMenuLite\Block\Container $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Amasty\MegaMenuLite\ViewModel\Store\Menu $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+$isIconsAvailable = $block->getJsConfig()['is_icons_available'] ?? false;
+?>
+
+<?= $block->getChildBlock('ammenu.robots.data')->setItems($block->getAllNodesData())->toHtml() ?>
+
+<div class="ammenu-menu-wrapper"
+         data-nosnippet
+         data-bind="
+            scope: 'ammenu_wrapper',
+            mageInit: {
+                'Magento_Ui/js/core/app': {
+                    components: {
+                        'ammenu_wrapper': {
+                            component: 'Amasty_MegaMenuLite/js/wrapper',
+                            data: <?= $escaper->escapeHtml($block->getJsData()) ?>,
+                            config: <?= $escaper->escapeHtml($block->getSerializedJsConfig()) ?>,
+                            children: <?= $escaper->escapeHtml($block->getJsComponents()) ?>,
+                            settings: <?= $escaper->escapeHtml($block->getJsSettings()) ?>,
+                            links: <?= $escaper->escapeHtml($block->getStoreLinks()) ?>,
+                            components: <?= $escaper->escapeHtml($block->getComponentsDeclaration()) ?>,
+                        }
+                    }
+                }
+            }">
+    <?php if (!$viewModel->isHamburger()): ?>
+        <?= $block->getChildBlock('ammenu.top.menu')->setItems($block->getAllNodesData())->toHtml() ?>
+    <?php endif; ?>
+    <?php if ($viewModel->isHamburger()): ?>
+        <?= $block->getChildBlock('ammenu.top.menu')->setItems($block->getHamburgerNodesData())->toHtml() ?>
+    <?php endif; ?>
+    <!-- ko if: $data.isMobile() || $data.is_hamburger -->
+        <!-- ko scope: 'index = ammenu_sidebar_menu_wrapper' -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko scope: 'index = ammenu_overlay_wrapper' -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+</div>
+
+<style>
+    <?php if ($isIconsAvailable === 'mobile'): ?>
+        @media (min-width: <?= /* @noEscape */ $viewModel->getMobileMenuWidth() + 1 ?>px) {
+            .ammenu-icon-block.-icon {
+                display: none;
+            }
+        }
+    <?php endif; ?>
+
+    <?php if ($isIconsAvailable === 'desktop'): ?>
+        @media (max-width: <?= /* @noEscape */ $viewModel->getMobileMenuWidth() ?>px) {
+            .ammenu-icon-block.-icon {
+                display: none;
+            }
+        }
+    <?php endif; ?>
+</style>

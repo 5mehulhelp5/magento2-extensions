@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		 <tab id="Milople" translate="label" sortOrder="150">
+            <label>Milople Extension</label>
+        </tab>
+		<section id="partialpayment" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Deposit Payment</label>
+            <tab>Milople</tab>
+            <resource>Milople_Depositpayment::partialpayment_config</resource>
+            <group id="license" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>License And Status</label>
+				<field id="partialpayment_serialkey" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Serial Key</label>
+					<backend_model>Milople\Depositpayment\Model\Config\Backend\Validate</backend_model>
+					<validate>required-entry</validate>
+                </field>
+                <field id="partialpayment_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Status</label>
+					<validate>required-entry</validate>
+                    <source_model>Milople\Depositpayment\Model\Config\Source\Status</source_model>
+                </field>
+	        </group>
+			<group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+				<field id="partialpayment_brand_label" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Deposit Payment Brand Label</label>
+					<validate>required-entry</validate>
+				</field>
+				<field id="partialpayment_customergroups" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Deposit Payment Available To</label>
+                    <source_model>Milople\Depositpayment\Model\Config\Source\Customergroups</source_model>
+					<validate>required-entry</validate>
+                </field>
+				<field id="apply_partialpayment_to" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Apply Deposit Payment to</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\ApplyTo</source_model>
+				</field>
+				<field id="minimum_order_amount" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Minimum Order Amount</label>
+					<validate>validate-digits</validate>
+					<comment>Deposit Payment Facility will be available only if the order total exceeds Minimum Order Amount. Keep Blank or Set Zero if you want to give facility to all orders.</comment>
+					<depends>
+                        <field id="apply_partialpayment_to">2</field>
+					</depends>
+				</field>
+				<field id="number_of_installments" translate="label" type="text" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number Of Installments</label>
+					<validate>required-entry validate-greater-than-zero</validate>
+					<backend_model>Milople\Depositpayment\Model\Config\Backend\NumberOfInstallments</backend_model>
+				</field>
+				<field id="allow_fullpayment" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Allow Full Payment?</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="shipping_tax_and_surcharge_calculation_options_for_all_products" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Shipping and Tax Calculation Options</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\ShippingAndSurchargeAndTaxAddIn</source_model>
+					<depends>
+                        <field id="apply_partialpayment_to">1</field>
+                        <field id="allow_fullpayment">0</field>
+					</depends>
+				</field>
+				<field id="discount_calculation_options_for_all_products" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Discount Calculation Options</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\DiscountDeductionFrom</source_model>
+					<depends>
+                        <field id="apply_partialpayment_to">1</field>
+                        <field id="allow_fullpayment">0</field>
+					</depends>
+				</field>
+				<field id="shipping_tax_and_surcharge_calculation_options_for_wholecart" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Shipping and Tax Calculation Options</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\ShippingAndSurchargeAndTaxAddIn</source_model>
+					<depends>
+                        <field id="apply_partialpayment_to">2</field>
+					</depends>
+				</field>
+				<field id="discount_calculation_options_for_wholecart" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Discount Calculation Options</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\DiscountDeductionFrom</source_model>
+					<depends>
+                        <field id="apply_partialpayment_to">2</field>
+					</depends>
+				</field>
+			</group>
+			<group id="payment_calculation_settings" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Payment Calculation Settings</label>
+				<field id="partialpayment_type" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Deposit Payment Type</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\PartialpaymentType</source_model>
+				</field>
+				<field id="payment_plan" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Payment Plan</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\PaymentPlans</source_model>					
+				</field>
+				<field id="number_of_days" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Number of Days</label>
+					<validate>required-entry validate-greater-than-zero</validate>
+					<depends>
+                        <field id="payment_plan">3</field>
+					</depends>
+				</field>
+				<field id="calculate_downpayment_on" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Calculate Down Payment On</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\Calculate</source_model>
+					<depends>
+                        <field id="partialpayment_type">0</field>
+					</depends>
+				</field>
+				<field id="down_payment" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Down Payment</label>
+					<validate>required-entry validate-greater-than-zero</validate>
+					<backend_model>Milople\Depositpayment\Model\Config\Backend\DownPayment</backend_model>
+					<depends>
+                        <field id="partialpayment_type">0</field>
+					</depends>
+				</field>
+				<field id="installment_fee" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Fee Apply On</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\InstallmentFee</source_model>	
+				</field>
+				<field id="installment_fee_label" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Fee Label</label>
+					<validate>required-entry</validate>
+					<depends>
+                        <field id="installment_fee" separator=",">1,2</field>                        
+					</depends>
+				</field>
+				<field id="installment_fee_type" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Calculate Installment Fee On</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\Calculate</source_model>
+					<depends>
+                        <field id="installment_fee" separator=",">1,2</field>                        
+					</depends>
+				</field>
+				<field id="installment_fee_value" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Fee</label>
+					<validate>required-entry validate-greater-than-zero</validate>
+					<depends>
+                        <field id="installment_fee" separator=",">1,2</field>
+					</depends>
+				</field>	
+			</group>
+			<group id="partial_payment_credit_settings" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Deposit Payment Credit Settings</label>
+				<field id="maximum_credit_limit" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Maximum Credit Limit</label>
+					<validate>validate-greater-than-zero</validate>
+				</field>
+				<field id="credit_limit_surpass_message" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Credit Limit Surpass Message</label>
+					<comment>{credit_limit} will be replaced with its original value.</comment>
+				</field>
+			</group>
+			<group id="emails_and_notifications_settings" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Emails and Notifications Settings</label>	
+				<field id="email_sender" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Choose Email Sender</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+				</field>
+				<field id="email_cc_to" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email CC to</label>
+					<comment>Enter comma separated Email Addresses.</comment>
+				</field>
+				<field id="send_partially_paid_orders_confirmation_email" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Deposit Payment Orders' Confirmation Email</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\EmailSendTo</source_model>
+				</field>
+				<field id="send_partially_paid_orders_confirmation_template" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Deposit Payment Orders' Confirmation Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+                        <field id="send_partially_paid_orders_confirmation_email" separator=",">1,2</field>
+					</depends>
+				</field>
+				<field id="send_installment_reminder_email" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Installment Reminder Email</label>
+					<comment>To be sent before two days of installment due date.</comment>
+					<source_model>Milople\Depositpayment\Model\Config\Source\EmailSendTo</source_model>
+				</field>
+				<field id="installment_reminder_email_template" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Reminder Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+                        <field id="send_installment_reminder_email" separator=",">1,2</field>
+					</depends>
+				</field>
+				<field id="send_installment_payment_confirmation_email" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Installment Payment Confirmation Email</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\EmailSendTo</source_model>
+				</field>
+				<field id="installment_payment_confirmation_email_template" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Payment Confirmation Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+                        <field id="send_installment_payment_confirmation_email" separator=",">1,2</field>
+					</depends>
+				</field>
+				<field id="send_installment_failure_email" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Installment Failure Email</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\EmailSendTo</source_model>
+				</field>
+				<field id="installment_failure_email_template" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Failure Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+                        <field id="send_installment_failure_email" separator=",">1,2</field>
+					</depends>
+				</field>
+				<field id="send_installment_over_due_notice_email" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send Installment Over Due Notice Email</label>
+					<source_model>Milople\Depositpayment\Model\Config\Source\EmailSendTo</source_model>
+					<comment>Maximum 3 notice emails to be sent at interval of every 2 days after installment due date.</comment>
+				</field>
+				<field id="installment_over_due_notice_email_template" translate="label" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Installment Over Due Notice Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+                        <field id="send_installment_over_due_notice_email" separator=",">1,2</field>
+					</depends>
+				</field>
+			</group>
+        </section>
+	</system>
+</config>	
+	

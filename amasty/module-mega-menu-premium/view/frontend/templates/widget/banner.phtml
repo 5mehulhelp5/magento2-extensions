@@ -1,0 +1,36 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Premium Base for Magento 2
+ */
+
+use Amasty\MegaMenuPremium\Block\Widget\Banner;
+
+/** @var Banner $block */
+/** @var Magento\Framework\Escaper $escaper */
+
+$image = $block->getImage();
+$width = $block->getWidth() > 1 ? $block->getWidth() : 'auto';
+$maxWidth = $block->getMaxWidth() ? $block->getMaxWidth() : '';
+$margin = $block->getMargin() ? $block->getMargin() : 0;
+$borderRadius = $block->getBorderRadius();
+$alignment = $block->getAlignment();
+$targetUrlType = $block->getTargetUrlType() || empty($block->getTargetUrl()) ? '' : '_blank';
+$targetUrl = $block->getTargetUrl() ? $block->getTargetUrl() : '#';
+?>
+
+<section
+    class="ambanner-widget-block -align-<?= $escaper->escapeHtmlAttr($alignment); ?>"
+    style="margin: <?= $escaper->escapeHtmlAttr($margin); ?>px;">
+    <a class="ambanner-link <?= /* @noEscape */ $block->getTargetUrl() ? '' : '-empty'; ?>"
+       style="max-width: <?= $escaper->escapeHtmlAttr($maxWidth); ?>px"
+       href="<?= $escaper->escapeUrl($targetUrl); ?>"
+       target="<?= $escaper->escapeHtmlAttr($targetUrlType); ?>">
+        <img class="ambanner-image"
+             style="border-radius: <?= $escaper->escapeHtmlAttr($borderRadius); ?>px;"
+             src="<?= $escaper->escapeHtmlAttr($block->getFullImageUrl($image)); ?>"
+             width="<?= $escaper->escapeHtmlAttr($width); ?>"
+             alt="<?= $escaper->escapeHtmlAttr(__('Banner Image')) ?>"/>
+    </a>
+</section>

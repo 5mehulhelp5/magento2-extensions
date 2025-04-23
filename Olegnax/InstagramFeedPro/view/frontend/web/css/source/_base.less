@@ -1,0 +1,383 @@
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    @keyframes move-action-top{
+         0% {
+            transform: translateY(10px) perspective(1px);
+            opacity:0;
+         }
+         100%{
+            transform: translateY(0px) perspective(1px);
+            opacity:1;
+         }
+    }
+    @keyframes move-action-bottom{
+         0% {
+             transform: translateY(0px) perspective(1px);
+             opacity:1;
+         }
+         100%{
+            transform: translateY(10px) perspective(1px);
+            opacity:0;
+         }
+    }
+    .ox-instagram-feed {
+        width: 100%;
+        box-sizing: border-box;
+        *,
+        *::before,
+        *::after {
+          box-sizing: inherit;
+        }
+        &.no-gap{
+            margin: 0;
+            .ox-instagram-items,
+            .ox-instagram-item{
+                 padding: 0!important;
+            }
+        }
+        .ox-instagram-item {
+            padding: @ox-instagram-item__padding;
+            width: 100%;
+            position: relative;
+            -ms-flex: 0 0 100%/4;
+            flex: 0 0 100%/4;
+            max-width: 100%/4;
+            .inner {
+                position: relative;
+                display:block;
+                cursor: pointer;
+            }
+            .-content {
+                box-sizing: border-box;
+                padding: 20px;
+            }
+            .actions{
+                margin-top: 12px;
+                .action {
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    vertical-align: top;
+                    &:before {
+                        font-size: 16px;
+                        width: 100%;
+                        vertical-align: middle;
+                        display: inline-block;
+                        text-align: center;
+                    }
+                    span{
+                        margin-left: 5px;
+                        font-weight:bold;
+                        display: inline-table;
+                    }
+                }
+            }
+            .action {
+                &.likes {
+                    &:before {
+                        content: @ox-instagram__likes-icon;
+                    }
+                }
+
+                &.comments {
+                    &:before {
+                        content: @ox-instagram__comments-icon;
+                    }
+                }
+            }
+          .ox-inst__video-btn{
+              font-size: 4rem;
+              opacity:0;
+                left: 50%;
+                top: 50%;
+              visibility:hidden;
+              transform: translateY(-50%) translateX(-50%);
+          }
+            &:hover{
+                .-overlay {
+                    opacity:1;
+                }
+              .ox-inst__video-btn{
+                  opacity:1;
+                  visibility:visible;
+                  transform: translateY(-50%) translateX(-50%);
+              }
+            }
+          &.-v-hover:hover,
+          &.playing{
+              .-media-type,
+              .-overlay,
+              .-content,
+              .ox-inst__video-btn{
+                  opacity:0;
+                  visibility:hidden;
+              }
+          }
+          &.-v-click{
+           &:hover{
+              .-media-type{
+                   opacity:0;
+              }
+           }
+              
+          }
+        }
+
+        &.title-align--center{
+            .ox-instagram__title{
+                text-align: center;
+            }
+        }
+        &.title-align--left{
+            .ox-instagram__title{
+                text-align: left;
+            }
+        }
+        img{
+            height:auto;
+            outline: 1px solid transparent;
+        }
+        .caption{
+            word-break: break-word;
+        }
+        .-media-type{
+            width: 34px;
+            height: 34px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            font-size: 17px;
+            filter: drop-shadow(@ox-instagram-media-icon__shadow);
+            color: white;
+            pointer-events: none;
+            transition:opacity 0.2s ease;
+            &.ox-i-video{
+                font-size: 16px;
+            }
+        }
+        .ox-instagram-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            top: 0;
+            left: 0;
+            margin: 0;
+            max-height: initial;
+            transition: transform 0.3s;
+            &.lazy:not(.lazy-loaded) {
+                width: 44px;
+                opacity: 1;
+                bottom: 0;
+                display: block;
+                height: auto;
+                left: 0;
+                margin: auto;
+                max-width: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+        .media-wrapper{
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            overflow:hidden;
+            background: @ox-instagram-media__bg;
+            transition: transform 0.3s;
+            .-album{
+                position:absolute;
+                max-height: 100%;
+            }
+        }
+        .-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+            top: 0;
+            left: 0;
+            background:@ox-instagram__overlay;
+            opacity:0;
+            transition: opacity 0.3s ease;           
+        }
+
+        &.-img-h-zoomin{
+            .ox-instagram-item {
+                &:hover {
+                    .ox-instagram-image{
+                        transform: scale(1.06);
+                        &.-video{
+                            transform: scale(1);
+                        }
+                    }
+
+                }
+            }
+        }
+        &.-img-h-zoomout{
+            .ox-instagram-item {
+                &:hover {
+                    .media-wrapper {
+                        transform: scale(0.96);
+                    }
+                }
+            }
+        }
+        &.-boxed{
+            .inner{
+                box-shadow: @ox-instagram-boxed__shadow;
+                overflow: hidden;
+            }
+        }
+        &.-img-circle{
+            .media-wrapper{
+                border-radius: 50%;
+            }
+        }
+        .ox-instagram-items {
+            padding: @ox-instagram-items__padding;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .overlay-link{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+            top: 0;
+            left: 0;
+            font-size: 0;
+            line-height: 0;
+            color:transparent;
+            box-shadow:none;
+            border:none;
+        }
+        .overlay-link{
+            background: 0 0 !important;
+        }
+        .owl-carousel.-album {
+            & ~ .-overlay{
+                display:none;
+            }
+        }
+        &.-a-v-carousel .ox-instagram-item  .owl-item {
+            > a {
+                display: block;
+                width: 100%;
+                height: 0;
+                padding-bottom: 100%;
+                position:relative;
+            }
+            img {
+                display: block;
+                width: 100%;
+                bottom: 0;
+                display: block;
+                height: auto;
+                left: 0;
+                margin: auto;
+                max-width: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+        &.-image-fit-cover{
+            .ox-instagram-image{
+                object-fit: cover;
+            }
+            .ox-instagram-item  .owl-item {
+                img {
+                    height:100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+      .ox-inst__video-btn{
+        cursor:pointer;
+        position: absolute;
+        color: white;
+        font-size: 4rem;
+        line-height: 1;
+        /*pointer-events: none;*/
+        filter: drop-shadow(@ox-instagram-video-icon__shadow);
+        transition: all .25s ease;
+        &:before{
+            margin-left: 7px;
+        }
+      }
+    .sr-only{
+        .lib-visually-hidden();
+    }
+    
+    /* Product Page Block */
+    .ox-product-block{
+        padding: 30px;
+        margin-bottom: 30px;
+        clear: both;
+        .ox-row{
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        ul,
+        p{
+            &:last-child{
+                margin-bottom:0;
+            }
+        }
+        .ox-instagram-feed{
+            &,
+            &.block{
+                margin-bottom:0;
+            }
+        }
+    }
+    .ox-product-block__col2,
+    .ox-product-block__col1{
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    @media (min-width: 769px){
+        .ox-product-block__col1{         
+            -ms-flex: 0 0 60%;
+            flex: 0 0 60%;
+            max-width: 60%;
+        }        
+        .ox-product-block__col2{
+            -ms-flex: 0 0 40%;
+            flex: 0 0 40%;
+            max-width: 40%;
+        }
+        .ox-product-block.-one-col{
+            .ox-product-block__col1{
+                -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}

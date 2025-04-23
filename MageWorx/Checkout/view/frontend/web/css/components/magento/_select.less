@@ -1,0 +1,11 @@
+select.select {
+  .get-select__control();
+
+  &:not([disabled]) {
+    &:focus,
+    &:active {
+      //@extend .select__control:focus;
+      box-shadow: none;
+    }
+  }
+}

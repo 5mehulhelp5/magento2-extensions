@@ -1,0 +1,41 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Partialpaymentauto
+* @copyright   Copyright (c) 2019 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/partial-payment-m2.html
+*
+**/
+//echo $block->getLayout()->createBlock('Magento\Vault\Block\Customer\CreditCards')->setTemplate("Magento_Vault::cards_list.phtml")->toHtml();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$tokenManagement = $objectManager->create('\Magento\Vault\Model\PaymentTokenManagement');
+$request = $objectManager->get('\Magento\Framework\App\Request\Http');
+$partialOderId = $request->getParam('id');
+$partialOrder = $objectManager->create('\Milople\Depositpayment\Model\PartialpaymentOrders')->load($partialOderId);
+$order = $objectManager->create('\Magento\Sales\Model\Order')->load($partialOrder->getOrderId());
+?>
+<fieldset class="fieldset payment items ccard braintree_paypal_vault" id="payment_form_braintree_paypal_vault" style="display: none;padding: 20px;margin: 0 auto;">
+<?php
+if (count($tokenManagement->getListByCustomerId($order->getCustomerId())) !== 0){
+	$isFirst = 1;
+	foreach($tokenManagement->getListByCustomerId($order->getCustomerId()) as $token){		
+		if ($token->getType() === "account") {			
+			$tokenDetails = json_decode($token->getDetails());
+			?>
+			<div style="display: list-item;padding: 10px 0;list-style-type: none;">
+				<input type="radio" name="payment[paypal_token]" style="vertical-align: super;" value="<?php echo $token->getGatewayToken() ?>" <?php if($isFirst){ echo "checked"; }$isFirst = 0; ?>/>
+				<img src="<?php echo $block->getViewFileUrl('Magento_Braintree::images/paypal.png'); ?>" />
+				<label style="vertical-align: top;font-size: 20px;"><?php echo $tokenDetails->payerEmail ?></label>
+			</div>
+			<?php
+		}	
+	}
+}
+?>
+</fieldset>

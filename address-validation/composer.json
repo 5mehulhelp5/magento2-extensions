@@ -1,0 +1,19 @@
+{
+    "name": "azaleasoft/address-validation",
+    "description": "Validate shipping address before creating new orders.",
+    "require": {
+    },
+    "type": "magento2-module",
+    "version": "1.2.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Azaleasoft\\Asaddressvalidation\\": ""
+        }
+    }
+}

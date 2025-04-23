@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Amasty Mega Menu PageBuilder for Magento 2 (System)
+ */-->
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd" extends="pagebuilder_base_form">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">ammegamenu_product_slider_form.ammegamenu_product_slider_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Products</item>
+    </argument>
+    <settings>
+        <deps>
+            <dep>ammegamenu_product_slider_form.ammegamenu_product_slider_form_data_source</dep>
+        </deps>
+        <namespace>ammegamenu_product_slider_form</namespace>
+    </settings>
+    <dataSource name="ammegamenu_product_slider_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_PageBuilder/js/content-type/products/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider name="ammegamenu_product_slider_form_data_source" class="Magento\PageBuilder\Model\ContentType\DataProvider">
+            <settings>
+                <requestFieldName/>
+                <primaryFieldName/>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="appearance_fieldset" sortOrder="10" component="Magento_PageBuilder/js/form/element/dependent-fieldset">
+        <settings>
+            <label translate="true">Appearance</label>
+            <additionalClasses>
+                <class name="admin__fieldset-visual-select-large">true</class>
+            </additionalClasses>
+            <collapsible>false</collapsible>
+            <opened>true</opened>
+            <imports>
+                <link name="hideFieldset">${$.name}.appearance:options</link>
+                <link name="hideLabel">${$.name}.appearance:options</link>
+            </imports>
+        </settings>
+        <field name="appearance" formElement="select" sortOrder="10" component="Magento_PageBuilder/js/form/element/dependent-visual-select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="string">grid</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                    <class name="admin__field-visual-select-container">true</class>
+                </additionalClasses>
+                <dataType>text</dataType>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <elementTmpl>Magento_PageBuilder/form/element/visual-select</elementTmpl>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="AppearanceSourceProducts" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="general" sortOrder="20">
+        <settings>
+            <label />
+        </settings>
+        <field name="title" sortOrder="10" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+                <dataScope>title</dataScope>
+            </settings>
+        </field>
+        <field name="block_layout" sortOrder="20" formElement="select" component="Amasty_MegaMenuPageBuilder/js/form/element/depends-layout">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Block Layout</label>
+                <dataScope>block_layout</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Amasty\MegaMenuPageBuilder\Model\Source\BlockLayout"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="products_count" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Number of Products to Display</label>
+                <additionalClasses>
+                    <class name="admin__field-small">true</class>
+                </additionalClasses>
+                <dataScope>products_count</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="less-than-equals-to" xsi:type="number">999</rule>
+                    <rule name="greater-than-equals-to" xsi:type="number">1</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="slider_items_show" sortOrder="40" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Number of Visible Items</label>
+                <additionalClasses>
+                    <class name="admin__field-small">true</class>
+                </additionalClasses>
+                <dataScope>slider_items_show</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="less-than-equals-to" xsi:type="number">999</rule>
+                    <rule name="greater-than-equals-to" xsi:type="number">1</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="slider_width" sortOrder="50" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slider Width(px)</label>
+                <dataScope>slider_width</dataScope>
+                <additionalClasses>
+                    <class name="admin__field-small">true</class>
+                </additionalClasses>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="greater-than-equals-to" xsi:type="number">1</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="slider_autoplay" sortOrder="60" formElement="select" component="Amasty_MegaMenuPageBuilder/js/form/element/depends-autoplay">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slider Autoplay</label>
+                <dataScope>slider_autoplay</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="slider_autoplay_speed" sortOrder="70" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slider Autoplay Speed(ms)</label>
+                <dataScope>slider_autoplay_speed</dataScope>
+                <additionalClasses>
+                    <class name="admin__field-small">true</class>
+                </additionalClasses>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="less-than-equals-to" xsi:type="number">99999</rule>
+                    <rule name="greater-than-equals-to" xsi:type="number">1</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="display_options" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true"><![CDATA[Show Product Options & 'Add to Cart' Button]]></label>
+                <dataScope>display_options</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="show_pager" formElement="select" sortOrder="80" component="Amasty_MegaMenuPageBuilder/js/form/element/depends-page-controll">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Display Page Control</label>
+                <dataScope>show_pager</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="products_per_page" sortOrder="90" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Number of Products per Page</label>
+                <dataScope>products_per_page</dataScope>
+                <additionalClasses>
+                    <class name="admin__field-small">true</class>
+                </additionalClasses>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <rule name="less-than-equals-to" xsi:type="number">999</rule>
+                    <rule name="greater-than-equals-to" xsi:type="number">1</rule>
+                </validation>
+            </settings>
+        </field>
+        <htmlContent name="conditions_form" template="Magento_PageBuilder/form/element/widget-conditions">
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field">true</class>
+                </additionalClasses>
+            </settings>
+            <block name="conditions_form" class="Magento\PageBuilder\Block\Adminhtml\Form\Element\ProductConditions">
+                <arguments>
+                    <argument name="formNamespace" xsi:type="string">ammegamenu_product_slider_form</argument>
+                    <argument name="attribute" xsi:type="string">conditions_encoded</argument>
+                    <argument name="label" xsi:type="string" translate="true">Condition</argument>
+                </arguments>
+            </block>
+        </htmlContent>
+    </fieldset>
+</form>

@@ -1,0 +1,32 @@
+<!-- ko if: isVisible -->
+<div class="checkout-agreements-block" data-role="checkout-agreements">
+    <div class="checkout-agreements-header">
+        <h3>Your Agreement</h3>
+    </div>
+
+    <!-- ko foreach: agreements -->
+    <div class="checkout-agreements-content">
+        <div class="checkout-agreements-info" data-bind="html: content">
+            <!-- dynamic agreement content from admin will render here -->
+        </div>
+    </div>
+
+    <!-- ko if: $parent.isAgreementRequired($data) -->
+    <div class="checkout-agreements-checkbox">
+        <div class="field choice required checkout-agreement">
+            <input type="checkbox"
+                   class="required-entry checkbox"
+                   data-bind="attr: {
+                       'id': $parent.getCheckboxId($parentContext, agreementId),
+                       'name': 'agreement[' + agreementId + ']',
+                       'value': agreementId
+                   }"/>
+            <label data-bind="attr: {'for': $parent.getCheckboxId($parentContext, agreementId)}">
+                <span data-bind="html: checkboxText"></span>
+            </label>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko -->

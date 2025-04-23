@@ -1,0 +1,15 @@
+<section if="$data.mobile_content"
+         data-bind="
+             attr: {
+                class: 'ammenuprem-mobile-content' + (+$data.show_mobile_content ? ' -after' : ' -before') + ' ' + $parent.actionAnimation()
+            },
+            style: {
+                'color': $parent.color_settings.submenu_text,
+                'border-color': $parent.color_settings.border
+            },
+            visible: $parent.isContentVisible($data.isActive),
+            html: $data.mobile_content,
+            afterRender: function(node) {
+                $parent.initContent(node, $data);
+            }">
+</section>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Milople_All::all" title="Milople Extensions" translate="title" module="Milople_All" sortOrder="60" resource="Milople_All::all"/>
+    </menu>
+</config>

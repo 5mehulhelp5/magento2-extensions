@@ -1,0 +1,34 @@
+//
+//  Accordion Open Type
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-mobile.-accordion {
+        .ammenu-icon-block.-toggle {
+            margin-left: auto;
+            transform: rotate(270deg);
+        }
+
+        .ammenu-link.-active > .ammenu-icon-block.-toggle {
+            transform: rotate(90deg);
+        }
+
+        .ammenu-items.-root > .ammenu-item:not(:last-child):not(.-active) > .ammenu-link {
+            border-bottom: 1px solid;
+        }
+
+        .ammenu-items.-root > .ammenu-item .ammenu-items {
+            & {
+                padding: 0 0 0 @ammenu__indent__l * 2;
+            }
+
+            .ammenu-link {
+                &:extend(._ammenu-link.-second);
+            }
+        }
+    }
+}

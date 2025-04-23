@@ -1,0 +1,54 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<!-- ko if: isAvailable && isActive() -->
+<div class="summary__cell">
+    <dl class="collapsible customerbalance"
+        id="customer-balance-container customerbalance-placer"
+        data-bind="css: {'collapsible--expanded': contentVisible}, afterRender: initTooltip()">
+        <dt class="collapsible__header" data-bind="click: toggleCollapsible">
+        <span class="link link--variation-accent link--variation-strong"
+              data-bind="text: label"></span>
+        </dt>
+        <dd class="collapsible__content">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <form class="form form-customer-balance" id="customer-balance-form">
+
+                <div class="form__field">
+                    <div class="payment-option-inner">
+                        <span id="customerbalance-available-amount" data-bind="text: formatBalance()"></span>
+                        <!-- ko i18n: 'Store credit available' --><!-- /ko -->
+                    </div>
+                </div>
+
+                <div class="form__field">
+                    <button id="use-customer-balance"
+                            class="action action-use button button--primary"
+                            name="payment[use_customer_balance]"
+                            data-bind="click: sendRequest">
+                        <span><!-- ko i18n: 'Use Store Credit' --><!-- /ko --></span>
+                    </button>
+
+                    <!-- ko if: tooltipMessage() -->
+                    <div class="tooltip"
+                         id="customer-balance-tooltip"
+                         data-bind="attr: {'data-content': tooltipMessage}"
+                         tabindex="0">
+                        <div class="tooltip__activator">
+                            <svg class="icon ">
+                                <use xlink:href="#icon--hint"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </form>
+        </dd>
+    </dl>
+</div>
+<!-- /ko -->

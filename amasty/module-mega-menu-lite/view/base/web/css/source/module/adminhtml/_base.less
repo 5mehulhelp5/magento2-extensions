@@ -1,0 +1,32 @@
+//
+//  Admin Base Styles
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .pagebuilder-content-type-wrapper .ammenu-item {
+        list-style: none;
+    }
+
+    // Override Magento admin styles
+    .ammenu-label-group.admin__control-grouped {
+        & {
+            .ammenu-flex(space-between, center);
+        }
+
+        > .admin__field {
+            .ammenu-flex(none, center);
+
+            flex-grow: 1;
+            margin-top: 0;
+        }
+
+        .colorpicker-input {
+            width: calc(~'100% - 37px') !important; // override colorpicker width because it has the !important already
+        }
+    }
+    // END Override Magento admin styles
+}

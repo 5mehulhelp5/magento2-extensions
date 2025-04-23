@@ -1,0 +1,35 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: @base-font-size * 1px;
+}
+
+.body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  background: @color-white;
+  font-family: @font-family;
+  .get-rem(font-size, 14);
+  overflow-x: hidden;
+  font-weight: @font-weight-normal;
+  color: @color-rangoon;
+
+  &--scroll-locked {
+    overflow: hidden;
+  }
+}
+
+small {
+  margin: 0;
+  padding: 0;
+}
+
+#page-icons {
+  display: none;
+}

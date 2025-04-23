@@ -1,0 +1,9 @@
+<!-- ko if: elems() -->
+    <div class="summary__field summary__field--vertical"
+         id="additional-inputs-container"
+         data-bind="visible: (isVisible && visible), afterRender: processVisibility">
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->

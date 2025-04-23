@@ -1,0 +1,55 @@
+<?php
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+?>
+<?php  $_gridrecords = $block->getCollection(); // get collection which we set in block class ?>
+<?php if ($_gridrecords && count($_gridrecords)): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('ID #') ?></th>
+                    <th scope="col" class="col total-amount"><?php echo __('Total Amount') ?></th>
+                    <th scope="col" class="col paid-amunt"><?php echo __('Paid Amount') ?></th>
+                    <th scope="col" class="col remaining-amount"><?php echo __('Remaining Amount') ?></th>
+                    <th scope="col" class="col status"><?php echo __('Status') ?></th>
+                    <th scope="col" class="col installments"><?php echo __('Installments') ?></th>
+                    <th scope="col" class="col ">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php  // read collection as magento1.x and display in list 
+				foreach ($_gridrecords as $_gridrecord): ?>
+				<tr>
+                        <td class="col id"><?php echo $_gridrecord->getIncrementId() ?></td>
+                        <td class="col shipping"><?php echo $block->priceHelper->currency($_gridrecord->getTotalAmount()); ?></td>
+                        <td class="col date"><?php echo $block->priceHelper->currency($_gridrecord->getPaidAmount()) ?></td>
+                        <td class="col status"><?php echo $block->priceHelper->currency($_gridrecord->getRemainingAmount()); ?></td>
+                        <td class="col status"><?php echo $_gridrecord->getOrderStatus(); ?></td>
+                        <td class="col status">
+					    <a href="<?php echo $block->getUrl('depositpayment/customer/installments', array('partialpayment_id' => $_gridrecord->getId()))?>" style="text-transform:none;"><?php echo __('View') ?></a>
+					|
+                	<a href="<?php echo $block->getUrl('depositpayment/customer/installments', array('partialpayment_id' => $_gridrecord->getId()))?>" style="text-transform:none;"><?php echo __('Pay') ?></a>
+					</td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); // for display pager block which we create in block file.   ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('You have no any Partially Paid Order.'); ?></span></div>
+<?php endif ?>

@@ -1,0 +1,171 @@
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<!-- ko ifnot: isCustomerLoggedIn() -->
+
+<!-- ko foreach: getRegion('before-login-form') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<form class="form form-login" data-role="email-with-possible-login"
+      data-bind="submit: login, blockLoader: isLoading"
+      method="post"
+>
+
+    <div class="form__field">
+        <div class="input input--is-required">
+            <label class="input__label"
+                   data-bind="
+                   i18n: 'Email Address',
+                   attr: {
+                                    for: namespace + '-customer-email',
+                                }
+"></label>
+            <input class="input__control"
+                   type="email"
+                   required="required"
+                   data-bind="
+                            textInput: email,
+                            hasFocus: emailFocused,
+                            mageInit: {'mage/trim-input':{}},
+                            attr: {
+                                    id: namespace + '-customer-email',
+                                    'aria-required': true
+                                }"
+                   name="username"
+                   data-validate="{required:true, 'validate-email':true}"
+            />
+        </div>
+    </div>
+
+    <!-- ko if: createAccountAvailable() -->
+    <div class="form__field" data-bind="fadeVisible: !isPasswordVisible() && !createAccountForced()">
+        <div class="checkbox">
+            <input class="checkbox__control"
+                   type="checkbox"
+                   name="create_account"
+                   data-bind="
+                   checked: createAccount,
+                   change: toggleCreateAccount,
+                   attr: {
+                                    id: namespace + '-create_account_checkbox',
+                                }
+"
+            />
+            <label class="checkbox__label"
+                   data-bind="
+                   attr: {
+                                    for: namespace + '-create_account_checkbox',
+                                }
+">
+                <div class="checkbox__box">
+                    <svg class="icon checkbox__icon">
+                        <use xlink:href="#icon--check"></use>
+                    </svg>
+                </div>
+                <!-- ko text: createAccountLabel --><!-- /ko -->
+            </label>
+        </div>
+    </div>
+
+    <div class="form__row hidden-fields" data-bind="fadeVisible: createAccountVisible">
+        <div class="form__field">
+            <div class="input input--is-required">
+                <label class="input__label" data-bind="i18n: 'Password'"></label>
+                <input class="input__control"
+                       type="password"
+                       data-bind="
+                                attr: {
+                                    placeholder: $t('Password'),
+                                    'aria-required': true,
+                                    'data-password-min-length': minPasswordLength,
+                                    'data-password-min-character-sets': minCharacterSets
+                                },
+                                event: {
+                                    change: mainPasswordChanged
+                                },
+                                value: password_main,
+                                valueUpdate: 'afterkeydown'"
+                       name="password"
+                       id="customer-password"
+                       data-validate="{
+                           required:true,
+                           'validate-customer-password':true
+                       }"
+                       autocomplete="off"
+                />
+            </div>
+        </div>
+
+        <div class="form__field">
+            <div class="input input--is-required">
+                <label class="input__label" data-bind="i18n: 'Confirm Password'"></label>
+                <input class="input__control"
+                       type="password"
+                       name="password_confirmation"
+                       data-bind="
+                                attr: {
+                                    placeholder: $t('Confirm Password'),
+                                    'aria-required': true,
+                                    'id': 'password-confirmation'
+                                },
+                                event: {
+                                    change: confirmPasswordChanged
+                                },
+                                value: password_confirm,
+                                valueUpdate: 'afterkeydown'"
+                       data-validate="{required:true, equalTo:'[id=customer-password]:visible'}"
+                />
+            </div>
+        </div>
+
+        <!-- ko foreach: getRegion('additional-login-form-fields') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+
+    <!--Hidden fields -->
+    <div class="hidden-fields" data-bind="fadeVisible: isPasswordVisible">
+        <div class="form__field js-toggle" data-bind="fadeVisible: loginRequired">
+            <div class="message message--error">
+                <p class="text" data-bind="i18n: 'To place order You must be logged in.'"></p>
+            </div>
+        </div>
+        <div class="form__field js-toggle">
+            <div class="message message--info">
+                <p class="text" data-bind="i18n: 'It looks like you already have an account'"></p>
+            </div>
+        </div>
+        <div class="form__field js-toggle">
+            <div class="input">
+                <label class="input__label" for="customer-password-login" data-bind="i18n: 'Password'"></label>
+                <a class="link link--variation-accent link--variation-strong input__label-addon"
+                   data-bind="attr: { href: forgotPasswordUrl }, i18n: 'Forgot Your Password?'"></a>
+                <input class="input__control"
+                       data-bind="
+                                attr: {
+                                    placeholder: $t('Password'),
+                                }"
+                       type="password"
+                       name="password"
+                       id="customer-password-login"
+                       data-validate="{required:true}" autocomplete="off"/>
+            </div>
+        </div>
+        <!-- ko foreach: getRegion('additional-login-form-fields') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+        <div class="actions-toolbar form__field js-toggle">
+            <input name="context" type="hidden" value="checkout" />
+            <div class="primary">
+                <button type="submit" class="action login primary" data-action="checkout-method-login"><span data-bind="i18n: 'Login'"></span></button>
+            </div>
+        </div>
+    </div>
+    <!--Hidden fields -->
+
+</form>
+<!-- /ko -->

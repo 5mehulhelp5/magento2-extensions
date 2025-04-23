@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\MegaMenuLite\Block\Adminhtml\System\Config\Information" type="Amasty\MegaMenu\Block\Adminhtml\System\Config\Information" />
+    <preference for="Amasty\MegaMenuLite\Model\ResourceModel\Menu\Link\Grid\Collection" type="Amasty\MegaMenu\Model\ResourceModel\Menu\Link\Grid\Collection" />
+
+    <virtualType name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Category\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="use_default" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\UseDefault</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="page_builder" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenu\Ui\DataProvider\Form\Category\Modifier\PageBuilder</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="hide_items" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenu\Ui\DataProvider\Form\Category\Modifier\HideItems</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+                <item name="check_category_level" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenu\Ui\DataProvider\Form\Category\Modifier\Level</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\MegaMenu\Plugin\Catalog\Model\Category\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Amasty\MegaMenuLite\Ui\DataProvider\Form\Category\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Category\DataProvider">
+        <plugin name="Amasty_MegaMenu::modify-category-data" type="Amasty\MegaMenu\Plugin\Catalog\Model\Category\DataProvider" />
+    </type>
+
+    <virtualType name="Amasty\MegaMenu\IconImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">amasty/ammegamenu</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\MegaMenu\Model\Menu\GetImagePath">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Amasty\MegaMenu\IconImageUpload</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\Model\Backend\SaveLink\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="page" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">10</item>
+                    <item name="object"
+                          xsi:type="object">Amasty\MegaMenu\Model\Backend\DataCollector\SaveLink\Page</item>
+                </item>
+                <item name="icon" xsi:type="array">
+                    <item name="sort_order" xsi:type="number">30</item>
+                    <item name="object"
+                          xsi:type="object">Amasty\MegaMenu\Model\Backend\DataCollector\SaveLink\Icon</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\MegaMenuLite\Ui\DataProvider\Form\Link\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="check_item_level" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenu\Ui\DataProvider\Form\Link\Modifier\Level</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+                <item name="landing_page" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\MegaMenu\Ui\DataProvider\Form\Link\Modifier\Page</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

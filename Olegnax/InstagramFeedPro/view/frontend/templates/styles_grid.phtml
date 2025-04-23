@@ -1,0 +1,188 @@
+<?php
+/**
+ * Olegnax Instagram Widgtet Styles
+ *
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Olegnax\InstagramFeedPro\Model\Config\Source\GridLayout;
+
+$feedId = $block->getData('widgetId');
+$borderRadius = (int)$block->getBorderRadius();
+$item_outer_padding = (int)$block->getItemOuterPadding();
+$block_outer_padding = (int)$block->getBlockOuterPadding();
+$imgBorderRadius = (int)$block->getImgBorderRadius();
+$mobileGridBehaviour =  $block->getMobileLayoutBehavior();
+$tabletGridBehaviour =  $block->getTabletLayoutBehavior();
+$mobile_mq = ($block->getGridMobileMq() > 0 && $block->getAdvanced()) ? (int)$block->getGridMobileMq() : 639;
+$tablet_mq = ($block->getGridTabletMq() > 0 && $block->getAdvanced()) ? (int)$block->getGridTabletMq() : 1024;
+$gridLayout =  $block->getData('grid_layout');
+$cols = (int)$escaper->escapeHtmlAttr($block->getColumnsDesktop());
+$cols_s = (int)$escaper->escapeHtmlAttr($block->getColumnsMobile());
+$cols_m = (int)$escaper->escapeHtmlAttr($block->getData('columns_tablet'));
+?>
+<?php if('' != $item_outer_padding) { ?>
+#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item{ padding: <?= $item_outer_padding ?>px;}
+<?php } ?>
+<?php if('' != $block_outer_padding) { ?>
+#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-items{ padding: <?= $block_outer_padding ?>px;}
+<?php } ?>
+<?php if('' != $borderRadius && 0 < $borderRadius) { ?>
+#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item .inner{ border-radius: <?= $borderRadius ?>px; overflow: hidden;}
+<?php } ?>
+<?php if('' != $imgBorderRadius && 0 < $imgBorderRadius) { ?>
+#ox_<?= $feedId ?>.ox-instagram-feed .media-wrapper{ border-radius: <?= $imgBorderRadius ?>px; overflow: hidden;}
+<?php } ?>
+<?php if($gridLayout == GridLayout::TYPE_GRID_FIRST_BIG || $gridLayout == GridLayout::TYPE_GRID_BIG ) { ?>
+<?php 
+if($cols < 4 ) {
+	$cols = 4;
+}
+if ($cols_s < 2){
+	$cols_s = 2;
+}
+if($cols_m < 2){
+	$cols_m = 2;
+}
+?>
+	@media only screen and (min-width: <?= $mobile_mq+1 ?>px) and (max-width: <?= $tablet_mq ?>px){
+		<?php if($gridLayout == GridLayout::TYPE_GRID_BIG && $tabletGridBehaviour != 'simple' && $tabletGridBehaviour != 'first') { ?>
+			<?php $_cols_m = ($tabletGridBehaviour === 'desktop') ? $cols : $cols_m; ?>
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($_cols_m*2)-3 ?>n+1){
+				float:right;
+			}
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= (($_cols_m*2)-3)*2 ?>n+1){
+				float:left;
+			}
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($_cols_m*2)-3 ?>n+1){
+			-ms-flex: 0 0 <?= (100/$cols_m)*2 ?>%;
+			flex: 0 0 <?= (100/$cols_m)*2 ?>%;
+			max-width: <?= (100/$cols_m)*2 ?>%;
+		}
+		<?php } ?>
+		<?php if(($gridLayout == GridLayout::TYPE_GRID_BIG && $tabletGridBehaviour === 'first') || ($gridLayout == GridLayout::TYPE_GRID_FIRST_BIG ) ) { ?>
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:first-child {	
+			-ms-flex: 0 0 <?= (100/$cols_m)*2 ?>%;
+			flex: 0 0 <?= (100/$cols_m)*2 ?>%;
+			max-width: <?= (100/$cols_m)*2 ?>%;
+		}
+		<?php } ?>
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {	
+			-ms-flex: 0 0 <?=  100/$cols_m ?>%;
+			flex: 0 0 <?=  100/$cols_m ?>%;
+			max-width: <?=  100/$cols_m ?>%;
+		}
+	}
+	@media (min-width: <?= $tablet_mq+1 ?>px){
+	<?php if($gridLayout == GridLayout::TYPE_GRID_BIG ) { ?>
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($cols*2)-3 ?>n+1){
+			float:right;
+		}
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= (($cols*2)-3)*2 ?>n+1){
+			float:left;
+		}
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($cols*2)-3 ?>n+1),
+	<?php } ?>
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:first-child {
+			-ms-flex: 0 0 <?=  (100/$cols)*2 ?>%;
+			flex: 0 0 <?=  (100/$cols)*2 ?>%;
+			max-width: <?=  (100/$cols)*2 ?>%;
+		}
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {
+			-ms-flex: 0 0 <?=  100/$cols ?>%;
+			flex: 0 0 <?=  100/$cols ?>%;
+			max-width: <?=  100/$cols ?>%;
+		}
+	}
+	@media only screen and (max-width: <?= $mobile_mq ?>px){
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {
+			-ms-flex: 0 0 <?=  100/$cols_s ?>%;
+			flex: 0 0 <?=  100/$cols_s ?>%;
+			max-width: <?=  100/$cols_s ?>%;
+		}
+		<?php if($gridLayout == GridLayout::TYPE_GRID_FIRST_BIG ) { ?>
+				#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:first-child {
+					-ms-flex: 0 0 100%!important;
+					flex: 0 0 100%!important;
+					max-width: 100%!important;
+				}
+		<?php } ?>
+		<?php if($gridLayout == GridLayout::TYPE_GRID_BIG && $mobileGridBehaviour != 'simple' && $mobileGridBehaviour != 'first'){ ?>
+			<?php $_cols_s = ($mobileGridBehaviour === 'desktop') ? $cols : $cols_s; ?>
+			<?php $_cols_s = ($_cols_s < 3) ? 3 : $_cols_s; ?>
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($_cols_s*2)-3 ?>n+1){
+				float:right;
+			}
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= (($_cols_s*2)-3)*2 ?>n+1){
+				float:left;
+			}
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= ($_cols_s*2)-3 ?>n+1),
+			#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:nth-child(<?= (($_cols_s*2)-3)*2 ?>n+1){
+				-ms-flex: 0 0 <?= (100/$cols_s)*2 ?>%;
+				flex: 0 0 <?= (100/$cols_s)*2 ?>%;
+				max-width: <?= (100/$cols_s)*2 ?>%;
+			}
+		<?php } ?>
+		<?php if(($gridLayout == GridLayout::TYPE_GRID_BIG && $mobileGridBehaviour === 'first') || ($gridLayout == GridLayout::TYPE_GRID_FIRST_BIG ) ) { ?>
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item:first-child {	
+			-ms-flex: 0 0 <?= (100/$cols_s)*2 ?>%;
+			flex: 0 0 <?= (100/$cols_s)*2 ?>%;
+			max-width: <?= (100/$cols_s)*2 ?>%;
+		}
+		<?php } ?>
+	}
+<?php } else { ?>
+	#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {	
+		-ms-flex: 0 0 <?=  100/$cols_m ?>%;
+		flex: 0 0 <?=  100/$cols_m ?>%;
+		max-width: <?=  100/$cols_m ?>%;
+	}
+	@media (min-width: <?= $tablet_mq ?>px){
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {
+			-ms-flex: 0 0 <?=  100/$cols ?>%;
+			flex: 0 0 <?=  100/$cols ?>%;
+			max-width: <?=  100/$cols ?>%;
+		}
+	}
+	@media only screen and (max-width: <?= $mobile_mq ?>px){
+		#ox_<?= $feedId ?>.ox-instagram-feed .ox-instagram-item {
+			-ms-flex: 0 0 <?=  100/$cols_s ?>%;
+			flex: 0 0 <?=  100/$cols_s ?>%;
+			max-width: <?=  100/$cols_s ?>%;
+		}
+	}
+<?php } ?>
+<?php if($block->getHideLikesMobile() || $block->getHideCommentsMobile() || $block->getHideButtonMobile() || $block->getHideCaptionMobile() || $block->getHideDateMobile()){ ?>
+	@media only screen and (max-width: <?= $mobile_mq ?>px){
+		<?php if($block->getHideLikesMobile()){ ?>
+		#ox_<?= $feedId ?> .actions .action.likes{
+			display:none!important;
+		}
+		<?php } ?>
+		<?php if($block->getHideCommentsMobile()){ ?>
+		#ox_<?= $feedId ?> .actions .action.comments{
+			display:none!important;
+		}
+		<?php } ?>
+		<?php if($block->getHideButtonMobile()){ ?>
+		#ox_<?= $feedId ?> .actions button{
+			display:none!important;
+		}
+		<?php } ?>
+		<?php if($block->getHideCaptionMobile()){ ?>
+		#ox_<?= $feedId ?> .-content .caption{
+			display:none!important;
+		}
+		<?php } ?>
+		<?php if($block->getHideDateMobile()){ ?>
+		#ox_<?= $feedId ?> .-content .date{
+			display:none!important;
+		}
+		<?php } ?>
+	}
+<?php } ?>

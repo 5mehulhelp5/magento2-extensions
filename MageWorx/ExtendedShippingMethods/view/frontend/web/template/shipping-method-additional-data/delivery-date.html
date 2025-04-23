@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: (typeof method !== 'undefined' && method.extension_attributes && method.extension_attributes.estimated_delivery) -->
+<div class="form__field">
+    <div class="input ">
+        <label class="input__label" data-bind="text: $t('Day')">  </label>
+        <input class="input__control" type="text"
+               data-bind="attr: {'placeholder': method.extension_attributes.estimated_delivery }"
+        />
+    </div>
+</div>
+<!-- /ko -->

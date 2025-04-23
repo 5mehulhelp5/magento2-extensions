@@ -1,0 +1,122 @@
+.summary {
+  overflow-x: hidden;
+
+  &__field {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    .get-rem(padding-top, 18);
+    .get-rem(padding-bottom, 18);
+    .get-rem(padding-left, 0);
+    .get-rem(padding-right, 0);
+    border-bottom: 1px solid @color-zircon;
+    margin-left: -10px;
+    margin-right: -10px;
+
+    &--style-no-border {
+      border-bottom: 0;
+    }
+
+    &--style-border-top {
+      border-top: 1px solid @color-zircon;
+    }
+
+    &--vertical {
+      flex-direction: column;
+
+      & > .summary {
+        &__cell {
+          &:not(:last-child) {
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+
+    &--align-bottom {
+      align-items: flex-end;
+    }
+
+    &--condensed {
+      padding: 0;
+    }
+
+    &--collapsible {
+      cursor: pointer;
+      display: block;
+
+      &-header {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        .summary__cell:last-child {
+          position: relative;
+          padding-right: 32px;
+
+          &::after {
+            .get-collapsible__header-after();
+            top: 5px;
+            right: 10px;
+          }
+        }
+      }
+
+      &-content {
+        visibility: hidden;
+        position: absolute;
+        left: -9999px;
+        height: 0;
+
+        .summary__field {
+          border-bottom: 0;
+          .get-rem(padding-top, 10);
+          .get-rem(padding-right, 0);
+          .get-rem(padding-bottom, 0);
+          .get-rem(padding-left, 0);
+        }
+      }
+
+      &-expanded {
+        & > .summary__field--collapsible-header {
+          .summary__cell:last-child {
+            &::after {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        & > .summary__field--collapsible-content {
+          visibility: visible;
+          height: auto;
+          position: relative;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &__cell {
+    flex: 1 1 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .radio + .radio,
+    .checkbox + .checkbox,
+    .input + .input {
+      .get-rem(margin-top, 15);
+    }
+
+    &--content-right {
+      text-align: right;
+    }
+
+    &--content-center {
+      text-align: center;
+    }
+
+    &--size-auto {
+      flex: 0;
+    }
+  }
+}

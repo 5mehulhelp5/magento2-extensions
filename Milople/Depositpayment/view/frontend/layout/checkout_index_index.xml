@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceBlock name="checkout.root">
+			<arguments>
+				<argument name="jsLayout" xsi:type="array">
+					<item name="components" xsi:type="array">
+						<item name="checkout" xsi:type="array">
+							<item name="children" xsi:type="array">
+								<item name="sidebar" xsi:type="array">
+									<item name="children" xsi:type="array">
+										<item name="summary" xsi:type="array">
+											<item name="children" xsi:type="array">
+												<item name="totals" xsi:type="array">
+													<item name="children" xsi:type="array">
+														<item name="installmentfee" xsi:type="array">
+															<item name="component"  xsi:type="string">Milople_Depositpayment/js/view/checkout/cart/totals/installmentfee</item>
+															<item name="sortOrder" xsi:type="string">90</item>
+															<item name="config" xsi:type="array">
+																<item name="title" xsi:type="string" translate="true">Installment Fee</item>
+																 <item name="template" xsi:type="string">Milople_Depositpayment/checkout/cart/totals/installmentfee</item>
+															</item>
+														</item>
+														<item name="paid" xsi:type="array">
+															<item name="component"  xsi:type="string">Milople_Depositpayment/js/view/checkout/cart/totals/paid</item>
+															<item name="sortOrder" xsi:type="string">100</item>
+															<item name="config" xsi:type="array">
+																<item name="template" xsi:type="string">Milople_Depositpayment/checkout/cart/totals/paid</item>
+																<item name="title" xsi:type="string" translate="true">Down Payment</item>
+															</item>
+														</item>
+														<item name="remaining" xsi:type="array">
+															<item name="component"  xsi:type="string">Milople_Depositpayment/js/view/checkout/cart/totals/remaining</item>
+															<item name="sortOrder" xsi:type="string">101</item>
+															<item name="config" xsi:type="array">
+																<item name="template" xsi:type="string">Milople_Depositpayment/checkout/cart/totals/remaining</item>
+																<item name="title" xsi:type="string" translate="true">Amount To Be Paid Later</item>
+															</item>
+														</item>
+													</item>
+												</item>
+												<!--<item name="cart_items" xsi:type="array">
+													<item name="children" xsi:type="array">
+														<item name="details" xsi:type="array">
+															<item name="children" xsi:type="array">
+																<item name="subtotal" xsi:type="array">
+																	<item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
+																</item>
+															</item>
+														</item>
+													</item>
+												</item>-->
+											</item>
+										</item>
+									</item>
+								</item>
+							</item>
+						</item>
+					</item>
+				</argument>
+			</arguments>
+			<referenceContainer name="content">
+			<block class="Milople\Depositpayment\Block\Partialpayment" template="Milople_Depositpayment::partialpayment_wholecart_checkout.phtml" />
+			<block class="Milople\Depositpayment\Block\Partialpayment" template="Milople_Depositpayment::partialpaymentconfig.phtml"/>
+			</referenceContainer>
+		</referenceBlock>
+		
+	</body>
+</page>

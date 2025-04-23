@@ -1,0 +1,25 @@
+<svg id="ox_inst_preloader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+    <defs>
+        <linearGradient id="Gradient" x1="0" x2="50%" y1="50%" y2="50%" >
+            <stop offset="0%" stop-color="white" stop-opacity="0"/>
+            <stop offset="30%" stop-color="white" stop-opacity="0.7"/>
+            <stop offset="50%" stop-color="white" />
+            <stop offset="70%" stop-color="white" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </linearGradient>
+        <style type="text/css"><![CDATA[
+          .gradient-anim{
+          animation: gradient-anim 1s infinite;
+          }
+@keyframes gradient-anim {
+     0%{
+        transform: translateX(-120%) rotate(25deg) translateY(-50%);
+      }
+      100% {
+        transform: translateX(120%) rotate(25deg) translateY(-50%);
+      }
+    }
+          ]]></style>
+    </defs>
+    <rect width="2080" height="2080" fill="url(#Gradient)" class="gradient-anim" />
+</svg>

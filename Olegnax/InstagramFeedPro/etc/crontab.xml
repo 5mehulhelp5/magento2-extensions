@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="default_oxdaily">
+		<job instance="Olegnax\InstagramFeedPro\Cron\UpdatePosts" method="execute"
+			 name="olegnax_instagramfeedpro_updateposts">
+			<schedule>1 * * * *</schedule>
+		</job>
+	</group>
+	<group id="default">
+		<job instance="Olegnax\InstagramFeedPro\Cron\NewPosts" method="execute"
+			 name="olegnax_instagramfeedpro_newposts">
+			<schedule>*/30 * * * *</schedule>
+		</job>
+	</group>
+</config>

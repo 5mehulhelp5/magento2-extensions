@@ -1,0 +1,26 @@
+{
+    "name": "amasty/module-seo-rich-data-subscription-package",
+    "description": "Seo Rich Data Subscription Package by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.16.0",
+        "amasty/module-google-rich-snippets": ">=1.8.0"
+    },
+    "suggest": {
+        "amasty/module-google-rich-snippets-graphql": "Install module-google-rich-snippets-graphql module to activate Graphql and Seo Rich Data integration.",
+        "amasty/module-seo-rich-data-hyva": "Install this package to ensure the Seo Rich Data extension works with Hyv\u00e4 Theme.",
+        "amasty/module-seo-rich-data-subscription-functionality": "Install this package for compatibility with subscription features."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.9.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\SeoRichDataSubscriptionPackage\\": ""
+        }
+    }
+}

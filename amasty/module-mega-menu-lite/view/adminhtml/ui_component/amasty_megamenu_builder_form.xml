@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Mega Menu Core Base for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amasty_megamenu_builder_form.amasty_megamenu_builder_form_data_source</item>
+            <item name="deps" xsi:type="string">amasty_megamenu_builder_form.amasty_megamenu_builder_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Menu Builder</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amasty_megamenu_builder_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="save" xsi:type="string">Amasty\MegaMenuLite\Block\Adminhtml\Builder\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Amasty\MegaMenuLite\Block\Adminhtml\Builder\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="amasty_megamenu_builder_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\MegaMenuLite\Ui\DataProvider\Form\Builder\DataProvider</argument>
+            <argument name="name" xsi:type="string">amasty_megamenu_builder_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="ammegamenu/builder/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Builder</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <container name="builder-content">
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Amasty\MegaMenuLite\Block\Adminhtml\Builder\Content</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

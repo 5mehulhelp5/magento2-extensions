@@ -1,0 +1,13 @@
+<?php
+/** @var \MageWorx\Checkout\Block\Checkout\Onepage\OrderTabs $block */
+?>
+<div class="tabs" id="order-tabs" data-bind="scope: 'order_tabs'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+        {
+            "#order-tabs": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout(); ?>
+            }
+        }
+</script>

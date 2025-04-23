@@ -1,0 +1,21 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isAvailable() -->
+    <!-- ko foreach: getAppliedGiftCards() -->
+        <div class="summary__field">
+            <div class="summary__cell">
+                <p class="text text--variation-strong text--variation-distant" data-bind="text: $parent.title + ' (' + c + ')'"></p>
+                <p class="text text--variation-subdued">
+                    <a href="#" class="action" data-bind="text: $t('Remove'), click: function(data, event) { $parent.removeGiftCard(c, event); }"></a>
+                </p>
+            </div>
+            <div class="summary__cell summary__cell--content-right">
+                <p class="text text--variation-strong negative-total" data-bind="text: '-' + $parent.getAmount(a), attr:{'data-th': $parent.title + ' (' + c + ')'}"></p>
+            </div>
+        </div>
+    <!-- /ko -->
+<!-- /ko -->

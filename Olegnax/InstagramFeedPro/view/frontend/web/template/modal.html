@@ -1,0 +1,108 @@
+<!--suppress HtmlUnknownTarget, SyntaxError -->
+<% if (showNextPrev) { %>
+<div class="ox-modal__nav">
+	<button class="ox-modal__prev" data-instagram-id="<%- data.prevItem %>" <%- !data.prevItem?'disabled':'' %> type="button">
+		<span><%- text.prev %></span>
+	</button>
+	<button class="ox-modal__next" data-instagram-id="<%- data.nextItem %>" <%- !data.nextItem?'disabled':'' %> type="button">
+		<span><%- text.next %></span>
+	</button>
+</div>
+<% } %>
+<div class="ox-instagram__media<%- ('VIDEO' ==data.media_type)?' -v-click':'' %> <%- ('CAROUSEL_ALBUM' ==data.media_type)?' -album':'' %>">
+    <div class="-image-wrap ">
+	<% if ("CAROUSEL_ALBUM" ==data.media_type) { %>
+	<div class="owl-carousel" data-mage-init='{"OXIFowlCarousel":{
+		"items":1,
+		"rewind": true,
+		"nav":true
+		 }}' data-role="product-owlCarousel">
+		<% _.each(data.children, function(image) { %>
+		<% if (lazy) { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" height="<%- data.dimensions_height %>" src="<%- lazy_placeholder %>"
+			 class="lazy" data-original="<%- image %>" width="<%- data.dimensions_width %>"/>
+		<% } else { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" height="<%- data.dimensions_height %>"
+			 loading="lazy" src="<%- image %>" width="<%- data.dimensions_width %>"/>
+		<% } %>
+		<% }); %>
+	</div>
+	<% } else if ("VIDEO" ==data.media_type) { %>
+		<% if (lazy) { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" height="<%- data.dimensions_height %>" src="<%- lazy_placeholder %>"
+			 class="lazy" data-original="<%- data.thumbnail_url%>"
+			 width="<%- data.dimensions_width %>"/>
+		<% } else { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" height="<%- data.dimensions_height %>" src="<%- data.thumbnail_url%>"
+			 width="<%- data.dimensions_width %>" loading="lazy"/>
+		<% } %>
+
+	<video loop playsinline preload="none">
+		<source src="<%- data.media_url%>" type="video/mp4">
+	</video>
+        <div aria-label="<%- text.play %>" class="ox-i-video ox-inst__video-btn"></div>
+	<% } else { %>
+		<% if (lazy) { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" class="lazy"
+			 data-original="<%- data.thumbnail_url || data.media_url %>"
+			 height="<%- data.dimensions_height %>" src="<%- lazy_placeholder %>"
+			 width="<%- data.dimensions_width %>"/>
+		<% } else { %>
+		<img alt="<%- text.photo_by %> <%- data.owner_name %>" height="<%- data.dimensions_height %>"
+			 loading="lazy" src="<%- data.thumbnail_url || data.media_url %>" width="<%- data.dimensions_width %>"/>
+		<% } %>
+	<% } %>
+	<div class="ox-instagram__related-hotspots"></div>
+    </div>
+</div>
+<div class="ox-instagram__info">
+	<div class="-account-name">
+		<% if (data.owner_profile_picture) { %>
+		<a class="-img" href="https://www.instagram.com/<%- data.owner_name %>/" rel="noopener noreferrer"
+		   target="_blank">
+			<img alt="<%- data.owner_profile_picture %> <%- text.profile_photo %>" height="42" src="<%- data.owner_profile_picture %>"
+				 width="42" loading="lazy"/>
+		</a>
+		<% } %>
+		<a class="-name" href="https://www.instagram.com/<%- data.owner_name %>/" rel="noopener noreferrer"
+		   target="_blank">
+			<span><%- data.owner_name %></span>
+			<% if(showFollow) { %>
+			<span class="-follow"><%- text.follow %></span>
+			<% } %>
+		</a>
+	</div>
+	<div class="-post-info">
+		<% if (showCaption) { %>
+		<div class="-description"><%= (data.caption_decoded || '').replace(/\n/g, '<br>') %></div>
+		<% } %>
+		<% if ((showLikes && 0 < data.like_count) || (showComments && 0 < data.comments_count)) { %>
+		<div class="-activity-info">                        
+			<% if (showLikes && 0 < data.like_count) { %>
+			<a href="<%- data.url %>" class="ox-i -likes" target="_blank" rel="noopener noreferrer nofollow"><span><%- data.like_count %> <%- text.likes %></span></a>
+			<% } %>
+			<% if (showComments && 0 < data.comments_count) { %>
+			<a href="<%- data.url %>" class="ox-i -comments" target="_blank" rel="noopener noreferrer nofollow"><span><%- data.comments_count %> <%- text.comments %></span></a>
+			<% } %>
+		</div>
+		<% } %>
+		<% if (showDate) { %>
+		<div class="-date" data-datetime="<%- data.timestamp_orig %>"><%- data.timestamp %></div>
+		<% } %>
+		<% if (showShare) { %>
+		<div class="ox-instagram__social-share">
+			<% _.each(socialButtons, function(item) { %>
+			<a class="ox-i-social-button ox-i-<%- item.name %> -<%- item.name %>" href="<%- item.link %>" rel="noopener noreferrer" target="_blank">
+				<span class="sr-only"><%- item.title %></span>
+			</a>
+			<% }); %>
+			<span class="ox-i-social-button ox-i-link -link">
+                                <span class="ox-tooltip"><%- text.copy %></span>
+			</span>
+		</div>
+		<% } %>
+	</div>
+	<div class="ox-instagram__related-products <%- relatedLayout %>">
+		<div class="-loader" role="status"><span><span class="sr-only"><%- text.loading %></span></span></div>
+	</div>
+</div>

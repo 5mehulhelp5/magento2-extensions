@@ -1,0 +1,28 @@
+<!--
+/**
+ * Copyright © MageWorx All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<p class="heading layout__pane__heading" data-bind="text: label"></p>
+<form action="#">
+    <div class="summary">
+        <!-- ko foreach: getRegion('custom_message') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- ko foreach: getRegion('summary') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- ko foreach: getRegion('additional_inputs') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- ko foreach: getRegion('after_summary') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+    </div>
+</form>
+
+

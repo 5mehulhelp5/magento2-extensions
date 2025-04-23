@@ -1,0 +1,45 @@
+fieldset.fieldset {
+  .get-form();
+
+  & > .field {
+    &.choice,
+    &.no-label {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  & > .field,
+  & > .field:not(.choice) {
+    .get-form__field();
+
+    &._required {
+      & > label.label {
+        &::after {
+          content: '*';
+          color: @color-red;
+          padding-left: 5px;
+          margin: 0;
+          font-size: inherit;
+        }
+      }
+    }
+
+    & > .label {
+      .get-input__label();
+
+      @media @screen-lg {
+        padding: 0;
+        text-align: left;
+        width: auto;
+        float: none;
+      }
+    }
+
+    & > .control {
+      float: none;
+      width: auto;
+    }
+  }
+}

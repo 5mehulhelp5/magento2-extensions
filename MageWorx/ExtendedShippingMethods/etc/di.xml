@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Plugins -->
+    <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="addShippingMethodExtensionAttributes"
+                type="MageWorx\ExtendedShippingMethods\Plugin\ExtensionAttributes\ShippingMethod\ConverterPlugin"/>
+    </type>
+    <!-- Set processors -->
+    <type name="MageWorx\ExtendedShippingMethods\Model\Processor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="imageProcessor" xsi:type="object">MageWorx\ExtendedShippingMethods\Model\Processors\Image</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MageWorx\ExtendedShippingMethods\Model\System\Config\Backend\MethodsConfiguration">
+        <arguments>
+            <argument name="resourceCollection" xsi:type="object">Magento\Config\Model\ResourceModel\Config\Data\Collection\Proxy</argument>
+        </arguments>
+    </type>
+</config>

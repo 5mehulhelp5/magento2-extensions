@@ -1,0 +1,171 @@
+This product is available with,This product is available with
+Full Payment,Full Payment
+Installment,Installment
+Installments,Installments
+Save,Save
+Save and Continue Edit,Save and Continue Edit
+Partially  Paid Order,Partially  Paid Order
+All Information,All Information
+Installments Information,Installments Information
+Order Information,Order Information
+Products Information,Products Information
+Partial Payment,Partial Payment
+Order Id,Order Id
+First Name,First Name
+Last Name,Last Name
+Email Address,Email Address
+Paid Installments,Paid Installments
+Remaining Installments,Remaining Installments
+Paid amount,Paid amount
+Remaining amount,Remaining amount
+Order Date,Order Date
+Status,Status
+Edit,Edit
+Installments of Order #,Installments of Order #
+Partially Paid Orders,Partially Paid Orders
+Paid,Paid
+Remaining,Remaining
+This grid record no longer exists.,This grid record no longer exists.
+Edit Partially Paid Order,Edit Partially Paid Order
+CMS,CMS
+Milople Partialpayment Partiallypaidorders View,Milople Partialpayment Partiallypaidorders View
+Manage Partially Paid Orders,Manage Partially Paid Orders
+Unable to edit partially paid order's information.,Unable to edit partially paid order's information.
+Please select an installment.,Please select an installment.
+Please select a payment method to pay installment(s).,Please select a payment method to pay installment(s).
+message,message
+Installment payment failed.,Installment payment failed.
+Please select a Paymet Method.,Please select a Paymet Method.
+"Payment method is not supported to pay installment, please try another payment method.","Payment method is not supported to pay installment, please try another payment method."
+Installment of order %1 is paid successfully.,Installment of order %1 is paid successfully.
+Installments of order %1 is paid successfully.,Installments of order %1 is paid successfully.
+Payment Transaction request rejected by paypal.,Payment Transaction request rejected by paypal.
+Down Payment must be between 1 to 100 when 'Calculate Down Payment On' is set as Percentage,Down Payment must be between 1 to 100 when 'Calculate Down Payment On' is set as Percentage
+Number Of Installments value must be at least 2.,Number Of Installments value must be at least 2.
+All Products,All Products
+Selected Products Only,Selected Products Only
+Whole Cart,Whole Cart
+Fixed Amount,Fixed Amount
+Percentage of Product Price,Percentage of Product Price
+To be Added in Down Payment or First Installment Amount,To be Added in Down Payment or First Installment Amount
+To be added Equally in Remaining Installment(s) Amount,To be added Equally in Remaining Installment(s) Amount
+To Customers,To Customers
+To Customers and CC Both,To Customers and CC Both
+None,None
+Fixed Installment Payment,Fixed Installment Payment
+Flexy Layaway Plan,Flexy Layaway Plan
+Monthly,Monthly
+Weekly,Weekly
+Based on Days,Based on Days
+Enable,Enable
+Disable,Disable
+Something went wrong in the payment gateway.,Something went wrong in the payment gateway.
+Canceled,Canceled
+Failed,Failed
+Product Name,Product Name
+SKU,SKU
+Quantity,Quantity
+Total Installments,Total Installments
+Total Amount,Total Amount
+Paid Amount,Paid Amount
+Remaining Amount,Remaining Amount
+Sub Total,Sub Total
+Shipping & Handling,Shipping & Handling
+Tax,Tax
+Discount,Discount
+Grand Total,Grand Total
+Installment Amount,Installment Amount
+Due Date,Due Date
+Paid Date,Paid Date
+Installment Status,Installment Status
+Payment Method,Payment Method
+Not Paid,Not Paid
+Partial Payment Installments Detail of Order,Partial Payment Installments Detail of Order
+Pay,Pay
+Product,Product
+Price,Price
+Qty,Qty
+Partial %1 Payment,Partial %1 Payment
+Subtotal,Subtotal
+Row Subtotal,Row Subtotal
+Action,Action
+No ordered items,No ordered items
+Update Items and Quantities,Update Items and Quantities
+Total %1 product(s),Total %1 product(s)
+Subtotal:,Subtotal:
+Tier Pricing,Tier Pricing
+Custom Price,Custom Price
+Apply,Apply
+Please select,Please select
+Remove,Remove
+Move to Shopping Cart,Move to Shopping Cart
+Move to Wish List,Move to Wish List
+No Payment Methods,No Payment Methods
+Payment Methods,Payment Methods
+You have no any Installment.,You have no any Installment.
+Grid Record,Grid Record
+ID #,ID #
+View,View
+You have no any Partially Paid Order.,You have no any Partially Paid Order.
+Credit Card Type,Credit Card Type
+--Please Select--,--Please Select--
+Credit Card Number,Credit Card Number
+Expiration Date,Expiration Date
+Card Verification Number,Card Verification Number
+Card Verification Number Visual Reference,Card Verification Number Visual Reference
+What is this?,What is this?
+Pay With,Pay With
+Please Selection One Option,Please Selection One Option
+Please Select,Please Select
+Full Payment ,Full Payment 
+To avail Partial Payment,To avail Partial Payment
+create an account,create an account
+or,or
+log in,log in
+This product is available with ,This product is available with 
+click here,click here
+Full Payment of ,Full Payment of 
+Installments of ,Installments of 
+Installments of,Installments of
+Payment Information,Payment Information
+No Payment method available.,No Payment method available.
+Configure Product,Configure Product
+OK,OK
+You have item changes,You have item changes
+Partial Payment Pro,Partial Payment Pro
+Configurations,Configurations
+Milople Extension,Milople Extension
+License And Status,License And Status
+Serial Key,Serial Key
+General Settings,General Settings
+Partial Payment Brand Label,Partial Payment Brand Label
+Partial Payment Available To,Partial Payment Available To
+Apply Partial Payment to,Apply Partial Payment to
+Minimum Order Amount,Minimum Order Amount
+Number Of Installments,Number Of Installments
+Allow Full Payment?,Allow Full Payment?
+Shipping and Tax Calculation Options,Shipping and Tax Calculation Options
+Discount Calculation Options,Discount Calculation Options
+Payment Calculation Settings,Payment Calculation Settings
+Partial Payment Type,Partial Payment Type
+Payment Plan,Payment Plan
+Number of Days,Number of Days
+Calculate Down Payment On,Calculate Down Payment On
+Down Payment,Down Payment
+Partial Payment Credit Settings,Partial Payment Credit Settings
+Maximum Credit Limit,Maximum Credit Limit
+Credit Limit Surpass Message,Credit Limit Surpass Message
+Emails and Notifications Settings,Emails and Notifications Settings
+Choose Email Sender,Choose Email Sender
+Email CC to,Email CC to
+Send Partially Paid Orders' Confirmation Email,Send Partially Paid Orders' Confirmation Email
+Partially Paid Orders' Confirmation Email Template,Partially Paid Orders' Confirmation Email Template
+Send Installment Reminder Email,Send Installment Reminder Email
+Installment Reminder Email Template,Installment Reminder Email Template
+Send Installment Payment Confirmation Email,Send Installment Payment Confirmation Email
+Installment Payment Confirmation Email Template,Installment Payment Confirmation Email Template
+Send Installment Failure Email,Send Installment Failure Email
+Installment Failure Email Template,Installment Failure Email Template
+Send Installment Over Due Notice Email,Send Installment Over Due Notice Email
+Installment Over Due Notice Email Template,Installment Over Due Notice Email Template
+Amount To Be Paid Later,Amount To Be Paid Later

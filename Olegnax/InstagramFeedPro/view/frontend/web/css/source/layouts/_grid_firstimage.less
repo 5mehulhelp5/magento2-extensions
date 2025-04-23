@@ -1,0 +1,31 @@
+/**
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+//
+//  Common
+//  _____________________________________________
+
+//noinspection ALL
+& when (@media-common = true) {
+    .ox-instagram-feed {
+        &.-l-big-images,
+        &.-l-first-image{
+            .ox-instagram-items {
+                margin: 4px;
+                padding:0;
+                display:inline-block;
+                width:100%;
+                &:after{
+                    content:'';
+                    display:table;
+                    clear:both;
+                }
+            }
+            .ox-instagram-item{
+                float:left;
+            }
+        }
+    }
+}

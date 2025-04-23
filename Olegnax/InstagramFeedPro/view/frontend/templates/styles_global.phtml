@@ -1,0 +1,497 @@
+<?php
+/**
+ * Olegnax Instagram Global Styles
+ *
+ * @author      Olegnax
+ * @package     Olegnax_InstagramFeedPro
+ * @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Olegnax\InstagramFeedPro\Helper\Helper;
+use Olegnax\InstagramFeedPro\Model\Config\Source\IconsStyle;
+use Olegnax\InstagramFeedPro\Model\Config\Source\MediaIconsStyle;
+use Olegnax\InstagramFeedPro\Model\Config\Source\SliderDotsStyle;
+/** @var Template $block */
+/** @var Escaper $escaper */
+$appearance = $this->helper(Helper::class)->getConfig('olegnax_instagram_pro_appearance', $block->getData('dynamic_store_code'));
+$settings = $this->helper(Helper::class)->getConfig('olegnax_instagram_pro', $block->getData('dynamic_store_code'));
+if($appearance['general']['enabled']) :
+$tooltipStyles = $hotspotTooltipStyles = $productStyles = $styles = [];
+
+
+/* modal general */
+if ($appearance['modal']['bg_color'] || $appearance['modal']['shadow_color'] || $appearance['modal']['border_radius'] != '' || $appearance['modal']['width'] > 0){
+	$styles[] = '.ox-instagram-modal .modal-inner-wrap{';
+	if ($appearance['modal']['bg_color']){
+		$styles[] = 'background-color: ' . $appearance['modal']['bg_color'] . '; ';
+	}
+	if ($appearance['modal']['shadow_color']){
+		$styles[] = 'box-shadow: 0 20px 36px ' . $appearance['modal']['shadow_color'] . '; ';
+	}
+	if ($appearance['modal']['border_radius'] != ''){
+		$styles[] = 'border-radius: ' . $escaper->escapeHtmlAttr($appearance['modal']['border_radius']) . 'px;';
+	}
+	if ($appearance['modal']['width'] > 0){
+		$styles[] = 'max-width: ' . $appearance['modal']['width'] . 'px;';
+	}
+	$styles[] = '}';
+}
+if ($appearance['modal']['dividers_color']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__info .-account-name, .ox-instagram-modal .ox-instagram__info .-post-info{ border-color: ' . $appearance['modal']['dividers_color'] . '}';
+	$styles[] = '@media (max-width: 990px){
+		.ox-instagram-modal .ox-instagram-modal__content > .ox-modal__nav { border-color:' . $appearance['modal']['dividers_color'] . '}
+	}';
+}
+if ($appearance['modal']['text_color']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__info{ color: ' . $appearance['modal']['text_color'] . '}';
+}
+if ($appearance['modal']['links_color']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__info a{ color: ' . $appearance['modal']['links_color'] . '}';
+}
+if ($appearance['modal']['links_color_hover']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__info a:active, .ox-instagram-modal .ox-instagram__info a:focus, .ox-instagram-modal .ox-instagram__info a:hover{ color: ' . $appearance['modal']['links_color_hover'] . '}';
+}
+if ($appearance['modal']['media_bg_color']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__media { background-color: ' . $appearance['modal']['media_bg_color'] . '}';
+}
+
+if ($appearance['modal']['media_border_color']){
+	$styles[] = '@media (max-width: 990px){.ox-instagram-modal .ox-instagram__media { border-bottom: 1px solid ' . $appearance['modal']['media_border_color'] . '}}';
+	$styles[] = '@media (min-width: 991px){.ox-instagram-modal .ox-instagram__media { border-right: 1px solid ' . $appearance['modal']['media_border_color'] . '}}';
+}
+if ($appearance['modal']['media_margin'] != ''){
+	$styles[] = '.ox-instagram-modal .ox-instagram__media{ padding: ' . (int)$escaper->escapeHtmlAttr($appearance['modal']['media_margin']) . 'px}';
+	$styles[] = '@media (min-width: 991px){.ox-instagram-modal .ox-instagram__media{ padding-right:0}}';
+	$styles[] = '@media (max-width: 990px){.ox-instagram-modal .ox-instagram__media{ padding-bottom:0}}';
+}
+
+if ($appearance['modal']['icons_color']){
+	$styles[] = '.ox-instagram-modal .-activity-info a, .ox-instagram-modal .-activity-info a:before{ color: ' . $appearance['modal']['icons_color'] . '}';
+}
+if ($appearance['modal']['social_icons_color']){
+	$styles[] = '.ox-instagram-modal .ox-i-social-button:before{ color: ' . $appearance['modal']['social_icons_color'] . '}';
+}
+if ($appearance['modal']['media_icons_color']){
+	$styles[] = '.ox-instagram-modal .ox-inst__video-btn{ color: ' . $appearance['modal']['media_icons_color'] . '}';
+}
+if ($appearance['modal']['media_icons_bg']){
+	$styles[] = '.ox-instagram-modal .ox-instagram__media .ox-inst__video-btn{ background-color: ' . $appearance['modal']['media_icons_bg'] . '}';
+}
+
+/* close btn */
+if ($appearance['modal']['close_icon_color']){
+	$styles[] = '.ox-instagram-modal .action-close span:before, .ox-instagram-modal .action-close span:after{ background-color: ' . $appearance['modal']['close_icon_color'] . '}';
+}
+if ($appearance['modal']['close_bg_color']){
+	$styles[] = '.ox-instagram-modal.modal-popup .action-close{ background-color: ' . $appearance['modal']['close_bg_color'] . '}';
+}
+if ($appearance['modal']['close_icon_color_hover']){
+	$styles[] = '.ox-instagram-modal .action-close:hover span:before, .ox-instagram-modal .action-close:hover span:after{ background-color: ' . $appearance['modal']['close_icon_color_hover'] . '}';
+}
+if ($appearance['modal']['close_bg_color_hover']){
+	$styles[] = '.ox-instagram-modal.modal-popup .action-close:hover{ background-color: ' . $appearance['modal']['close_bg_color_hover'] . '}';
+}
+
+/* owl carousel arrows */
+
+
+if ($appearance['modal']['slider_arrow_color']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button span:after, 
+.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button span:before, 
+.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button span:after, 
+.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button span:before { background-color: ' . $appearance['modal']['slider_arrow_color'] . '}';
+}
+
+if ($appearance['modal']['slider_arrow_bg']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button, 
+	.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button{ background-color: ' . $appearance['modal']['slider_arrow_bg'] . '}';
+}
+if ($appearance['modal']['slider_arrow_color_hover']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button:hover span:after, 
+.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button:hover span:before, 
+.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button:hover span:after, 
+.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button:hover span:before { background-color: ' . $appearance['modal']['slider_arrow_color_hover'] . '}';
+}
+if ($appearance['modal']['slider_arrow_bg_hover']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram__media .owl-carousel .owl-nav button:hover, 
+	.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button:after,
+	.ox-inst__nav-sharp .ox-instagram__media .owl-carousel .owl-nav button:hover{ background-color: ' . $appearance['modal']['slider_arrow_bg_hover'] . '}';
+}
+
+if ($appearance['modal']['slider_dots_color']){
+	if($appearance['modal']['slider_dots_style'] == SliderDotsStyle::STYLE_CIRCLE){
+		$styles[] = '.ox-inst__dots-circle .ox-instagram__media .owl-carousel .owl-dots button.owl-dot span';
+	} else {
+		$styles[] = '.ox-instagram-modal .owl-carousel .owl-dots button.owl-dot span';
+	}
+	$styles[] = '{ background-color: ' . $appearance['modal']['slider_dots_color'] . '}';
+}
+if ($appearance['modal']['slider_dots_color_active']){
+	if($appearance['modal']['slider_dots_style']  == SliderDotsStyle::STYLE_CIRCLE){
+		$styles[] = '.ox-inst__dots-circle .ox-instagram__media .owl-carousel .owl-dots button.owl-dot.active span, .ox-inst__dots-circle .ox-instagram__media .owl-carousel .owl-dots button.owl-dot:hover span';
+	} else {
+		$styles[] = '.ox-instagram-modal .owl-carousel .owl-dots button.owl-dot:hover span, .ox-instagram-modal .owl-carousel .owl-dots button.owl-dot.active span';
+	}
+	$styles[] = '{ background-color: ' . $appearance['modal']['slider_dots_color_active'] . '}';
+}
+
+/* next prev arrows */
+if ($appearance['modal']['np_arrow_color']){
+	$styles[] = '.ox-instagram-modal .ox-modal__prev span:before, .ox-instagram-modal .ox-modal__next span:before, .ox-instagram-modal .ox-modal__prev span:after, .ox-instagram-modal .ox-modal__next span:after{ background-color: ' . $appearance['modal']['np_arrow_color'] . '}';
+}
+if ($appearance['modal']['np_arrow_bg']){
+	$styles[] = '.ox-instagram-modal .ox-modal__prev, .ox-instagram-modal .ox-modal__next{ background-color: ' . $appearance['modal']['np_arrow_bg'] . '}';
+}
+if ($appearance['modal']['np_arrow_color_hover']){
+	$styles[] = '.ox-instagram-modal .ox-modal__prev:hover span:before, 
+		.ox-instagram-modal .ox-modal__next:hover span:before, 
+		.ox-instagram-modal .ox-modal__prev:hover span:after, 
+		.ox-instagram-modal .ox-modal__next:hover span:after{ background-color: ' . $appearance['modal']['np_arrow_color_hover'] . '}';
+}
+if ($appearance['modal']['np_arrow_bg_hover']){
+	$styles[] = '.ox-instagram-modal .ox-modal__prev:focus, .ox-instagram-modal .ox-modal__next:focus, .ox-instagram-modal .ox-modal__prev:hover, .ox-instagram-modal .ox-modal__next:hover{ background-color: ' . $appearance['modal']['np_arrow_bg_hover'] . '}';
+}
+
+/* feed */
+if ($appearance['feed']['overlay_color']){
+	$styles[] = '.ox-instagram-feed .-overlay{ background-color: ' . $appearance['feed']['overlay_color'] . '}';
+}
+if ($appearance['feed']['media_bg']){
+	$styles[] = '.ox-instagram-feed .media-wrapper, .ox-instagram-feed.-s-below .media-wrapper{ background-color: ' . $appearance['feed']['media_bg'] . '}';
+}
+if ($appearance['feed']['text_color']){
+	$styles[] = '.ox-instagram-feed .ox-instagram-item .-content{ color: ' . $appearance['feed']['text_color'] . '}';
+}
+if ($appearance['feed']['icons_color']){
+	$styles[] = '.ox-instagram-feed.-s-overlay .ox-instagram-item .-content.-c-over .actions .action, .ox-instagram-feed .ox-instagram-item .actions .action, .ox-instagram-feed.-s-overlay .ox-instagram-item .actions .action { color: ' . $appearance['feed']['icons_color'] . '}';
+}
+if ($appearance['feed']['icons_bg']){
+	$styles[] = '.ox-instagram-feed.-s-overlay .ox-instagram-item .-content.-c-over .actions .action, .ox-instagram-feed.-s-overlay .ox-instagram-item .actions .action { background-color: ' . $appearance['feed']['icons_bg'] . '}';
+}
+if ($appearance['feed']['media_icons_color']){
+	$styles[] = '.ox-instagram-feed .-media-type, .ox-instagram-item .ox-inst__video-btn{ color: ' . $appearance['feed']['media_icons_color'] . '}';
+}
+if ($appearance['feed']['button_color'] || $appearance['feed']['button_bg'] || $appearance['feed']['button_border_color'] || $appearance['feed']['button_border_radius'] != ''){
+	$styles[] = '.ox-instagram-feed .ox-instagram-item .actions button{';
+	if ($appearance['feed']['button_color']){
+		$styles[] = 'color: ' . $appearance['feed']['button_color'] . ';';
+	}
+	if ($appearance['feed']['button_bg']){
+		$styles[] = 'background-color:  ' . $appearance['feed']['button_bg'] . ';';
+	}
+	if ($appearance['feed']['button_border_color']){
+		$styles[] = 'border-color: ' . $appearance['feed']['button_border_color'] . ';';
+	}
+	if ($appearance['feed']['button_border_radius'] != ''){
+	$styles[] = 'border-radius: ' . $escaper->escapeHtmlAttr($appearance['feed']['button_border_radius']) . 'px;';
+	}
+	$styles[] = '}';
+}
+if ($appearance['feed']['button_color_hover'] || $appearance['feed']['button_bg_hover'] ){
+	$styles[] = '.ox-instagram-feed .ox-instagram-item .actions button:after,.ox-instagram-feed .ox-instagram-item .actions button:hover{';
+	if ($appearance['feed']['button_color_hover']){
+		$styles[] = 'color: ' . $appearance['feed']['button_color_hover'] . '}';
+	}
+	if ($appearance['feed']['button_bg_hover']){
+		$styles[] = ' background-color: ' . $appearance['feed']['button_bg_hover'] . '}';
+	}
+	$styles[] = '}';
+}
+/* slider nav colors */
+if ($appearance['feed']['slider_arrow_color']){
+	$styles[] = '.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button span:after, 
+		.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button span:before,
+		.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button span:after, 
+		.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button span:before{ background-color: ' . $appearance['feed']['slider_arrow_color'] . '}';
+}
+if ($appearance['feed']['slider_arrow_bg']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button, .ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button { background-color: ' . $appearance['feed']['slider_arrow_bg'] . '}';
+}
+if ($appearance['feed']['slider_arrow_color_hover']){
+	$styles[] = '.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button:hover span:after, 
+		.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button:hover span:before,
+		.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button:hover span:after, 
+		.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button:hover span:before{ background-color: ' . $appearance['feed']['slider_arrow_color_hover'] . '}';
+}
+if ($appearance['feed']['slider_arrow_bg_hover']){
+	$styles[] = '.ox-inst__nav-circle .ox-instagram-items.owl-carousel > .owl-nav button:hover, 
+	.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button:after,
+	.ox-inst__nav-sharp .ox-instagram-items.owl-carousel > .owl-nav button:hover { background-color: ' . $appearance['feed']['slider_arrow_bg_hover'] . '}';
+}
+if ($appearance['feed']['slider_dots_color']){
+	$styles[] = '.ox-instagram-items.owl-carousel > .owl-dots button.owl-dot span{ background-color: ' . $appearance['feed']['slider_dots_color'] . '}';
+}
+if ($appearance['feed']['slider_dots_color_active']){
+	$styles[] = '.ox-instagram-items.owl-carousel > .owl-dots button.owl-dot:hover span, .ox-instagram-items.owl-carousel > .owl-dots button.owl-dot.active span{ background-color: ' . $appearance['feed']['slider_dots_color_active'] . '}';
+}
+/* album slider nav colors */
+if ($appearance['feed']['album_slider_arrow_color']){
+	$styles[] = '.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button span:after,
+		.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button span:before,
+		.ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button span:after,
+		.ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button span:before{ background-color: ' . $appearance['feed']['album_slider_arrow_color'] . '}';
+}
+if ($appearance['feed']['album_slider_arrow_bg']){
+	$styles[] = '.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button, .ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button { background-color: ' . $appearance['feed']['album_slider_arrow_bg'] . '}';
+}
+if ($appearance['feed']['album_slider_arrow_color_hover']){
+	$styles[] = '.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button:hover span:after,
+		.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button:hover span:before,
+		.ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button:hover span:after,
+		.ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button:hover span:before{ background-color: ' . $appearance['feed']['album_slider_arrow_color_hover'] . '}';
+}
+if ($appearance['feed']['album_slider_arrow_bg_hover']){
+	$styles[] = '.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button:hover, 
+	.ox-inst__a-nav-sharp .ox-instagram-item .owl-carousel .owl-nav button:after,
+	.ox-inst__a-nav-circle .ox-instagram-item .owl-carousel .owl-nav button:hover { background-color: ' . $appearance['feed']['album_slider_arrow_bg_hover'] . '}';
+}
+if ($appearance['feed']['album_slider_dots_color']){
+	$styles[] = '.ox-instagram-item .owl-carousel .owl-dots button.owl-dot span{ background-color: ' . $appearance['feed']['album_slider_dots_color'] . '}';
+}
+if ($appearance['feed']['album_slider_dots_color_active']){
+	$styles[] = '.ox-instagram-item .owl-carousel .owl-dots button.owl-dot:hover span, .ox-instagram-item .owl-carousel .owl-dots button.owl-dot.active span{ background-color: ' . $appearance['feed']['album_slider_dots_color_active'] . '}';
+}
+
+/* hotspots */
+
+if ($appearance['hotspots']['hotspot_bg']){
+	$styles[] = ' .ox-instagram-modal .ox-ihs__item .inner, .ox-instagram-modal .ox-ihs__item .-icon-inner{ background-color: ' . $appearance['hotspots']['hotspot_bg'] . '}';
+}
+
+/* shadow */
+if ($appearance['hotspots']['hotspot_shadow_color'] && $appearance['hotspots']['hotspot_shadow']){
+	$styles[] = '.ox-instagram-modal .ox-ihs__item.-shadow .inner{box-shadow: 0px 5px 9px ' . $appearance['hotspots']['hotspot_shadow_color'] . ';}';
+	$styles[] = '.ox-instagram-modal .ox-ihs__item.-shadow .-icon-wrap{filter: drop-shadow(0px 5px 9px ' . $appearance['hotspots']['hotspot_shadow_color'] . ');}';
+}
+
+
+if($appearance['hotspots']['hotspot_width'] || $appearance['hotspots']['hotspot_height'] ){
+	$styles[] = '.ox-instagram-modal .ox-ihs__item .-icon-wrap{';
+	if ($appearance['hotspots']['hotspot_width']){
+		$styles[] = 'min-width: ' . $escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_width']) . 'px;';
+	}
+	if ($appearance['hotspots']['hotspot_height']){
+		$styles[] = ' height: ' . $escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_height']) . 'px;';
+	}
+	$styles[] = '}';
+}
+
+if($appearance['hotspots']['hotspot_width'] || $appearance['hotspots']['hotspot_height']) {
+	$styles[] = '.ox-instagram-modal .ox-ihs__item.-style-default{';
+	if ($appearance['hotspots']['hotspot_width']){
+		$styles[] = 'min-width: ' . $escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_width']) . 'px;';
+	}
+	if ($appearance['hotspots']['hotspot_height']){
+		$styles[] = ' height: ' . $escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_height']) . 'px;';
+	}
+	$styles[] = '}';
+}
+if ($appearance['hotspots']['hotspot_radius'] != ''){
+$styles[] = '.ox-instagram-modal .ox-ihs__item.-style-default .inner{ border-radius: ' . $escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_radius']) . 'px;}';
+}
+
+if ($appearance['hotspots']['hotspot_color']){
+	$styles[] = '.ox-instagram-modal .ox-ihs__item .ox-hotspot__icon{ color: ' . $appearance['hotspots']['hotspot_color'] . '}';
+}
+if ($appearance['hotspots']['hotspot_color'] || $appearance['hotspots']['hotspot_text_fontsize'] != '' || $appearance['hotspots']['hotspot_text_fontweight'] != '' || $appearance['hotspots']['hotspot_text_letterspacing'] != ''){
+	$styles[] = '.ox-instagram-modal .ox-ihs__item .hs-text{';
+	if ($appearance['hotspots']['hotspot_color']){
+		$styles[] = 'color: ' . $appearance['hotspots']['hotspot_color'] . ';';
+	}
+	if ($appearance['hotspots']['hotspot_text_fontsize'] != ''){
+		$styles[] = 'font-size: ' . (int)$escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_text_fontsize']) . 'px;';
+	}
+	if ($appearance['hotspots']['hotspot_text_fontweight'] != ''){
+		$styles[] = 'font-weight: ' . (int)$escaper->escapeHtmlAttr($appearance['hotspots']['hotspot_text_fontweight']) . ';';
+	}
+	if ($appearance['hotspots']['hotspot_text_letterspacing'] != ''){
+		$styles[] = 'letter-spacing: ' . $escaper->escapeHtml($appearance['hotspots']['hotspot_text_letterspacing']) . 'px;';
+	}
+	$styles[] = '}';
+}
+
+if ($appearance['hotspots']['hotspot_pulse_color']){
+	$styles[] = '.ox-instagram-modal .ox-ihs__item.-pulse:before{ background-color: ' . $appearance['hotspots']['hotspot_pulse_color'] . '}';
+}
+/* products */
+if ($appearance['modal']['related_active_bg']){
+	$styles[] = '.ox-inst-product.ox-inst__hs-active, .ox-inst-product:hover{ background-color: ' . $appearance['modal']['related_active_bg'] . '}';
+}
+if ($appearance['modal']['related_active_border_color']){
+	$styles[] = '.ox-inst-product.ox-inst__hs-active, .ox-inst-product:hover{ box-shadow: inset 0 0 0 2px ' . $appearance['modal']['related_active_border_color'] . '}';
+}
+if ($appearance['modal']['related_cart_color']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart svg{ fill: ' . $appearance['modal']['related_cart_color'] . '}';
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart, .ox-instagram-modal .ox-inst-product .action.tocart:before { color: ' . $appearance['modal']['related_cart_color'] . '}';
+}
+if ($appearance['modal']['related_cart_bg']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart{ background-color: ' . $appearance['modal']['related_cart_bg'] . '; border-color: ' . $appearance['modal']['related_cart_bg'] . '}';
+}
+if ($appearance['modal']['related_cart_color_hover']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart:hover svg, .ox-instagram-modal .ox-inst-product .action.tocart:active svg{ fill: ' . $appearance['modal']['related_cart_color_hover'] . '}';
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart:hover, .ox-instagram-modal .ox-inst-product .action.tocart:hover:before, .ox-instagram-modal .ox-inst-product .action.tocart:active, .ox-instagram-modal .ox-inst-product .action.tocart:active:before { color: ' . $appearance['modal']['related_cart_color_hover'] . '}';
+}
+if ($appearance['modal']['related_cart_bg_hover']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.tocart:after, .ox-instagram-modal .ox-inst-product .action.tocart:hover, .ox-instagram-modal .ox-inst-product .action.tocart:active{ background-color: ' . $appearance['modal']['related_cart_bg_hover'] . '; border-color: ' . $appearance['modal']['related_cart_bg_hover'] . '}';
+}
+
+if ($appearance['modal']['related_wishllist_color']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist svg{ fill: ' . $appearance['modal']['related_wishllist_color'] . '}';
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist, .ox-instagram-modal .ox-inst-product .action.towishlist:before { color: ' . $appearance['modal']['related_wishllist_color'] . '}';
+}
+if ($appearance['modal']['related_wishllist_bg']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist{ background-color: ' . $appearance['modal']['related_wishllist_bg'] . '}';
+}
+if ($appearance['modal']['related_wishllist_color_hover']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist:hover svg, .ox-instagram-modal .ox-inst-product .action.towishlist:active svg{ fill: ' . $appearance['modal']['related_wishllist_color_hover'] . '}';
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist:hover, .ox-instagram-modal .ox-inst-product .action.towishlist:hover:before, .ox-instagram-modal .ox-inst-product .action.towishlist:active, .ox-instagram-modal .ox-inst-product .action.towishlist:active:before { color: ' . $appearance['modal']['related_wishllist_color_hover'] . '}';
+}
+if ($appearance['modal']['related_wishllist_bg_hover']){
+	$styles[] = '.ox-instagram-modal .ox-inst-product .action.towishlist:hover, .ox-instagram-modal .ox-inst-product .action.towishlist:active{ background-color: ' . $appearance['modal']['related_wishllist_bg_hover'] . '}';
+}
+if ($appearance['modal']['related_img_borderradius'] != ''){
+	$styles[] = '.ox-instagram__related-products .ox-inst-product .-image-wrap{ border-radius: ' . (int)$appearance['modal']['related_img_borderradius'] . 'px;     overflow: hidden;}';
+}
+if ($appearance['modal']['related_actions_borderradius'] != ''){
+	$styles[] = '.ox-instagram__related-products .ox-inst-product .-actions .action, .ox-instagram__related-products .ox-inst-product .action.primary{ border-radius: ' . (int)$appearance['modal']['related_actions_borderradius'] . 'px;}';
+}
+
+/* hotspot tooltips */
+
+if ($appearance['hotspot_tooltips']['tooltip_text_color']){
+	$hotspotTooltipStyles[] = 'color: ' . $appearance['hotspot_tooltips']['tooltip_text_color'] . ';';
+}
+if ($appearance['hotspot_tooltips']['tooltip_bg_color']){
+	$hotspotTooltipStyles[] = 'background-color: ' . $appearance['hotspot_tooltips']['tooltip_bg_color'] . ';';
+}
+if ($appearance['hotspot_tooltips']['tooltip_border_radius'] != ''){
+	$hotspotTooltipStyles[] = 'border-radius: ' . $escaper->escapeHtmlAttr($appearance['hotspot_tooltips']['tooltip_border_radius']) . 'px;';
+}
+if ($appearance['hotspot_tooltips']['tooltip_width'] != ''){
+	$hotspotTooltipStyles[] = 'width: ' . $escaper->escapeHtmlAttr($appearance['hotspot_tooltips']['tooltip_width']) . 'px;';
+}
+if ($appearance['hotspot_tooltips']['tooltip_font_size'] != ''){
+	$hotspotTooltipStyles[] = 'font-size: ' . $escaper->escapeHtmlAttr($appearance['hotspot_tooltips']['tooltip_font_size']) . 'px;';
+}
+if ($appearance['hotspot_tooltips']['tooltip_font_weight'] != ''){
+	$hotspotTooltipStyles[] = 'font-weight: ' . $escaper->escapeHtmlAttr($appearance['hotspot_tooltips']['tooltip_font_weight']) . ';';
+}
+if ($appearance['hotspot_tooltips']['tooltip_shadow_color']){
+	$hotspotTooltipStyles[] = 'box-shadow: 0px 4px 20px 0px ' . $appearance['hotspot_tooltips']['tooltip_shadow_color'] . ';';
+}
+if(!empty($hotspotTooltipStyles)){ 
+	$styles[] = '.ox-hotspot__tooltip{' . implode('', $hotspotTooltipStyles) . '}';
+}
+
+/* tooltips */
+
+if ($appearance['tooltips']['tooltip_text_color']){
+	$tooltipStyles[] = 'color: ' . $appearance['tooltips']['tooltip_text_color'] . ';';
+}
+if ($appearance['tooltips']['tooltip_bg_color']){
+	$tooltipStyles[] = 'background-color: ' . $appearance['tooltips']['tooltip_bg_color'] . ';';
+}
+if ($appearance['tooltips']['tooltip_border_radius'] != ''){
+	$tooltipStyles[] = 'border-radius: ' . $escaper->escapeHtmlAttr($appearance['tooltips']['tooltip_border_radius']) . 'px;';
+}
+if ($appearance['tooltips']['tooltip_width'] != ''){
+	$tooltipStyles[] = 'width: ' . $escaper->escapeHtmlAttr($appearance['tooltips']['tooltip_width']) . 'px;';
+}
+if ($appearance['tooltips']['tooltip_font_size'] != ''){
+	$tooltipStyles[] = 'font-size: ' . $escaper->escapeHtmlAttr($appearance['tooltips']['tooltip_font_size']) . 'px;';
+}
+if ($appearance['tooltips']['tooltip_font_weight'] != ''){
+	$tooltipStyles[] = 'font-weight: ' . $escaper->escapeHtmlAttr($appearance['tooltips']['tooltip_font_weight']) . ';';
+}
+if(!empty($tooltipStyles)){ 
+	$styles[] = '.ox-tooltip{' . implode('', $tooltipStyles) . '}';
+}
+if ($appearance['feed']['icons_style'] == IconsStyle::STYLE_FILLED){
+	$styles[] = '.ox-instagram-feed .ox-instagram-item .action.comments:before { content:"\67" }';
+	$styles[] = '.ox-instagram-feed .ox-instagram-item .action.likes:before{ content:"\62"}';
+}
+if ($appearance['modal']['icons_style'] == IconsStyle::STYLE_FILLED){
+	$styles[] = '.ox-instagram-modal .-activity-info .-comments:before { content:"\67" }';
+	$styles[] = '.ox-instagram-modal .-activity-info .-likes:before { content:"\62"}';
+}
+if ($appearance['feed']['media_icons_style'] == MediaIconsStyle::STYLE_SHARP_OUTLINE){
+	$styles[] = '.ox-instagram-feed .ox-inst__video-btn:before{ content:"\77"}';
+}
+if ($appearance['modal']['media_icons_style'] == MediaIconsStyle::STYLE_SHARP_OUTLINE){
+	$styles[] = '.ox-instagram-modal .ox-instagram__media .ox-inst__video-btn:before{ content:"\78"}';
+}
+if ($appearance['feed']['media_icons_style'] == MediaIconsStyle::STYLE_SHARP_FILLED){
+	$styles[] = '.ox-instagram-feed .ox-inst__video-btn:before{ content:"\79"}';
+}
+if ($appearance['modal']['media_icons_style'] == MediaIconsStyle::STYLE_SHARP_FILLED){	
+	$styles[] = '.ox-instagram-modal .ox-instagram__media .ox-inst__video-btn:before{ content:"\79"}';
+}
+
+/* Product Page Block */
+$product_page_width = $settings['product_page']['content_custom_ratio'];
+if ($settings['product_page']['two_columns'] && $product_page_width > 0){
+	$styles[] = '@media (min-width: 769px){';
+	$styles[] = '.ox-product-block .ox-product-block__col1 { 
+        -ms-flex: 0 0 '. $product_page_width . '%;
+        flex: 0 0 '. $product_page_width . '%;
+        max-width: '. $product_page_width . '%;
+			}';
+	$styles[] = '.ox-product-block .ox-product-block__col2 { 
+        -ms-flex: 0 0 '. (100-$product_page_width) . '%;
+        flex: 0 0 '. (100-$product_page_width) . '%;
+        max-width: '. (100-$product_page_width) . '%;
+			}';
+	$styles[] = '}';
+}
+if( $appearance['product_page_block']['background'] || $appearance['product_page_block']['color'] || $appearance['product_page_block']['shadow'] || $appearance['product_page_block']['border'] != '' || $appearance['product_page_block']['border_radius'] != '' || $appearance['product_page_block']['padding'] != '' || $appearance['product_page_block']['margin_top'] != '' || $appearance['product_page_block']['margin_bottom'] != ''){
+	if ($appearance['product_page_block']['background']){
+		$productStyles[] = 'background-color: ' . $appearance['product_page_block']['background'] . ';';
+	}
+	if ($appearance['product_page_block']['color']){
+		$productStyles[] = 'color: ' . $appearance['product_page_block']['color'] . ';';
+	}
+	if ($appearance['product_page_block']['shadow']){
+		$productStyles[] = 'box-shadow: 0 5px 25px ' . $appearance['product_page_block']['shadow'] . ';';
+	}
+	if ($appearance['product_page_block']['border'] >= 0){
+		$productStyles[] = 'border: ' . (int)$appearance['product_page_block']['border'] . 'px solid ' . $appearance['product_page_block']['border_color'] . ';';
+	}
+	if ($appearance['product_page_block']['border_radius'] >= 0){
+		$productStyles[] = 'border-radius:' . (int)$appearance['product_page_block']['border_radius'] . 'px;';
+	}
+	if ($appearance['product_page_block']['padding'] >= 0){
+		$productStyles[] = 'padding:' . (int)$appearance['product_page_block']['padding'] . 'px;';
+	}
+	if ($appearance['product_page_block']['margin_top'] != ''){
+		$productStyles[] = 'margin-top:' . (int)$appearance['product_page_block']['margin_top'] . 'px;';
+	}
+	if ($appearance['product_page_block']['margin_bottom'] != ''){
+		$productStyles[] = 'margin-bottom:' . (int)$appearance['product_page_block']['margin_bottom'] . 'px;';
+	}
+	if(!empty($productStyles)){
+		$styles[] = '.ox-product-block{' . implode('', $productStyles) . '}';
+	}
+}
+if ($settings['product_page']['two_columns'] && $settings['product_page']['valign_center']){
+	$styles[] = '.ox-product-block .ox-row {align-items: center;}';
+}
+if ($settings['product_page']['two_columns'] && $settings['product_page']['revert_position']){
+	$styles[] = '@media (max-width: 768px){.ox-product-block__col1{order:2}}';
+}
+
+if ($appearance['product_page_block']['padding_mobile'] > 0){
+	$styles[] = '@media (max-width: 768px){.ox-product-block{padding:' . (int)$appearance['product_page_block']['padding_mobile'] . 'px;}}';
+}
+/* custom css */
+if($appearance[ 'appearance_custom' ][ 'custom_css_enabled']  && !empty($appearance[ 'appearance_custom' ][ 'custom_css_content' ])){
+	$styles[] = $appearance[ 'appearance_custom' ][ 'custom_css_content' ];
+}
+
+if(!empty($styles)){
+	echo implode('', $styles);
+}
+
+endif;

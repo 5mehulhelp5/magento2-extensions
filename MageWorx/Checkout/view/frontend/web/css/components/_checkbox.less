@@ -1,0 +1,124 @@
+.get-checkbox() {
+  position: relative;
+}
+
+.get-checkbox__label {
+  display: inline-block;
+  .get-rem(font-size, 14);
+  font-weight: @font-weight-bold;
+  color: @color-armadillo;
+  padding-left: 35px;
+  user-select: none;
+}
+
+.get-checkbox__control {
+  .visually-hidden();
+}
+
+.get-checkbox__box() {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  border-radius: 3px;
+  border: 1px solid @color-zircon;
+  background-color: @color-white;
+  transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+}
+
+.checkbox {
+  .get-checkbox();
+
+  &--is-required {
+    .checkbox__label {
+      &::after {
+        content: "*";
+        color: @color-red;
+        padding-left: 5px;
+      }
+    }
+  }
+
+  &__box {
+    .get-checkbox__box();
+  }
+
+  &__control {
+    .get-checkbox__control();
+
+    &:checked {
+      & + .checkbox {
+        &__label {
+          .checkbox {
+            &__box {
+              background-color: @color-accent;
+              border-color: @color-accent;
+            }
+
+            &__icon {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    &:focus,
+    &:active {
+      & + .checkbox {
+        &__label {
+          .checkbox {
+            &__box {
+              border-color: @color-accent;
+            }
+          }
+        }
+      }
+    }
+
+    &:disabled {
+      & + .checkbox {
+        &__label {
+          .checkbox {
+            &__box {
+              background-color: lighten(@color-wild-sand, 2%);
+              border-color: @color-zircon;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+
+      &:checked {
+        & + .checkbox {
+          &__label {
+            .checkbox {
+              &__icon {
+                color: darken(@color-zircon, 10%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__label {
+    .get-checkbox__label();
+  }
+
+  &__icon {
+    width: 13px;
+    height: 9px;
+    visibility: hidden;
+    opacity: 0;
+    color: @color-white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

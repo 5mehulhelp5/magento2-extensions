@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author      Olegnax
+  ~ @package     Olegnax_InstagramFeedPro
+  ~ @copyright   Copyright (c) 2021 Olegnax (http://olegnax.com/). All rights reserved.
+  ~ See COPYING.txt for license details.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+
+		<referenceContainer name="head.additional">
+			<block name="Ox_InstagramFeedPro_dynamic_css"
+				   class="Magento\Framework\View\Element\Template"
+				   template="Olegnax_InstagramFeedPro::dynamic_css.phtml"
+				   ifconfig="olegnax_instagram_pro_appearance/general/enabled">
+				<arguments>
+					<argument name="render_css_view_model" xsi:type="object">Olegnax\Core\ViewModel\RenderCssViewModel</argument>
+				</arguments>
+				<block name="Ox_InstagramFeedPro_inline_css"
+					   class="Magento\Framework\View\Element\Template"
+					   template="Olegnax_InstagramFeedPro::styles_global.phtml"/>
+			</block>
+		</referenceContainer>
+	</body>
+</page>

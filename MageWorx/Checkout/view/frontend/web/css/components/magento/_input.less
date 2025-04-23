@@ -1,0 +1,18 @@
+input[type='text'],
+input[type='password'],
+input[type='url'],
+input[type='tel'],
+input[type='search'],
+input[type='number'],
+input[type='datetime'],
+input[type='email'] {
+  .get-input__control();
+
+  &:not([disabled]) {
+    &:focus,
+    &:active {
+      .get-input__control-focus();
+      box-shadow: none;
+    }
+  }
+}

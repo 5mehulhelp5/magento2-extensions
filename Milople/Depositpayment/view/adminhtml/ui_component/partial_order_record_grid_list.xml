@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+*
+* Do not edit or add to this file if you wish to upgrade the module to newer
+* versions in the future. If you wish to customize the module for your
+* needs please contact us to https://www.milople.com/contact-us.html
+*
+* @category    Ecommerce
+* @package     Milople_Depositpayment
+* @copyright   Copyright (c) 2017 Milople Technologies Pvt. Ltd. All Rights Reserved.
+* @url         https://www.milople.com/magento2-extensions/deposit-payment-m2.html
+*
+**/
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">partial_order_record_grid_list.grid_record_grid_list_data_source</item>
+            <item name="deps" xsi:type="string">partial_order_record_grid_list.grid_record_grid_list_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">grid_records_columns</item>
+    </argument>
+    <!-- <dataSource name="grid_record_grid_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">grid_record_grid_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">partial_payment_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="update_url" xsi:type="url" path="mui/index/render"/>
+					<item name="filter_url_params" xsi:type="array">
+						<item name="status" xsi:type="string">*</item>
+					</item>
+				</item>
+			</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource> -->
+    <dataSource name="grid_record_grid_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">grid_record_grid_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">partial_payment_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">partial_payment_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+		<argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="displayArea" xsi:type="string">dataGridFilters</item>
+                    <item name="dataScope" xsi:type="string">filters</item>
+                    <item name="storageConfig" 
+                    xsi:type="array">
+                        <item name="provider" xsi:type="string">partial_order_record_grid_list.partial_order_record_grid_list.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">partial_order_record_grid_list.partial_order_record_grid_list.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">partial_order_record_grid_list.partial_order_record_grid_list.listing_top.bookmarks:current.columns.${ $.index }.visible</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <filterInput name="increment_id">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">increment_id</item>
+                        <item name="label" xsi:type="string" translate="true">Order ID</item>
+                    </item>
+                </argument>
+            </filterInput>
+			<filterInput name="firstname">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">firstname</item>
+                        <item name="label" xsi:type="string" translate="true">First Name</item>
+                    </item>
+                </argument>
+            </filterInput>
+			<filterInput name="lastname">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">lastname</item>
+                        <item name="label" xsi:type="string" translate="true">Last Name</item>
+                    </item>
+                </argument>
+            </filterInput>
+			<filterInput name="email">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataScope" xsi:type="string">email</item>
+                        <item name="label" xsi:type="string" translate="true">Email Address</item>
+                    </item>
+                </argument>
+            </filterInput>
+        </filters>
+		<bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="saveUrl" xsi:type="url" path="mui/bookmark/save"/>
+                        <item name="deleteUrl" xsi:type="url" path="mui/bookmark/delete"/>
+                        <item name="namespace" xsi:type="string">vatexempt_medicalcondition</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+		<container name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">vatexempt_medicalcondition.vatexempt_medicalcondition.grid_records_columns</item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+        </container>
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">vatexempt_medicalcondition.vatexempt_medicalcondition.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">vatexempt_medicalcondition.vatexempt_medicalcondition.grid_records_columns.ids</item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="grid_records_columns">
+       <column name="increment_id">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">Order ID</item>
+				   <item name="sortOrder" xsi:type="number">10</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="firstname" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">First Name</item>
+				   <item name="sortOrder" xsi:type="number">20</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="lastname" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Last Name</item>
+				   <item name="sortOrder" xsi:type="number">30</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="email" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Email Address</item>
+				   <item name="sortOrder" xsi:type="number">40</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="paid_installments">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Paid Installments</item>
+				   <item name="sortOrder" xsi:type="number">50</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="remaining_installments">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Remaining Installments</item>
+				   <item name="sortOrder" xsi:type="number">60</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="paid_amount">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Paid Amount</item>
+				   <item name="sortOrder" xsi:type="number">70</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="remaining_amount">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="label" xsi:type="string" translate="true">Remaining Amount</item>
+				   <item name="sortOrder" xsi:type="number">80</item>
+               </item>
+           </argument>
+       </column>
+       <column name="order_date" class="Magento\Ui\Component\Listing\Columns\Date" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                   <item name="dataType" xsi:type="string">date</item>
+                   <item name="label" xsi:type="string" translate="true">Order Date</item>
+				   <item name="sortOrder" xsi:type="number">90</item>
+               </item>
+           </argument>
+       </column>
+	   <column name="order_status" >
+           <argument name="data" xsi:type="array">
+               <item name="options" xsi:type="object">Magento\Sales\Model\Config\Source\Order\Status</item>
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">false</item>
+				   <item name="sorting" xsi:type="string">desc</item>
+                   <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                   <item name="dataType" xsi:type="string">select</item>
+                   <item name="label" xsi:type="string" translate="true">Status</item>
+				   <item name="sortOrder" xsi:type="number">100</item>
+               </item>
+           </argument>
+       </column>
+       
+       <!-- Add Action with each row of grid and for this we will create a class Action -->
+       <actionsColumn name="actions" class="Milople\Depositpayment\Ui\Component\Listing\Grid\Column\Action">
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="resizeEnabled" xsi:type="boolean">false</item>
+                   <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                   <item name="indexField" xsi:type="string">id</item>
+               </item>
+           </argument>
+       </actionsColumn>
+    </columns>
+</listing>

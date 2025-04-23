@@ -1,0 +1,22 @@
+{
+    "amasty_menu_link": {
+        "column": {
+            "page_id": true
+        }
+    },
+    "amasty_menu_item_content": {
+        "column": {
+            "content": true,
+            "width": true,
+            "width_value": true,
+            "column_count": true,
+            "sort_order": true,
+            "icon": true,
+            "submenu_type": true,
+            "subcategories_position": true,
+            "hide_content": true,
+            "desktop_font": true,
+            "mobile_font": true
+        }
+    }
+}

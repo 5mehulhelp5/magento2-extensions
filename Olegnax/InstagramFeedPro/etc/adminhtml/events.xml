@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_olegnax_instagram_pro">
+        <observer
+                name="olegnax_instagramfeedpro_observer_backend_admin_system_config_changed_section"
+                instance="Olegnax\InstagramFeedPro\Observer\Backend\Admin\SystemConfigChangedSection"/>
+    </event>
+    <event name="admin_system_config_changed_section_olegnax_instagram_pro_appearance">
+        <observer
+                name="olegnax_instagramfeedpro_observer_backend_admin_system_config_changed_section_appearance"
+                instance="Olegnax\InstagramFeedPro\Observer\Backend\Admin\SystemConfigChangedSection"/>
+    </event>
+    <event name="admin_system_config_changed_section_olegnax_instagram_license">
+        <observer
+                name="olegnax_instagramfeedpro_observer_backend_admin_system_config_changed_section_license"
+                instance="Olegnax\InstagramFeedPro\Observer\Backend\Admin\SystemConfigChangedSection2"/>
+    </event>
+</config>

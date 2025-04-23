@@ -1,0 +1,15 @@
+<?php
+/**
+ * @author Azaleasoft Team
+ * @copyright Copyright (c) 2017 Azaleasoft (http://www.azaleasoft.com)
+ * @package Azaleasoft_Asaddressvalidation
+ */
+?>
+<div id="address-suggest"></div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "asAddressValidationAccount": <?php echo $this->helper("Azaleasoft\Asaddressvalidation\Helper\Data")->getAccountInitData(); ?>
+        }
+    }
+</script>

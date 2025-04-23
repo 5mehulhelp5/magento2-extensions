@@ -1,0 +1,79 @@
+<!--
+/**
+ * Copyright © MageWorx, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="radio radiogroup__header"
+     data-bind="
+     css: {
+        'radiogroup__header--is-selected': $parent.isSelected() == method.carrier_code + '_' + method.method_code,
+        'radiogroup__header--side-top': $index() == 0,
+        'radiogroup__header--side-bottom': $index() == ($parent.rates().length - 1)
+     }"
+>
+    <input class="radio__control radiogroup__control"
+           type="radio"
+           ifnot="method.error_message"
+           ko-checked="$parent.isSelected"
+           ko-value="method.carrier_code + '_' + method.method_code"
+           attr="'checked': $parent.rates().length == 1 || $parent.isSelected,
+                        'id': method.method_code + '_' + method.carrier_code"
+    >
+    <label class="radio__label radiogroup__label"
+           attr="'for': method.method_code + '_' + method.carrier_code"
+           data-bind="click: method.available ? $parent.selectShippingMethod : null"
+    >
+        <div class="radio__box" data-bind="visible: method.available"></div>
+
+        <!-- Image: -->
+        <div class="radiogroup__label-item radiogroup__label-item--alignment-right method-image"
+             if="method.extension_attributes && method.extension_attributes.checkout_image">
+            <img attr="'alt': method.method_title, 'src': method.extension_attributes.checkout_image">
+        </div>
+
+        <!-- Method title: -->
+        <div class="radiogroup__label-item method-title">
+            <span  class="method-country" text="$parent.shippingRateCountry()"></span>
+            <span class="text text-carrier-title" text="method.carrier_title"></span>
+            <span class="text text--variation-subdued text-method-title" text="method.method_title"></span>
+
+            <!-- ko if:  $parent.isDisplayShippingPriceExclTax -->
+            <span class="text text--variation-strong text-price-incl-tax" data-bind="text: $parent.getFormattedPrice(method.price_excl_tax)"></span>
+            <!-- /ko -->
+
+            <!-- ko ifnot: $parent.isDisplayShippingPriceExclTax -->
+
+            <!-- ko if:  ($parent.isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
+            <span class="price-including-tax text-price-incl-tax" data-bind="attr: {'data-label': $t('Incl. Tax')}">
+            <span class="text text--variation-strong text-price-incl-tax" data-bind="text: $parent.getFormattedPrice(method.price_incl_tax)"></span>
+        </span>
+            <!-- /ko -->
+
+            <!-- ko ifnot:  ($parent.isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
+            <span class="text text--variation-strong text-price-incl-tax" data-bind="text: $parent.getFormattedPrice(method.price_incl_tax)"></span>
+            <!-- /ko -->
+
+            <!-- /ko -->
+
+            <!-- ko if:  ($parent.isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
+            <span class="price-excluding-tax" data-bind="attr: {'data-label': $t('Excl. Tax')}">
+        <span class="text text--variation-subdued" data-bind="text: $parent.getFormattedPrice(method.price_excl_tax)"></span>
+    </span>
+            <!-- /ko -->
+
+            <span class="method-price"></span>
+        </div>
+    </label>
+
+    <div role="alert" class="message error" if="method.error_message" style="margin: 0 24px 21px 45px;">
+        <div text="method.error_message"></div>
+    </div>
+
+    <!-- Set additional data for the shipping method here (when selected) -->
+    <div class="radiogroup__content">
+        <div class="form form--condensed">
+            <each args="$parent.getRegion('shipping_method_additional_data')" render=""></each>
+        </div>
+    </div>
+</div>
