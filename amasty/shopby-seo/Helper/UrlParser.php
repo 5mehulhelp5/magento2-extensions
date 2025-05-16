@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -64,7 +64,7 @@ class UrlParser extends AbstractHelper
     }
 
     /**
-     * @param string $seoPart
+     * @param $seoPart
      * @return array
      */
     public function parseSeoPart($seoPart)
@@ -80,9 +80,6 @@ class UrlParser extends AbstractHelper
         }
 
         $aliases = $this->getAliases($seoPart);
-        if ($aliases) {
-            $aliases = array_filter($aliases);
-        }
         return $this->parseAliases($aliases);
     }
 
@@ -145,23 +142,37 @@ class UrlParser extends AbstractHelper
         $attributeOptionsData = $this->seoOptions->getData();
         $filterWord = $this->seoHelper->getFilterWord();
         $aliases = $this->replaceAliases($aliases);
-        if (reset($aliases) === $filterWord) {
-            array_shift($aliases);
-        }
+        $paramsCount = 0;
         $params = [];
+        $parsedAliases = [];
+        $parsedAttributeNameCount = 0;
 
-        foreach ($aliases as $currentAlias) {
+        foreach ($aliases as $key => $currentAlias) {
+            if (in_array($currentAlias, array_keys($attributeOptionsData))
+                && !in_array($currentAlias, $attributeOptionsData[$currentAlias])
+                || $currentAlias == $filterWord) {
+                unset($aliases[$key]);
+                $parsedAttributeNameCount++;
+                continue;
+            }
+
             foreach ($attributeOptionsData as $attributeCode => $optionsData) {
                 foreach ($optionsData as $optionId => $alias) {
                     if ($alias === $currentAlias) {
+                        $parsedAliases[] = $currentAlias;
                         $params = $this->addParsedOptionToParams($optionId, $attributeCode, $params);
+                        $paramsCount++;
                         continue 3;
                     }
                 }
             }
         }
 
-        return $params;
+        if ($this->seoHelper->isIncludeAttributeName() && $parsedAttributeNameCount != count($params)) {
+            return [];
+        }
+
+        return $paramsCount == count($aliases)  ? $params : [];
     }
 
     /**

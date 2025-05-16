@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -13,7 +13,7 @@ namespace Amasty\ShopbyBase\Model;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\ShopbyBase\Api\Data\FilterSettingRepositoryInterface;
 use Magento\Eav\Model\Entity\Attribute;
-use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class FilterSettingProxy implements FilterSettingInterface
@@ -724,79 +724,5 @@ class FilterSettingProxy implements FilterSettingInterface
     public function setHideZeros(bool $hideZeros): void
     {
         $this->getSubject()->setHideZeros($hideZeros);
-    }
-
-    public function getRangeAlgorithm(): ?int
-    {
-        return $this->getSubject()->getRangeAlgorithm();
-    }
-
-    public function setRangeAlgorithm(int $rangeAlgorithm): void
-    {
-        $this->getSubject()->setRangeAlgorithm($rangeAlgorithm);
-    }
-
-    public function getMinRange(): ?int
-    {
-        return $this->getSubject()->getMinRange();
-    }
-
-    public function setMinRange(int $minRange): void
-    {
-        $this->getSubject()->setMinRange($minRange);
-    }
-
-    public function getMaxRange(): ?int
-    {
-        return $this->getSubject()->getMaxRange();
-    }
-
-    public function setMaxRange(int $maxRange): void
-    {
-        $this->getSubject()->setMaxRange($maxRange);
-    }
-
-    public function getRangeStep(): ?float
-    {
-        return $this->getSubject()->getRangeStep();
-    }
-
-    public function setRangeStep(float $rangeStep): void
-    {
-        $this->getSubject()->setRangeStep($rangeStep);
-    }
-
-    public function getAttributeId(): ?int
-    {
-        return $this->getSubject()->getAttributeId();
-    }
-
-    public function setAttributeId(int $attributeId): void
-    {
-        $this->getSubject()->setAttributeId($attributeId);
-    }
-
-    /**
-     * Remove not serializable fields
-     */
-    public function __sleep(): array
-    {
-        $properties = array_keys(get_object_vars($this));
-
-        return array_diff(
-            $properties,
-            [
-                'filterSettingRepository',
-            ]
-        );
-    }
-
-    /**
-     * Init not serializable fields
-     */
-    public function __wakeup(): void
-    {
-        $objectManager = ObjectManager::getInstance();
-        $this->filterSettingRepository = $objectManager->get(FilterSettingRepositoryInterface::class);
     }
 }

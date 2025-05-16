@@ -1,0 +1,239 @@
+//
+//  Advanced Review Widget
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@amreview-widget-grid-review__background: #f8fcff;
+@amreview-widget__item__border-color: #cde1ef;
+@amreview-widget__title__color: #006bb4;
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amreview-widget-container {
+        .amreview-review-items {
+            .am-flex(none, none, wrap);
+        }
+
+        .amreview-review-wrapper.review-item {
+            border-bottom: 1px solid @amreview-widget__item__border-color;
+            box-sizing: border-box;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .amreview-image-wrapper {
+            height: 80px;
+            width: 80px;
+        }
+
+        .amreview-description-wrapper {
+            .am-flex(space-between);
+
+            flex-direction: column;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .amreview-rating-wrapper {
+            .am-flex(center);
+
+            flex-direction: column;
+            margin: 0 15px 15px 0;
+            padding: 0;
+        }
+
+        .amreview-title-wrapper {
+            color: @amreview-widget__title__color;
+            flex-basis: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .amreview-details-wrapper {
+            .am-flex(none, none, wrap);
+
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .amreview-message {
+            height: 60px;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        .amreview-date {
+            color: @amreview-line__color;
+            font-size: 12px;
+        }
+
+        .amreview-footer {
+            .am-flex(space-between);
+
+            position: relative;
+        }
+
+        .product-item-photo {
+            margin: 0 15px 15px 0;
+        }
+    }
+
+    .amreview-widget-container.-advanced {
+        margin-bottom: 15px;
+    }
+
+    .amreview-rating-label {
+        color: @amreview-label__color;
+        font-size: 24px;
+        margin: 0 @amrev__indent 5px 0;
+    }
+
+    .amreview-widget-container.-grid .amreview-rating-wrapper {
+        min-width: 160px;
+    }
+
+    .amreview-widget-container.-sidebar .amreview-rating-wrapper {
+        flex-grow: 1;
+    }
+
+    .amreview-widget-container .amreview-title {
+        & {
+            background: @amreview-widget-grid-review__background;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            padding: 15px 40px 15px 20px;
+            position: relative;
+            word-break: break-all;
+            word-break: break-word;
+        }
+
+        &:after {
+            background: @amreview-widget-arrow-up__background;
+            background-size: contain;
+            content: '';
+            height: 15px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+        }
+
+        &.-collapsed:after {
+            background: @amreview-widget-arrow-down__background;
+            background-size: contain;
+        }
+    }
+
+    .amreview-widget-container .amreview-rating-item {
+        & {
+            .am-flex(space-between, center, wrap);
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        &.-one-rating {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        &.-one-rating .amreview-rating-value {
+            .am-flex(space-between, center, wrap);
+
+            width: 100%;
+        }
+
+        .amreview-number {
+            font-size: 30px;
+        }
+
+        .amstars-rating-container {
+            margin-bottom: 0;
+        }
+    }
+
+    //  Redefinition of magento default product image styles
+    .amreview-image-wrapper {
+        .product-image-container,
+        .product-image-wrapper {
+            height: 100%;
+            width: 100%;
+        }
+
+        .product-image-wrapper {
+            padding: 0 !important; // redefinition magento inline style
+        }
+
+        .product-image-photo {
+            max-height: 100%;
+            width: auto;
+        }
+    }
+}
+
+//
+//  Mobile -
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .amreview-widget-container .amreview-message {
+        height: 80px;
+    }
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amreview-widget-container.-grid {
+        .amreview-review-items {
+            justify-content: space-between;
+        }
+
+        .amreview-rating-wrapper {
+            margin-bottom: 0;
+        }
+
+        .amreview-review-wrapper.review-item {
+            background: @amreview-widget-grid-review__background;
+            border-bottom: 0;
+            width: 49%;
+        }
+
+        .amreview-title {
+            background: none;
+            cursor: unset;
+            padding: 10px 0;
+            pointer-events: none;
+        }
+
+        .amreview-title:after {
+            display: none;
+        }
+
+        .amreview-description-wrapper {
+            min-width: 200px;
+        }
+
+        .amreview-message {
+            max-width: 290px;
+        }
+    }
+
+    .amreview-widget-container.-sidebar .amreview-rating-wrapper {
+        max-width: 30%;
+        min-width: 120px;
+    }
+}

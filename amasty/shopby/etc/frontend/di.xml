@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */-->
 
@@ -59,7 +59,6 @@
 
     <virtualType name="categoryFilterList" type="Amasty\Shopby\Model\Layer\FilterList">
         <arguments>
-            <argument name="filterableAttributes" xsi:type="object">Amasty\Shopby\Model\Layer\Category\FilterableAttributeList</argument>
             <argument name="filters" xsi:type="array">
                 <item name="attribute" xsi:type="string">Amasty\Shopby\Model\Layer\Filter\Attribute</item>
                 <item name="price" xsi:type="string">Amasty\Shopby\Model\Layer\Filter\Price</item>
@@ -138,6 +137,12 @@
     <virtualType name="Amasty\Shopby\Customizer\Category\Filter" type="Amasty\Shopby\Model\Customizer\Category\Filter">
         <arguments>
             <argument name="contentHelper" xsi:type="object">Amasty\Shopby\Helper\Content</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Amasty\Shopby\Block\Navigation\Cms" type="Amasty\Shopby\Block\Navigation\Top\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
         </arguments>
     </virtualType>
 
@@ -250,7 +255,10 @@
     <type name="Magento\Catalog\Block\Product\ListProduct">
         <plugin name="Amasty_Shopby::wrapProductList" type="Amasty\Shopby\Plugin\Ajax\ProductListWrapper"/>
     </type>
-
+    <type name="Magento\Cms\Controller\Index\Index">
+        <plugin name="Amasty_Shopby::CmsControllerIndexIndex"
+                type="Amasty\Shopby\Plugin\Ajax\CmsControllerIndexIndexAjax"/>
+    </type>
     <type name="\Magento\Catalog\Block\Product\View\Attributes">
         <plugin name="Amasty_Shopby::productViewAttributes"
                 type="\Amasty\Shopby\Plugin\Catalog\Block\Product\View\Attributes"/>
@@ -267,6 +275,13 @@
         <plugin name="Amasty_Shopby::getAttributeByCodeFromConfig" type="Amasty\Shopby\Plugin\Eav\Model\Config"/>
     </type>
 
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="Amasty_Shopby::CatalogProductCollection"
+                type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Collection"/>
+    </type>
+    <type name="Magento\Cms\Helper\Page">
+        <plugin name="Amasty_Shopby::cmsPageHelper" type="Amasty\Shopby\Plugin\Cms\Helper\Page" sortOrder="1"/>
+    </type>
     <type name="Magento\Theme\Block\Html\Title">
         <plugin name="Amasty_Shopby::linksTitle"
                 type="Amasty\Shopby\Plugin\Catalog\Block\Product\View\BlockHtmlTitlePlugin"/>
@@ -327,10 +342,6 @@
     </type>
     <type name="Amasty\ElasticSearch\Model\Search\GetRequestQuery">
         <plugin name="Amasty_Shopby::ElasticUpdateQuery"
-                type="Amasty\Shopby\Plugin\Elasticsearch\SearchAdapter\Mapper"/>
-    </type>
-    <type name="Magento\Elasticsearch\ElasticAdapter\SearchAdapter\Mapper">
-        <plugin name="Amasty_Shopby::UpdateElasticQuery"
                 type="Amasty\Shopby\Plugin\Elasticsearch\SearchAdapter\Mapper"/>
     </type>
     <!--======================================================================-->
@@ -411,46 +422,4 @@
                 type="Amasty\Shopby\Plugin\Store\Model\StoreSwitcher\HashGenerator\AddCategoryIdParam" />
     </type>
     <!--======================================================================-->
-
-    <type name="Amasty\Scroll\Plugin\Ajax\AjaxAbstract">
-        <arguments>
-            <argument name="additionalConfigBlocks" xsi:type="array">
-                <item name="catalog.navigation.swatches.choose"
-                      xsi:type="string">catalog.navigation.swatches.choose</item>
-            </argument>
-        </arguments>
-    </type>
-
-    <virtualType name="Amasty\ShopbyBase\Model\UrlBuilder\CacheableBaseAdapter"
-                 type="Amasty\ShopbyBase\Model\UrlBuilder\CacheableAdapter">
-        <arguments>
-            <argument name="originalAdapter" xsi:type="object">Amasty\ShopbyBase\Model\UrlBuilder\Adapter</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Amasty\Shopby\Model\UrlBuilder\CacheableRootAdapter"
-                 type="Amasty\ShopbyBase\Model\UrlBuilder\CacheableAdapter">
-        <arguments>
-            <argument name="originalAdapter" xsi:type="object">Amasty\Shopby\Model\UrlBuilder\Adapter</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Amasty\ShopbyBase\Model\CacheableUrlBuilder"
-                 type="Amasty\ShopbyBase\Model\UrlBuilder">
-        <arguments>
-            <argument name="urlAdapters" xsi:type="array">
-                <item name="base" xsi:type="array">
-                    <item name="adapter"
-                          xsi:type="object">Amasty\ShopbyBase\Model\UrlBuilder\CacheableBaseAdapter</item>
-                </item>
-                <item name="root" xsi:type="array">
-                    <item name="adapter" xsi:type="object">Amasty\Shopby\Model\UrlBuilder\CacheableRootAdapter</item>
-                </item>
-            </argument>
-        </arguments>
-    </virtualType>
-
-    <type name="Amasty\Shopby\Helper\UrlBuilder">
-        <arguments>
-            <argument name="urlBuilder" xsi:type="object">Amasty\ShopbyBase\Model\CacheableUrlBuilder</argument>
-        </arguments>
-    </type>
 </config>

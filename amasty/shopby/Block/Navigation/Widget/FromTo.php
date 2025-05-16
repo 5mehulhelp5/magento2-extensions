@@ -1,13 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Navigation\Widget;
 
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Magento\Framework\View\Element\Template;
 use Magento\Catalog\Model\Layer\Filter\FilterInterface;
 
@@ -24,6 +23,11 @@ class FromTo extends \Magento\Framework\View\Element\Template implements WidgetI
     protected $_template = 'layer/widget/fromto.phtml';
 
     /**
+     * @var \Amasty\Shopby\Helper\Data
+     */
+    private $helper;
+
+    /**
      * @var string
      */
     private $type;
@@ -33,18 +37,13 @@ class FromTo extends \Magento\Framework\View\Element\Template implements WidgetI
      */
     private $filter;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Template\Context $context,
-        MobileConfigResolver $mobileConfigResolver,
+        \Amasty\Shopby\Helper\Data $helper,
         array $data = []
     ) {
+        $this->helper = $helper;
         parent::__construct($context, $data);
-        $this->mobileConfigResolver = $mobileConfigResolver;
     }
 
     /**
@@ -62,7 +61,7 @@ class FromTo extends \Magento\Framework\View\Element\Template implements WidgetI
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**

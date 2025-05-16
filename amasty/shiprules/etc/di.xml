@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Shipping Rules for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Shiprules\Api\Data\RuleInterface" type="Amasty\Shiprules\Model\Rule" />
+    <preference for="Amasty\Shiprules\Api\RuleRepositoryInterface" type="Amasty\Shiprules\Model\RuleRepository" />
+    <preference for="Amasty\Shiprules\Api\ShippingRuleApplierInterface" type="Amasty\Shiprules\Model\Rule\Applier" />
+
+    <type name="Amasty\Shiprules\Model\Rule">
+        <arguments>
+            <argument name="conditionCombine" xsi:type="object" shared="false">Amasty\Shiprules\Model\Rule\Condition\Combine</argument>
+            <argument name="conditionProductCombine" xsi:type="object" shared="false">Amasty\CommonRules\Model\Rule\Condition\Product\Combine</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Model\Rule\Validator\ValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="actions" xsi:type="object">Amasty\Shiprules\Model\Rule\Validator\Actions</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\PartialReplace" type="Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Replace" />
+    <virtualType name="Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Surcharge" type="Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Dummy" />
+
+    <type name="Amasty\Shiprules\Model\Rule\Adjustment\Calculation\StrategyComposite">
+        <arguments>
+            <argument name="strategies" xsi:type="array">
+                <item name="0" xsi:type="object">Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Replace</item>
+                <item name="1" xsi:type="object">Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Surcharge</item>
+                <item name="2" xsi:type="object">Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\Deduct</item>
+                <item name="3" xsi:type="object">Amasty\Shiprules\Model\Rule\Adjustment\Calculation\Strategy\PartialReplace</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Shipping\Model\Shipping">
+        <plugin name="Amasty_Shiprules::Shipping" type="Amasty\Shiprules\Plugin\Shipping\Model\ShippingPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Config">
+        <plugin name="Amasty_Shiprules::ProductAttributes" type="Amasty\Shiprules\Plugin\ProductAttributes" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\Rate">
+        <plugin name="Amasty_Shiprules::ImportShippingRate" type="Amasty\Shiprules\Plugin\Quote\Model\Quote\Address\RatePlugin"/>
+    </type>
+</config>

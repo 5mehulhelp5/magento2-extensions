@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Plugin\CatalogSearch\Model\Search\IndexBuilder;
 
+use Amasty\Shopby\Model\Layer\Cms\Manager as CmsManager;
 use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\Request;
 use Amasty\Shopby\Model\ResourceModel\Search\FilterMapper\CustomExclusionStrategyPool;
@@ -29,6 +30,11 @@ class ApplyCustomFilters
      * @var Request
      */
     private $shopbyRequest;
+
+    /**
+     * @var CmsManager
+     */
+    private $cmsManager;
 
     /**
      * @var CustomExclusionStrategyPool
@@ -52,12 +58,14 @@ class ApplyCustomFilters
 
     public function __construct(
         Request $shopbyRequest,
+        CmsManager $cmsManager,
         CustomExclusionStrategyPool $customExclusionStrategyPool,
         IndexBuilderResource $indexBuilderResource,
         ConfigProvider $configProvider,
         Configuration $searchConfiguration
     ) {
         $this->shopbyRequest = $shopbyRequest;
+        $this->cmsManager = $cmsManager;
         $this->customExclusionStrategyPool = $customExclusionStrategyPool;
         $this->indexBuilderResource = $indexBuilderResource;
         $this->configProvider = $configProvider;
@@ -85,6 +93,10 @@ class ApplyCustomFilters
             && ($this->shopbyRequest->getParam('stock'))
         ) {
             $this->indexBuilderResource->addStockDataToSelect($select);
+        }
+
+        if ($this->cmsManager->isCmsPageNavigation()) {
+            $this->cmsManager->addCmsPageDataToSelect($select);
         }
 
         return $select;

@@ -13,7 +13,7 @@ use Laminas\Uri\Uri as LaminasUri;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\Quote;
-use Zend\Uri\Uri as ZendUri;
+use Laminas\Uri\Uri as ZendUri;
 
 class ItemManagementPlugin
 {

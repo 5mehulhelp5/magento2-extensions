@@ -1,13 +1,11 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
 namespace Amasty\ShopbyBrand\Model;
-
-use Amasty\ShopbyBrand\Plugin\Framework\Search\Request\Config\FilesystemReader\AddBrandSearchRequest;
 
 class ProductCount
 {
@@ -94,14 +92,11 @@ class ProductCount
         $rootCategoryId = $this->storeManager->getStore()->getRootCategoryId();
         $category = $this->categoryRepository->get($rootCategoryId);
         /** @var \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection $collection**/
-        $collection = $this->collectionFactory->create([
-            'searchRequestName' => AddBrandSearchRequest::BRAND_SEARCH_REQUEST_NAME
-        ]);
+        $collection = $this->collectionFactory->create();
 
         return $collection->addAttributeToSelect($attrCode)
             ->setVisibility([2,4])
             ->addCategoryFilter($category)
-            ->setPageSize(1)
             ->getFacetedData($attrCode);
     }
 }

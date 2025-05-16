@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_restock_alert" resource="default">
+        <column xsi:type="int" name="alert_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Alert ID"/>
+        <column xsi:type="int" name="alert_stock_id" padding="10" unsigned="true" nullable="false" comment="Stock Alert Id"/>
+        <column xsi:type="boolean" name="is_restock" nullable="true" comment="Is Restock"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="alert_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="AMASTY_RESTOCK_ALERT_ALERT_STOCK_ID_PRODUCT_ALERT_STOCK_ALERT_STOCK_ID"
+                    table="amasty_restock_alert"
+                    column="alert_stock_id"
+                    referenceTable="product_alert_stock"
+                    referenceColumn="alert_stock_id"
+                    onDelete="CASCADE" />
+    </table>
+</schema>

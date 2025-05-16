@@ -82,13 +82,12 @@ define([
                     // Stop loader for totals block
                     totalsService.isLoading(false);
                     subscriber.isLoading(false);
-                    $('body').trigger('am-condition-collect-done');
                 }).fail(function (response) {
                     if (response.responseText || response.status) {
                         errorProcessor.process(response);
                     }
                 });
-            }, 200);
+            }, 600);
         }
     };
 });

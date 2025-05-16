@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -51,23 +51,13 @@ class UrlBuilder extends \Magento\Framework\App\Helper\AbstractHelper
      */
     private $isMultiselect;
 
-    /**
-     * @var string[]
-     */
-    private $excludedSingleSelectCategoryActions = [
-        'catalogsearch_result_index',
-        'ambrand_index_index',
-        'amasty_xlanding_page_view'
-    ];
-
     public function __construct(
         Context $context,
         Registry $registry,
         FilterSetting $filterSettingHelper,
         Category $categoryHelper,
         UrlBuilderInterface $urlBuilder,
-        IsMultiselect $isMultiselect,
-        array $excludedSingleSelectCategoryActions = []
+        IsMultiselect $isMultiselect
     ) {
         parent::__construct($context);
         $this->registry = $registry;
@@ -75,10 +65,6 @@ class UrlBuilder extends \Magento\Framework\App\Helper\AbstractHelper
         $this->categoryHelper = $categoryHelper;
         $this->amUrlBuilder = $urlBuilder;
         $this->isMultiselect = $isMultiselect;
-        $this->excludedSingleSelectCategoryActions = array_merge(
-            $this->excludedSingleSelectCategoryActions,
-            $excludedSingleSelectCategoryActions
-        );
     }
 
     /**
@@ -135,7 +121,7 @@ class UrlBuilder extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $filter instanceof CategoryFilter
             && !$filter->isMultiselect()
-            && !in_array($this->_request->getFullActionName(), $this->excludedSingleSelectCategoryActions);
+            && !in_array($this->_request->getFullActionName(), ['catalogsearch_result_index', 'ambrand_index_index']);
     }
 
     /**
@@ -173,20 +159,20 @@ class UrlBuilder extends \Magento\Framework\App\Helper\AbstractHelper
 
         $data = $this->_request->getParam($filterCode);
 
-        if (empty($data) && !is_numeric($data)) {
+        if (empty($data)) {
             $params = $this->_request->getParams();
             $data = isset($params['amshopby'][$filterCode]) ? $params['amshopby'][$filterCode] : null;
         }
 
-        if (empty($data) && !is_numeric($data)) {
-            $values = [];
-        } else {
+        if (!empty($data)) {
             $values = is_array($data) ? $data : explode(',', (string) $data);
             foreach ($values as $key => $val) {
-                if (empty($val) && !is_numeric($val)) {
+                if (empty($val)) {
                     unset($values[$key]);
                 }
             }
+        } else {
+            $values = [];
         }
 
         return $values;

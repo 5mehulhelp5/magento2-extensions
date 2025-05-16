@@ -13,27 +13,9 @@ define([
         oneColumnFilterWrapper: '#narrow-by-list',
         isMobile: window.innerWidth < 768,
         scrollEvent: 'scroll.amShopby',
-        priceFilter: { inputName: 'amshopby[price][]', urlParam: 'price' },
-        activeFiltersData: [],
 
         _create: function () {
             var self = this;
-            this.initActiveFilters();
-
-            $(document).on('amshopby:submit_filters',function (event, eventData) {
-                if (this.isFiltersIdentical(eventData.data)) {
-                    this.hideApplyButton();
-                }
-            }.bind(this));
-
-            $(document).on('amshopby:price_slider', function (event, eventData) {
-                this.shouldHideApplyBtnOnPriceSlider(eventData) && this.hideApplyButton();
-            }.bind(this));
-
-            $(document).on('amshopby:price_from_to',function (event, eventData) {
-                this.shouldHideApplyBtnOnFromToPrice(eventData) ? this.hideApplyButton() : this.showApplyButton();
-            }.bind(this));
-
             $(function () {
                 var element = $(self.element[0]),
                     navigation = element.closest(self.options.navigationSelector),
@@ -58,14 +40,6 @@ define([
                     };
 
                     if (self.options.ajaxSettingEnabled !== 1) {
-                        if ($.mage.amShopbyAjax.prototype.startAjax || !$.mage.amShopbyApplyFilters.prototype.responseUrl) {
-                            $(document).on('amshopby:ajax_filter_applied', () => {
-                                document.location.href = $.mage.amShopbyApplyFilters.prototype.responseUrl;
-                            });
-
-                            return false;
-                        }
-
                         document.location.href = $.mage.amShopbyApplyFilters.prototype.responseUrl;
                     } else {
                         let {ajaxData, clearFilter, isSorting} = $.mage.amShopbyAjax.prototype.prevData;
@@ -75,8 +49,7 @@ define([
                         $(element).trigger('amshopby:submit_filters', {
                             data: ajaxData,
                             clearFilter: clearFilter,
-                            isSorting: isSorting,
-                            pushState: true
+                            isSorting: isSorting
                         });
                     }
 
@@ -112,7 +85,7 @@ define([
                 posTop,
                 posLeft,
                 oneColumn = $('body').hasClass('page-layout-1column'),
-                rightSidebar = this.isRightSidebar(),
+                rightSidebar = $('body').hasClass('page-layout-2columns-right'),
                 marginWidth = 30, // margin for button:before
                 marginHeight = 10, // margin height
                 $element = $(element),
@@ -316,103 +289,6 @@ define([
                 var element = jQuery(e.target);
                 self.renderShowButton(e, element);
             });
-        },
-
-        initActiveFilters: function () {
-            const urlParams = new URLSearchParams(location.search);
-            const filtersData = this.getUniqueFiltersData();
-
-            $.mage.amShopbyApplyFilters.prototype.activeFiltersData =
-                $.mage.amShopbyFilterAbstract.prototype.groupDataByName(filtersData)
-                    .map((item) => {
-                        if (item.value === ''
-                            && item.name === this.priceFilter.inputName
-                            && urlParams.get(this.priceFilter.urlParam)
-                        ) {
-                            item.value = urlParams.get(this.priceFilter.urlParam);
-                        }
-
-                        return item;
-                    })
-                    .filter((item) => item.value !== '');
-        },
-
-        getUniqueFiltersData: function () {
-            const form = $($.mage.amShopbyFilterAbstract.prototype.selectors.filterForm);
-            const filtersData = form?.serializeArray() ?? [];
-
-            return filtersData.filter(
-                (obj, index) =>
-                    filtersData.findIndex((item) => item.name === obj.name && item.value === obj.value) === index
-            );
-        },
-
-        isFiltersIdentical: function (data) {
-            data = this.excludePriceRangesData(data);
-            const activeFilters = $.mage.amShopbyApplyFilters.prototype.activeFiltersData;
-
-            if (data.length !== activeFilters.length) {
-                return false;
-            }
-
-            /* check if at least one filter is being changed */
-            return !activeFilters.some((activeFilter) => {
-                return !data.some((item) => _.isEqual(activeFilter, item));
-            });
-        },
-
-        excludePriceRangesData: function (data) {
-            /* exclude the unused parameter "price ranges" if the display mode of the Price Filter is equal to Ranges*/
-            return data.filter((item) => item.name !== 'price-ranges');
-        },
-
-        hideApplyButton: function () {
-            if (this.isMobile) {
-                $(this.showButtonContainer).removeClass('visible');
-            } else {
-                $(this.showButtonContainer).css({'visibility': 'hidden'});
-            }
-        },
-
-        showApplyButton: function () {
-            if (this.isMobile) {
-                $(this.showButtonContainer).addClass('visible');
-            } else {
-                $(this.showButtonContainer).css({'visibility': 'visible'});
-            }
-        },
-
-        shouldHideApplyBtnOnPriceSlider: function (eventData) {
-            const priceFilterInfo = this.getPriceFilterInfo();
-
-            return !priceFilterInfo.isPriceInActiveFilters
-                && _.isEqual(eventData.current, eventData.defaults)
-                && this.isFiltersIdentical(priceFilterInfo.filtersData);
-        },
-
-        shouldHideApplyBtnOnFromToPrice: function (eventData) {
-            const priceFilterInfo = this.getPriceFilterInfo();
-
-            return this.isFiltersIdentical(priceFilterInfo.filtersData)
-                && (priceFilterInfo.isPriceInActiveFilters || _.isEqual(eventData.current, eventData.defaults));
-        },
-
-        getPriceFilterInfo: function () {
-            const isPriceInActiveFilters = $.mage.amShopbyApplyFilters.prototype.activeFiltersData
-                .filter((item) => item.name === this.priceFilter.inputName).length > 0;
-
-            const form = $($.mage.amShopbyFilterAbstract.prototype.selectors.filterForm);
-            let filtersData = $.mage.amShopbyFilterAbstract.prototype.normalizeData(form?.serializeArray() ?? []);
-
-            if (!isPriceInActiveFilters) {
-                filtersData = filtersData.filter((item) => item.name !== this.priceFilter.inputName);
-            }
-
-            return {isPriceInActiveFilters, filtersData};
-        },
-
-        isRightSidebar: function () {
-            return $('body').hasClass('page-layout-2columns-right');
         }
     });
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -204,15 +204,5 @@ class BrandData extends DataObject implements BrandDataInterface
     public function setCount(int $count): void
     {
         $this->setData(self::COUNT, $count);
-    }
-
-    public function getPageLayout(): ?string
-    {
-        return $this->getDataByKey(self::PAGE_LAYOUT);
-    }
-
-    public function setPageLayout(string $pageLayout): void
-    {
-        $this->setData(self::PAGE_LAYOUT, $pageLayout);
     }
 }

@@ -1,0 +1,116 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/** @var StockSubscribe $block */
+/** @var Escaper $escaper */
+
+use Amasty\Xnotif\Block\Catalog\Category\StockSubscribe;
+use Amasty\Xnotif\Model\Config\GdprXnotif;
+use Magento\Framework\App\ActionInterface;
+use Magento\Framework\Escaper;
+
+/** @var Amasty\Xnotif\Helper\Data $helper */
+$helper = $block->getModuleHelper();
+
+$productId = $helper->getOriginalProduct($block) ? (int)$helper->getOriginalProduct($block)->getId() : 0;
+$parentId = (int)$block->getData('parent_product_id');
+$url = $helper->getEmailUrl('stock');
+$usePopup = $block->usePopupForSubscribe();
+$subscribeLinkTag = $usePopup ? 'a' : 'label';
+$popupClass = $usePopup ? 'subscribe-popup' : '';
+?>
+
+<div class="amxnotif-container" data-product-id="<?= (int) $productId ?>">
+    <div class="amxnotif-block label <?= /* @noEscape */  $popupClass; ?>">
+        <<?= /* @noEscape */ $subscribeLinkTag ?> for="amxnotif-guest-email-<?= (int) $productId ?>">
+            <?= $escaper->escapeHtml(__('Subscribe to back in stock')) ?>
+        </<?= /* @noEscape */ $subscribeLinkTag ?>>
+    </div>
+    <div class="category amxnotif-block <?= /* @noEscape */ $popupClass; ?>"
+         data-action="<?= $escaper->escapeUrl($url); ?>"
+    >
+        <form class="form-for-swatches-inputs-fix"></form>
+        <form id="form-validate-stock-<?= (int) $productId ?>"
+              class="<?= /* @noEscape */ $popupClass; ?>"
+              method="post"
+              data-nofocus="true"
+              action="<?= $escaper->escapeUrl($url); ?>">
+            <?php if ($usePopup): ?>
+                <label for="amxnotif-guest-email-<?= (int) $productId ?>">
+                    <?= $escaper->escapeHtml(__('Subscribe to back in stock notification')) ?>
+                </label>
+            <?php endif; ?>
+            <div class="notification-container" id="notification-container-<?= (int) $productId ?>">
+                <div class="input-fields fieldset">
+                    <input name="guest_email"
+                           class="input-text amxnotif-guest-email"
+                           id="amxnotif-guest-email-<?= (int) $productId ?>"
+                           size="30"
+                           type="email"
+                           data-validate="{required:true, 'validate-email':true }"
+                           placeholder="<?= $escaper->escapeHtml($helper->getPlaceholder()) ?>"
+                    />
+                    <input type="hidden" name="product_id"
+                           value="<?= (int) $productId ?>"/>
+                    <input type="hidden" name="type" value="email"/>
+
+                    <?php if ($parentId): ?>
+                        <input type="hidden" name="parent_id"
+                               value="<?= (int) $parentId ?>"/>
+                    <?php endif; ?>
+
+                    <input type="hidden"
+                           name="<?= /* @noEscape */ ActionInterface::PARAM_NAME_URL_ENCODED ?>"
+                           value="<?= /* @noEscape */ $block->getEncodedUrl() ?>"/>
+
+                    <?php if ($helper->isGDRPEnabled()): ?>
+                        <div class="field required">
+                            <input type="checkbox"
+                                   name="gdrp"
+                                   id="amxnotif-stock-gdrp-<?= /* @noEscape */ $productId ?>"
+                                   title="<?= /* @noEscape */ __('GDRP'); ?>"
+                                   data-validate="{required:true}"
+                                   value="1">
+                            <label class="label" for="amxnotif-stock-gdrp-<?= (int) $productId ?>">
+                                <?= $escaper->escapeHtml($helper->getGDRPText(), ['a']); ?>
+                            </label>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php $gdprCheckboxesHtml = $helper->getGdprCheckboxHtml(GdprXnotif::GDPR_XNOTIF_STOCK_FORM); ?>
+                    <?php if (!empty($gdprCheckboxesHtml)): ?>
+                        <?= /** @noEscape */ $gdprCheckboxesHtml ?>
+                    <?php endif; ?>
+                </div>
+
+                <div class="actions-toolbar amxnotif_guest_action">
+                    <div class="primary">
+                        <button type="submit"
+                                class="action submit primary <?= /* @noEscape */ (!$usePopup) ? "amsubscribe" : ''?>"
+                        >
+                            <?= /* @noEscape */ ($usePopup) ? __('Subscribe') : ''; ?>
+                        </button>
+                    </div>
+                </div>
+                <?= $block->getChildHtml(); ?>
+                <?php if ($usePopup): ?>
+                    <span class="close-subscribe-popup">&times;</span>
+                <?php endif; ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        "mage/mage",
+        "mage/validation"
+    ], function ($) {
+        "use strict";
+        $('#form-validate-stock-<?= (int) $productId ?>').mage('validation');
+    });
+</script>

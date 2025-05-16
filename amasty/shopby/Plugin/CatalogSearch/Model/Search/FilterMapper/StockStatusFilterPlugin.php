@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -73,7 +73,7 @@ class StockStatusFilterPlugin
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundApply(
-        StockStatusFilter $subject, // @phpstan-ignore class.notFound
+        StockStatusFilter $subject,
         callable $proceed,
         Select $select,
         $stockValues,
@@ -86,8 +86,8 @@ class StockStatusFilterPlugin
                 return $proceed($select, $stockValues, $type, $showOutOfStockFlag);
             }
 
-            if ($type !== StockStatusFilter::FILTER_JUST_ENTITY // @phpstan-ignore class.notFound
-                && $type !== StockStatusFilter::FILTER_ENTITY_AND_SUB_PRODUCTS // @phpstan-ignore class.notFound
+            if ($type !== StockStatusFilter::FILTER_JUST_ENTITY
+                && $type !== StockStatusFilter::FILTER_ENTITY_AND_SUB_PRODUCTS
             ) {
                 throw new \InvalidArgumentException('Invalid filter type: ' . $type);
             }
@@ -100,7 +100,7 @@ class StockStatusFilterPlugin
             );
             $this->addInventoryStockJoin($select, $showOutOfStockFlag);
 
-            if ($type === StockStatusFilter::FILTER_ENTITY_AND_SUB_PRODUCTS) { // @phpstan-ignore class.notFound
+            if ($type === StockStatusFilter::FILTER_ENTITY_AND_SUB_PRODUCTS) {
                 $select->joinInner(
                     ['sub_product' => $this->resourceConnection->getTableName('catalog_product_entity')],
                     sprintf('sub_product.entity_id = %s.source_id', $mainTableAlias),

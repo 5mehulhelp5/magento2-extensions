@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Magento plugin not working on checkout. Need joined stock_status table -->
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="Amasty_Xnotif::add_stock_information" type="Amasty\Xnotif\Plugins\CatalogInventory\Model\AddStockStatusToCollection" />
+    </type>
+</config>

@@ -1,0 +1,70 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+
+use Magento\Backend\Block\Template;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Template $block
+ * @var Escaper $escaper
+ */
+
+$viewModel = $block->getViewModel();
+?>
+<form class="admin__data-grid-filters-wrap _show amxnotifaggregation-filters">
+    <fieldset class="admin__fieldset admin__data-grid-filters">
+        <div class="admin__form-field">
+            <div class="admin__form-field">
+                <label class="admin__form-field-label" for="report_from">
+                    <span><?= $escaper->escapeHtml(__('From')) ?></span>
+                </label>
+                <div class="admin__form-field-control">
+                    <input name="from_date"
+                           id="report_from"
+                           value="<?= $escaper->escapeHtmlAttr($block->getRequest()->getParam('from_date')) ?>"
+                           type="text"
+                           class="admin__control-text input-text"
+                           data-mage-init="<?= $escaper->escapeHtmlAttr($viewModel->getCalendarConfig()) ?>"
+                    />
+                </div>
+            </div>
+
+            <div class="admin__form-field">
+                <label class="admin__form-field-label" for="report_to">
+                    <span><?= $escaper->escapeHtml(__('To')) ?></span>
+                </label>
+                <div class="admin__form-field-control">
+                    <input name="to_date"
+                           id="report_to"
+                           value="<?= $escaper->escapeHtmlAttr($block->getRequest()->getParam('to_date')) ?>"
+                           type="text"
+                           class="admin__control-text input-text"
+                           data-mage-init="<?= $escaper->escapeHtmlAttr($viewModel->getCalendarConfig()) ?>"
+                    />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <?php if (!$viewModel->hasSubscriptionModule()): ?>
+        <div class="ampromo-xnotif-analytics">
+            <div class="ampromo-config-icon"></div>
+            <button class="action-secondary" type="submit" data-action="grid-filter-apply" disabled>
+                <span><?= $escaper->escapeHtml(__('Apply')) ?></span>
+            </button>
+            <button class="ampromo-badge"
+                    onclick="window.open('<?= $escaper->escapeUrl($viewModel->getSubscribeUrl()) ?>', '_blank')"
+                    type="button">
+                <?= $escaper->escapeHtml(__('Subscribe to Unlock')) ?>
+            </button>
+        </div>
+    <?php else: ?>
+        <button class="action-secondary" type="submit" data-action="grid-filter-apply">
+            <span><?= $escaper->escapeHtml(__('Apply')) ?></span>
+        </button>
+    <?php endif; ?>
+</form>

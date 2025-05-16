@@ -25,8 +25,7 @@ var config = {
             amShopbyApplyFilters: 'Amasty_Shopby/js/amShopbyApplyFilters',
             amShopbyTopFilters: 'Amasty_Shopby/js/amShopbyTopFilters',
             amShopbyAjax: 'Amasty_Shopby/js/amShopbyAjax',
-            amShopbyHelpers: 'Amasty_Shopby/js/utils/helpers',
-            swiper: 'Amasty_LibSwiperJs/js/vendor/swiper/swiper.min'
+            amShopbyHelpers: 'Amasty_Shopby/js/utils/helpers'
         }
     },
     config: {
@@ -34,6 +33,14 @@ var config = {
             'jquery/ui-modules/widgets/slider': {
                 'Amasty_Shopby/js/mixins/slider': true
             }
+        }
+    },
+    paths: {
+        'swiper': 'Amasty_ShopbyBase/js/swiper.min'
+    },
+    shim: {
+        'swiper': {
+            deps: [ 'jquery' ]
         }
     }
 };

@@ -111,51 +111,6 @@ define([
          * @return {Array}
          */
         prepareTriggerAjax: function (element, clearUrl, clearFilter, isSorting) {
-            let data = [],
-                ajaxData;
-
-            if (isSorting) {
-                data.clearUrl = clearUrl;
-            } else {
-                data = this.prepareAjaxData(element, clearUrl, clearFilter, isSorting);
-            }
-
-            if (this.options.collectFilters) {
-                ajaxData = _.clone(data);
-                ajaxData.clearUrl = data.clearUrl;
-
-                $.mage.amShopbyAjax.prototype.prevData = {
-                    ajaxData: ajaxData,
-                    clearFilter,
-                    isSorting
-                };
-
-                if (!isSorting) {
-                    data.isGetCounter = true;
-                }
-            }
-
-            // eslint-disable-next-line no-param-reassign
-            element = element || document;
-
-            $(element).trigger('amshopby:submit_filters', {
-                data: data,
-                clearFilter: clearFilter,
-                isSorting: isSorting
-            });
-
-            return data;
-        },
-
-        /**
-         * @public
-         * @param {String | null} element
-         * @param {String | null} clearUrl
-         * @param {Boolean | null} [clearFilter]
-         * @param {Boolean} [isSorting]
-         * @return {Array}
-         */
-        prepareAjaxData: function (element, clearUrl, clearFilter, isSorting) {
             var self = this,
                 widgetInstance = $.mage.amShopbyFilterAbstract.prototype,
                 selectors = this.selectors,
@@ -172,7 +127,8 @@ define([
                 isPriceType,
                 serializeForms,
                 isPriceExist,
-                data;
+                data,
+                ajaxData;
 
             if (typeof this.element !== 'undefined' && clearFilter) {
                 attributeName = this.selectors.filterFormAttr
@@ -236,6 +192,9 @@ define([
             data = this.normalizeData(serializeForms, isSorting, clearFilter);
             clearUrl = data.clearUrl ? data.clearUrl : clearUrl;
 
+            // eslint-disable-next-line no-param-reassign
+            element = element || document;
+
             if (widgetInstance.options.delta.length) {
                 data = data.concat(widgetInstance.options.delta);
             }
@@ -245,6 +204,27 @@ define([
             }
 
             data.clearUrl = clearUrl;
+
+            if (this.options.collectFilters) {
+                ajaxData = _.clone(data);
+                ajaxData.clearUrl = clearUrl;
+
+                $.mage.amShopbyAjax.prototype.prevData = {
+                    ajaxData: ajaxData,
+                    clearFilter,
+                    isSorting
+                };
+
+                if (!isSorting) {
+                    data.isGetCounter = true;
+                }
+            }
+
+            $(element).trigger('amshopby:submit_filters', {
+                data: data,
+                clearFilter: clearFilter,
+                isSorting: isSorting
+            });
 
             return data;
         },
@@ -275,17 +255,11 @@ define([
                             item.value = self.normalizePrice(item.value);
                         }
 
-                        if (!ajaxOptions.isCategorySingleSelect
-                            && item.name === 'amshopby[cat][]'
-                            && +item.value === +ajaxOptions.currentCategoryId
-                        ) {
-                            return;// continue
-                        }
                         normalizedData.push(item);
 
                         if (ajaxOptions.isCategorySingleSelect === 1
                             && item.name === 'amshopby[cat][]'
-                            && +item.value !== +ajaxOptions.currentCategoryId
+                            && item.value !== ajaxOptions.currentCategoryId
                             && !clearFilter
                             && !isSorting
                         ) {

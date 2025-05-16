@@ -1,0 +1,38 @@
+{
+    "name": "amasty/module-improved-layered-navigation-cloud-pro",
+    "description": "Improved Layered Navigation Enterprise Cloud Pro by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.17.0",
+        "amasty/module-shopby-pro": ">=2.19.3"
+    },
+    "suggest": {
+        "amasty/module-shopby-livesearch-root-category": "Install ShopbyLivesearchRootCategory module to activate LiveSearch for all Products Page and Shop By Brand integration.",
+        "amasty/module-shop-by-live-search": "Install ShopByLiveSearch module to activate LiveSearch and Shop By Brand integration.",
+        "amasty/module-shopby-hyva-compatibility": "Install module-shopby-hyva-compatibility module to activate the integration with Hyva Theme",
+        "amasty/module-shop-by-base-hyva-compatibility": "Install module-shop-by-base-hyva-compatibility module to activate the integration Base module with Hyva Theme.",
+        "amasty/module-shop-by-brand-hyva-compatibility": "Install module-shop-by-brand-hyva-compatibility module to activate the integration Brand module with Hyva Theme",
+        "amasty/module-shopby-grouped-options-hyva": "Install module-shop-by-brand-hyva-compatibility module to activate the integration Grouper Options module with Hyva Theme",
+        "amasty/module-shop-by-filter-highlight": "Install this package in order to use custom filter highlight color functionality",
+        "amasty/shop-by-redirect": "Install this package to enable 301 redirect for SEO-optimized Urls functionality",
+        "amasty/module-shopby-setting-export-entity": "Install this package for Export compatibility",
+        "amasty/module-shopby-setting-import-entity": "Install this package for Import compatibility",
+        "amasty/shop-by-brand-widget": "Install this package in order to manage Slider Widget Brands.",
+        "amasty/module-shopby-subscription-package-pro": "Install this package for compatibility with subscription features.",
+        "amasty/module-shopby-hyva-enterprise": "Install this package to resolve minor issues and enhance compatibility with the EE Hyvä Theme."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.1.3",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ImprovedLayeredNavigationCloudPro\\": ""
+        }
+    }
+}

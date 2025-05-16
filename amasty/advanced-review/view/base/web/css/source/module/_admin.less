@@ -1,0 +1,130 @@
+// phpcs:ignoreFile Magento2.Less.AvoidId.IdSelectorUsage
+// phpcs:ignoreFile Magento2.Less.ClassNaming.NotAllowedSymbol
+//
+//  Advanced Review Admin
+//  ______________________________________________
+
+//
+//  Variables
+//  ----------------------------------------------
+
+@amreview-upload-button__color: #fff;
+@amreview-upload-button__primary_color: #eb5202;
+@amreview-upload-button__hover__primary_color: darken(@amreview-upload-button__primary_color, 10%);
+@amreview-upload-button__hover__box-shadow__color: #40070b;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    //  less is located into base - prevent applying styles on frontend
+    .admin__fieldset {
+        .amreview-remove-image {
+            & {
+                display: block;
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            .amreview-checkbox {
+                margin-right: 5px;
+            }
+        }
+
+        #is_need_send_notification {
+            margin-top: 12px;
+        }
+
+        .field-review_images .input-file {
+            & {
+                display: none;
+            }
+
+            &::-webkit-file-upload-button {
+                visibility: hidden;
+            }
+        }
+
+        .field-review_images .addbefore {
+            & {
+                background-color: @amreview-upload-button__primary_color;
+                border: 1px solid @amreview-upload-button__primary_color;
+                color: @amreview-upload-button__color;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 600;
+                letter-spacing: .025em;
+                padding: .6rem 1em;
+                text-align: center;
+                user-select: none;
+            }
+
+            &:hover {
+                background-color: @amreview-upload-button__hover__primary_color;
+                border-color: @amreview-upload-button__hover__primary_color;
+                box-shadow: 0 0 0 1px @amreview-upload-button__hover__box-shadow__color;
+                text-decoration: none;
+            }
+        }
+
+        .amreview-images {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .amreview-slider-item {
+            background: @color-gray94;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0 5px 10px;
+            padding: 10px;
+            text-align: center;
+            width: calc(~'100% / 3 - 10px');
+        }
+    }
+}
+
+//
+//  Admin Sorting Table
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amasty-advanced-review {
+        & {
+            margin-top: 2.2rem;
+        }
+
+        .table-row {
+            .item-position,
+            .table-header {
+                & {
+                    background: @color-white-dark-smoke;
+                    border-bottom: 1px solid @color-white;
+                }
+
+                .draggable {
+                    color: @color-gray68;
+                }
+            }
+
+            .item-position:hover {
+                cursor: move;
+            }
+
+            .amcontent.item-position {
+                box-sizing: border-box;
+                display: inline-block;
+                padding: 1rem;
+                width: 100%;
+            }
+
+            .item-position:before {
+                content: '\e63d';
+                font-family: 'Admin Icons';
+            }
+        }
+    }
+}

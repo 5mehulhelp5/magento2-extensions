@@ -1,0 +1,122 @@
+//
+//  Advanced Review Widget Base Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amreview-widget-title {
+        box-sizing: border-box;
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        max-width: 100%;
+        padding: @amrev__indent;
+        width: 100%;
+    }
+
+    .amreview-widget-container {
+        .amreview-full-link {
+            & {
+                font-size: 12px;
+            }
+
+            &,
+            &:visited,
+            &:active,
+            &:hover {
+                color: @amreview-color__blue-light;
+            }
+
+            &:after {
+                background: @amreview-widget-arrow-right__background;
+                background-size: contain;
+                content: '';
+                display: inline-block;
+                height: 10px;
+                margin-left: 3px;
+                position: absolute;
+                right: -@amrev__indent;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+            }
+        }
+
+        .slick-arrow {
+            z-index: 1;
+        }
+
+        .slick-dots {
+            & {
+                padding: @amrev__indent 0;
+                position: relative;
+            }
+
+            li {
+                .am-flex(center, center);
+
+                display: inline-flex;
+                margin: 0 2px;
+            }
+
+            button {
+                & {
+                    border: 1px solid @amreview-slick__dots__color;
+                    border-radius: @amrev__indent;
+                    height: @amrev__indent;
+                    width: @amrev__indent;
+                }
+
+                &:before {
+                    font-size: 0;
+                }
+            }
+
+            .slick-active button {
+                background: @color-black_dark;
+            }
+        }
+
+        //  END Slick slider styles
+    }
+
+    //  Pagebuilder styles
+    .pagebuilder-content-type {
+        .amreview-review-items {
+            list-style: none;
+        }
+
+        .amreviews .amreviews-placeholder {
+            .am-flex(center, center);
+
+            background-color: @amreview-placeholder__color;
+            min-height: 300px;
+        }
+    }
+
+    //  END Pagebuilder styles
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amreview-widget-title {
+        padding: @amrev__indent 35px;
+    }
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+//  phpcs:ignore Magento2.Less.SelectorDelimiter.LineBreakAfterDelimiter
+@media screen and (min-width: @screen__l), print {
+    .page-main .amreview-widget-title {
+        padding: @amrev__indent__xxl 0 @amrev__indent__xl;
+    }
+}

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -19,16 +19,6 @@ class FilterItems
     public const FOR_SLIDER = 'for_slider';
 
     public const NOT_EMPTY = 'not_empty';
-
-    /**
-     * Amasty_ShopByBrandWidget
-     */
-    public const HIDED_BRANDS = 'hided_brands';
-
-    /**
-     * Amasty_ShopByBrandWidget
-     */
-    public const VISIBLE_BRANDS = 'visible_brands';
 
     /**
      * @param BrandDataInterface[] $items
@@ -50,23 +40,6 @@ class FilterItems
             if (!empty($filterParams[self::NOT_EMPTY]) && !$item->getCount()) {
                 unset($items[$key]);
                 continue;
-            }
-            if (!empty($filterParams[self::HIDED_BRANDS])) {
-                $hidedBrands = explode(',', $filterParams[self::HIDED_BRANDS]);
-                if (in_array($item->getBrandId(), $hidedBrands, false)) {
-                    unset($items[$key]);
-                    continue;
-                }
-            }
-            if (isset($filterParams[self::VISIBLE_BRANDS])) {
-                $visibleBrands = $filterParams[self::VISIBLE_BRANDS];
-                if (!is_array($visibleBrands)) {
-                    $visibleBrands = explode(',', $visibleBrands);
-                }
-                if (!in_array($item->getBrandId(), $visibleBrands)) {
-                    unset($items[$key]);
-                    continue;
-                }
             }
         }
 

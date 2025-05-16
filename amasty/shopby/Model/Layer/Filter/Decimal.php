@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -319,16 +319,9 @@ class Decimal extends \Magento\CatalogSearch\Model\Layer\Filter\Decimal implemen
     private function prepareFacetedData(): void
     {
         if ($this->filterRequestDataResolver->hasCurrentValue($this)) {
-            foreach ($this->getBorderChars() as $possibleBorderChar) {
-                $from = $this->isValidFrom() ? $this->getCurrentFrom() : $possibleBorderChar;
-                $to = $this->isValidTo() ? $this->getCurrentTo() : $possibleBorderChar;
-                $facetedItemData = $this->facetedData[$from . '_' . $to]
-                    ?? $this->facetedData[$from . '_' . $possibleBorderChar]
-                    ?? [];
-                if (!empty($facetedItemData) || ($this->isValidFrom() && $this->isValidTo())) {
-                    break;
-                }
-            }
+            $from = $this->isValidFrom() ? $this->getCurrentFrom() : '*';
+            $to = $this->isValidTo() ? $this->getCurrentTo() : '*';
+            $facetedItemData = $this->facetedData[$from . '_' . $to] ?? $this->facetedData[$from . '_*'] ?? [];
             if (empty($facetedItemData)
                 && isset($this->facetedData['data']['count'])
                 && $this->facetedData['data']['count']
@@ -343,15 +336,6 @@ class Decimal extends \Magento\CatalogSearch\Model\Layer\Filter\Decimal implemen
                 ];
             }
         }
-    }
-
-    /**
-     * Compatibility with different search engines(e.g. Amasty_Elasticsearch, MySQL, Magento Elastic).
-     * @return string[]
-     */
-    private function getBorderChars(): array
-    {
-        return ['*', ''];
     }
 
     private function isValidFrom(): bool

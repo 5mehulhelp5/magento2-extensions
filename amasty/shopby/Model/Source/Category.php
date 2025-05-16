@@ -1,25 +1,23 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\Source;
 
-use Amasty\Base\Model\Source\CategoryFactory;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
-use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\StoreManager;
 
-/**
- * @deprecated replaced with optimized Class with Cache
- * @see \Amasty\Shopby\Model\Source\Category
- */
 class Category
 {
     public const SYSTEM_CATEGORY_ID = 1;
     public const ROOT_LEVEL = 1;
+    /**
+     * @var CollectionFactory
+     */
+    private $collectionFactory;
 
     /**
      * @var bool
@@ -27,17 +25,20 @@ class Category
     private $emptyOption = true;
 
     /**
-     * @var CategoryFactory
+     * @var StoreManager
      */
-    private $categorySourceFactory;
+    private $storeManager;
 
+    /**
+     * Category constructor.
+     * @param CollectionFactory $collectionFactory
+     */
     public function __construct(
-        ?CollectionFactory $collectionFactory, //@deprecated
-        ?StoreManager $storeManager, //@deprecated
-        CategoryFactory $category = null
+        CollectionFactory $collectionFactory,
+        StoreManager $storeManager
     ) {
-        $this->categorySourceFactory = $category ?? ObjectManager::getInstance()
-            ->get(CategoryFactory::class);
+        $this->collectionFactory = $collectionFactory;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -65,9 +66,35 @@ class Category
      */
     public function toArray()
     {
-        $source = $this->categorySourceFactory->create(['caption' => $this->emptyOption ? ' ' : null]);
+        $options = [];
+        if ($this->emptyOption) {
+            $options[0] = ' ';
+        }
 
-        return $source->toArray();
+        $options = array_replace(
+            $options,
+            $this->getChildren(self::SYSTEM_CATEGORY_ID, self::ROOT_LEVEL)
+        );
+
+        return $options;
+    }
+
+    private function getChildren($parentCategoryId, $level)
+    {
+        $options = [];
+        $collection = $this->collectionFactory->create();
+        $collection->addAttributeToSelect('name');
+        $collection->addAttributeToFilter('level', $level);
+        $collection->addAttributeToFilter('parent_id', $parentCategoryId);
+        $collection->setOrder('position', 'asc');
+        foreach ($collection as $category) {
+            $options[$category->getId()] =
+                str_repeat(". ", max(0, ($category->getLevel() - 1) * 3)) . $category->getName();
+            if ($category->hasChildren()) {
+                $options = array_replace($options, $this->getChildren($category->getId(), $category->getLevel() + 1));
+            }
+        }
+        return $options;
     }
 
     /**

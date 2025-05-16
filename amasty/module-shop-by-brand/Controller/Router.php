@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -10,7 +10,6 @@ namespace Amasty\ShopbyBrand\Controller;
 use Amasty\ShopbyBase\Model\Redirect\NonSlash as NonSlashRedirectManager;
 use Amasty\ShopbyBrand\Model\ConfigProvider;
 use Amasty\ShopbyBrand\Model\UrlBuilder\Adapter;
-use Amasty\ShopbyBrand\Model\UrlParser\MatchBrandParams;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Module\Manager;
@@ -68,11 +67,6 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     private $nonSlashRedirectManager;
 
-    /**
-     * @var MatchBrandParams
-     */
-    private $matchBrandParams;
-
     public function __construct(
         \Magento\Framework\App\ActionFactory $actionFactory,
         \Magento\Framework\App\ResponseInterface $response,
@@ -82,8 +76,7 @@ class Router implements \Magento\Framework\App\RouterInterface
         \Amasty\ShopbyBrand\Helper\Data $brandHelper,
         \Amasty\ShopbyBase\Helper\PermissionHelper $permissionHelper,
         ConfigProvider $configProvider,
-        NonSlashRedirectManager $nonSlashRedirectManager = null,
-        MatchBrandParams $matchBrandParams = null // TODO move to not optional
+        NonSlashRedirectManager $nonSlashRedirectManager = null
     ) {
         $this->actionFactory = $actionFactory;
         $this->response = $response;
@@ -96,7 +89,6 @@ class Router implements \Magento\Framework\App\RouterInterface
         $this->configProvider = $configProvider;
         $this->nonSlashRedirectManager = $nonSlashRedirectManager
             ?? ObjectManager::getInstance()->get(NonSlashRedirectManager::class);
-        $this->matchBrandParams = $matchBrandParams ?? ObjectManager::getInstance()->get(MatchBrandParams::class);
     }
 
     /**
@@ -191,10 +183,6 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     private function checkMultibrand($brandValue)
     {
-        if (!$brandValue) {
-            return false;
-        }
-
         return strrpos($brandValue, ',');
     }
 
@@ -253,10 +241,37 @@ class Router implements \Magento\Framework\App\RouterInterface
 
     /**
      * @param string $identifier
+     *
      * @return array
      */
     public function matchBrandParams($identifier)
     {
-        return $this->matchBrandParams->execute($identifier);
+        $identifier = $this->cutBrandIdentifier($identifier);
+        $aliases = $this->brandHelper->getBrandAliases();
+
+        foreach ($aliases as $optionId => $alias) {
+            if (!strcasecmp($alias, $identifier)) {
+                return [$this->brandHelper->getBrandAttributeCode() => $optionId];
+            }
+        }
+
+        return [];
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return string
+     */
+    private function cutBrandIdentifier($identifier)
+    {
+        $brandPageUrlKey = $this->brandHelper->getBrandUrlKey();
+        $identifier = trim($identifier, '/');
+
+        if (!empty($brandPageUrlKey) && strpos($identifier, $brandPageUrlKey . '/') === 0) {
+            $identifier = ltrim(substr($identifier, strlen($brandPageUrlKey . '/')), '/');
+        }
+
+        return $identifier;
     }
 }

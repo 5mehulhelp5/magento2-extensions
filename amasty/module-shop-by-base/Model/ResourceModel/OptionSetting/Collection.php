@@ -1,10 +1,7 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -13,18 +10,9 @@ namespace Amasty\ShopbyBase\Model\ResourceModel\OptionSetting;
 use Amasty\ShopbyBase\Api\Data\OptionSettingInterface;
 use Amasty\ShopbyBase\Helper\FilterSetting;
 use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting as OptionSettingResource;
-use Amasty\ShopbyBase\Model\StoreData\ScopedFieldsProvider;
-use Magento\Framework\App\ObjectManager;
-use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
-use Magento\Framework\Data\Collection\EntityFactoryInterface;
-use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
 use Magento\Eav\Model\ResourceModel\Entity\Attribute\Option;
-use Magento\Framework\Event\ManagerInterface;
-use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Store\Model\Store;
-use Psr\Log\LoggerInterface;
-use Zend_Db_Expr;
 
 /**
  * OptionSetting Collection
@@ -37,30 +25,17 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     private $optionCollectionFactory;
 
-    /**
-     * @var ScopedFieldsProvider
-     */
-    private $scopedFieldsProvider;
-
-    /**
-     * @var int|null
-     */
-    private $storeId;
-
     public function __construct(
-        EntityFactoryInterface $entityFactory,
-        LoggerInterface $logger,
-        FetchStrategyInterface $fetchStrategy,
-        ManagerInterface $eventManager,
+        \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
+        \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         Option\CollectionFactory $optionCollectionFactory,
-        AdapterInterface $connection = null,
-        AbstractDb $resource = null,
-        ?ScopedFieldsProvider $scopedFieldsProvider = null //TODO: move to not optional
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
+        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->optionCollectionFactory = $optionCollectionFactory;
-        $this->scopedFieldsProvider = $scopedFieldsProvider
-            ?? ObjectManager::getInstance()->get(ScopedFieldsProvider::class);
     }
 
     /**
@@ -155,100 +130,12 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             ['option' => $this->getTable('eav_attribute_option_value')],
             'option.option_id = main_table.value'
         );
-        $this->getSelect()->columns('IF(main_table.title IS NULL, option.value, main_table.title) as title');
+        $this->getSelect()->columns('IF(main_table.title = "", option.value, main_table.title) as title');
         $this->getSelect()->columns(
-            'IF(main_table.meta_title IS NULL, option.value, main_table.meta_title) as meta_title'
+            'IF(main_table.meta_title = "", option.value, main_table.meta_title) as meta_title'
         );
         $this->getSelect()->group('option_setting_id');
 
         return $this;
-    }
-
-    public function addStoreData(int $storeId): void
-    {
-        if (!$this->getFlag('option_store_data_added')) {
-            $this->storeId = $storeId;
-
-            $this->addFieldToFilter(
-                OptionSettingInterface::STORE_ID,
-                Store::DEFAULT_STORE_ID
-            );
-
-            $this->getSelect()->joinLeft(
-                ['store_table' => $this->getResource()->getMainTable()],
-                sprintf(
-                    'main_table.value = store_table.value AND store_table.store_id = %d',
-                    $storeId
-                ),
-                []
-            );
-
-            foreach ($this->getGlobalColumns() as $field) {
-                $this->addFieldToSelect($field, $field);
-            }
-
-            foreach ($this->getStoreColumns() as $field) {
-                $this->addFieldToSelect($field, $field);
-            }
-
-            $this->setFlag('option_store_data_added', true);
-        }
-    }
-
-    /**
-     * @param string|array $field
-     * @param string|null $alias
-     * @return AbstractCollection
-     */
-    public function addFieldToSelect($field, $alias = null): AbstractCollection
-    {
-        if (is_string($field)
-            && $this->storeId
-            && in_array($field, $this->getStoreColumns())
-        ) {
-            $field = $this->getExpressionForStoreColumn($field);
-        }
-
-        return parent::addFieldToSelect($field, $alias);
-    }
-
-    /**
-     * @param string|array $field
-     * @param null|string|array $condition
-     * @return AbstractCollection
-     */
-    public function addFieldToFilter($field, $condition = null): AbstractCollection
-    {
-        if (is_string($field)
-            && $this->storeId
-            && in_array($field, $this->getStoreColumns())
-        ) {
-            $field = $this->getExpressionForStoreColumn($field);
-        } elseif (in_array($field, $this->getGlobalColumns())) {
-            $field = 'main_table.' . $field;
-        }
-
-        return parent::addFieldToFilter($field, $condition);
-    }
-
-    private function getExpressionForStoreColumn(string $field): Zend_Db_Expr
-    {
-        return $this->getConnection()->getIfNullSql('store_table.' . $field, 'main_table.' . $field);
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getGlobalColumns(): array
-    {
-        return $this->scopedFieldsProvider->getNotNullableFields($this->getMainTable());
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getStoreColumns(): array
-    {
-        return $this->scopedFieldsProvider->getNullableFields($this->getMainTable());
     }
 }

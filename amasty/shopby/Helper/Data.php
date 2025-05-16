@@ -1,12 +1,13 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Helper;
 
+use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\Layer\Filter\Decimal as DecimalFilter;
 use Amasty\Shopby\Model\Layer\Filter\Price as PriceFilter;
 use Amasty\Shopby\Model\Layer\GetSelectedFiltersSettings;
@@ -27,10 +28,21 @@ use Amasty\ShopbyBase\Helper\OptionSetting as OptionSettingHelper;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Swatches\Helper\Data as SwatchesHelper;
 
-class Data
+class Data extends AbstractHelper
 {
     public const UNFOLDED_OPTIONS_STATE = 'amshopby/general/unfolded_options_state';
 
+    /**
+     * @deprecated setting moved to ConfigProvider
+     * @see \Amasty\ShopbyBase\Model\ConfigProvider
+     */
+    public const AMSHOPBY_ROOT_GENERAL_URL_PATH = 'amshopby_root/general/url';
+
+    /**
+     * @deprecated setting moved to ConfigProvider
+     * @see \Amasty\ShopbyBase\Model\ConfigProvider
+     */
+    public const AMSHOPBY_ROOT_ENABLED_PATH = 'amshopby_root/general/enabled';
     public const CATALOG_SEO_SUFFIX_PATH = 'catalog/seo/category_url_suffix';
     public const AMSHOPBY_INDEX_INDEX = 'amshopby_index_index';
     public const SHOPBY_AJAX = 'shopbyAjax';
@@ -74,15 +86,23 @@ class Data
      */
     private $layerResolver;
 
+    /**
+     * @var MobileDetect
+     */
+    private $mobileDetect;
+
     public function __construct(
+        Context $context,
         Resolver $layerResolver,
         StoreManagerInterface $storeManager,
         Request $shopbyRequest,
         SwatchesHelper $swatchHelper,
         OptionSettingHelper $optionSettingHelper,
         Registry $registry,
-        UrlBuilderInterface $amUrlBuilder
+        UrlBuilderInterface $amUrlBuilder,
+        MobileDetect $mobileDetect
     ) {
+        parent::__construct($context);
         $this->layerResolver = $layerResolver;
         $this->storeManager = $storeManager;
         $this->shopbyRequest = $shopbyRequest;
@@ -90,16 +110,51 @@ class Data
         $this->swatchHelper = $swatchHelper;
         $this->optionSettingHelper = $optionSettingHelper;
         $this->amUrlBuilder = $amUrlBuilder;
+        $this->mobileDetect = $mobileDetect;
     }
 
     /**
      * @return array
      * @deprecated
-     * @see \Amasty\Shopby\Model\Layer\GetSelectedFiltersSettings::execute()
      */
     public function getSelectedFiltersSettings()
     {
         return ObjectManager::getInstance()->get(GetSelectedFiltersSettings::class)->execute();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAjaxEnabled()
+    {
+        return $this->isAjaxSettingEnabled()
+            || $this->collectFilters();
+    }
+
+    /**
+     * @deprecated moved to separate class
+     * @see ConfigProvider::isAjaxEnabled()
+     * @return bool
+     */
+    public function isAjaxSettingEnabled()
+    {
+        return ObjectManager::getInstance()
+            ->get(ConfigProvider::class)
+            ->isAjaxEnabled();
+    }
+
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getTooltipUrl()
+    {
+        $baseUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        $tooltipImage = $this->scopeConfig->getValue('amshopby/tooltips/image', ScopeInterface::SCOPE_STORE);
+        if (empty($tooltipImage)) {
+            return '';
+        }
+        return $baseUrl . $tooltipImage;
     }
 
     /**
@@ -112,17 +167,15 @@ class Data
         $filter = $filterItem->getFilter();
         $data = $this->shopbyRequest->getFilterParam($filter);
 
-        if (empty($data) && !is_numeric($data)) {
-            return 0;
-        }
+        if (!empty($data)) {
+            $ids = explode(',', $data);
+            if ($this->isNeedCheckOption($filter)) {
+                $ids = array_map('intval', $ids ?? []);
+            }
 
-        $ids = explode(',', $data);
-        if ($this->isNeedCheckOption($filter)) {
-            $ids = array_map('intval', $ids ?? []);
-        }
-
-        if (in_array($filterItem->getValue(), $ids)) {
-            return 1;
+            if (in_array($filterItem->getValue(), $ids)) {
+                return 1;
+            }
         }
 
         return 0;
@@ -171,14 +224,40 @@ class Data
     }
 
     /**
-     * @return Layer
+     * @return string|null
      */
-    private function getLayer()
+    public function getThumbnailPlaceholder()
     {
-        if (!$this->layer) {
-            $this->layer = $this->layerResolver->get();
-        }
-        return $this->layer;
+        return $this->scopeConfig->getValue('catalog/category_placeholder/thumbnail');
+    }
+
+    public function getSubmitFiltersDesktop(): int
+    {
+        return (int) $this->scopeConfig->getValue(
+            'amshopby/general/submit_filters_on_desktop',
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function getSubmitFiltersMobile(): int
+    {
+        return (int) $this->scopeConfig->getValue(
+            'amshopby/general/submit_filters_on_mobile',
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function collectFilters(): int
+    {
+        return $this->mobileDetect->isMobile() ? $this->getSubmitFiltersMobile() : $this->getSubmitFiltersDesktop();
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnfoldedCount()
+    {
+        return (int)$this->scopeConfig->getValue(self::UNFOLDED_OPTIONS_STATE, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -211,12 +290,72 @@ class Data
     }
 
     /**
+     * @deprecated moved to separate class
+     * @return string
+     */
+    public function getAllProductsUrlKey()
+    {
+        return ObjectManager::getInstance()
+            ->get(\Amasty\ShopbyBase\Model\ConfigProvider::class)
+            ->getAllProductsUrlKey();
+    }
+
+    /**
+     * @deprecated moved to separate class
+     * @return bool
+     */
+    public function isAllProductsEnabled()
+    {
+        return ObjectManager::getInstance()
+            ->get(\Amasty\ShopbyBase\Model\AllProductsConfig::class)
+            ->isAllProductsAvailable();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCatalogSeoSuffix()
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::CATALOG_SEO_SUFFIX_PATH,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * @return Layer
+     */
+    public function getLayer()
+    {
+        if (!$this->layer) {
+            $this->layer = $this->layerResolver->get();
+        }
+        return $this->layer;
+    }
+
+    /**
+     * @return \Magento\Framework\App\RequestInterface
+     */
+    public function getRequest()
+    {
+        return parent::_getRequest();
+    }
+
+    /**
      * @return bool
      * @deprecated
-     * @see \Amasty\Shopby\Model\Layer\IsBrandPage::execute
      */
     public function isBrandPage(): bool
     {
         return ObjectManager::getInstance()->get(IsBrandPage::class)->execute();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShopbyPageWithAjax()
+    {
+        return $this->getRequest()->getParam(self::SHOPBY_AJAX)
+            && $this->getRequest()->getFullActionName() == self::AMSHOPBY_INDEX_INDEX;
     }
 }

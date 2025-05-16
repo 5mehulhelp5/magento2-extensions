@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Reports Base for Magento 2
+ */
+
+use Amasty\Reports\ViewModel\BoughtTogetherDemo;
+use Magento\Backend\Block\Template;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Template $block
+ * @var Escaper $escaper
+ * @var BoughtTogetherDemo $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+?>
+<div class="bought-together-demo">
+    <div class="bought-together-demo-link">
+        <form method="post" action="<?= $escaper->escapeUrl($viewModel->getSubscribeUrl() ?? '') ?>" target="_blank">
+            <button class="action- scalable primary bought-together-demo-action">
+                <img class="lock-image" src="<?= $escaper->escapeUrl($block->getViewFileUrl('Amasty_Reports::img/locked.svg')) ?>">
+                <span><?= $escaper->escapeHtml(__('Unlock functionality')) ?></span>
+            </button>
+        </form>
+    </div>
+</div>

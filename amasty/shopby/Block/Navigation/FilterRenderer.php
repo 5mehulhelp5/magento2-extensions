@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Navigation;
 
 use Amasty\Shopby\Helper\Category;
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Amasty\Shopby\Model\Source\SubcategoriesView;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\Shopby\Helper\FilterSetting;
@@ -89,11 +88,6 @@ class FilterRenderer extends \Magento\LayeredNavigation\Block\Navigation\FilterR
      */
     private $isMultiselect;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Context $context,
         FilterSetting $settingHelper,
@@ -105,7 +99,6 @@ class FilterRenderer extends \Magento\LayeredNavigation\Block\Navigation\FilterR
         IsShowProductQuantities $isShowProductQuantities,
         ConfigProvider $configProvider,
         IsMultiselect $isMultiselect,
-        MobileConfigResolver $mobileConfigResolver,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -118,7 +111,6 @@ class FilterRenderer extends \Magento\LayeredNavigation\Block\Navigation\FilterR
         $this->isShowProductQuantities = $isShowProductQuantities;
         $this->configProvider = $configProvider;
         $this->isMultiselect = $isMultiselect;
-        $this->mobileConfigResolver = $mobileConfigResolver;
     }
 
     /**
@@ -298,7 +290,7 @@ class FilterRenderer extends \Magento\LayeredNavigation\Block\Navigation\FilterR
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**

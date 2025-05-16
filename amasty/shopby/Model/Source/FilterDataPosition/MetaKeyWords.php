@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -12,7 +12,7 @@ use Amasty\Shopby\Model\Source;
 class MetaKeyWords extends Source\AbstractFilterDataPosition implements \Magento\Framework\Option\ArrayInterface
 {
     /**
-     * @return void
+     * @return mixed|void
      */
     protected function _setLabel()
     {

@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Helper;
 
-use Amasty\Shopby\Model\Layer\GetSelectedFiltersSettings;
-use Amasty\Shopby\Model\Layer\IsBrandPage;
 use Amasty\Shopby\Model\Source\AbstractFilterDataPosition;
 use Amasty\ShopbyBase\Api\CategoryDataSetterInterface;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
-use Amasty\ShopbyBase\Api\Data\OptionSettingInterfaceFactory as OptionSettingFactory;
 use Amasty\ShopbyBase\Model\Category\Manager as CategoryManager;
 use Amasty\ShopbyBase\Model\Meta\GetReplacedMetaData;
 use Amasty\ShopbyPage\Model\Page as PageEntity;
@@ -23,7 +20,6 @@ use Magento\Catalog\Model\Category as CategoryModel;
 use Magento\Catalog\Model\Layer\Filter\FilterInterface;
 use Magento\Catalog\Model\ResourceModel\Eav\Attribute;
 use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\ScopeInterface;
 
 class Content extends AbstractHelper implements CategoryDataSetterInterface
@@ -111,21 +107,6 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
      */
     private $getReplacedMetaData;
 
-    /**
-     * @var GetSelectedFiltersSettings
-     */
-    private $getSelectedFilters;
-
-    /**
-     * @var IsBrandPage
-     */
-    private $isBrandPage;
-
-    /**
-     * @var OptionSettingFactory
-     */
-    private $optionSettingFactory;
-
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Catalog\Model\Layer\Resolver $layerResolver,
@@ -138,10 +119,7 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
         Data $dataHelper,
         \Amasty\ShopbyBase\Helper\Data $baseHelper,
         \Amasty\ShopbyBase\Helper\Meta $metaHelper,
-        GetReplacedMetaData $getReplacedMetaData,
-        GetSelectedFiltersSettings $getSelectedFilters,
-        IsBrandPage $isBrandPage,
-        ?OptionSettingFactory $optionSettingFactory = null
+        GetReplacedMetaData $getReplacedMetaData
     ) {
         parent::__construct($context);
         $this->pageConfig = $pageConfig;
@@ -156,10 +134,6 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
         $this->baseHelper = $baseHelper;
         $this->getReplacedMetaData = $getReplacedMetaData;
         $this->initCategoryDataSettings();
-        $this->getSelectedFilters = $getSelectedFilters;
-        $this->isBrandPage = $isBrandPage;
-        $this->optionSettingFactory = $optionSettingFactory
-            ?? ObjectManager::getInstance()->get(OptionSettingFactory::class);
     }
 
     private function initCategoryDataSettings()
@@ -225,8 +199,8 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
         if ($this->optionSettings === null) {
             $this->applyFilters();
             $this->optionSettings = [];
-            $isBrandOrAjax = $this->isBrandPage->execute() || $this->isShopbyPageWithAjax();
-            foreach ($this->getSelectedFilters->execute() as $row) {
+            $isBrandOrAjax = $this->_helper->isBrandPage() || $this->_helper->isShopbyPageWithAjax();
+            foreach ($this->_helper->getSelectedFiltersSettings() as $row) {
                 /** @var FilterInterface $filter */
                 $filter = $row['filter'];
                 /** @var Attribute $attrModel */
@@ -240,39 +214,8 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
                 if (!$filterApplicableTo) {
                     continue;
                 }
-
                 /** @var FilterSettingInterface $filterSetting */
                 $filterSetting = $row['setting'];
-
-                $this->populateOptionsSettings($filter, $filterSetting, $attrModel, $filterApplicableTo);
-            }
-        }
-
-        return $this->optionSettings;
-    }
-
-    private function populateOptionsSettings(
-        FilterInterface $filter,
-        FilterSettingInterface $filterSetting,
-        Attribute $attrModel,
-        array $filterApplicableTo
-    ) {
-        switch ($filterSetting->getAttributeCode()) {
-            case 'price':
-                foreach ($this->layer->getState()->getFilters() as $appliedFilterItem) {
-                    if ($appliedFilterItem->getFilter()->getAttributeModel()->getAttributeCode() === 'price') {
-                        $option = $this->optionSettingFactory->create();
-                        $option->setTitle($appliedFilterItem->getLabel());
-                        foreach ($filterApplicableTo as $applyTo) {
-                            $option->setData($applyTo, true);
-                        }
-
-                        $this->optionSettings[] = $option;
-                        break;
-                    }
-                }
-                break;
-            default:
                 $values = explode(',', $this->amshopbyRequest->getParam($filter->getRequestVar()));
                 foreach ($values as $v) {
                     $option = $this->getOption((string)$v, $filterSetting->getAttributeCode(), $attrModel);
@@ -282,17 +225,10 @@ class Content extends AbstractHelper implements CategoryDataSetterInterface
 
                     $this->optionSettings[] = $option;
                 }
-                break;
+            }
         }
-    }
 
-    /**
-     * @return bool
-     */
-    private function isShopbyPageWithAjax()
-    {
-        return $this->_request->getParam(Data::SHOPBY_AJAX)
-            && $this->_request->getFullActionName() == Data::AMSHOPBY_INDEX_INDEX;
+        return $this->optionSettings;
     }
 
     /**

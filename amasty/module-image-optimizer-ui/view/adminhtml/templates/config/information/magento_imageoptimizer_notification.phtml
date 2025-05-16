@@ -1,0 +1,14 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */ /** @var \Amasty\ImageOptimizerUi\Block\Adminhtml\System\Config\InformationBlocks\ToolsInformation $block */ ?>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<div>
+    <?php if (!empty($tools = $block->getUnavailableTools())): ?>
+        <p class="message message-notice">
+            <?= $escaper->escapeHtml($block->getNotificationText($tools), ['a']) ?>
+        </p>
+    <?php endif;?>
+</div>

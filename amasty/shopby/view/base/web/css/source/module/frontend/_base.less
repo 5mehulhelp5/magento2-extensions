@@ -118,7 +118,7 @@
         }
     }
 
-    //  magento styles override
+    // magento styles override
     .filter-options .am-swatch-wrapper {
         & {
             line-height: initial;
@@ -144,7 +144,7 @@
         }
 
         .filter-options-content {
-            background-color: @filter-options-content__background-color;
+            background-color: #fff;
             border: 1px solid transparent;
             border-radius: 6px;
             box-shadow: 0 4px 8px rgba(190, 199, 219, .21), 0 6px 25px rgba(190, 199, 219, .28);
@@ -249,7 +249,7 @@
             display: none;
         }
     }
-    //  end magento styles override
+    // end magento styles override
 
     .am-filter-items-attr_price {
         max-width: 350px;
@@ -273,7 +273,7 @@
 
     .amshopby-category-dropdown {
         & {
-            background-color: @amshopby-category-dropdown__background-color;
+            background-color: #fff;
             border: 1px solid @amshopby-dropdown__border-color;
             cursor: pointer;
             display: block;
@@ -287,7 +287,7 @@
         }
 
         &:after {
-            border-color: @amshopby-category-dropdown__after__border-color transparent transparent;
+            border-color: #000 transparent transparent;
             border-style: solid;
             border-width: .5rem .4rem 0;
             box-sizing: border-box;
@@ -302,7 +302,7 @@
         }
 
         &:before {
-            background-color: @amshopby-category-dropdown__before__background-color;
+            background-color: #e3e3e3;
             border: 1px solid @amshopby-dropdown__border-color;
             bottom: 0;
             content: '';
@@ -336,8 +336,8 @@
 
     .am-category-wrapper .am-multiselect-crumb {
         & {
-            background-color: @am-multiselect-crumb__background-color;
-            border: 1px solid @am-multiselect-crumb__border;
+            background-color: #f5f5f5;
+            border: 1px solid #a79d95;
             border-radius: 1px;
             display: inline-block;
             font-size: 1.2rem;
@@ -353,7 +353,7 @@
             border-radius: 0;
             bottom: 0;
             box-shadow: none;
-            color: @am-multiselect-crumb__action-close__color;
+            color: #514943;
             font-size: .5em;
             height: auto;
             line-height: 1;
@@ -455,10 +455,10 @@
 
     .am-collapse-icon {
         & {
-            -webkit-font-smoothing: antialiased;
             border-radius: 50%;
             box-sizing: border-box;
             cursor: pointer;
+            -webkit-font-smoothing: antialiased;
             font-style: normal;
             font-weight: @font-weight__regular;
             height: @amshopby-collapse-icon__size;
@@ -468,7 +468,6 @@
         }
 
         &:after {
-            /* phpcs:ignore Magento2.Less.Quotes.DoubleQuotes */
             background: ~'url("../Amasty_Shopby/images/svg/arrow-bottom.svg") no-repeat 100% / contain';
             content: '';
             height: @amshopby-collapse-icon__size;
@@ -496,9 +495,9 @@
         }
 
         img:not([src*='/resized']) {
-            //  don't set max size for resized images
-            max-height: 30px;
+            //don't set max size for resized images
             max-width: 30px;
+            max-height: 30px;
         }
     }
 
@@ -572,7 +571,7 @@
 
             &:hover:after,
             &:hover:before {
-                background-color: @amshopby-remove__hover-after__hover-before__background-color;
+                background-color: #494949;
             }
 
             &:hover ~ * {
@@ -581,7 +580,7 @@
 
             &:after,
             &:before {
-                background-color: @amshopby-remove__after__before__background-color;
+                background-color: #c7c7c7;
                 content: '';
                 height: 1px;
                 position: absolute;
@@ -614,8 +613,8 @@
 
     .am-dropdown .am-select,
     .am-dropdown .chosen-container .chosen-choices {
-        background-color: @am-dropdown__chosen-container__background-color;
-        border-color: @am-dropdown__chosen-container__border-color;
+        background-color: #fff;
+        border-color: #ccc;
         font-family: @font-family__base;
         font-size: 14px;
         min-height: 32px;
@@ -626,13 +625,9 @@
     }
 
     .am-dropdown .chosen-container-multi .chosen-choices li.search-field input[type='text'] {
-        color: @am-dropdown__chosen-container-multi__color;
+        color: #000;
         font-family: @font-family__base;
         min-width: 100px;
-    }
-
-    .filter-options-content [class*='am-filter-items-'] .label {
-        word-break: break-word;
     }
 }
 
@@ -718,7 +713,7 @@
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
     .sidebar.sidebar-main.-amshopby-sticky {
         & {
-            background: @sidebar__sidebar-main__-amshopby-sticky__background;
+            background: #fff;
             position: sticky;
             top: 0;
             z-index: 10;

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Navigation\FilterRenderer;
 
 use Amasty\Shopby\Helper\Category as CategoryHelper;
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Amasty\Shopby\Model\Layer\Filter\Item as FilterItem;
 use Amasty\Shopby\Model\UrlResolver\UrlResolverInterface;
 use Amasty\Shopby\Helper\FilterSetting;
@@ -74,11 +73,6 @@ class Category extends \Magento\Framework\View\Element\Template
      */
     private $isMultiselect;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Context $context,
         FilterSetting $settingHelper,
@@ -89,7 +83,6 @@ class Category extends \Magento\Framework\View\Element\Template
         IsApplyFlyOut $isApplyFlyOut,
         IsShowProductQuantities $isShowProductQuantities,
         IsMultiselect $isMultiselect,
-        MobileConfigResolver $mobileConfigResolver,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -101,7 +94,6 @@ class Category extends \Magento\Framework\View\Element\Template
         $this->isApplyFlyOut = $isApplyFlyOut;
         $this->isShowProductQuantities = $isShowProductQuantities;
         $this->isMultiselect = $isMultiselect;
-        $this->mobileConfigResolver = $mobileConfigResolver;
     }
 
     /**
@@ -148,7 +140,7 @@ class Category extends \Magento\Framework\View\Element\Template
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**
@@ -288,6 +280,6 @@ class Category extends \Magento\Framework\View\Element\Template
 
     public function isFilterActive(FilterItem $filterItem): bool
     {
-        return in_array($filterItem->getValue(), $this->layer->getCurrentCategory()->getPathIds(), false);
+        return in_array($filterItem->getValue(), $this->layer->getCurrentCategory()->getParentIds());
     }
 }

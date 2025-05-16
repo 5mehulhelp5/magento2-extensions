@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -58,9 +58,6 @@ interface FilterSettingInterface
     public const RENDER_ALL_CATEGORIES_TREE = 'render_all_categories_tree';
     public const RENDER_CATEGORIES_LEVEL = 'render_categories_level';
     public const HIDE_ZEROS = 'hide_zeros';
-    public const RANGE_ALGORITHM = 'range_algorithm';
-    public const RANGE_STEP = 'range_step';
-    public const ATTRIBUTE_ID = 'attribute_id';
 
     /**
      * @return int|null
@@ -528,47 +525,4 @@ interface FilterSettingInterface
      * @return void
      */
     public function setHideZeros(bool $hideZeros): void;
-
-    /**
-     * For price attributes in Ranges Display Mode.
-     * @see \Amasty\Shopby\Model\Source\RangeAlgorithm
-     *
-     * @return int
-     */
-    public function getRangeAlgorithm(): ?int;
-
-    /**
-     * For price attributes in Ranges Display Mode.
-     * @see \Amasty\Shopby\Model\Source\RangeAlgorithm
-     *
-     * @param int $rangeAlgorithm
-     * @return void
-     */
-    public function setRangeAlgorithm(int $rangeAlgorithm): void;
-
-    /**
-     * For price attributes in Ranges Display Mode and Custom Range Algorithm.
-     *
-     * @return float
-     */
-    public function getRangeStep(): ?float;
-
-    /**
-     * For price attributes in Ranges Display Mode and Custom Range Algorithm.
-     *
-     * @param float $rangeStep
-     * @return void
-     */
-    public function setRangeStep(float $rangeStep): void;
-
-    /**
-     * @return int|null
-     */
-    public function getAttributeId(): ?int;
-
-    /**
-     * @param int $attributeId
-     * @return void
-     */
-    public function setAttributeId(int $attributeId): void;
 }

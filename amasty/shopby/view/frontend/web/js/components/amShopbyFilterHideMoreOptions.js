@@ -48,7 +48,7 @@ define([
             buttons.each(function (index, element) {
                 if (!$(element).attr('first_load')) {
                     $(element).attr('first_load', true);
-                    self.toggle(element);
+                    $(element).click();
                 }
             });
         },
@@ -64,10 +64,11 @@ define([
             $(this.element)
                 .closest(self.selectors.filterOptionsContent)
                 .on('search_active', function () {
-                    const showMoreButton = $(this).find(self.options.buttonSelector);
+                    if (self.options.isHideCurrent) {
+                        self.toggle(self.options.buttonSelector);
+                    }
 
-                    !!self.options.isHideCurrent && self.showAll(showMoreButton);
-                    showMoreButton.removeClass(self.classes.active);
+                    buttons.removeClass(self.classes.active);
                 });
 
             $(this.element)
@@ -75,11 +76,7 @@ define([
                 .on('search_inactive', function () {
                     if (!buttons.hasClass(self.classes.disabled)) {
                         if (!self.options.isHideCurrent) {
-                            const showMoreButton = $(this).find(self.options.buttonSelector);
-
-                            !!showMoreButton.get(0)?.isHideCurrent
-                                ? self.hideAll(showMoreButton)
-                                : self.showAll(showMoreButton);
+                            self.toggle(self.options.buttonSelector);
                         }
 
                         buttons.addClass(self.classes.active);

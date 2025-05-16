@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\QuickOrder\Model\ItemConverter">
+        <plugin name="Amasty_ImageOptimizer::QuickOrderImageReplace" type="Amasty\ImageOptimizer\Plugin\QuickOrder\Model\ItemConverter\QuickOrderImageReplace" />
+    </type>
+    <type name="Magento\Swatches\Helper\Data">
+        <plugin name="Amasty_ImageOptimizer::SwatchImageReplace" type="Amasty\ImageOptimizer\Plugin\Swatches\Helper\Data\SwatchImageReplace" />
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Amasty_ImageOptimizer::SwatchGalleryReplace" type="Amasty\ImageOptimizer\Plugin\ConfigurableProduct\Block\Product\View\Type\Configurable\SwatchGalleryReplace" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="Amasty_ImageOptimizer::ProductGalleryReplace" type="Amasty\ImageOptimizer\Plugin\Catalog\Block\Product\View\Gallery\ProductGalleryReplace" sortOrder="10"/>
+    </type>
+    <type name="Amasty\PromoBanners\Block\Banner">
+        <plugin name="Amasty_ImageOptimizer::ReplaceImg" type="Amasty\ImageOptimizer\Plugin\PromoBanners\Block\Banner\ReplaceImg" sortOrder="15"/>
+    </type>
+    <type name="Amasty\Mostviewed\Block\Widget\Related">
+        <plugin name="Amasty_ImageOptimizer::MostviewedImageReplace" type="Amasty\ImageOptimizer\Plugin\Mostviewed\Block\Widget\Related\MostviewedImageReplace" />
+    </type>
+    <type name="Magento\Swatches\Block\Product\Renderer\Configurable">
+        <plugin name="Amasty_ImageOptimizer::CategoryPageSwatchImageReplace" type="Amasty\ImageOptimizer\Plugin\Swatches\Block\Product\Renderer\Configurable\CategoryPageSwatchImageReplace"/>
+    </type>
+</config>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Alerts\Price"
+                type="Amasty\Xnotif\Block\Adminhtml\Catalog\Product\Edit\Tab\Alerts\Price"/>
+    <preference for="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Alerts\Stock"
+                type="Amasty\Xnotif\Block\Adminhtml\Catalog\Product\Edit\Tab\Alerts\Stock"/>
+
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="product_alerts" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\Xnotif\Ui\DataProvider\Product\Form\Modifier\Alerts</item>
+                    <item name="sortOrder" xsi:type="number">130</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Backend\Model\Url">
+        <plugin name="Amasty_Xnotif::test-frontend-url" type="Amasty\Xnotif\Plugins\Backend\Model\Url"/>
+    </type>
+
+    <type name="Magento\Framework\App\Config\Value">
+        <plugin name="Amasty_Xnotif::sync-qty-below" type="Amasty\Xnotif\Plugins\Backend\Config\ValueSync"/>
+    </type>
+
+    <type name="Magento\PageBuilder\Model\Stage\Preview">
+        <plugin name="Amasty_Xnotif::fix-ee-234-image-factory-bug"
+                type="Amasty\Xnotif\Plugins\PageBuilder\Model\Stage\Preview" sortOrder="1" />
+    </type>
+
+    <type name="Amasty\Xnotif\ViewModel\Analytics\Filters">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_XnotifSubscriptionFunctionality</argument>
+            <argument name="promoLink" xsi:type="string">https://amasty.com/amcustomer/account/products/?utm_source=extension&amp;utm_medium=backend&amp;utm_campaign=subscribe_outofstocknotification</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="RestockAlertPromo" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_XnotifSubscriptionFunctionality</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string">https://amasty.com/amcustomer/account/products/?utm_source=extension&amp;utm_medium=backend&amp;utm_campaign=subscribe_outofstocknotification</item>
+                <item name="comment" xsi:type="string">
+                    <![CDATA[The functionality is available as part of an active product subscription or support
+                     subscription. To upgrade and obtain functionality please follow the <a target="_blank"
+                     href="https://amasty.com/amcustomer/account/products/?utm_source=extension&amp;utm_medium=backend
+                     &amp;utm_campaign=subscribe_outofstocknotification">link</a>.
+                     Than you can find the 'amasty/module-out-of-stock-notification-persistent-restock-email'
+                     package for installation in composer suggest.]]>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="XnotifSubscriptionFunctionality" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_XnotifSubscriptionFunctionality</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string">https://amasty.com/amcustomer/account/products/?utm_source=extension&amp;utm_medium=backend&amp;utm_campaign=subscribe_outofstocknotification</item>
+                <item name="comment" xsi:type="string">
+                    <![CDATA[The functionality is available as a part of an active product subscription or support
+                     subscription. To upgrade and obtain functionality, please follow the <a target="_blank"
+                     href="https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend
+                     &utm_campaign=subscribe_outofstocknotification">link</a>.
+                     Then you can find the 'amasty/xnotif-subscription-functionality' package for installation in composer suggest.]]>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

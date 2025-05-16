@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\Layer\Filter;
 
-use Amasty\Shopby\Model\ConfigProvider;
+use Amasty\Shopby\Helper\FilterSetting;
 use Amasty\Shopby\Model\Layer\Filter\Resolver\FilterRequestDataResolver;
 use Amasty\Shopby\Model\Layer\Filter\Resolver\FilterSettingResolver;
 use Amasty\ShopbyBase\Model\FilterSetting\IsMultiselect;
 use Amasty\ShopbyBase\Model\OptionSettingRepository;
 use Magento\Catalog\Model\Layer;
 use Magento\Framework\Api\Search\SearchResultInterface;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\StateException;
 use Magento\Search\Api\SearchInterface;
@@ -42,9 +41,19 @@ class Attribute extends AbstractFilter
     private $tagFilter;
 
     /**
+     * @var FilterSettingInterface
+     */
+    private $filterSetting;
+
+    /**
      * @var SearchInterface
      */
     private $search;
+
+    /**
+     * @var  ScopeConfigInterface
+     */
+    private $scopeConfig;
 
     /**
      * @var OptionSettingRepository
@@ -81,11 +90,6 @@ class Attribute extends AbstractFilter
      */
     private $facets;
 
-    /**
-     * @var ConfigProvider|null
-     */
-    private $configProvider;
-
     public function __construct(
         FilterItemFactory $filterItemFactory,
         StoreManagerInterface $storeManager,
@@ -93,12 +97,12 @@ class Attribute extends AbstractFilter
         ItemDataBuilder $itemDataBuilder,
         TagFilter $tagFilter,
         SearchInterface $search,
+        ScopeConfigInterface $scopeConfig,
         OptionSettingRepository $optionSettingRepository,
         MessageManager $messageManager,
         FilterRequestDataResolver $filterRequestDataResolver,
         FilterSettingResolver $filterSettingResolver,
         IsMultiselect $isMultiselect,
-        ConfigProvider $configProvider,
         array $data = []
     ) {
         parent::__construct(
@@ -110,13 +114,13 @@ class Attribute extends AbstractFilter
         );
 
         $this->tagFilter = $tagFilter;
+        $this->scopeConfig = $scopeConfig;
         $this->search = $search;
         $this->optionSettingRepository = $optionSettingRepository;
         $this->messageManager = $messageManager;
         $this->filterRequestDataResolver = $filterRequestDataResolver;
         $this->filterSettingResolver = $filterSettingResolver;
         $this->isMultiselect = $isMultiselect;
-        $this->configProvider = $configProvider;
     }
 
     /**
@@ -165,7 +169,7 @@ class Attribute extends AbstractFilter
     private function getValidRequestedOptions(): array
     {
         $requestedOptionsString = $this->filterRequestDataResolver->getFilterParam($this);
-        if (empty($requestedOptionsString) && !is_numeric($requestedOptionsString)) {
+        if (empty($requestedOptionsString)) {
             return [];
         }
 
@@ -174,7 +178,7 @@ class Attribute extends AbstractFilter
         foreach ($requestedOptions as $key => $option) {
             if (!in_array($option, $availableOptions)) {
                 // clear wrong value. can't parse to int to make it work with Grouped options
-                $requestedOptions[$key] = '0';
+                $requestedOptions[$key] = '';
             }
         }
 
@@ -254,8 +258,6 @@ class Attribute extends AbstractFilter
      */
     public function sortOption($a, $b)
     {
-        $a['label'] = (string)$a['label'];
-        $b['label'] = (string)$b['label'];
         $pattern = '@^(\d+)@';
         if (preg_match($pattern, $a['label'], $ma) && preg_match($pattern, $b['label'], $mb)) {
             $r = $ma[1] - $mb[1];
@@ -271,8 +273,7 @@ class Attribute extends AbstractFilter
     {
         if ($this->isVisible === null) {
             $this->isVisible = true;
-            $value = $this->filterRequestDataResolver->getFilterParam($this);
-            if ((!empty($value) || is_numeric($value))
+            if ($this->filterRequestDataResolver->getFilterParam($this)
                 && !$this->filterRequestDataResolver->isVisibleWhenSelected($this)
             ) {
                 return $this->isVisible = false;
@@ -466,25 +467,14 @@ class Attribute extends AbstractFilter
      * @param array $optionsFacetedData
      *
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @SuppressWarnings(PHPMD.ShortVariable)
      */
     private function addItemsToDataBuilder($options, $optionsFacetedData)
     {
         if (!$options) {
             return;
         }
-
-        if ($this->filterSettingResolver->getFilterSetting($this)->getSortOptionsBy() == SortOptionsBy::PRODUCT_COUNT) {
-            usort($options, static function ($a, $b) use ($optionsFacetedData) {
-                $aCount = $optionsFacetedData[$a['value']]['count'] ?? 0;
-                $bCount = $optionsFacetedData[$b['value']]['count'] ?? 0;
-
-                return $bCount <=> $aCount;
-            });
-        }
-
         foreach ($options as $option) {
-            if (empty($option['value']) && !is_numeric($option['value'])) {
+            if (empty($option['value'])) {
                 continue;
             }
 
@@ -512,15 +502,13 @@ class Attribute extends AbstractFilter
     private function getItemsFromDataBuilder()
     {
         $itemsData = $this->itemDataBuilder->build();
-
-        if ($this->configProvider->isHideFilterWithOneOption()
-            && count($itemsData) == 1
+        if (count($itemsData) == 1
             && !$this->isOptionReducesResults(
                 $itemsData[0]['count'],
                 $this->getLayer()->getProductCollection()->getSize()
             )
         ) {
-            return $this->filterRequestDataResolver->getReducedItemsData($this, $itemsData);
+            $itemsData = $this->filterRequestDataResolver->getReducedItemsData($this, $itemsData);
         }
 
         return $itemsData;

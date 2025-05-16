@@ -29,7 +29,7 @@ class Category extends AbstractHelper
     ) {
         $this->storeManager = $storeManager;
 
-        return parent::__construct($context);
+        parent::__construct($context);
     }
 
     public function getMinimalPrice(\Magento\Catalog\Model\Category $category)

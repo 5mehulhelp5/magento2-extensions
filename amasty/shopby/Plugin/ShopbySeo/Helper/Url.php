@@ -1,14 +1,15 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Plugin\ShopbySeo\Helper;
 
 use Amasty\Shopby\Helper\Category;
-use Amasty\ShopbyBase\Model\ConfigProvider as BaseConfigProvider;
+use Amasty\Shopby\Helper\Data as ShopbyHelper;
+use Amasty\ShopbyBrand\Helper\Data as BrandHelper;
 use Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
@@ -19,6 +20,16 @@ class Url
 {
     public const CATEGORY_FILTER_PARAM_NAME = 'cat';
     public const SHOPBY_EXTRA_PARAM = 'amshopby';
+
+    /**
+     * @var BrandHelper
+     */
+    private $brandHelper;
+
+    /**
+     * @var ShopbyHelper
+     */
+    private $shopbyHelper;
 
     /**
      * @var UrlRewrite[]
@@ -40,32 +51,29 @@ class Url
      */
     private $storeManager;
 
-    /**
-     * @var BaseConfigProvider
-     */
-    private $baseConfig;
-
     public function __construct(
+        BrandHelper $brandHelper,
+        ShopbyHelper $shopbyHelper,
         UrlFinderInterface $urlFinder,
         StoreManagerInterface $storeManager,
-        Category $categoryHelper,
-        BaseConfigProvider $baseConfig
+        Category $categoryHelper
     ) {
+        $this->brandHelper = $brandHelper;
+        $this->shopbyHelper = $shopbyHelper;
         $this->shopbyCategoryHelper = $categoryHelper;
         $this->urlFinder = $urlFinder;
         $this->storeManager = $storeManager;
-        $this->baseConfig = $baseConfig;
     }
 
     /**
-     * @param \Amasty\ShopbySeo\Helper\Url $subject
-     * @param string $identifier
-     * @param array $preparedSeoAliases
+     * @param $subject
+     * @param $identifier
+     * @param $preparedSeoAliases
      * @return array
      */
     public function beforeModifySeoIdentifierByAlias($subject, $identifier, $preparedSeoAliases)
     {
-        $allProductsIdentifier = $this->baseConfig->getAllProductsUrlKey();
+        $allProductsIdentifier = $this->shopbyHelper->getAllProductsUrlKey();
 
         if ($allProductsIdentifier == $identifier && $subject->hasCategoryFilterParam()) {
             $categoryId = $subject->getParam(self::CATEGORY_FILTER_PARAM_NAME);
@@ -85,7 +93,7 @@ class Url
     }
 
     /**
-     * @param \Amasty\ShopbySeo\Helper\Url $subject
+     * @param $subject
      * @param array $result
      * @return array
      */
@@ -104,7 +112,7 @@ class Url
     }
 
     /**
-     * @param \Amasty\ShopbySeo\Helper\Url $subject
+     * @param $subject
      * @param bool $result
      * @return bool
      */
@@ -128,6 +136,7 @@ class Url
             } catch (NoSuchEntityException $e) {
                 $this->rewrites[$categoryId] = null;
             }
+
         }
 
         return $this->rewrites[$categoryId];

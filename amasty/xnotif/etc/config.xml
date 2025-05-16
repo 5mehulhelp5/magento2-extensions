@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amxnotif>
+            <general>
+                <account_image>0</account_image>
+                <customer_name>Dear Friend</customer_name>
+                <min_qty>1</min_qty>
+                <show_out_of_stock_only>0</show_out_of_stock_only>
+            </general>
+            <stock>
+                <customer_group>-1</customer_group>
+                <subscribe_category>0</subscribe_category>
+                <with_popup>0</with_popup>
+                <placeholder>Insert your email</placeholder>
+            </stock>
+            <price>
+                <customer_group>-1</customer_group>
+            </price>
+            <customer_notifications>
+                <price_notification_enabled>0</price_notification_enabled>
+                <stock_notification_enabled>0</stock_notification_enabled>
+            </customer_notifications>
+            <gdrp>
+                <enabled>0</enabled>
+                <text><![CDATA[I have read & accept the <a target="_blank" href="/privacy-policy">Privacy Policy</a>]]></text>
+            </gdrp>
+        </amxnotif>
+    </default>
+</config>

@@ -31,7 +31,7 @@ define([
          */
         _create: function () {
             var self = this,
-                items = $(this.element).parents(this.getParentSelector()).find(this.options.itemsSelector
+                items = $(this.options.itemsSelector
                     + ' ' + this.selectors.item +  ', ' + this.options.itemsSelector + ' ' + this.selectors.swatchLink);
 
             $(self.element).keyup(function () {
@@ -47,7 +47,9 @@ define([
          */
         search: function (searchText, items) {
             var self = this,
-                value;
+                value,
+                parentSelector = !self.options.isState
+                    ? self.selectors.filterOptionsContent : self.selectors.filterContainer;
 
             searchText = searchText.toLowerCase();
 
@@ -74,7 +76,7 @@ define([
 
                         $(item).parent().removeClass(self.classes.hidden);
                         $(item).show();
-                        $(item).parentsUntil(self.getParentSelector()).show();
+                        $(item).parentsUntil(parentSelector).show();
                     } else {
                         self.unHighlight(item);
                         $(item).parent().addClass(self.classes.hidden);
@@ -113,15 +115,6 @@ define([
                 label = $(element).attr('data-label');
 
             target.find(this.selectors.label).html(label);
-        },
-
-        /**
-         * @return {string}
-         */
-        getParentSelector: function () {
-            return !this.options.isState
-                ? this.selectors.filterOptionsContent
-                : this.selectors.filterContainer;
         }
     });
 

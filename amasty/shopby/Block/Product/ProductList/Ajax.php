@@ -1,14 +1,13 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Product\ProductList;
 
 use Amasty\Shopby\Helper\Data;
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Amasty\ShopbyBase\Model\Detection\MobileDetect;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Framework\Module\Manager;
@@ -16,8 +15,6 @@ use Magento\Framework\Registry;
 use Amasty\Shopby\Model\Layer\FilterList;
 use \Magento\Framework\DataObject\IdentityInterface;
 use \Magento\Catalog\Model\Product\ProductList\ToolbarMemorizer;
-use Magento\GoogleAnalytics\Helper\Data as GoogleAnalyticsData;
-use Magento\GoogleTagManager\Helper\Data as GoogleTagManagerData;
 use Magento\Framework\View\Element\Template\Context;
 
 /**
@@ -57,11 +54,6 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     private $mobileDetect;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Context $context,
         Resolver $layerResolver,
@@ -70,7 +62,6 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
         Manager $moduleManager,
         ToolbarMemorizer $toolbarMemorizer,
         MobileDetect $mobileDetect,
-        MobileConfigResolver $mobileConfigResolver,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -80,7 +71,6 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
         $this->moduleManager = $moduleManager;
         $this->toolbarMemorizer = $toolbarMemorizer;
         $this->mobileDetect = $mobileDetect;
-        $this->mobileConfigResolver = $mobileConfigResolver;
     }
 
     /**
@@ -88,9 +78,7 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     public function isGoogleTagManager()
     {
-        return $this->moduleManager->isEnabled('Magento_GoogleTagManager')
-            && $this->getConfig(GoogleAnalyticsData::XML_PATH_ACTIVE)
-            && $this->getConfig(GoogleTagManagerData::XML_PATH_TYPE) === GoogleTagManagerData::TYPE_TAG_MANAGER;
+        return $this->moduleManager->isEnabled('Magento_GoogleTagManager');
     }
 
     /**
@@ -98,12 +86,12 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     public function canShowBlock()
     {
-        return $this->mobileConfigResolver->isAjaxEnabled();
+        return $this->helper->isAjaxEnabled();
     }
 
     public function submitByClick(): int
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**
@@ -176,7 +164,6 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     public function getGtmAccountId()
     {
-        // @phpstan-ignore class.notFound
         return $this->getConfig(\Magento\GoogleTagManager\Helper\Data::XML_PATH_CONTAINER_ID);
     }
 

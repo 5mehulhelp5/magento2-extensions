@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -9,12 +9,12 @@ namespace Amasty\Shopby\Model\Layer;
 
 use Amasty\Base\Model\MagentoVersion;
 use Amasty\Shopby\Helper\Config;
+use Amasty\Shopby\Helper\FilterSetting;
 use Amasty\Shopby\Model\Layer\Filter\Category;
 use Amasty\Shopby\Model\Request;
 use Amasty\Shopby\Model\Source\FilterPlacedBlock;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\ShopbyBase\Model\FilterSetting\FilterResolver;
-use Amasty\ShopbyBase\Model\FilterSettingRepository;
 use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\FilterableAttributeListInterface;
 use Magento\Catalog\Model\Layer\Search;
@@ -32,6 +32,11 @@ class FilterList extends Layer\FilterList
     public const ALL_FILTERS_KEY  = 'amasty_shopby_all_filters';
     public const ONE_COLUMN_LAYOUT = '1column';
     public const VERSION24 = '2.4.0';
+
+    /**
+     * @var FilterSetting
+     */
+    private $filterSetting;
 
     /**
      * @var Http
@@ -83,26 +88,22 @@ class FilterList extends Layer\FilterList
      */
     private $filterResolver;
 
-    /**
-     * @var FilterSettingRepository
-     */
-    private $filterRepository;
-
     public function __construct(
         ObjectManagerInterface $objectManager,
         FilterableAttributeListInterface $filterableAttributes,
         MagentoVersion $magentoVersion,
+        FilterSetting $filterSettingHelper,
         Http $request,
         Registry $registry,
         Request $shopbyRequest,
         Config $config,
         LayoutInterface $layout,
         FilterResolver $filterResolver,
-        FilterSettingRepository $filterRepository,
         array $filters = [],
         $place = self::PLACE_SIDEBAR
     ) {
         $this->currentPlace = $place;
+        $this->filterSetting = $filterSettingHelper;
         $this->request = $request;
         $this->registry = $registry;
         $this->shopbyRequest = $shopbyRequest;
@@ -128,7 +129,6 @@ class FilterList extends Layer\FilterList
         parent::__construct(...$params);
 
         $this->filterResolver = $filterResolver;
-        $this->filterRepository = $filterRepository;
     }
 
     /**
@@ -230,7 +230,7 @@ class FilterList extends Layer\FilterList
      */
     protected function getFilterBlockPosition(FilterInterface $filter)
     {
-        return $this->filterResolver->resolveByFilter($filter)->getBlockPosition();
+        return $this->filterSetting->getSettingByLayerFilter($filter)->getBlockPosition();
     }
 
     /**
@@ -266,8 +266,8 @@ class FilterList extends Layer\FilterList
         }
 
         $matchedFilters = [];
-        foreach ($listFilters as $filter) {
-            $setting = $this->filterResolver->resolveByFilter($filter);
+        foreach ($listFilters as $idx => $filter) {
+            $setting = $this->filterSetting->getSettingByLayerFilter($filter);
             if (!$this->checkFilterVisibility($setting, $layer->getCurrentCategory()->getId())) {
                 continue;
             }
@@ -338,20 +338,20 @@ class FilterList extends Layer\FilterList
 
     /**
      * At this point filters could not be applied (especially at search page).
-     *
      * @param Layer $layer
      */
-    private function applyFilters(Layer $layer): void
+    private function applyFilters(Layer $layer)
     {
         if ($this->filtersApplied || $layer->getProductCollection()->isLoaded()) {
             return;
         }
-        $this->filtersApplied = true;
 
         foreach ($this->getAllFilters($layer) as $filter) {
             //filter has multiply applying prevention mechanism
             $filter->apply($this->request);
         }
+
+        $this->filtersApplied = true;
     }
 
     /**
@@ -379,7 +379,7 @@ class FilterList extends Layer\FilterList
      */
     protected function getFilterModelId($key)
     {
-        $filter = $this->filterRepository->loadByAttributeCode($key);
+        $filter = $this->filterResolver->getFilterSettingByCode($key);
         $filterModel = $filter ? $filter->getAttributeModel() : false;
 
         return $filterModel ? $filterModel->getId() : 0;
@@ -475,8 +475,8 @@ class FilterList extends Layer\FilterList
      */
     public function sortingByPosition(FilterInterface $first, FilterInterface $second): int
     {
-        $settingA = $this->filterResolver->resolveByFilter($first);
-        $settingB = $this->filterResolver->resolveByFilter($second);
+        $settingA = $this->filterSetting->getSettingByLayerFilter($first);
+        $settingB = $this->filterSetting->getSettingByLayerFilter($second);
 
         if ($isLocalPositionA = ($this->getFilterBlockPosition($first) === FilterPlacedBlock::POSITION_BOTH)) {
             $positionA = $this->getFilterLocalPosition($settingA);

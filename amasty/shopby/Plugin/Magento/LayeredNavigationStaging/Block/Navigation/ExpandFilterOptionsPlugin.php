@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -30,7 +30,7 @@ class ExpandFilterOptionsPlugin
     }
 
     public function afterToHtml(
-        Navigation $subject, // @phpstan-ignore class.notFound
+        Navigation $subject,
         string $html
     ): string {
         $expanded = $this->getFiltersExpanded->execute($subject->getFilters());

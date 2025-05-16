@@ -1,0 +1,37 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/* @var Template $block */
+/* @var Escaper $escaper */
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+?>
+
+<?php
+$lowStockProducts = $block->getData('lowStockProducts');
+if ($lowStockProducts): ?>
+    <table class="details" cellpadding="5" cellspacing="2" border="1">
+        <tr>
+            <th><?= /* @noEscape */  __('Product Name')?></th>
+            <th><?= /* @noEscape */  __('SKU')?></th>
+            <th><?= /* @noEscape */  __('Quantity')?></th>
+        </tr>
+        <?php foreach ($lowStockProducts as $productInfo): ?>
+            <tr>
+                <td>
+                    <?= $escaper->escapeHtml($productInfo['name']); ?>
+                </td>
+                <td>
+                    <?= $escaper->escapeHtml($productInfo['sku']); ?>
+                </td>
+                <td>
+                    <?= $escaper->escapeHtml($productInfo['qty']); ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

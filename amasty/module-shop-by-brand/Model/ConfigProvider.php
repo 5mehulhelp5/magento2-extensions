@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -26,7 +26,6 @@ class ConfigProvider extends ConfigProviderAbstract
      * General group settings path
      */
     public const BRAND_ATTRIBUTE_CODE = 'general/attribute_code';
-    public const BRAND_URL_KEY = 'general/url_key';
     public const TOOLTIP_ENABLED = 'general/tooltip_enabled';
     public const EXCLUDE_EMPTY_SITEMAP_BRAND = 'general/exclude_empty_sitemap_brand';
 
@@ -193,16 +192,10 @@ class ConfigProvider extends ConfigProviderAbstract
     {
         $suffix = '';
         if ($this->scopeConfig->isSetFlag(self::SHOPBY_SEO_SUFFIX)) {
-            $suffix = (string)$this->scopeConfig
+            $suffix = $this->scopeConfig
                 ->getValue(self::CATEGORY_URL_SUFFIX, ScopeInterface::SCOPE_STORE);
         }
 
         return $suffix;
-    }
-
-    public function getBrandUrlKey(?int $storeId = null): ?string
-    {
-        $urlKeyValue = $this->getValue(self::BRAND_URL_KEY, $storeId);
-        return $urlKeyValue ?: null;
     }
 }

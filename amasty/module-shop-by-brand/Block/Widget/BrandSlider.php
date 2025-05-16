@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -41,20 +41,8 @@ class BrandSlider extends BrandListAbstract implements BlockInterface
         $parts['simulateTouch'] = $this->getSimulateTouch();
         $parts['autoplay'] = $this->getAutoplayTime();
         $parts['pagination'] = $this->isPaginationShow();
-        $parts['displayed_brands'] = $this->geHideBrands();
 
         return $parts;
-    }
-
-    /**
-     * Because of nature of how the loop mode works, total number of slides must be >= slidesPerView * 2
-     *
-     * @see https://swiperjs.com/swiper-api#param-loop
-     * @see https://swiperjs.com/migration-guide-v9#loop-mode
-     */
-    public function isLoopAvailable(int $slidesPerView): bool
-    {
-        return $this->getLoop() && $slidesPerView * 2 <= count($this->getItems());
     }
 
     public function getSlidesPerView(): int
@@ -116,7 +104,7 @@ class BrandSlider extends BrandListAbstract implements BlockInterface
         return $this->items;
     }
 
-    public function getItemsFilter(): array
+    private function getItemsFilter(): array
     {
         $filters = [
             FilterItems::FOR_SLIDER => true
@@ -125,8 +113,6 @@ class BrandSlider extends BrandListAbstract implements BlockInterface
         if (!$this->isDisplayZero()) {
             $filters[FilterItems::NOT_EMPTY] = true;
         }
-
-        $filters[FilterItems::HIDED_BRANDS] = $this->geHideBrands();
 
         return $filters;
     }
@@ -154,11 +140,6 @@ class BrandSlider extends BrandListAbstract implements BlockInterface
     public function isSliderEnabled(): bool
     {
         return count($this->getItems()) > $this->getItemNumber();
-    }
-
-    public function geHideBrands(): string
-    {
-        return (string)$this->getData(FilterItems::HIDED_BRANDS);
     }
 
     protected function getConfigValuesPath(): string

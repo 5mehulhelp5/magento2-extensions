@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -13,7 +13,6 @@ namespace Amasty\Shopby\Model\Layer\Filter;
 use Amasty\Shopby\Helper\Category as CategoryHelper;
 use Amasty\Shopby\Helper\Data as ShopbyHelper;
 use Amasty\Shopby\Model\Category\CacheCategoryTree;
-use Amasty\Shopby\Model\Category\CategoryTree;
 use Amasty\Shopby\Model\Category\ExtendedCategoryCollection;
 use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\Layer\Filter\Category\FacetProvider;
@@ -118,15 +117,23 @@ class Category extends AbstractFilter implements CustomFilterInterface
         DataBuilder $itemDataBuilder,
         Escaper $escaper,
         CategoryDataProviderFactory $categoryDataProviderFactory,
+        ?CategoryManager $categoryManager, // @deprecated
+        ?CategoryRepositoryInterface $categoryRepository, // @deprecated
+        ?CategoryExtendedDataBuilder $categoryExtendedDataBuilder, // @deprecated
         CategoryItemsFactory $categoryItemsFactory,
+        ?ShopbyHelper $helper, // @deprecated usage of helper removed
         CategoryHelper $categoryHelper,
+        ?SearchInterface $search, // @deprecated
+        ?MessageManager $messageManager, // @deprecated
+        ?ProductMetadataInterface $productMetadata, // @deprecated
         FilterRequestDataResolver $filterRequestDataResolver,
         FilterSettingResolver $filterSettingResolver,
+        ?CategoryCollectionFactory $categoryCollectionFactory, // @deprecated
         ConfigProvider $configProvider,
-        FacetProvider $facetProvider,
-        CacheCategoryTree $cacheCategoryTree,
-        ExtendedCategoryCollection $extendedCategoryCollection,
-        array $data = []
+        array $data = [],
+        FacetProvider $facetProvider = null, // TODO move to not optional
+        CacheCategoryTree $cacheCategoryTree = null, // TODO move to not optional
+        ExtendedCategoryCollection $extendedCategoryCollection = null // TODO move to not optional
     ) {
         parent::__construct(
             $filterItemFactory,
@@ -143,9 +150,11 @@ class Category extends AbstractFilter implements CustomFilterInterface
         $this->filterRequestDataResolver = $filterRequestDataResolver;
         $this->filterSettingResolver = $filterSettingResolver;
         $this->configProvider = $configProvider;
-        $this->facetProvider = $facetProvider;
-        $this->cacheCategoryTree = $cacheCategoryTree;
-        $this->extendedCategoryCollection = $extendedCategoryCollection;
+        // OM for backward compatibility
+        $this->facetProvider = $facetProvider ?? ObjectManager::getInstance()->get(FacetProvider::class);
+        $this->cacheCategoryTree = $cacheCategoryTree ?? ObjectManager::getInstance()->get(CacheCategoryTree::class);
+        $this->extendedCategoryCollection =
+            $extendedCategoryCollection ?? ObjectManager::getInstance()->get(ExtendedCategoryCollection::class);
     }
 
     /**
@@ -256,7 +265,7 @@ class Category extends AbstractFilter implements CustomFilterInterface
         /** @var CategoryItems $itemsCollection */
         $itemsCollection = $this->categoryItemsFactory->create();
         $categoryTree = $this->cacheCategoryTree->get($this);
-        if ($categoryTree && $this->isPopulateCategoryCollection($categoryTree)) {
+        if ($categoryTree && ($categoryTree->getCount() > 1 || !$this->isMultiselect())) {
             $itemsCollection->setStartPath($categoryTree->getStartPath());
             $itemsCollection->setCount($categoryTree->getCount());
             foreach ($categoryTree->getCategories() as $categoryData) {
@@ -267,23 +276,12 @@ class Category extends AbstractFilter implements CustomFilterInterface
             }
         }
 
-        switch ($this->getSetting()->getSortOptionsBy()) {
-            case SortOptionsBy::NAME:
-                $itemsCollection->sortOptions();
-                break;
-            case SortOptionsBy::PRODUCT_COUNT:
-                $itemsCollection->sortOptionsByCount();
-                break;
+        if ($this->getSetting()->getSortOptionsBy() == SortOptionsBy::NAME) {
+            $itemsCollection->sortOptions();
         }
         $this->_items = $itemsCollection;
 
         return $this;
-    }
-
-    private function isPopulateCategoryCollection(CategoryTree $categoryTree): bool
-    {
-        return !$this->configProvider->isHideFilterWithOneOption()
-            || $categoryTree->getCount() > 1;
     }
 
     /**
@@ -317,8 +315,7 @@ class Category extends AbstractFilter implements CustomFilterInterface
         }
 
         $itemsData = $this->itemDataBuilder->build();
-        if ($this->configProvider->isHideFilterWithOneOption()
-            && count($itemsData) == 1
+        if (count($itemsData) == 1
             && !$this->isOptionReducesResults(
                 $itemsData[0]['count'],
                 $this->getLayer()->getProductCollection()->getSize()
@@ -327,25 +324,11 @@ class Category extends AbstractFilter implements CustomFilterInterface
             $itemsData = $this->filterRequestDataResolver->getReducedItemsData($this, $itemsData);
         }
 
-        switch ($this->getSetting()->getSortOptionsBy()) {
-            case SortOptionsBy::NAME:
-                usort($itemsData, [$this, 'sortOption']);
-                break;
-            case SortOptionsBy::PRODUCT_COUNT:
-                $itemsData = $this->sortOptionsByCount($itemsData);
-                break;
+        if ($this->getSetting()->getSortOptionsBy() == SortOptionsBy::NAME) {
+            usort($itemsData, [$this, 'sortOption']);
         }
 
         return $itemsData;
-    }
-
-    private function sortOptionsByCount(array $options): array
-    {
-        usort($options, static function ($left, $right) {
-            return $right['count'] <=> $left['count'];
-        });
-
-        return $options;
     }
 
     /**

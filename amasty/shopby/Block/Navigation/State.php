@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -12,13 +12,10 @@ namespace Amasty\Shopby\Block\Navigation;
 
 use Amasty\Shopby\Helper\Data as ShopbyHelper;
 use Amasty\Shopby\Helper\FilterSetting;
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
-use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\Layer\Filter\Item;
 use Amasty\Shopby\Model\Price\GetPrecisionValue;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\ShopbyBase\Api\UrlBuilderInterface;
-use Amasty\ShopbyBase\Model\FilterSetting\FilterResolver;
 use Amasty\ShopbyBase\Model\FilterSetting\IsMultiselect;
 use Amasty\ShopbyBase\Model\FilterSetting\IsShowProductQuantities;
 use Magento\Catalog\Model\Layer\Resolver;
@@ -73,21 +70,6 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
      */
     private $getPrecisionValue;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
-    /**
-     * @var FilterResolver
-     */
-    private $filterResolver;
-
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
     public function __construct(
         Context $context,
         Resolver $layerResolver,
@@ -99,9 +81,6 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
         IsShowProductQuantities $isShowProductQuantities,
         IsMultiselect $isMultiselect,
         GetPrecisionValue $getPrecisionValue,
-        MobileConfigResolver $mobileConfigResolver,
-        FilterResolver $filterResolver,
-        ConfigProvider $configProvider,
         array $data = []
     ) {
         $this->filterSettingHelper = $filterSettingHelper;
@@ -114,9 +93,6 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
         $this->isShowProductQuantities = $isShowProductQuantities;
         $this->isMultiselect = $isMultiselect;
         $this->getPrecisionValue = $getPrecisionValue;
-        $this->mobileConfigResolver = $mobileConfigResolver;
-        $this->filterResolver = $filterResolver;
-        $this->configProvider = $configProvider;
     }
 
     /**
@@ -125,7 +101,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
      */
     public function getFilterSetting(\Magento\Catalog\Model\Layer\Filter\FilterInterface $filter)
     {
-        return $this->filterResolver->resolveByFilter($filter);
+        return $this->filterSettingHelper->getSettingByLayerFilter($filter);
     }
 
     /**
@@ -147,7 +123,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**
@@ -155,7 +131,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
      */
     public function getUnfoldedCount()
     {
-        return $this->configProvider->getUnfoldedCount();
+        return $this->helper->getUnfoldedCount();
     }
 
     /**
@@ -203,12 +179,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
     {
         if ($filter->getFilter()->getRequestVar() == \Amasty\Shopby\Model\Source\DisplayMode::ATTRUBUTE_PRICE) {
             $currencyRate = (float) $filter->getFilter()->getCurrencyRate();
-
-            if ($currencyRate != 1) {
-                $value = $this->generateValueLabel($filter);
-            } else {
-                $value = $filter->getOptionLabel();
-            }
+            $value = $this->generateValueLabel($filter);
         } else {
             $value = $this->stripTags($filter->getOptionLabel());
         }
@@ -225,7 +196,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
     {
         $arguments = $filterItem->getLabel()->getArguments();
         $filter = $filterItem->getFilter();
-        $filterSetting = $this->filterResolver->resolveByFilter($filter);
+        $filterSetting = $this->filterSettingHelper->getSettingByLayerFilter($filter);
         $stepSlider = $filterSetting->getSliderStep();
 
         if (!isset($arguments[1])) {
@@ -285,6 +256,9 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
             $resultPrice = __('above');
         } else {
             $precision = $this->getPrecisionValue->execute($filterSetting, (float)$value);
+            if($flagTo){
+                $value = (float)$value ? (float)$value - 0.01 : (float)$value;
+            }
             $resultPrice = $this->priceCurrency->format((float)$value, true, $precision);
         }
 
@@ -314,13 +288,9 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
      */
     public function getDataValue($resultValue)
     {
-        if ($resultValue === null) {
-            return null;
-        }
+        $value = null;
 
-        if (is_numeric($resultValue)) {
-            $value = $resultValue;
-        } else {
+        if (isset($resultValue)) {
             $value = $this->escapeHtml(
                 $this->stripTags(is_array($resultValue) ? implode('-', $resultValue) : $resultValue, false)
             );

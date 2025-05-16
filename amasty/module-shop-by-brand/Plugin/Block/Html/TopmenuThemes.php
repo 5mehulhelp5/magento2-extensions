@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -28,9 +28,9 @@ class TopmenuThemes extends Topmenu
         );
 
         if ($position) {
-            if ($subject instanceof \Smartwave\Megamenu\Block\Topmenu) { // @phpstan-ignore class.notFound
+            if ($subject instanceof \Smartwave\Megamenu\Block\Topmenu) {
                 $this->brandsPopup->setPortoTheme();
-            } elseif ($subject instanceof \Infortis\UltraMegamenu\Block\Navigation) { // @phpstan-ignore class.notFound
+            } elseif ($subject instanceof \Infortis\UltraMegamenu\Block\Navigation) {
                 $this->brandsPopup->setUltimoTheme();
             }
             $htmlBrand = $this->generateHtml($this->_getNodeAsArray());

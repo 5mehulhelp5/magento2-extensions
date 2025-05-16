@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -13,7 +13,6 @@ namespace Amasty\Shopby\Block\Navigation;
 use Amasty\Shopby\Helper\Data as ShopbyHelper;
 use Amasty\Shopby\Helper\FilterSetting;
 use Amasty\Shopby\Helper\UrlBuilder as ShopbyUrlBuilder;
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\UrlResolver\UrlResolverInterface;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
@@ -90,11 +89,6 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
      */
     private $isMultiselect;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Context $context,
         Attribute $eavAttribute,
@@ -109,7 +103,6 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
         IsShowProductQuantities $isShowProductQuantities,
         GetConfigProvider $getConfigProvider,
         IsMultiselect $isMultiselect,
-        MobileConfigResolver $mobileConfigResolver,
         array $data = []
     ) {
         parent::__construct(
@@ -128,7 +121,6 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
         $this->isShowProductQuantities = $isShowProductQuantities;
         $this->configProvider = $getConfigProvider->execute();
         $this->isMultiselect = $isMultiselect;
-        $this->mobileConfigResolver = $mobileConfigResolver;
     }
 
     /**
@@ -163,28 +155,13 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
             $swatchData['swatches'][$id] = $value;
         }
 
-        switch ($this->getFilterSetting()->getSortOptionsBy()) {
-            case \Amasty\Shopby\Model\Source\SortOptionsBy::NAME:
-                uasort($swatchData['options'], [$this, 'sortSwatchData']);
-                break;
-            case \Amasty\Shopby\Model\Source\SortOptionsBy::PRODUCT_COUNT:
-                $this->sortOptionsByCount($swatchData['options']);
-                break;
+        if ($this->getFilterSetting()->getSortOptionsBy() == \Amasty\Shopby\Model\Source\SortOptionsBy::NAME) {
+            uasort($swatchData['options'], [$this, 'sortSwatchData']);
         }
 
         $swatchData['options'] = $this->sortingByFeatures($swatchData);
 
         return $swatchData;
-    }
-
-    private function sortOptionsByCount(array &$options): void
-    {
-        uasort($options, static function ($left, $right) {
-            $leftCount = $left[self::VAR_COUNT] ?? 0;
-            $rightCount = $right[self::VAR_COUNT] ?? 0;
-
-            return $rightCount <=> $leftCount;
-        });
     }
 
     /**
@@ -358,7 +335,7 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return $this->helper->collectFilters();
     }
 
     /**

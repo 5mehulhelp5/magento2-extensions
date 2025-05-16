@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -19,7 +19,6 @@ use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\ResourceConnection\SourceProviderInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
 class OptionsDataBuilder
@@ -100,9 +99,13 @@ class OptionsDataBuilder
      */
     public function getOptionSettingByValues(array $attributeValues): SourceProviderInterface
     {
-        $optionSettingCollection = $this->optionCollectionFactory->create();
-        $optionSettingCollection->addStoreData((int)$this->storeManager->getStore()->getId());
-        $optionSettingCollection->addFieldToFilter(OptionSetting::VALUE, ['in' => $attributeValues]);
+        $optionSettingCollection = $this->optionCollectionFactory->create()
+            ->addTitleToCollection()
+            ->addFieldToFilter('main_table.' . OptionSetting::VALUE, ['in' => $attributeValues])
+            ->addFieldToFilter(
+                'main_table.' . OptionSettingInterface::STORE_ID,
+                [$this->storeManager->getStore()->getId(), \Magento\Store\Model\Store::DEFAULT_STORE_ID]
+            );
 
         //default_store options will be rewritten with current_store ones.
         $optionSettingCollection->getSelect()->order(['filter_code ASC', 'main_table.store_id ASC']);

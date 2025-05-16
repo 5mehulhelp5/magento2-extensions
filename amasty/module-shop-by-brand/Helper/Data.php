@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
 namespace Amasty\ShopbyBrand\Helper;
 
-use Amasty\Base\Model\Di\Wrapper as ShopBySeoConfigDi;
 use Amasty\ShopbyBase\Api\Data\OptionSettingInterface;
+use Amasty\ShopbyBase\Helper\FilterSetting as FilterSettingHelper;
+use Amasty\ShopbyBase\Helper\FilterSetting;
 use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting\CollectionFactory as OptionCollectionFactory;
 use Amasty\ShopbyBrand\Model\ConfigProvider;
-use Amasty\ShopbySeo\Helper\Config as ShopBySeoConfig;
 use Magento\Catalog\Model\Product\Url as ProductUrl;
 use Magento\Eav\Model\Entity\Attribute\Option;
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -68,19 +68,13 @@ class Data extends AbstractHelper
      */
     private $brandAttribute;
 
-    /**
-     * @var ShopBySeoConfigDi|ShopBySeoConfig
-     */
-    private $shopBySeoConfig;
-
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
-        OptionCollectionFactory $optionCollectionFactory,
-        StoreManagerInterface $storeManager,
-        ProductUrl $productUrl,
-        \Magento\Framework\Escaper $escaper,
-        \Amasty\ShopbyBrand\Model\Attribute $brandAttribute,
-        ShopBySeoConfigDi $shopBySeoConfig = null // TODO move to not optional
+        OptionCollectionFactory               $optionCollectionFactory,
+        StoreManagerInterface                 $storeManager,
+        ProductUrl                            $productUrl,
+        \Magento\Framework\Escaper            $escaper,
+        \Amasty\ShopbyBrand\Model\Attribute   $brandAttribute
     ) {
         parent::__construct($context);
         $this->url = $context->getUrlBuilder();
@@ -89,7 +83,6 @@ class Data extends AbstractHelper
         $this->productUrl = $productUrl;
         $this->escaper = $escaper;
         $this->brandAttribute = $brandAttribute;
-        $this->shopBySeoConfig = $shopBySeoConfig ?? ObjectManager::getInstance()->get(ShopBySeoConfigDi::class);
     }
 
     /**
@@ -158,7 +151,7 @@ class Data extends AbstractHelper
         $suffix = '';
 
         if ($this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')) {
-            $suffix = (string)$this->scopeConfig
+            $suffix = $this->scopeConfig
                 ->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
         }
 
@@ -315,10 +308,9 @@ class Data extends AbstractHelper
                         $imgUrl = $match == 'small_image' ? $item['img'] : $item['image'];
                         if (isset($imgUrl)) {
                             $value = sprintf(
-                                '<img class=\'am-brand-%s\' src=\'%s\' alt=\'%s\'/>',
+                                '<img class=\'am-brand-%s\' src=\'%s\' alt="Brand Image"/>',
                                 $match,
-                                $imgUrl,
-                                __('Brand Image')->render()
+                                $imgUrl
                             );
                         }
                         break;
@@ -330,15 +322,14 @@ class Data extends AbstractHelper
         return strip_tags($template, '<img><p><h3><b><strong>');
     }
 
-    public function getSpecialChar(): string
+    /**
+     * @return string
+     */
+    public function getSpecialChar()
     {
-        if ($this->_moduleManager->isEnabled('Amasty_ShopbySeo')
-            && $this->shopBySeoConfig->isSeoUrlEnabled()
-        ) {
-            return $this->scopeConfig->getValue('amasty_shopby_seo/url/special_char', ScopeInterface::SCOPE_STORE);
-        } else {
-            return '-';
-        }
+        return $this->_moduleManager->isEnabled('Amasty_ShopbySeo')
+            ? $this->scopeConfig->getValue('amasty_shopby_seo/url/special_char', ScopeInterface::SCOPE_STORE)
+            : '-';
     }
 
     /**

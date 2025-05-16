@@ -2,13 +2,13 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Amasty_Shopby:etc/config.xsd">
-    <preference for="Amasty\Shopby\Model\Category\CategoryDataInterface"
-                type="Amasty\Shopby\Model\Category\CategoryData"/>
+    <preference for="Amasty\Shopby\Api\CmsPageRepositoryInterface" type="Amasty\Shopby\Model\Cms\PageRepository"/>
+    <preference for="Amasty\Shopby\Model\Category\CategoryDataInterface" type="Amasty\Shopby\Model\Category\CategoryData"/>
 
     <type name="Amasty\ShopbyBase\Model\FilterDataLoader">
         <arguments>
@@ -18,53 +18,36 @@
         </arguments>
     </type>
 
-    <type name="Amasty\Shopby\Model\ResourceModel\GetMsiInStockProductIds">
-        <arguments>
-            <argument name="compositeProductTypes" xsi:type="array">
-                <item name="configurable" xsi:type="const">Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>
-                <item name="bundle" xsi:type="const">Magento\Catalog\Model\Product\Type::TYPE_BUNDLE</item>
-                <item name="grouped" xsi:type="const">Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>
-            </argument>
-        </arguments>
-    </type>
-
     <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory"
                  type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
         <arguments>
-            <argument name="instanceName"
-                      xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
+            <argument name="instanceName" xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="elasticsearchCategoryCollectionFactory"
                  type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
         <arguments>
-            <argument name="instanceName"
-                      xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
+            <argument name="instanceName" xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="amElasticsearchCategoryCollectionFactory"
                  type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
         <arguments>
-            <argument name="instanceName"
-                      xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
+            <argument name="instanceName" xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\Collection</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="elasticsearchFulltextSearchCollectionFactory"
-                 type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
+    <virtualType name="elasticsearchFulltextSearchCollectionFactory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
         <arguments>
-            <argument name="instanceName"
-                      xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\SearchCollection</argument>
+            <argument name="instanceName" xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\SearchCollection</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="amElasticsearchFulltextSearchCollectionFactory"
-                 type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
+    <virtualType name="amElasticsearchFulltextSearchCollectionFactory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
         <arguments>
-            <argument name="instanceName"
-                      xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\SearchCollection</argument>
+            <argument name="instanceName" xsi:type="string">Amasty\Shopby\Model\ResourceModel\Fulltext\SearchCollection</argument>
         </arguments>
     </virtualType>
 
@@ -89,6 +72,35 @@
             <argument name="catalogLayer" xsi:type="object">Magento\Catalog\Model\Layer\Search</argument>
         </arguments>
     </virtualType>
+
+    <virtualType name="Amasty\Shopby\Model\Layer\Cms\Context" type="Magento\Catalog\Model\Layer\Context">
+        <arguments>
+            <argument name="collectionProvider" xsi:type="object">Amasty\Shopby\Model\Layer\Cms\ItemCollectionProvider</argument>
+            <argument name="stateKey" xsi:type="object">Magento\Catalog\Model\Layer\Category\StateKey</argument>
+            <argument name="collectionFilter" xsi:type="object">Magento\Catalog\Model\Layer\Category\CollectionFilter</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Amasty\Shopby\Model\Layer\Cms" type="Magento\Catalog\Model\Layer">
+        <arguments>
+            <argument name="context" xsi:type="object">Amasty\Shopby\Model\Layer\Cms\Context</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Catalog\Model\Layer\Resolver">
+        <arguments>
+            <argument name="layersPool" xsi:type="array">
+                <item name="amshopby_cms" xsi:type="string">Amasty\Shopby\Model\Layer\Cms</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shopby\Model\Layer\Cms\ItemCollectionProvider">
+        <arguments>
+            <argument name="collectionFactory"
+                      xsi:type="object">Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory</argument>
+        </arguments>
+    </type>
 
     <type name="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalFieldMapper">
         <arguments>
@@ -150,12 +162,32 @@
         </arguments>
     </type>
 
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\Cms\Api\Data\PageInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="amastyCmsPageCreator"
+                              xsi:type="string">Amasty\Shopby\Model\ResourceModel\Cms\Relation\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="amastyCmsPageUpdater"
+                              xsi:type="string">Amasty\Shopby\Model\ResourceModel\Cms\Relation\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Cms\Model\Page">
+        <plugin name="Amasty_Shopby::cmsPage" type="\Amasty\Shopby\Plugin\Cms\Model\Page" sortOrder="1"/>
+    </type>
     <!--Elasticsearch plugins-->
     <type name="Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider">
         <plugin name="Amasty_Shopby::Fulltext_DataProvider"
                 type="Amasty\Shopby\Plugin\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider"/>
     </type>
-    <!-- Elasticsearch's plugins for Magento 2.3.x. remove after end of support 2.3 -->
+    <!--======================================================================-->
     <type name="Magento\Elasticsearch\Model\Adapter\DataMapper\ProductDataMapper">
         <plugin name="Amasty_Shopby::AdditionalDataMapper"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalDataMapper"/>
@@ -164,16 +196,16 @@
         <plugin name="Amasty_Shopby::AdditionalDataMapper5"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalDataMapper"/>
     </type>
-
+    <!--======================================================================-->
     <type name="Magento\Elasticsearch\Model\Adapter\BatchDataMapper\ProductDataMapper">
-        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper" sortOrder="17"
+        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalBatchDataMapper"/>
     </type>
     <type name="Magento\Elasticsearch\Elasticsearch5\Model\Adapter\DataMapper\ProductDataMapper">
-        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper5" sortOrder="17"
+        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper5"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalBatchDataMapper"/>
     </type>
-
+    <!--======================================================================-->
     <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\ProductFieldMapper">
         <plugin name="Amasty_Shopby::AdditionalFieldMapper"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalFieldMapper"/>
@@ -192,26 +224,33 @@
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalFieldMapper"/>
     </type>
     <type name="Amasty\ElasticSearch\Model\Indexer\Data\Product\ProductDataMapper">
-        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper" sortOrder="17"
+        <plugin name="Amasty_Shopby::AdditionalBatchDataMapper"
                 type="Amasty\Shopby\Plugin\Elasticsearch\Model\Adapter\AdditionalBatchDataMapper"/>
     </type>
     <!--======================================================================-->
+
+    <type name="\Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice">
+        <plugin name="Amasty_Shopby::PriceRuleIndexerFixer"
+                type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice\AddIndexSpecialPrice"/>
+    </type>
+
+    <type name="\Magento\ConfigurableProduct\Model\ResourceModel\Product\Indexer\Price\Configurable">
+        <plugin name="Amasty_Shopby::PriceRuleIndexerFixerConfigurable.2.2.6"
+                type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Indexer\Price\Dimensional\Configurable\AddIndexSpecialPrice"/>
+    </type>
 
     <!--===================Store Switcher Fix=================================-->
     <type name="Magento\Directory\Block\Currency">
         <plugin name="Amasty_Shopby::switch_currency" type="Amasty\Shopby\Plugin\Directory\Currency"/>
     </type>
     <type name="Magento\Store\Block\Switcher">
-        <plugin name="Amasty_Shopby::switch_store" type="Amasty\Shopby\Plugin\Store\Switcher\ModifySwitcherPostData"
-                sortOrder="999"/>
+        <plugin name="Amasty_Shopby::switch_store" type="Amasty\Shopby\Plugin\Store\Switcher\ModifySwitcherPostData" sortOrder="999"/>
     </type>
     <type name="Magento\Store\ViewModel\SwitcherUrlProvider">
-        <plugin name="Amasty_Shopby::switch_store"
-                type="Amasty\Shopby\Plugin\Store\ViewModel\SwitcherUrlProvider\ModifyUrlData" sortOrder="998"/>
+        <plugin name="Amasty_Shopby::switch_store" type="Amasty\Shopby\Plugin\Store\ViewModel\SwitcherUrlProvider\ModifyUrlData" sortOrder="998"/>
     </type>
     <type name="Magento\UrlRewrite\Model\StoreSwitcher\RewriteUrl">
-        <plugin name="Amasty_Shopby::switch_store_param_fix"
-                type="Amasty\Shopby\Plugin\UrlRewrite\Model\StoreSwitcher\RewriteUrl\ModifySwitchUrl"/>
+        <plugin name="Amasty_Shopby::switch_store_param_fix" type="Amasty\Shopby\Plugin\UrlRewrite\Model\StoreSwitcher\RewriteUrl\ModifySwitchUrl"/>
     </type>
     <type name="Magento\Store\Model\StoreSwitcher">
         <arguments>
@@ -221,6 +260,7 @@
         </arguments>
     </type>
     <!--======================================================================-->
+
     <type name="Amasty\Shopby\Plugin\Framework\App\FrontController">
         <arguments>
             <argument name="categoryHelper" xsi:type="object">Amasty\Shopby\Helper\Category\Proxy</argument>
@@ -237,10 +277,8 @@
                 type="Amasty\Shopby\Plugin\CatalogSearch\Model\Search\IndexBuilder\ApplyCustomFilters"/>
     </type>
 
-    <!-- Mysql mapper used in Magento 2.3.x. Remove after end of support 2.3 -->
     <type name="Magento\Framework\Search\Adapter\Mysql\Mapper">
-        <plugin name="Amasty_Shopby::resolve_stock_filter"
-                type="Amasty\Shopby\Plugin\Framework\Search\Adapter\Mysql\MapperPlugin"/>
+        <plugin name="Amasty_Shopby::resolve_stock_filter" type="Amasty\Shopby\Plugin\Framework\Search\Adapter\Mysql\MapperPlugin" />
     </type>
 
     <type name="Magento\CatalogSearch\Model\Adapter\Mysql\Filter\Preprocessor">
@@ -293,8 +331,7 @@
 
     <virtualType name="amInventoryDefaultStockProvider" type="Amasty\ShopbyBase\Model\Di\Wrapper">
         <arguments>
-            <argument name="name"
-                      xsi:type="string">Magento\InventoryCatalogApi\Api\DefaultStockProviderInterface</argument>
+            <argument name="name" xsi:type="string">Magento\InventoryCatalogApi\Api\DefaultStockProviderInterface</argument>
             <argument name="getShared" xsi:type="boolean">true</argument>
             <argument name="isProxy" xsi:type="boolean">true</argument>
         </arguments>
@@ -302,8 +339,7 @@
 
     <virtualType name="amInventoryStockIndexTableNameResolver" type="Amasty\ShopbyBase\Model\Di\Wrapper">
         <arguments>
-            <argument name="name"
-                      xsi:type="string">Magento\InventoryIndexer\Model\StockIndexTableNameResolverInterface</argument>
+            <argument name="name" xsi:type="string">Magento\InventoryIndexer\Model\StockIndexTableNameResolverInterface</argument>
             <argument name="isProxy" xsi:type="boolean">true</argument>
         </arguments>
     </virtualType>
@@ -312,8 +348,7 @@
         <arguments>
             <argument name="stockResolver" xsi:type="object">amInventoryStockResolver</argument>
             <argument name="defaultStockProvider" xsi:type="object">amInventoryDefaultStockProvider</argument>
-            <argument name="stockIndexTableNameResolver"
-                      xsi:type="object">amInventoryStockIndexTableNameResolver</argument>
+            <argument name="stockIndexTableNameResolver" xsi:type="object">amInventoryStockIndexTableNameResolver</argument>
         </arguments>
     </type>
 
@@ -321,8 +356,7 @@
         <arguments>
             <argument name="stockResolver" xsi:type="object">amInventoryStockResolver</argument>
             <argument name="defaultStockProvider" xsi:type="object">amInventoryDefaultStockProvider</argument>
-            <argument name="stockIndexTableNameResolver"
-                      xsi:type="object">amInventoryStockIndexTableNameResolver</argument>
+            <argument name="stockIndexTableNameResolver" xsi:type="object">amInventoryStockIndexTableNameResolver</argument>
         </arguments>
     </type>
 
@@ -356,6 +390,7 @@
         <plugin name="Amasty_Shopby::ExcludeOutOfStockFromEav"
                 type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Indexer\Eav\AbstractEav\ExcludeOutOfStock"/>
     </type>
+
     <!-- Integration with Amasty_ShopbyBase  -->
     <type name="Amasty\ShopbyBase\Model\Integration\Shopby\GetSelectedFiltersSettings">
         <arguments>
@@ -381,9 +416,10 @@
         </arguments>
     </type>
     <!-- End integration with Amasty_ShopbyBase  -->
+
     <type name="Amasty\Shopby\Model\Layer\FilterList">
         <arguments>
-            <argument name="filterableAttributes" xsi:type="object">Amasty\Shopby\Model\Layer\Category\FilterableAttributeList</argument>
+            <argument name="filterableAttributes" xsi:type="object">Magento\Catalog\Model\Layer\Category\FilterableAttributeList</argument>
         </arguments>
     </type>
 
@@ -394,42 +430,5 @@
     <type name="Magento\Framework\Search\Request\Cleaner">
         <plugin name="Amasty_Shopby::CleanCategoryCounter"
                 type="Amasty\Shopby\Plugin\Framework\Search\Request\Cleaner\CleanCategoryCounter"/>
-    </type>
-        <type name="Amasty\Shopby\Model\Ajax\AjaxResponseBuilder">
-        <arguments>
-            <argument name="layoutMapping" xsi:type="array">
-                <item name="fcnet/blank_julbo" xsi:type="array">
-                    <item name="image" xsi:type="string">category.image</item>
-                    <item name="description" xsi:type="string">category_desc_main_column</item>
-                </item>
-                <item name="Smartwave/Porto" xsi:type="array">
-                    <item name="image" xsi:type="string">category.image</item>
-                    <item name="description" xsi:type="string">category_desc_main_column</item>
-                </item>
-                <item name="Amasty/JetTheme" xsi:type="array">
-                    <item name="image" xsi:type="string">category.image</item>
-                    <item name="description" xsi:type="string">category.description</item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
-
-    <type name="Magento\Framework\Search\Dynamic\Algorithm\Repository">
-        <plugin name="Amasty_Shopby::ResolveCustomAlgorithm"
-                type="Amasty\Shopby\Plugin\Framework\Search\Dynamic\Algorithm\Repository\ResolveCustomAlgorithm"/>
-    </type>
-    <type name="Magento\CatalogSearch\Model\Search\RequestGenerator\Decimal">
-        <plugin name="Amasty_Shopby::ChangeDynamicAlgorithm"
-                type="Amasty\Shopby\Plugin\CatalogSearch\Model\Search\RequestGenerator\Decimal\ChangeDynamicAlgorithm"/>
-    </type>
-    <type name="Magento\Framework\Search\Request\Config\FilesystemReader">
-        <plugin name="Amasty_Shopby::PriceCustomAlgorithm"
-                type="Amasty\Shopby\Plugin\Framework\Search\Request\Config\FilesystemReader\CustomAlgorithmModifier"/>
-    </type>
-    <type name="Amasty\Shopby\Model\Source\ChildrenCategoriesBlock\Categories">
-        <arguments>
-            <argument name="source"
-                      xsi:type="object">Amasty\Base\Model\Source\ActiveWithEmptyOptionCategory</argument>
-        </arguments>
     </type>
 </config>

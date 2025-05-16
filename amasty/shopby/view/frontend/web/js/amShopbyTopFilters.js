@@ -40,8 +40,6 @@ define([
          * @returns {void}
          */
         moveTopFiltersToSidebar: function () {
-            let shouldUpdateCollapsibles = false;
-
             if ($(options.selectors.sidebarList).length === 0) {
                 var blockClass = $(options.selectors.layeredFilter).length
                         ? options.selectors.layeredFilter
@@ -63,9 +61,9 @@ define([
                 return;
             }
 
-            $(options.selectors.topNarrowList + ' ' + options.selectors.optionsItem).each((index, item) => {
+            $(options.selectors.topNarrowList + ' ' + options.selectors.optionsItem).each(function () {
                 var isPresent = false,
-                    classes = $(item).find(options.selectors.swatches).first().attr('class'),
+                    classes = $(this).find(options.selectors.swatches).first().attr('class'),
                     i;
 
                 if (classes) {
@@ -89,11 +87,9 @@ define([
                     return;
                 }
 
-                shouldUpdateCollapsibles = true;
-                $(item).addClass(options.classes.filterTop).appendTo($(options.selectors.sidebarList).first());
+                $(this).addClass(options.classes.filterTop).appendTo($(options.selectors.sidebarList).first());
             });
 
-            shouldUpdateCollapsibles && this.updateCollapsibles();
             $(options.selectors.sidebar + ' ' + options.selectors.blockFilter).first().trigger('contentUpdated');
         },
 
@@ -109,17 +105,6 @@ define([
             $(options.selectors.sidebarList + ' .' + options.classes.filterTop)
                 .appendTo($(options.selectors.topNarrowList));
             $(options.selectors.sidebar + ' .' + options.classes.allTop).remove();
-        },
-
-        /**
-         * @public
-         * @returns {void}
-         */
-        updateCollapsibles: function () {
-            const $list  = $(options.selectors.list);
-            const accordionList = $list.data('mageAccordion');
-
-            !!accordionList && (accordionList.collapsibles = $list.find('[data-role="collapsible"]'));
         }
     };
 });

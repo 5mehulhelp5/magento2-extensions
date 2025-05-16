@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/**
+ * @var \Amasty\AdvancedReview\Block\Summary $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<?php if ($block->shouldShowRecommended()): ?>
+    <p class="amreview-percent-block" data-amreview-js="percent">
+    <span class="amreview-value">
+        <?= $escaper->escapeHtml($block->getRecomendedPercent()); ?>%
+    </span>
+        <span class="amreview-desc">
+        <?= $escaper->escapeHtml(__('of customers recommend this product')); ?>
+    </span>
+    </p>
+<?php endif; ?>
+

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
+ * @package Image Optimizer Speed Size for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amimageoptimizer">
+            <group id="speed_size" translate="label" type="text" sortOrder="1"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SpeedSize Settings</label>
+                <attribute type="expanded">1</attribute>
+                <field id="speed_size_public_key" translate="label" type="obscure" sortOrder="20"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Public Key</label>
+                    <config_path>amoptimizer/speed_size/speed_size_public_key</config_path>
+                    <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\ApiKey</backend_model>
+                </field>
+                <field id="speed_size_cdn" translate="label" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>CDN</label>
+                    <config_path>amoptimizer/speed_size/speed_size_cdn</config_path>
+                    <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\CdnUrl</backend_model>
+                </field>
+            </group>
+            <group id="replace_images">
+                <field id="replace_strategy">
+                    <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy</backend_model>
+                </field>
+                <group id="replace_categories">
+                    <field id="replace_strategy">
+                        <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy</backend_model>
+                    </field>
+                </group>
+                <group id="replace_cms">
+                    <field id="replace_strategy">
+                        <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy</backend_model>
+                    </field>
+                </group>
+                <group id="replace_home">
+                    <field id="replace_strategy">
+                        <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy</backend_model>
+                    </field>
+                </group>
+                <group id="replace_product">
+                    <field id="replace_strategy">
+                        <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy</backend_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+        <section id="amlazyload">
+            <group id="lazy_advanced">
+                <field id="speed_size_enabled" translate="label comment" type="select" sortOrder="31" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable SpeedSize</label>
+                    <config_path>amoptimizer/lazy_load_general/speed_size_enabled</config_path>
+                    <backend_model>Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\LazyLoad\EnableSpeedSize</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

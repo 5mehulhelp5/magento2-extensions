@@ -1,0 +1,94 @@
+{
+    "amasty_shiprules_rule": {
+        "column": {
+            "rule_id": true,
+            "is_active": true,
+            "calc": true,
+            "discount_id": true,
+            "ignore_promo": true,
+            "pos": true,
+            "price_from": true,
+            "price_to": true,
+            "weight_from": true,
+            "weight_to": true,
+            "qty_from": true,
+            "qty_to": true,
+            "rate_base": true,
+            "rate_fixed": true,
+            "weight_fixed": true,
+            "rate_percent": true,
+            "rate_min": true,
+            "rate_max": true,
+            "ship_min": true,
+            "ship_max": true,
+            "handling": true,
+            "name": true,
+            "days": true,
+            "stores": true,
+            "cust_groups": true,
+            "carriers": true,
+            "methods": true,
+            "coupon": true,
+            "conditions_serialized": true,
+            "actions_serialized": true,
+            "out_of_stock": true,
+            "time_from": true,
+            "time_to": true,
+            "coupon_disable": true,
+            "discount_id_disable": true,
+            "for_admin": true,
+            "skip_subsequent": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "index": {
+            "AMASTY_SHIPRULES_RULE_IS_ACTIVE_STORES_CUST_GROUPS_DAYS_TIME_FROM_TIME_TO": true,
+            "AMASTY_SHIPRULES_RULE_IS_ACTIVE_TIME_FROM_TIME_TO": true
+        }
+    },
+    "amasty_shiprules_rule_stores": {
+        "column": {
+            "rule_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_E13520CC320FC34417449FD2B48DDD5F": true
+        }
+    },
+    "amasty_shiprules_rule_customer_groups": {
+        "column": {
+            "rule_id": true,
+            "customer_group": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_48266ED9482E3D374C4BAAD9A5E978FC": true
+        }
+    },
+    "amasty_shiprules_rule_days": {
+        "column": {
+            "rule_id": true,
+            "day": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_SHIPRULES_RULE_DAYS_RULE_ID_AMASTY_SHIPRULES_RULE_RULE_ID": true
+        }
+    },
+    "amasty_shiprules_attribute": {
+        "column": {
+            "attr_id": true,
+            "rule_id": true,
+            "code": true
+        },
+        "index": {
+            "AMASTY_SHIPRULES_ATTRIBUTE_RULE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_SHIPRULES_ATTRIBUTE_RULE_ID_AMASTY_SHIPRULES_RULE_RULE_ID": true
+        }
+    }
+}

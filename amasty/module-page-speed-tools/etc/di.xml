@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Page Speed Tools for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\PageSpeedTools\Model\Output\OutputChainInterface" type="Amasty\PageSpeedTools\Model\Output\OutputChain"/>
+    <preference for="Amasty\PageSpeedTools\Model\Image\ReplacerCompositeInterface" type="Amasty\PageSpeedTools\Model\Image\ReplacerComposite"/>
+    <type name="Amasty\PageSpeedTools\Model\Output\ProcessorsResolver">
+        <arguments>
+            <argument name="customProcessors" xsi:type="array">
+                <item name="ampProcessors" xsi:type="array">
+                    <item name="checker" xsi:type="object">Amasty\PageSpeedTools\Model\Output\RequestChecker\AmpChecker\Proxy</item>
+                    <item name="processors" xsi:type="array">
+                        <item name="isHtml" xsi:type="array">
+                            <item name="sortOrder" xsi:type="number">0</item>
+                            <item name="processor" xsi:type="object">Amasty\PageSpeedTools\Model\Output\CheckIsOutputHtmlProcessor</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <argument name="defaultProcessors" xsi:type="array">
+                <item name="isHtml" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">0</item>
+                    <item name="processor" xsi:type="object">Amasty\PageSpeedTools\Model\Output\CheckIsOutputHtmlProcessor</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Image Replace Configuration Start -->
+    <virtualType name="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Background" type="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Common">
+        <arguments>
+            <argument name="name" xsi:type="string">background</argument>
+            <argument name="pattern" xsi:type="string"><![CDATA[background\s*:.*?\n*url\s*\((?<background>[^\)]+)\s*\)]]></argument>
+            <argument name="groupByName" xsi:type="array">
+                <item name="background" xsi:type="number">1</item>
+            </argument>
+            <argument name="baseAlgorithm" xsi:type="const">Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm::ALGORITHM_NAME</argument>
+            <argument name="replaceAllAttrs" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\BackgroundImage" type="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Common">
+        <arguments>
+            <argument name="name" xsi:type="string">background_image</argument>
+            <argument name="pattern" xsi:type="string"><![CDATA[background\-image\s*:\s*url\s*\(\s*[\'\" ]?(?<background_image>.*?)[\'\" ]?\s*\)]]></argument>
+            <argument name="groupByName" xsi:type="array">
+                <item name="background_image" xsi:type="number">1</item>
+            </argument>
+            <argument name="baseAlgorithm" xsi:type="const">Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm::ALGORITHM_NAME</argument>
+            <argument name="replaceAllAttrs" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\PageBuilder" type="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Common">
+        <arguments>
+            <argument name="name" xsi:type="string">page_builder</argument>
+            <argument name="pattern" xsi:type="string"><![CDATA[(?:data-background-images\s*\=\s*['\"]{(?:\\['\"]desktop_image\\['\"]\s*\:\s*\\['\"](?<desktop_image>.*?)\\['\"]\s?,?\s?|\\['\"]mobile_image\\['\"]\s*\:\s*\\['\"](?<mobile_image>.*?)\\['\"]\s?,?\s?|\\['\"][a-z_\-]+\\['\"]\s*\:\s*\\['\"].*?\\['\"]\s?,?\s?)+}['\"].*?\s*)]]></argument>
+            <argument name="groupByName" xsi:type="array">
+                <item name="desktop_image" xsi:type="number">1</item>
+                <item name="mobile_image" xsi:type="number">2</item>
+            </argument>
+            <argument name="baseAlgorithm" xsi:type="const">Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm::ALGORITHM_NAME</argument>
+            <argument name="replaceAllAttrs" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithmResolver">
+        <arguments>
+            <argument name="defaultAlgorithm" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\DummyAlgorithm</argument>
+        </arguments>
+    </type>
+    <!-- Image Replace Configuration End -->
+
+    <type name="Amasty\PageSpeedTools\Plugin\ProcessPageResult">
+        <arguments>
+            <argument name="outputChain" xsi:type="object">Amasty\PageSpeedTools\Model\Output\OutputChain\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\PageSpeedTools\Plugin\PageCache\Controller\Block\Esi\ProcessEsiBlocks">
+        <arguments>
+            <argument name="outputChain" xsi:type="object">Amasty\PageSpeedTools\Model\Output\OutputChain\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\TemplateEngineFactory">
+        <plugin name="Amasty_PageSpeedTools::DebugHints" type="Amasty\PageSpeedTools\Plugin\Debug\TemplateHints" sortOrder="20"/>
+    </type>
+</config>

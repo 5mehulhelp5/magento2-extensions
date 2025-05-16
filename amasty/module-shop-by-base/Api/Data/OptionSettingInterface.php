@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -35,12 +35,6 @@ interface OptionSettingInterface
     public const IMAGE_ALT = 'image_alt';
     public const SMALL_IMAGE_ALT = 'small_image_alt';
     public const URL_ALIAS = 'url_alias';
-    public const BRAND_PAGE_LAYOUT = 'page_layout';
-    public const SHOW_BRAND_INFO = 'show_brand_info';
-    public const BRAND_INFO_BLOCK_POSITION = 'brand_info_block_position';
-    public const BRAND_INFO_POSTAL_ADDRESS = 'brand_info_postal_address';
-    public const BRAND_INFO_ELECTRONIC_ADDRESS = 'brand_info_electronic_address';
-    public const BRAND_INFO_CONTACT = 'brand_info_contact';
 
     /**
      * @param bool $shouldParse
@@ -100,7 +94,7 @@ interface OptionSettingInterface
     public function getMetaKeywords();
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getMetaTitle();
 
@@ -110,7 +104,7 @@ interface OptionSettingInterface
     public function getValue();
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getTitle();
 
@@ -276,70 +270,4 @@ interface OptionSettingInterface
      * @param null|string $urlAlias
      */
     public function setUrlAlias(?string $urlAlias): void;
-
-    /**
-     * @return string|null
-     */
-    public function getPageLayout(): ?string;
-
-    /**
-     * @param string $pageLayout
-     * @return void
-     */
-    public function setPageLayout(string $pageLayout): void;
-
-    /**
-     * @return bool|null
-     */
-    public function isShowBrandInfo(): ?bool;
-
-    /**
-     * @param bool|null $isShowBrandInfo
-     * @return void
-     */
-    public function setIsShowBrandInfo(?bool $isShowBrandInfo): void;
-
-    /**
-     * @return string|null
-     */
-    public function getBrandInfoBlockPosition(): ?string;
-
-    /**
-     * @param string|null $brandInfoBlockPosition
-     * @return void
-     */
-    public function setBrandInfoBlockPosition(?string $brandInfoBlockPosition): void;
-
-    /**
-     * @return string|null
-     */
-    public function getBrandInfoPostalAddress(): ?string;
-
-    /**
-     * @param string|null $brandInfoPostalAddress
-     * @return void
-     */
-    public function setBrandInfoPostalAddress(?string $brandInfoPostalAddress): void;
-
-    /**
-     * @return string|null
-     */
-    public function getBrandInfoElectronicAddress(): ?string;
-
-    /**
-     * @param string|null $brandInfoElectronicAddress
-     * @return void
-     */
-    public function setBrandInfoElectronicAddress(?string $brandInfoElectronicAddress): void;
-
-    /**
-     * @return string|null
-     */
-    public function getBrandInfoContact(): ?string;
-
-    /**
-     * @param string|null $brandInfoContact
-     * @return void
-     */
-    public function setBrandInfoContact(?string $brandInfoContact): void;
 }

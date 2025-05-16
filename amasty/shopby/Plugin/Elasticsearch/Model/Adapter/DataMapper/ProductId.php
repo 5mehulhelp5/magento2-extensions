@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -29,10 +29,7 @@ class ProductId implements DataMapperInterface
         return [self::FIELD_NAME => (int)$entityId];
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function isAllowed(?int $storeId = null): bool
+    public function isAllowed(): bool
     {
         return true;
     }

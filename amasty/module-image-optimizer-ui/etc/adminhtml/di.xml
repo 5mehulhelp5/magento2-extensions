@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Amasty\ImageOptimizerUi\Block\Adminhtml\System\Config\InformationBlocks\SuggestInformation">
+        <arguments>
+            <argument name="suggestModules" xsi:type="array">
+                <item name="image_optimizer_speed_size" xsi:type="string">Amasty_ImageOptimizerSpeedSize</item>
+                <item name="page_speed_optimizer_hyva" xsi:type="string">Amasty_PageSpeedOptimizerHyva</item>
+                <item name="avif_image_optimizer" xsi:type="string">Amasty_AvifImageOptimizer</item>
+                <item name="optimizer_pro_functionality" xsi:type="string">Amasty_OptimizerProFunctionality</item>
+                <item name="ajax_cart_hyva" xsi:type="string">Amasty_AjaxCartHyva</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AmastyImageOptimizerImagickPromo" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_ImagickLibraryImageOptimizer</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string"><![CDATA[https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_optimizer]]></item>
+                <item name="comment" xsi:type="string"><![CDATA[The GB2 option is the default library. Compatibility with the Imagick library is included with an active product or support subscription. To upgrade and obtain functionality, please follow the <a href="https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_optimizer" target="_blank">link</a>. Then you can find the 'amasty/module-imagick-library-image-optimizer' package for installation in composer suggest.]]></item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+</config>

@@ -31,8 +31,4 @@
     <type name="Magento\Checkout\Model\TotalsInformationManagement">
         <plugin name="Amasty_Conditions::ExtensionAttributesResolver" type="Amasty\Conditions\Plugin\Checkout\Model\TotalInformationManagementPlugin"/>
     </type>
-    <type name="Magento\AdvancedSalesRule\Model\Rule\Condition\FilterTextGenerator\Address\PaymentMethod">
-        <plugin name="Amasty_Conditions::fixPaymentMethodValidation"
-                type="Amasty\Conditions\Plugin\AdvancedSalesRule\FilterTextGenerator\PaymentMethod\FixPaymentMethodValidation"/>
-    </type>
 </config>

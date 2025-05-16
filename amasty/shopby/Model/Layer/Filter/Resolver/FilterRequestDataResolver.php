@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\Layer\Filter\Resolver;
 
-use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\Request;
 use Magento\Catalog\Model\Layer\Filter\FilterInterface;
 
@@ -31,19 +30,12 @@ class FilterRequestDataResolver
      */
     private $currentValue = [];
 
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
     public function __construct(
         Request $shopbyRequest,
-        FilterSettingResolver $settingResolver,
-        ConfigProvider $configProvider
+        FilterSettingResolver $settingResolver
     ) {
         $this->shopbyRequest = $shopbyRequest;
         $this->settingResolver = $settingResolver;
-        $this->configProvider = $configProvider;
     }
 
     /**
@@ -71,7 +63,7 @@ class FilterRequestDataResolver
      */
     public function isVisibleWhenSelected(FilterInterface $filter, bool $force = false): bool
     {
-        $keepSingleChoice = $this->configProvider->isSingleChoiceMode();
+        $keepSingleChoice = $this->settingResolver->isSingleChoiceMode();
 
         return $keepSingleChoice || ($this->settingResolver->isMultiselectAllowed($filter) && !$force);
     }

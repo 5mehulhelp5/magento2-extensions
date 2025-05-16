@@ -1,0 +1,38 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\ShippingArea\Api\Data\AreaInterface" type="Amasty\ShippingArea\Model\Area" />
+    <preference for="Amasty\ShippingArea\Api\AreaRepositoryInterface" type="Amasty\ShippingArea\Model\AreaRepository" />
+
+    <virtualType name="Amasty\ShippingArea\Model\Rule\ValidatorComposite"
+                 type="Amasty\ShippingArea\Model\Validator\ValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="countryValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\CountryValidator</item>
+                <item name="stateValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\StateValidator</item>
+                <item name="cityValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\CityValidator</item>
+                <item name="defaultPostCodeValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\PostCodeValidator</item>
+                <item name="addressConditionValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\AddressConditionValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\ShippingArea\Model\Rule\Condition\Area">
+        <arguments>
+            <argument name="areaValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\ValidatorComposite</argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="Amasty\ShippingArea\Model\Rule\ValidatorPostCodeComposite"
+                 type="Amasty\ShippingArea\Model\Validator\ValidatorPostCodesComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="defaultPostCodes" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\PostCodes\DefaultPostCodes</item>
+                <item name="ukPostCodes" xsi:type="object">Amasty\ShippingArea\Model\Rule\Validator\PostCodes\UkPostCodes</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\ShippingArea\Model\Rule\Validator\PostCodeValidator">
+        <arguments>
+            <argument name="postCodeValidator" xsi:type="object">Amasty\ShippingArea\Model\Rule\ValidatorPostCodeComposite</argument>
+        </arguments>
+    </type>
+</config>

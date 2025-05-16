@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -12,7 +12,6 @@ namespace Amasty\ShopbySeo\Model\UrlParser\Utils\Attribute;
 
 use Amasty\ShopbySeo\Model\SeoOptions;
 use Amasty\ShopbySeo\Model\UrlParser\Utils\ParamsUpdater;
-use Amasty\ShopbySeo\Model\UrlParser\Utils\SpecialCharReplacer;
 
 class DefaultAliasParser implements ParserInterface
 {
@@ -31,21 +30,14 @@ class DefaultAliasParser implements ParserInterface
      */
     private $resultValidator;
 
-    /**
-     * @var SpecialCharReplacer
-     */
-    private $specialCharReplacer;
-
     public function __construct(
         SeoOptions $seoOptions,
         ParamsUpdater $paramsUpdater,
-        ParsingResultValidator $resultValidator,
-        SpecialCharReplacer $specialCharReplacer
+        ParsingResultValidator $resultValidator
     ) {
         $this->seoOptions = $seoOptions;
         $this->paramsUpdater = $paramsUpdater;
         $this->resultValidator = $resultValidator;
-        $this->specialCharReplacer = $specialCharReplacer;
     }
 
     /**
@@ -57,39 +49,30 @@ class DefaultAliasParser implements ParserInterface
      */
     public function parse(array $aliases, string $seoPart): array
     {
-        $attributeOptionsData = [];
-        foreach ($this->seoOptions->getData() as $attributeCode => $optionsData) {
-            $attributeOptionsData[$this->specialCharReplacer->replace($attributeCode)] = $optionsData;
-        }
+        $attributeOptionsData = $this->seoOptions->getData();
 
-        $parsedAttributes = [];
+        $parsedAttributeCodes = [];
         $parsedAliases = [];
         $params = [];
         $currentAttributeCode = '';
-        foreach ($aliases as $currentAlias) {
-            if ($currentAttributeCode
-                && (!isset($parsedAttributes[$currentAttributeCode])
-                    || !in_array($currentAlias, $parsedAttributes[$currentAttributeCode], true))
-            ) {
-                $optionsData = $attributeOptionsData[$currentAttributeCode];
-                $optionId = array_search($currentAlias, $optionsData, true);
-                if ($optionId !== false) {
-                    $parsedAttributes[$currentAttributeCode][] = $currentAlias;
-                    $parsedAliases[] = $currentAlias;
-                    $this->paramsUpdater->update(
-                        $params,
-                        $this->specialCharReplacer->normalizeAttributeCode($currentAttributeCode),
-                        (string)$optionId
-                    );
-                    continue;
-                }
+        foreach ($aliases as $key => $currentAlias) {
+            if (in_array($currentAlias, array_keys($attributeOptionsData))) {
+                $currentAttributeCode = $currentAlias;
+                $parsedAttributeCodes[] = $currentAttributeCode;
+                continue;
             }
 
-            if (array_key_exists($currentAlias, $attributeOptionsData)) {
-                $currentAttributeCode = $currentAlias;
+            if ($currentAttributeCode) {
+                $optionsData = $attributeOptionsData[$currentAttributeCode];
+                foreach ($optionsData as $optionId => $optionAlias) {
+                    if ($currentAlias === $optionAlias) {
+                        $parsedAliases[] = $currentAlias;
+                        $this->paramsUpdater->update($params, $currentAttributeCode, (string) $optionId);
+                    }
+                }
             }
         }
 
-        return $this->resultValidator->validate($seoPart, array_keys($parsedAttributes), $parsedAliases) ? $params : [];
+        return $this->resultValidator->validate($seoPart, $parsedAttributeCodes, $parsedAliases) ? $params : [];
     }
 }

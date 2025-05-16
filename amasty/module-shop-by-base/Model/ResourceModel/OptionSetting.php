@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -52,10 +52,8 @@ class OptionSetting extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $data = parent::_prepareDataForTable($object, $table);
 
-        foreach ($data as $field => $value) {
-            if ($value === null && $object->getData($field) === '') {
-                $data[$field] = ''; // provide possibility for override custom store with empty value
-            }
+        if ($object->getUrlAlias() === '') {
+            $data[OptionSettingInterface::URL_ALIAS] = '';
         }
 
         return $data;

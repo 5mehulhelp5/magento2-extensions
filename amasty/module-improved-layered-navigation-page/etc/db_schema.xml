@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Page for Magento 2 (System)
  */-->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -18,14 +18,12 @@
         <column xsi:type="text" name="meta_keywords" nullable="true" comment="Page Meta Keywords"/>
         <column xsi:type="text" name="meta_description" nullable="true" comment="Page Meta Description"/>
         <column xsi:type="mediumtext" name="conditions" nullable="true" comment="Conditions"/>
-        <column xsi:type="text" name="categories" nullable="true" comment="Categories"/>
+        <column xsi:type="varchar" name="categories" nullable="true" length="255" comment="Categories"/>
         <column xsi:type="smallint" name="top_block_id" padding="6" unsigned="false" nullable="true" identity="false"
                 comment="Top Block ID"/>
         <column xsi:type="smallint" name="bottom_block_id" padding="6" unsigned="false" nullable="true" identity="false"
                 comment="Bottom Block ID"/>
         <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
-        <column xsi:type="varchar" name="tag_robots" nullable="false" length="20" default="INDEX,FOLLOW"
-                comment="Tag_robots"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="page_id"/>
         </constraint>

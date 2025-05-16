@@ -20,7 +20,8 @@ define([
         },
 
         exit: function () {
+
             amShopbyTopFilters.removeTopFiltersFromSidebar();
-        },
+        }
     });
 });

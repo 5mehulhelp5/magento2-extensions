@@ -1,0 +1,24 @@
+{
+    "name": "amasty/module-invisible-captcha-subscription-package",
+    "description": "Invisible Captcha Subscription Package by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.14.6",
+        "amasty/aminvisiblecaptcha": "*"
+    },
+    "suggest": {
+        "amasty/module-invisible-captcha-hyva": "Install this package to insure Invisible Captcha extension works with Hyv\u00e4 Theme."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "2.5.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\InvisibleCaptchaSubscriptionPackage\\": ""
+        }
+    }
+}

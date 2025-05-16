@@ -1,0 +1,444 @@
+//
+//  Advanced Review Summary Widget
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amreview-widget-container.-summary-widget {
+        & {
+            .am-flex(space-between, flex-start, wrap);
+
+            background: @amreview-widget-grid-review__background;
+            margin: @amrev__indent 0 @amrev__indent__xl;
+            padding: @amrev__indent__l * 2 @amrev__indent 80px;
+            position: relative;
+        }
+
+        .amreview-description {
+            .am-flex(none, none, wrap);
+
+            margin: 0;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .amreview-description .amreview-text {
+            margin: @amrev__indent__l 0 0;
+            width: 100%;
+        }
+
+        .amshowmore-container .amshowmore-text:not(.-active) {
+            max-height: 45px;
+        }
+
+        .amrev-desc-title {
+            margin: 0 0 @amrev__indent 0;
+        }
+
+        .amreview-images {
+            margin: @amrev__indent__l 0 0 0;
+            max-width: 370px;
+            overflow: hidden;
+        }
+
+        .amreview-images.-slider .amreview-slider-item {
+            display: none;
+        }
+
+        .amreview-review-block {
+            box-sizing: border-box;
+            margin: @amrev__indent__l * 2 0 0;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .amreview-review-items {
+            margin: 0;
+            padding: 0;
+        }
+
+        .amreview-review-wrapper {
+            background: @color-white;
+            border-color: transparent;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 75, 136, .12);
+            padding: @amrev__indent__l;
+        }
+
+        .amreview-rating-wrapper {
+            margin: 0 @amrev__indent__l 0 0;
+        }
+
+        .amreview-title-review {
+            margin: 0 @amrev__indent / 2 0 0;
+        }
+
+        .amreview-info-wrapper {
+            .am-flex(none, flex-start, wrap);
+
+            box-sizing: border-box;
+            margin: 0;
+            max-width: 280px;
+            min-width: 230px;
+            padding: 0;
+        }
+
+        .amreview-name {
+            color: @amrev-comments-btn__color;
+            flex-basis: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 12px;
+        }
+
+        .amreview-summary {
+            font-size: 50px;
+            letter-spacing: -.08em;
+            margin-right: @amrev__indent__l;
+        }
+
+        .amreview-count {
+            font-size: 14px;
+            margin: 0 0 @amrev__indent__l;
+        }
+
+        .amstars-rating-container {
+            margin: 0 0 2px;
+        }
+
+        .amreview-summary-details {
+            margin: 0 0 @amrev__indent 0;
+            padding: 0;
+        }
+
+        .amreview-summary-details .amreview-text {
+            color: @amreview-summary__details__color;
+            margin: 0 0 0 auto;
+            white-space: nowrap;
+            width: 20%;
+        }
+
+        .amreview-add-new {
+            margin: 0;
+            padding: 0;
+        }
+
+        .amreview-label {
+            .am-flex(none, center);
+
+            margin: 0 0 8px;
+        }
+
+        .amreview-label > .amreview-bar {
+            margin: 0 @amrev__indent__l;
+            width: 55%;
+        }
+
+        .amreview-label > .amreview-stars {
+            & {
+                .am-flex(none, center);
+
+                margin: 0;
+                min-width: auto;
+            }
+
+            &:before {
+                .am-icon(@amstars-star-small__active__background);
+
+                filter: invert(61%) sepia(0%) saturate(17%) hue-rotate(154deg) brightness(95%) contrast(68%);
+                height: @amrev__indent;
+                margin: 0 2px;
+                width: @amrev__indent;
+            }
+        }
+
+        .amreview-text {
+            margin: 0;
+        }
+
+        .amreview-button {
+            box-sizing: border-box;
+            font-weight: 600;
+            order: 3;
+            padding: 9px 16px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .amreview-button.-see-all {
+            bottom: 0;
+            left: 0;
+            padding: @amrev__indent__xxl 16px;
+            position: absolute;
+            right: 0;
+        }
+
+        .amreview-summary-info {
+            .am-flex();
+
+            padding: 0;
+        }
+
+        .amreview-summary-details {
+            border: none;
+            margin-right: @amrev__indent__l;
+            order: 2;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .product-image-container {
+            display: none;
+            margin: 0 0 @amrev__indent__l;
+        }
+
+        .amrev-comment-toolbar.-nocomments {
+            justify-content: flex-start;
+        }
+
+        .amreview-helpful-wrap {
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: @amrev__indent__xl *2 0 0;
+            padding: 0;
+        }
+
+        .amreview-helpful {
+            margin: 0 0 @amrev__indent / 2;
+            text-align: center;
+            width: 100%;
+        }
+
+        .amreview-minus {
+            margin: 0 0 0 @amrev__indent * 2;
+        }
+
+        .amreview-plus {
+            margin: 0;
+        }
+
+        .amreview-icon {
+            margin: 0;
+        }
+
+        .amreview-percent-block {
+            .am-flex(none, center);
+
+            margin: 0 0 @amrev__indent 0;
+        }
+
+        .amreview-pages-items {
+            & {
+                .am-flex(center, center);
+
+                flex-basis: 70%;
+                list-style: none;
+                margin: @amrev__indent / 2 0 auto;
+                padding: 0;
+                position: relative;
+            }
+
+            //  Override magento styles
+            .action {
+                & {
+                    background: transparent;
+                    border: none;
+                    box-shadow: none;
+                    margin: 0 @amrev__indent__xxl;
+                }
+
+                &:hover {
+                    background: transparent;
+                    color: @amreview-button__color;
+                }
+            }
+            //  END override magento styles
+
+            .amreview-item {
+                .am-flex(center, center);
+
+                box-shadow: none;
+                font-size: 16px;
+                height: @amrev__indent__xxl;
+                width: @amrev__indent__xxl;
+            }
+
+            .-current {
+                background: @amreview-page__item__color;
+            }
+        }
+
+        .amreview-slider-item {
+            height: 100px;
+            max-width: 100px;
+            width: 100%;
+        }
+    }
+
+    .amreview-widget-container.-summary-widget.-empty {
+        align-items: center;
+        padding-bottom: 35px;
+    }
+
+    .amreview-widget-container.-summary-widget.-list .amreview-review-wrapper {
+        background: @color-white;
+        border-color: transparent;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px rgba(0, 75, 136, .12);
+        margin: 0 0 @amrev__indent__l;
+        padding: @amrev__indent__l;
+    }
+
+    .amreview-widget-container.-summary-widget.-slider {
+        .amreview-description-wrap {
+            align-content: flex-start;
+            display: inline-flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .amrev-comment-toolbar {
+            padding-bottom: 0;
+        }
+
+        .amrev-desc-title {
+            flex-basis: 100%;
+        }
+
+        //  Slick slider styles
+        .slick-track {
+            .am-flex();
+        }
+
+        .slick-slide > div,
+        .slick-slide .amreview-review-wrapper {
+            height: 100%;
+        }
+        //  END Slick slider styles
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amreview-widget-container.-summary-widget {
+        & {
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+
+        .amreview-helpful-wrap {
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            margin: @amrev__indent__xl 0 0;
+        }
+
+        .amreview-helpful {
+            margin: 0;
+            width: auto;
+        }
+
+        .amreview-icon {
+            margin: 0 0 0 @amrev__indent;
+        }
+
+        .amreview-plus {
+            margin: 0 0 0 @amrev__indent;
+        }
+
+        .amreview-minus {
+            margin: 0;
+        }
+
+        .amreview-review-wrapper {
+            padding: @amrev__indent__xxl;
+        }
+    }
+
+    .amreview-widget-container.-summary-widget.-slider .amreview-review-items > .slick-list > .slick-track > .slick-slide {
+        padding: 35px;
+    }
+}
+
+@media (max-width: @screen__m) {
+    //  Slick slider styles
+    .amreview-widget-container.-summary-widget.-slider .amreview-review-items {
+        margin-right: -@amrev__indent;
+    }
+
+    .amreview-widget-container.-summary-widget.-slider .amreview-review-items > .slick-list > .slick-track > .slick-slide {
+        & {
+            .transition(.1);
+
+            margin: @amrev__indent / 2;
+        }
+
+        &:not(:last-child) {
+            padding-right: @amrev__indent__xl;
+        }
+
+        &.slick-current ~ .slick-slide {
+            transform: translateX(-@amrev__indent__xl);
+        }
+    }
+    //  END Slick slider styles
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+
+@media (min-width: @screen__l) {
+    .amreview-widget-container.-summary-widget {
+        & {
+            flex-wrap: nowrap;
+        }
+
+        .amreview-rating-wrapper {
+            margin: 0 @amrev__indent__l @amrev__indent / 2 0;
+        }
+
+        .amreview-description .amreview-text {
+            margin: @amrev__indent 0 0;
+        }
+
+        .amreview-review-block {
+            margin: 0 0 0 @amrev__indent__xxl * 2;
+            max-width: 75%;
+        }
+
+        .amreview-button.-see-all {
+            background: transparent;
+            padding: 9px 16px;
+            position: inherit;
+        }
+
+        .amreview-percent-block {
+            margin: 0 0 @amrev__indent__xxl 0;
+            order: 3;
+        }
+
+        .product-image-container {
+            display: block;
+        }
+    }
+
+    .amreview-widget-container.-summary-widget.-list {
+        padding: 35px 125px;
+    }
+
+    .amreview-widget-container.-summary-widget.-slider {
+        & {
+            padding: 35px 125px 35px 90px;
+        }
+
+        .amreview-description-wrap {
+            width: 74%;
+        }
+    }
+}

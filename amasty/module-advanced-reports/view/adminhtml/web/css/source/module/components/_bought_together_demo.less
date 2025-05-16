@@ -1,0 +1,34 @@
+//
+//  Bought Together Report Demo styles
+//  _______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .bought-together-demo {
+        background: url('@{baseDir}Amasty_Reports/img/bought_together_demo.png') no-repeat center, linear-gradient(transparent, @color-white);
+        background-blend-mode: color;
+        background-size: contain;
+        margin-top: 3rem;
+        padding-bottom: 70rem;
+        position: relative;
+
+        .bought-together-demo-link {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bought-together-demo-action {
+            align-items: center;
+            display: flex;
+
+            .lock-image {
+                padding: .5rem;
+            }
+        }
+    }
+}

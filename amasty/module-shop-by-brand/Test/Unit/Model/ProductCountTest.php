@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -90,7 +90,6 @@ class ProductCountTest extends \PHPUnit\Framework\TestCase
         $this->collection->expects($this->any())->method('addAttributeToSelect')->willReturn($this->collection);
         $this->collection->expects($this->any())->method('setVisibility')->willReturn($this->collection);
         $this->collection->expects($this->any())->method('addCategoryFilter')->willReturn($this->collection);
-        $this->collection->expects($this->any())->method('setPageSize')->willReturn($this->collection);
         $this->collection->expects($this->any())->method('getFacetedData')->willReturn([['count' => 5]]);
         $this->assertEquals(5, $this->model->get(0));
 

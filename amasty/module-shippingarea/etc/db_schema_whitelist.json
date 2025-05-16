@@ -1,0 +1,24 @@
+{
+    "amasty_shipping_area": {
+        "column": {
+            "area_id": true,
+            "name": true,
+            "description": true,
+            "is_enabled": true,
+            "country_condition": true,
+            "country_set": true,
+            "state_condition": true,
+            "state_set": true,
+            "city_condition": true,
+            "city_set": true,
+            "postcode_condition": true,
+            "postcode_set": true,
+            "address_condition": true,
+            "address_set": true,
+            "state_set_listing": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

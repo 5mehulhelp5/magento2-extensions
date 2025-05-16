@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -66,10 +66,7 @@ class Config
         array $properties = [],
         $name = null
     ) {
-        if ($this->request->getFullActionName() !== 'catalog_product_view'
-            && $contentType == 'canonical'
-            && !$this->metaHelper->getIndexTagValue()
-        ) {
+        if ($contentType == 'canonical' && !$this->metaHelper->getIndexTagValue()) {
             return $subject;
         }
 

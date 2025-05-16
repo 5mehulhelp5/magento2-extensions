@@ -13,8 +13,7 @@
             "categories": true,
             "top_block_id": true,
             "bottom_block_id": true,
-            "image": true,
-            "tag_robots": true
+            "image": true
         },
         "index": {
             "FTI_5840F5E996115BB213F982491FDCE6B6": true

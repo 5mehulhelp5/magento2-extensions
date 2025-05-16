@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -174,9 +174,7 @@ class FacetProvider
         $searchResult = null;
 
         if ($filter->hasCurrentValue()
-            && ($this->isRootTree($filter)
-                || $this->isCurrentLevel($filter)
-                || $this->isCurrentCategoryChildren($filter))
+            && ($this->isRootTree($filter) || $this->isCurrentLevel($filter))
         ) {
             $categoryId = (int)$this->getCategoryIdByLevel($filter);
 
@@ -195,12 +193,6 @@ class FacetProvider
     {
         return (int)$filter->getSetting()->getRenderCategoriesLevel()
             === RenderCategoriesLevel::CURRENT_CATEGORY_LEVEL;
-    }
-
-    private function isCurrentCategoryChildren(Category $filter): bool
-    {
-        return (int)$filter->getSetting()->getRenderCategoriesLevel()
-            === RenderCategoriesLevel::CURRENT_CATEGORY_CHILDREN;
     }
 
     private function getCategoryIdByLevel(Category $filter): int

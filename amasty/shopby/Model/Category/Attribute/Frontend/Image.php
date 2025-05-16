@@ -1,13 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\Category\Attribute\Frontend;
 
-use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
 use Magento\Framework\View\Asset\Repository;
@@ -43,6 +42,11 @@ class Image
     protected $height;
 
     /**
+     * @var \Amasty\Shopby\Helper\Data
+     */
+    protected $shopbyHelper;
+
+    /**
      * @var Filesystem\Directory\WriteInterface
      */
     protected $fileSystem;
@@ -72,21 +76,17 @@ class Image
      */
     protected $fileIo;
 
-    /**
-     * @var ScopeConfigInterface
-     */
-    private $scopeConfig;
-
     public function __construct(
+        \Amasty\Shopby\Helper\Data $shopbyHelper,
         Filesystem $fileSystem,
         Repository $repository,
         StoreManagerInterface $storeManager,
         LoggerInterface $logger,
         File $fileIo,
         ImageAdapterFactory $adapterFactory,
-        ScopeConfigInterface $scopeConfig,
         $placeholder = 'Amasty_Shopby::images/category/placeholder/placeholder.jpg'
     ) {
+        $this->shopbyHelper = $shopbyHelper;
         $this->storeManager = $storeManager;
         $this->fileSystem = $fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->assetRepo = $repository;
@@ -94,7 +94,6 @@ class Image
         $this->logger = $logger;
         $this->fileIo = $fileIo;
         $this->imageAdapterFactory = $adapterFactory;
-        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -110,7 +109,7 @@ class Image
             return $this->resizeAndGetUrl($this->buildUrl($imageName), $width, $height);
         } else {
             if ($withPlaceholder) {
-                $placeholderUploaded = $this->getThumbnailPlaceholder();
+                $placeholderUploaded = $this->shopbyHelper->getThumbnailPlaceholder();
                 if ($placeholderUploaded
                     && $this->fileSystem->isFile('catalog/category/' . $placeholderUploaded)
                 ) {
@@ -121,11 +120,6 @@ class Image
         }
 
         return null;
-    }
-
-    private function getThumbnailPlaceholder()
-    {
-        return $this->scopeConfig->getValue('catalog/category_placeholder/thumbnail');
     }
 
     /**

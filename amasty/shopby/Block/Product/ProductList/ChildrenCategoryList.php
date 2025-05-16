@@ -1,14 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Product\ProductList;
 
-use Magento\Catalog\Api\Data\CategoryInterface;
-use Magento\Catalog\Model\Category;
 use Magento\Framework\View\Element\Template;
 use Amasty\Shopby\Model\Source\ChildrenCategoriesBlock\Categories;
 use Amasty\Shopby\Model\Source\ChildrenCategoriesBlock\DisplayMode;
@@ -29,7 +27,7 @@ class ChildrenCategoryList extends Template
     private $categoryHelper;
 
     /**
-     * @var Category[]
+     * @var \Magento\Catalog\Model\Category[]
      */
     private $childrenCategories = [];
 
@@ -70,12 +68,12 @@ class ChildrenCategoryList extends Template
     }
 
     /**
-     * @param Category $category
+     * @param \Magento\Catalog\Model\Category $category
      * @param int $size
      *
      * @return bool|string|null
      */
-    public function getCategoryImageUrl(Category $category, $size)
+    public function getCategoryImageUrl(\Magento\Catalog\Model\Category $category, $size)
     {
         return $this->categoryHelper->getImageUrl(
             $category->getThumbnail() ?: $category->getImage(),
@@ -91,7 +89,10 @@ class ChildrenCategoryList extends Template
     public function getChildrenCategories()
     {
         if (empty($this->childrenCategories)) {
-            $currentCategory = $this->getCurrentCategory();
+            /**
+             * @var \Magento\Catalog\Model\Category $currentCategory
+             */
+            $currentCategory = $this->registry->registry('current_category');
             $collection = $currentCategory->getChildrenCategories();
 
             if ($collection instanceof \Magento\Catalog\Model\ResourceModel\Category\Collection) {
@@ -104,7 +105,7 @@ class ChildrenCategoryList extends Template
                 $collection->addOrderField('name');
                 $collection->addAttributeToSelect('image');
                 $collection->addAttributeToSelect('thumbnail');
-                $collection->addIsActiveFilter();
+                $collection->addAttributeToFilter('is_active', ['eq' => true]);
                 if ($this->getData('attributes_to_select')) {
                     $collection->addAttributeToSelect($this->getData('attributes_to_select'));
                 }
@@ -165,11 +166,11 @@ class ChildrenCategoryList extends Template
      */
     private function isAllowInCategory()
     {
-        $currentCategoryId = $this->getCurrentCategory()->getId();
+        $currentCategoryId = $this->registry->registry('current_category')->getId();
         $allowCategories = $this->categoryHelper->getAllowCategories() ?? '';
 
         return in_array($currentCategoryId, explode(',', $allowCategories))
-            || $allowCategories == \Amasty\Base\Model\Source\Category::EMPTY_OPTION_ID;
+            || $allowCategories == Categories::ALL_CATEGORIES;
     }
 
     /**
@@ -187,13 +188,5 @@ class ChildrenCategoryList extends Template
     {
         return $this->categoryHelper->isChildrenCategoriesSliderEnabled()
             && count($this->getChildrenCategories()) > $this->getItemsCountPerSlide();
-    }
-
-    /**
-     * @return Category
-     */
-    public function getCurrentCategory(): CategoryInterface
-    {
-        return $this->registry->registry('current_category');
     }
 }

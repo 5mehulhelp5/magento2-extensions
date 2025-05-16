@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */-->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -74,14 +74,7 @@
         <column xsi:type="int" name="side_position" padding="11" unsigned="false" nullable="false" identity="false"
                 default="0" comment="Filter side sort order for block_position=Both"/>
         <column xsi:type="text" name="attribute_url_alias" nullable="false" comment="Attribute URL Alias"/>
-        <column xsi:type="tinyint" name="hide_zeros" identity="false" unsigned="true" nullable="false"
-                default="0" comment="Hide Zeros"/>
-        <column xsi:type="smallint" name="range_algorithm" unsigned="true" nullable="true"
-                comment="Range Algorithm"/>
-        <column xsi:type="decimal" name="range_step" scale="4" precision="12" unsigned="true" nullable="true"
-                comment="Range Step Value"/>
-        <column xsi:type="smallint" name="attribute_id" nullable="true" unsigned="true"
-                comment="Related EAV attribute ID"/>
+        <column xsi:type="tinyint" name="hide_zeros" identity="false" unsigned="true" nullable="false" default="0" comment="Hide Zeros"/>
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="setting_id"/>
@@ -89,59 +82,50 @@
         <constraint xsi:type="unique" referenceId="AMASTY_AMSHOPBY_FILTER_SETTING_ATTRIBUTE_CODE">
             <column name="attribute_code"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="AMASTY_AMSHOPBY_FILTER_SETTING_ATTR_ID_EAV_ATTR_ATTR_ID"
-                    table="amasty_amshopby_filter_setting" column="attribute_id" referenceTable="eav_attribute"
-                    referenceColumn="attribute_id" onDelete="CASCADE"/>
         <index referenceId="AMASTY_AMSHOPBY_FILTER_SETTING_SHOW_ICONS_ON_PRODUCT" indexType="btree">
             <column name="show_icons_on_product"/>
         </index>
         <index referenceId="AMASTY_AMSHOPBY_FILTER_SETTING_IS_SEO_SIGNIFICANT" indexType="btree">
             <column name="is_seo_significant"/>
         </index>
-        <index referenceId="AMASTY_AMSHOPBY_FILTER_SETTING_ATTRIBUTE_ID" indexType="btree">
-            <column name="attribute_id"/>
-        </index>
     </table>
 
     <table name="amasty_amshopby_option_setting" resource="default" engine="innodb"
            comment="amasty_amshopby_option_setting">
-        <column xsi:type="int" name="option_setting_id" padding="6" unsigned="false" nullable="false"
+        <column xsi:type="smallint" name="option_setting_id" padding="6" unsigned="false" nullable="false"
                 identity="true" comment="Option setting id"/>
         <column xsi:type="varchar" name="attribute_code" nullable="false" length="255" comment="Attribute Code"/>
         <column xsi:type="varchar" name="filter_code" nullable="false" length="255" comment="Filter_code"/>
-        <column xsi:type="int" name="value" padding="10" unsigned="true" nullable="false" identity="false"
+        <column xsi:type="int" name="value" padding="11" unsigned="false" nullable="false" identity="false"
                 comment="Attribute Option ID"/>
         <column xsi:type="int" name="store_id" padding="11" unsigned="false" nullable="false" identity="false"
                 default="0" comment="Store id"/>
         <column xsi:type="varchar" name="url_alias" nullable="true" length="255" comment="Url alias"/>
-        <column xsi:type="smallint" name="is_featured" padding="6" unsigned="false" nullable="true" identity="false"
+        <column xsi:type="smallint" name="is_featured" padding="6" unsigned="false" nullable="false" identity="false"
                 default="0" comment="Is featured"/>
-        <column xsi:type="text" name="meta_title" nullable="true" comment="Meta title"/>
+        <column xsi:type="text" name="meta_title" nullable="false" comment="Meta title"/>
         <column xsi:type="text" name="meta_description" nullable="true" comment="Meta description"/>
         <column xsi:type="text" name="meta_keywords" nullable="true" comment="Meta keywords"/>
-        <column xsi:type="text" name="title" nullable="true" comment="Title"/>
+        <column xsi:type="text" name="title" nullable="false" comment="Title"/>
         <column xsi:type="text" name="description" nullable="true" comment="Description"/>
         <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
         <column xsi:type="smallint" name="top_cms_block_id" padding="6" unsigned="false" nullable="true"
                 identity="false" comment="Top cms block id"/>
         <column xsi:type="smallint" name="bottom_cms_block_id" padding="6" unsigned="false" nullable="true"
                 identity="false" comment="Bottom cms block id"/>
-        <column xsi:type="int" name="slider_position" padding="11" unsigned="false" nullable="true" identity="false"
+        <column xsi:type="int" name="slider_position" padding="11" unsigned="false" nullable="false" identity="false"
                 default="0" comment="Slider Position"/>
         <column xsi:type="varchar" name="slider_image" nullable="true" length="255" comment="Slider Image"/>
-        <column xsi:type="text" name="short_description" nullable="true"
+        <column xsi:type="text" name="short_description" nullable="false"
                 comment="Short description for product page or tooltip"/>
-        <column xsi:type="varchar" name="image_alt" nullable="true" length="255" default="" comment="Image alt"/>
-        <column xsi:type="varchar" name="small_image_alt" nullable="true" length="255" default=""
+        <column xsi:type="varchar" name="image_alt" nullable="false" length="255" default="" comment="Image alt"/>
+        <column xsi:type="varchar" name="small_image_alt" nullable="false" length="255" default=""
                 comment="Small Image alt"/>
-        <column xsi:type="boolean" name="is_show_in_widget" nullable="true" default="true"
+        <column xsi:type="boolean" name="is_show_in_widget" nullable="false" default="true"
                 comment="Is show in widget"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="option_setting_id"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="AMASTY_AMSHOPBY_OPT_SETTING_VAL_EAV_ATTR_OPT_OPT_ID"
-                    table="amasty_amshopby_option_setting" column="value" referenceTable="eav_attribute_option"
-                    referenceColumn="option_id" onDelete="CASCADE"/>
         <index referenceId="AMASTY_AMSHOPBY_OPTION_SETTING_URL_ALIAS" indexType="btree">
             <column name="url_alias"/>
         </index>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -37,7 +37,7 @@ class Term
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundGetTermBucket(
-        GetAggregations $subject, // @phpstan-ignore class.notFound
+        GetAggregations $subject,
         \Closure $closure,
         RequestBucketInterface $bucket,
         array $elasticResponse
@@ -71,7 +71,7 @@ class Term
     /**
      * @param RequestBucketInterface $bucket
      * @param array $queryResult
-     * @return array|void
+     * @return array
      */
     private function buildCustomFiltersData(RequestBucketInterface $bucket, array $queryResult)
     {

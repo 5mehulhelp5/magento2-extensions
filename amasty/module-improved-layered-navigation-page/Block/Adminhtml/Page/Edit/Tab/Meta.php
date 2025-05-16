@@ -1,22 +1,19 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Page for Magento 2 (System)
  */
 
 namespace Amasty\ShopbyPage\Block\Adminhtml\Page\Edit\Tab;
 
-use Amasty\ShopbyPage\Api\Data\PageInterface;
-use Amasty\ShopbyPage\Controller\RegistryConstants;
-use Amasty\ShopbyPage\Model\Config\Source\Robots;
-use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Block\Widget\Form\Generic;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
-use Magento\Framework\Api\ExtensibleDataObjectConverter;
-use Magento\Framework\Data\Form;
+use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Data\FormFactory;
 use Magento\Framework\Registry;
+use Amasty\ShopbyPage\Controller\RegistryConstants;
+use Magento\Framework\Api\ExtensibleDataObjectConverter;
 
 /**
  * @api
@@ -29,20 +26,20 @@ class Meta extends Generic implements TabInterface
     private $extensibleDataObjectConverter;
 
     /**
-     * @var Robots
+     * @param Context $context
+     * @param Registry $registry
+     * @param FormFactory $formFactory
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
+     * @param array $data
      */
-    private $robotsConfig;
-
     public function __construct(
         Context $context,
         Registry $registry,
         FormFactory $formFactory,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter,
-        Robots $robotsConfig,
         array $data = []
     ) {
         $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
-        $this->robotsConfig = $robotsConfig;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -89,10 +86,10 @@ class Meta extends Generic implements TabInterface
      */
     protected function _prepareForm()
     {
-        /** @var Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
 
-        /** @var PageInterface $model */
+        /** @var \Amasty\ShopbyPage\Api\Data\PageInterface $model */
         $model = $this->_coreRegistry->registry(RegistryConstants::PAGE);
 
         $fieldset = $form->addFieldset(
@@ -144,22 +141,11 @@ class Meta extends Generic implements TabInterface
             ]
         );
 
-        $fieldset->addField(
-            'tag_robots',
-            'select',
-            [
-                'name' => 'tag_robots',
-                'label' => __('Robots Tag Control'),
-                'title' => __('Robots Tag Control'),
-                'values' => $this->robotsConfig->toArray()
-            ]
-        );
-
         $form->setValues(
             $this->extensibleDataObjectConverter->toFlatArray(
                 $model,
                 [],
-                PageInterface::class
+                \Amasty\ShopbyPage\Api\Data\PageInterface::class
             )
         );
 

@@ -1,10 +1,7 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -14,7 +11,6 @@ use Amasty\ShopbyBase\Model\Redirect\NonSlash as NonSlashRedirectManager;
 use Amasty\ShopbySeo\Helper\Data;
 use Amasty\ShopbySeo\Helper\Url;
 use Amasty\ShopbySeo\Helper\UrlParser;
-use Amasty\ShopbySeo\Model\UrlRewrite\IsExist as IsUrlRewriteExist;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
@@ -52,18 +48,12 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     private $nonSlashRedirectManager;
 
-    /**
-     * @var IsUrlRewriteExist
-     */
-    private $isUrlRewriteExist;
-
     public function __construct(
         UrlParser $urlParser,
         Url $urlHelper,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         Data $helper,
-        NonSlashRedirectManager $nonSlashRedirectManager = null,
-        IsUrlRewriteExist $isUrlRewriteExist = null // TODO move to not optional
+        NonSlashRedirectManager $nonSlashRedirectManager = null
     ) {
         $this->urlHelper = $urlHelper;
         $this->urlParser = $urlParser;
@@ -71,7 +61,6 @@ class Router implements \Magento\Framework\App\RouterInterface
         $this->helper = $helper;
         $this->nonSlashRedirectManager = $nonSlashRedirectManager
             ?? ObjectManager::getInstance()->get(NonSlashRedirectManager::class);
-        $this->isUrlRewriteExist = $isUrlRewriteExist ?? ObjectManager::getInstance()->get(IsUrlRewriteExist::class);
     }
 
     /**
@@ -94,7 +83,7 @@ class Router implements \Magento\Framework\App\RouterInterface
         $this->isSuffixRemoved = $pathInfo !== $identifier;
 
         list($seoPart, $identifier) = $this->getSeoPartAndIdentifier($identifier, $request);
-        if ($request->getMetaData(Data::SKIP_REQUEST_FLAG) || $this->skipIdentifier($identifier)) {
+        if ($request->getMetaData(Data::SKIP_REQUEST_FLAG)) {
             return false;
         }
 
@@ -144,18 +133,6 @@ class Router implements \Magento\Framework\App\RouterInterface
     }
 
     /**
-     * Used in \Amasty\ShopbyBrand\Plugin\ShopbySeo\Controller\Router\CheckForBrandUrl
-     */
-    public function skipIdentifier(string $identifier): bool
-    {
-        if ($identifier === '') {
-            return false;
-        }
-
-        return !$this->isUrlRewriteExist->execute($this->addSuffix(ltrim($identifier, '/')));
-    }
-
-    /**
      * @param $identifier
      * @param $request
      *
@@ -184,15 +161,6 @@ class Router implements \Magento\Framework\App\RouterInterface
         return $identifier;
     }
 
-    private function addSuffix(string $identifier): string
-    {
-        if ($this->isSuffixRemoved) {
-            $identifier .= $this->getSeoSuffix();
-        }
-
-        return $identifier;
-    }
-
     /**
      * @param RequestInterface $request
      * @param $identifier
@@ -204,7 +172,10 @@ class Router implements \Magento\Framework\App\RouterInterface
     {
         if (strlen($identifier)) {
             $request->setMetaData(Data::HAS_ROUTE_PARAMS, true);
-            $identifier = $this->addSuffix($identifier);
+            if ($this->isSuffixRemoved) {
+                $identifier .= $this->getSeoSuffix();
+            }
+
             $request->setPathInfo($identifier);
         }
 

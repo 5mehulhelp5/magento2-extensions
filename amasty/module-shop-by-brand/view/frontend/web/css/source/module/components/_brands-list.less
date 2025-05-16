@@ -27,8 +27,8 @@
         & {
             box-sizing: border-box;
             margin-bottom: 40px;
-            vertical-align: top;
             width: 100%;
+            vertical-align: top;
         }
 
         .ambrands-content {
@@ -39,22 +39,22 @@
         }
 
         .ambrands-title {
-            align-items: center;
-            color: @ambrands-item__color;
             display: flex;
-            font-size: 32px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1;
+            align-items: center;
             margin: 0 0 20px;
+            color: #333;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 32px;
+            line-height: 1;
         }
     }
 
     .ambrands-letter .ambrands-brand-item {
         & {
+            position: relative;
             margin: 0 @ambrands-item__offset__m (@ambrands-item__offset__m * 2);
             min-width: 100px;
-            position: relative;
         }
 
         &.-no-logo {
@@ -67,17 +67,17 @@
         }
 
         .ambrands-inner {
-            align-items: center;
-            background: @color-white;
-            border: 1px solid transparent;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(74, 83, 94, .03), 0 4px 10px rgba(104, 118, 139, .13);
-            color: @ambrands-item__color;
             display: flex;
+            align-items: center;
             flex-direction: column;
-            height: 100%;
             justify-content: flex-start;
             overflow: hidden;
+            height: 100%;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(74, 83, 94, .03), 0 4px 10px rgba(104, 118, 139, .13);
+            color: @ambrands-item__color;
         }
 
         .ambrands-inner:hover,
@@ -87,17 +87,17 @@
         }
 
         .ambrands-inner:active {
-            background: @ambrands-item__active__color;
             border-color: @ambrands-item__hover__color;
+            background: @ambrands-item__active__color;
         }
 
         .ambrands-empty {
-            color: @color-gray55;
+            color: #e2e2e2;
         }
 
         .ambrands-count {
             & {
-                color: @color-gray46;
+                color: #c7c7c7;
             }
 
             &:before {
@@ -113,27 +113,27 @@
             .ambrands-word-break;
 
             box-sizing: border-box;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: 19px;
             margin: auto;
             padding: 0 10px 10px;
             width: 100%;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 14px;
+            line-height: 19px;
         }
     }
 
     .ambrands-brand-item .ambrands-image-block {
         & {
+            display: flex;
             align-items: center;
             box-sizing: border-box;
-            display: flex;
             padding: 10px;
         }
 
         > .ambrands-image {
-            max-height: 100%;
             max-width: 100%;
+            max-height: 100%;
         }
     }
 

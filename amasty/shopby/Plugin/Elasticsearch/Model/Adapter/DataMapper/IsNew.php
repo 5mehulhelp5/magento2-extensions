@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -59,12 +59,14 @@ class IsNew implements DataMapperInterface
         ];
     }
 
-    public function isAllowed(?int $storeId = null): bool
+    /**
+     * @return bool
+     */
+    public function isAllowed(): bool
     {
         return $this->scopeConfig->isSetFlag(
             'amshopby/am_is_new_filter/enabled',
-            ScopeInterface::SCOPE_STORE,
-            $storeId
+            ScopeInterface::SCOPE_STORE
         );
     }
 

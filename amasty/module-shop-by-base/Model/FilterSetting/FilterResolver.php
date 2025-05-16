@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -51,7 +51,6 @@ class FilterResolver
         if (!$filterSetting) {
             try {
                 $filterSetting = $this->filterSettingRepository->loadByAttributeCode($entity->getAttributeCode());
-                $filterSetting->setAttributeId((int)$entity->getAttributeId());
                 $extensionAttributes->setFilterSetting($filterSetting);
                 $entity->setExtensionAttributes($extensionAttributes);
             } catch (LocalizedException $e) {

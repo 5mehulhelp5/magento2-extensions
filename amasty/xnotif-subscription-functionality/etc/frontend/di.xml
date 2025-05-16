@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\ProductList\Related">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Crosssell">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Upsell">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Magento\TargetRule\Block\Catalog\Product\ProductList\Related">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Magento\TargetRule\Block\Checkout\Cart\Crosssell">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Magento\TargetRule\Block\Catalog\Product\ProductList\Upsell">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\RecommendedProducts\AddSubscriptionBlock"/>
+    </type>
+    <type name="Amasty\Mostviewed\Block\Widget\Related">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::AddSubscriptionBlock"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\Mostviewed\Block\Widget\Related\AddSubscriptionBlock"/>
+    </type>
+
+    <type name="Amasty\Xnotif\Block\Catalog\Category\Config">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::OutputRecommendedConfig"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\Xnotif\Block\Catalog\Category\Config\OutputRecommendedConfig"/>
+    </type>
+
+    <type name="Amasty\Xnotif\Plugins\Catalog\Block\Product\AbstractProduct">
+        <arguments>
+            <argument name="childBlocks" xsi:type="array">
+                <item name="restock.block"
+                      xsi:type="string">Amasty\XnotifSubscriptionFunctionality\Block\Restock</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Xnotif\Helper\Data">
+        <arguments>
+            <argument name="childBlocks" xsi:type="array">
+                <item name="restock.block"
+                      xsi:type="string">Amasty\XnotifSubscriptionFunctionality\Block\Restock</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\OutofstockHyvaCompatibility\Plugins\Catalog\Block\Product\AbstractProduct">
+        <arguments>
+            <argument name="childBlocks" xsi:type="array">
+                <item name="restock.block"
+                      xsi:type="string">Amasty\XnotifSubscriptionFunctionality\Block\Restock</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Xnotif\Model\Frontend\ProductList\GenerateSubscribeHtml">
+        <arguments>
+            <argument name="childBlocks" xsi:type="array">
+                <item name="restock.block"
+                      xsi:type="string">Amasty\XnotifSubscriptionFunctionality\Block\Restock</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\XnotifSubscriptionFunctionality\Model\StockAlertResolver">
+        <arguments>
+            <argument name="paramsToCheck" xsi:type="array">
+                <item name="is_restock" xsi:type="string">is_restock</item>
+                <item name="restock_alert" xsi:type="string">restock_alert</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ProductAlert\Model\Stock">
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::UpdateRestockTable"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\ProductAlert\Model\UpdateRestockAlert"/>
+        <plugin name="Amasty_XnotifSubscriptionFunctionality::StockSubscriptionNotification"
+                type="Amasty\XnotifSubscriptionFunctionality\Plugin\ProductAlert\Model\Stock\StockSubscriptionNotification"/>
+    </type>
+</config>

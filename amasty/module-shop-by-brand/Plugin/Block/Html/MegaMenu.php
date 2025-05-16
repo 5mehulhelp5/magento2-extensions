@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -18,7 +18,7 @@ class MegaMenu extends Topmenu
      * @return array
      */
     public function afterGetAdditionalLinks(
-        \Amasty\MegaMenuLite\Model\Menu\TreeResolver $subject, // @phpstan-ignore class.notFound
+        \Amasty\MegaMenuLite\Model\Menu\TreeResolver $subject,
         $items
     ) {
         return $this->getBrandLink($items, TopmenuSource::DISPLAY_LAST);
@@ -30,7 +30,7 @@ class MegaMenu extends Topmenu
      * @return array
      */
     public function afterGetBeforeAdditionalLinks(
-        \Amasty\MegaMenuLite\Model\Menu\TreeResolver $subject, // @phpstan-ignore class.notFound
+        \Amasty\MegaMenuLite\Model\Menu\TreeResolver $subject,
         $items
     ) {
         return $this->getBrandLink($items, TopmenuSource::DISPLAY_FIRST);

@@ -1,32 +1,27 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
 namespace Amasty\ShopbyBase\Model;
 
-use Amasty\ShopbyBase\Model\Image\Utils\AdditionalExtensionsChecker;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Image\Adapter\AdapterInterface;
-use Magento\Framework\Image\AdapterFactory as ImageAdapterFactory;
-use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\Filesystem\Io\File;
+use Magento\Framework\UrlInterface;
+use Magento\Framework\Image\AdapterFactory as ImageAdapterFactory;
 
 class Resizer
 {
     public const IMAGE_RESIZER_DIR = 'images';
 
     public const IMAGE_RESIZER_CACHE_DIR = self::IMAGE_RESIZER_DIR . DIRECTORY_SEPARATOR . DirectoryList::CACHE;
-
-    /**
-     * @var AdditionalExtensionsChecker
-     */
-    private $additionalExtensionsChecker;
 
     /**
      * @var string
@@ -73,15 +68,13 @@ class Resizer
         StoreManagerInterface $storeManager,
         LoggerInterface $logger,
         File $fileIo,
-        ImageAdapterFactory $imageAdapterFactory,
-        AdditionalExtensionsChecker $additionalExtensionsChecker
+        ImageAdapterFactory $imageAdapterFactory
     ) {
         $this->storeManager = $storeManager;
         $this->fileSystem = $fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->logger = $logger;
         $this->fileIo = $fileIo;
         $this->imageAdapterFactory = $imageAdapterFactory;
-        $this->additionalExtensionsChecker = $additionalExtensionsChecker;
     }
 
     public function getImageUrl($imageUrl, $width = null, $height = null)
@@ -176,12 +169,7 @@ class Resizer
             return false;
         }
 
-        if ($this->additionalExtensionsChecker->isImagickEnabled()) {
-            $imageAdapter = $this->imageAdapterFactory->create(AdapterInterface::ADAPTER_IM);
-        } else {
-            $imageAdapter = $this->imageAdapterFactory->create();
-        }
-
+        $imageAdapter = $this->imageAdapterFactory->create();
         $imageAdapter->open($this->getAbsolutePathOriginal());
         $imageAdapter->constrainOnly(false);
         $imageAdapter->keepTransparency(true);

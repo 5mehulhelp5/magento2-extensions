@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
 namespace Amasty\ShopbySeo\Model\SeoOptionsModifier;
 
 use Amasty\ShopbySeo\Helper\Data;
-use Amasty\ShopbySeo\Model\ConfigProvider;
 use Magento\Catalog\Model\Product\Url as ProductUrl;
-use Magento\Framework\App\ObjectManager;
 
 class UniqueBuilder
 {
@@ -25,69 +23,51 @@ class UniqueBuilder
     private $cache = [];
 
     /**
-     * Contains unique url value
-     * @var array
+     * @var Data
      */
-    private $urlUniqueCounter = [];
+    private $seoHelper;
 
     /**
      * @var ProductUrl
      */
     private $productUrl;
 
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
-    public function __construct(
-        ?Data $seoHelper, // @deprecated
-        ProductUrl $productUrl,
-        ConfigProvider $configProvider = null // TODO move to not optional
-    ) {
+    public function __construct(Data $seoHelper, ProductUrl $productUrl)
+    {
+        $this->seoHelper = $seoHelper;
         $this->productUrl = $productUrl;
-        //OM for backward compatibility
-        $this->configProvider = $configProvider ?? ObjectManager::getInstance()->get(ConfigProvider::class);
     }
 
-    /**
-     * @param string $value
-     * @param string|int $optionId can be category id with static string prefix
-     * @param bool $forceUniqueValue
-     */
-    public function execute(string $value, $optionId = 0, bool $forceUniqueValue = false): string
+    public function execute(string $value, string $optionId = '', bool $forceUniqueValue = false): string
     {
-        if (isset($this->cache[$optionId])) {
-            return (string)$this->cache[$optionId];
+        $uniqueKey = array_search($optionId, $this->cache);
+        if ($uniqueKey !== false) {
+            return $uniqueKey;
         }
 
-        // phpcs:ignore Magento2.Functions.DiscouragedFunction.Discouraged
+        // @codingStandardsIgnoreLine
         $value = html_entity_decode($value, ENT_QUOTES);
         $formattedValue = $this->productUrl->formatUrlKey($value) ?: self::DEFAULT_FORMAT;
-        $specialChar = $this->configProvider->getSpecialChar();
-        $formattedValue = str_replace('-', $specialChar, $formattedValue);
+        $formattedValue = str_replace('-', $this->seoHelper->getSpecialChar(), $formattedValue);
 
         $unique = $formattedValue;
 
-        if ($forceUniqueValue || !$this->configProvider->isIncludeAttributeName()) {
-            $i = 0;
-            while (in_array($unique, $this->cache, true)) {
-                if (isset($this->urlUniqueCounter[$formattedValue])) {
-                    $i = $this->urlUniqueCounter[$formattedValue];
+        if (!$this->seoHelper->isIncludeAttributeName() || $forceUniqueValue) {
+            $i = 1;
+            while (array_key_exists($unique, $this->cache)) {
+                if ($this->cache[$unique] !== $optionId) {
+                    $unique = $formattedValue . $this->seoHelper->getSpecialChar() . ($i++);
                 }
-                $this->urlUniqueCounter[$formattedValue] = ++$i;
-                $unique = $formattedValue . $specialChar . ($i);
             }
         }
 
-        $this->cache[$optionId] = $unique;
+        $this->cache[$unique] = $optionId;
 
-        return (string)$unique;
+        return $unique;
     }
 
     public function clear(): void
     {
         $this->cache = [];
-        $this->urlUniqueCounter = [];
     }
 }

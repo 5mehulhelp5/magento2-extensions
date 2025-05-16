@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -12,13 +12,9 @@ use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\Collection;
 use Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\CollectionFactory;
 use Amasty\ShopbySeo\Helper\Url as UrlHelper;
-use Amasty\ShopbySeo\Model\Attribute\GetAttributeCodesSeoByDefault;
-use Amasty\ShopbySeo\Model\ConfigProvider;
 use Amasty\ShopbySeo\Model\Source\GenerateSeoUrl;
-use Magento\Catalog\Setup\CategorySetup;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManager;
@@ -97,11 +93,6 @@ class Data extends AbstractHelper
      */
     private $serializer;
 
-    /**
-     * @var GetAttributeCodesSeoByDefault
-     */
-    private $getAttributeCodesSeoByDefault;
-
     public function __construct(
         Context $context,
         CollectionFactory $settingCollectionFactory,
@@ -109,8 +100,7 @@ class Data extends AbstractHelper
         Config $configHelper,
         UrlFinderInterface $urlFinder,
         Serializer $serializer,
-        array $skipRequestIdentifiers = [],
-        ?GetAttributeCodesSeoByDefault $getAttributeCodesSeoByDefault = null
+        array $skipRequestIdentifiers = []
     ) {
         parent::__construct($context);
         $this->settingCollectionFactory = $settingCollectionFactory;
@@ -119,38 +109,29 @@ class Data extends AbstractHelper
         $this->urlFinder = $urlFinder;
         $this->skipRequestIdentifiers = array_merge($this->skipRequestIdentifiers, $skipRequestIdentifiers);
         $this->serializer = $serializer;
-        $this->getAttributeCodesSeoByDefault = $getAttributeCodesSeoByDefault
-            ?? ObjectManager::getInstance()->get(GetAttributeCodesSeoByDefault::class);
     }
 
     public function getSeoSignificantAttributeCodes(): array
     {
         if ($this->seoSignificantAttributeCodes === null) {
-            $this->seoSignificantAttributeCodes = [];
             if ($this->configHelper->isSeoUrlEnabled()) {
-                /** @var Collection $collection */
                 $collection = $this->settingCollectionFactory->create();
                 $yesValue = $this->configHelper->isGenerateSeoByDefault()
                     ? [GenerateSeoUrl::YES, GenerateSeoUrl::USE_DEFAULT]
                     : [GenerateSeoUrl::YES];
                 $collection->addFieldToFilter(FilterSettingInterface::IS_SEO_SIGNIFICANT, $yesValue);
                 $collection->addFieldToFilter(
-                    ['main_table.' . FilterSettingInterface::ATTRIBUTE_CODE, FilterSettingInterface::IS_MULTISELECT],
+                    [FilterSettingInterface::ATTRIBUTE_CODE, FilterSettingInterface::IS_MULTISELECT],
                     [
                         ['neq' => self::CATEGORY_ATTRIBUTE_CODE],
                         ['eq' => 1]
                     ]
                 );
-                $collection->addIsFilterableFilter();
+                $attributeCodes = $collection->getColumnValues(FilterSettingInterface::ATTRIBUTE_CODE);
                 $this->setAttributeUrlAliases($collection);
-
-                if ($this->configHelper->isGenerateSeoByDefault()) {
-                    $this->seoSignificantAttributeCodes = array_unique(array_merge(
-                        $this->seoSignificantAttributeCodes,
-                        $this->getAttributeCodesSeoByDefault->execute()
-                    ));
-                }
             }
+
+            $this->seoSignificantAttributeCodes = $attributeCodes ?? [];
         }
 
         return $this->seoSignificantAttributeCodes;
@@ -158,17 +139,12 @@ class Data extends AbstractHelper
 
     private function setAttributeUrlAliases(Collection $collection): void
     {
-        foreach ($collection->getData() as $filterData) {
-            $attributeCode = $filterData['attribute_code'];
-            $this->seoSignificantAttributeCodes[] = $attributeCode;
-            $aliases = $this->serializer->unserialize($filterData['attribute_url_alias']);
-            if ($aliases) {
-                $aliases = array_filter($aliases);
-            }
-            if ($attributeCode === self::CATEGORY_ATTRIBUTE_CODE) {
+        foreach ($collection->getItems() as $filterSetting) {
+            $aliases = $this->serializer->unserialize($filterSetting->getAttributeUrlAlias());
+            if ($filterSetting->getAttributeCode() === self::CATEGORY_ATTRIBUTE_CODE) {
                 $this->injectCategoryAlias($aliases ?: []);
             } else {
-                $this->attributeUrlAliases[$attributeCode] = $aliases;
+                $this->attributeUrlAliases[$filterSetting->getAttributeCode()] = $aliases;
             }
         }
     }
@@ -190,12 +166,6 @@ class Data extends AbstractHelper
         return $this->attributeUrlAliases;
     }
 
-    public function clear(): void
-    {
-        $this->seoSignificantAttributeCodes = null;
-        $this->attributeUrlAliases = [];
-    }
-
     /**
      * @param $attribute
      * @return bool
@@ -215,13 +185,11 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @deprecated
-     * @see ConfigProvider::getSpecialChar()
      * @return string
      */
     public function getSpecialChar()
     {
-        return ObjectManager::getInstance()->get(ConfigProvider::class)->getSpecialChar();
+        return $this->scopeConfig->getValue(self::AMASTY_SHOPBY_SEO_URL_SPECIAL_CHAR, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -249,13 +217,11 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @deprecated
-     * @see ConfigProvider::isIncludeAttributeName()
      * @return bool
      */
     public function isIncludeAttributeName()
     {
-        return ObjectManager::getInstance()->get(ConfigProvider::class)->isIncludeAttributeName();
+        return $this->scopeConfig->getValue(self::AMASTY_SHOPBY_SEO_URL_ATTRIBUTE_NAME, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -291,9 +257,6 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @deprecated
-     * @see \Amasty\ShopbySeo\Model\UrlParser\Url\IsAllowed::execute
-     *
      * @param RequestInterface $request
      * @param bool $allowEmptyModuleName = false
      * @return bool;
@@ -304,11 +267,27 @@ class Data extends AbstractHelper
             return false;
         }
 
-        $identifier = ltrim($request->getPathInfo(), '/');
+        $identifier = ltrim($request->getOriginalPathInfo(), '/');
+        if (!empty($identifier)) {
+            $this->skipXsearchIdentifier();
+            foreach ($this->skipRequestIdentifiers as $skipRequestIdentifier) {
+                if (strpos($identifier, $skipRequestIdentifier) === 0) {
+                    return false;
+                }
+            }
 
-        /** @var \Amasty\ShopbySeo\Model\UrlParser\Url\IsAllowed $isAllowedMethod */
-        $isAllowedMethod = ObjectManager::getInstance()->get(\Amasty\ShopbySeo\Model\UrlParser\Url\IsAllowed::class);
-        return $isAllowedMethod->execute($identifier);
+            $rewrite = $this->urlFinder->findOneByData([
+                UrlRewrite::REQUEST_PATH => $identifier,
+                UrlRewrite::STORE_ID => $this->storeManager->getStore()->getId(),
+            ]);
+            if ($rewrite !== null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     private function skipXsearchIdentifier()

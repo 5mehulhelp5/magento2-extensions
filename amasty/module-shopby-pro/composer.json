@@ -3,11 +3,11 @@
     "description": "Improved Layered Navigation Pro by Amasty",
     "require": {
         "php": ">=7.3.0",
-        "amasty/base": ">=1.15.2",
-        "amasty/shopby": ">=3.1.0"
+        "amasty/base": ">=1.14.6",
+        "amasty/shopby": ">=2.20.1"
     },
     "type": "magento2-module",
-    "version": "3.1.1",
+    "version": "2.22.0",
     "license": [
         "proprietary"
     ],

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -10,6 +10,7 @@ namespace Amasty\Shopby\Block\Navigation\Widget;
 use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Amasty\ShopbyBase\Model\FilterSetting\StoreSettingResolver;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\UrlInterface;
@@ -53,14 +54,14 @@ class Tooltip extends Template implements WidgetInterface, IdentityInterface
         ConfigProvider $configProvider,
         StoreManagerInterface $storeManager,
         StoreSettingResolver $storeSettingResolver,
-        Json $serializer,
-        array $data = []
+        array $data = [],
+        Json $serializer = null // TODO move to not optional
     ) {
         parent::__construct($context, $data);
         $this->storeSettingResolver = $storeSettingResolver;
         $this->configProvider = $configProvider;
         $this->storeManager = $storeManager;
-        $this->serializer = $serializer;
+        $this->serializer = $serializer ?? ObjectManager::getInstance()->get(Json::class);
     }
 
     /**

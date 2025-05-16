@@ -22,8 +22,8 @@ define([
          * @param {Object} file - Data of the file that will be removed.
          */
         removeFile: function (file) {
-            const formData = new FormData();
-            let deleted = false;
+            var formData = new FormData(),
+                deleted = false;
 
             formData.append('form_key', $('[name="form_key"]').val());
             formData.append('banner_image', file.name);

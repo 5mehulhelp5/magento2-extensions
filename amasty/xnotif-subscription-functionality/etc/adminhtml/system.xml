@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amxnotif">
+            <group id="stock">
+                <field id="subscribe_recommended_blocks" translate="label" type="select" sortOrder="35"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label> Enable Subscribe from Recommended Products Blocks</label>
+                    <comment>Includes Related Products, Up-Sells, and Cross-Sells product blocks, as well as blocks from the Amasty Automatic Related Products module if installed.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="with_popup">
+                    <comment>The popup will be displayed for guests on categories and recommended products blocks, if they are enabled.</comment>
+                    <depends>
+                        <field id="subscribe_category">1</field>
+                        <field id="subscribe_recommended_blocks">1</field>
+                    </depends>
+                </field>
+
+                <field id="with_popup_category" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Popup for Guests</label>
+                    <comment>The popup will be displayed for guests on categories and recommended products blocks, if they are enabled.</comment>
+                    <depends>
+                        <field id="subscribe_category">1</field>
+                        <field id="subscribe_recommended_blocks">0</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>amxnotif/stock/with_popup</config_path>
+                </field>
+
+                <field id="with_popup_recommended" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Popup for Guests</label>
+                    <comment>The popup will be displayed for guests on categories and recommended products blocks, if they are enabled.</comment>
+                    <depends>
+                        <field id="subscribe_category">0</field>
+                        <field id="subscribe_recommended_blocks">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>amxnotif/stock/with_popup</config_path>
+                </field>
+            </group>
+
+            <group id="customer_notifications">
+                <field id="price_template" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Price Alert Subscription</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="price_notification_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="stock_template" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Back in Stock Alert Subscription</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="stock_notification_enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="sender_email_stock_price" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="price_notification_enabled">1</field>
+                        <field id="stock_notification_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="sender_email_price" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="price_notification_enabled">1</field>
+                        <field id="stock_notification_enabled">0</field>
+                    </depends>
+                    <config_path>amxnotif/customer_notifications/sender_email_stock_price</config_path>
+                </field>
+                <field id="sender_email_stock" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="price_notification_enabled">0</field>
+                        <field id="stock_notification_enabled">1</field>
+                    </depends>
+                    <config_path>amxnotif/customer_notifications/sender_email_stock_price</config_path>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

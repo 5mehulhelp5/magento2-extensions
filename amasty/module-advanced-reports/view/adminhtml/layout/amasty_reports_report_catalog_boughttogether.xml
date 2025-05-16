@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Reports Base for Magento 2
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="amasty_reports_general_layout"/>
+    <body>
+        <referenceContainer name="amreports.container">
+            <block name="reports_bought_together_demo" template="Amasty_Reports::report/catalog/bought_together_demo.phtml" >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Amasty\Reports\ViewModel\BoughtTogetherDemo</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

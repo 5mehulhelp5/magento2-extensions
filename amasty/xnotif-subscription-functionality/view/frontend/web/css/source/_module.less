@@ -1,0 +1,42 @@
+//
+//  Notification Section
+//  ___________________________________________
+
+//
+//  Common
+//  -------------------------------------------
+
+& when (@media-common = true) {
+    .block.upsell,
+    .block.related,
+    .block.crosssell,
+    .block.amrelated-grid-wrapper,
+    .block.amrelated {
+        .amxnotif-block .amxnotif_guest_action {
+            & {
+                min-width: initial;
+            }
+            .action.amsubscribe {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .amxnotif-block .notification-container .am-restock-alert-wrapper {
+        margin-top: 5px;
+    }
+}
+
+//
+//  Mobile
+//  -------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .notification-container:has(.am-restock-alert-wrapper) {
+        display: block;
+
+        .input-fields.fieldset {
+            max-width: 60%;
+        }
+    }
+}

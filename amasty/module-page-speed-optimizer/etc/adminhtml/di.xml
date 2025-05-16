@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Google Page Speed Optimizer Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="OptimizerPremiumFunctionalityPromo" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_OptimizerPremiumFunctionality</argument>
+            <argument name="currentPromoConfig" xsi:type="string">upgrade</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string"><![CDATA[https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_gpso]]></item>
+                <item name="comment" xsi:type="string"><![CDATA[The functionality is available in the Premium tariff of the Google Page Speed Optimizer module.
+                To upgrade and obtain functionality please follow the <a href="https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_gpso" target="_blank">link</a>.]]></item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

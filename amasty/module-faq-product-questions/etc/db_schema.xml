@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package FAQ and Product Questions for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="amasty_faq_question" resource="default" engine="innodb" comment="Amasty Faq question table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Question Id"/>
+    <column xsi:type="text" name="title" nullable="false" comment="Question text"/>
+    <column xsi:type="text" name="short_answer" nullable="true" comment="Short answer"/>
+    <column xsi:type="text" name="answer" nullable="true" comment="Answer"/>
+    <column xsi:type="smallint" name="visibility" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Visibility"/>
+    <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="int" name="position" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Position"/>
+    <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="Url Key"/>
+    <column xsi:type="int" name="positive_rating" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Question Positive Rating"/>
+    <column xsi:type="int" name="negative_rating" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Question Negative Rating"/>
+    <column xsi:type="int" name="total_rating" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Total Question Rating"/>
+    <column xsi:type="text" name="meta_title" nullable="true" comment="Meta Title"/>
+    <column xsi:type="text" name="meta_description" nullable="true" comment="Meta Description"/>
+    <column xsi:type="varchar" name="meta_robots" nullable="true" length="255" comment="Meta Robots"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    <column xsi:type="boolean" name="exclude_sitemap" nullable="false" default="0" comment="Exclude From Sitemap"/>
+    <column xsi:type="varchar" name="canonical_url" nullable="true" length="255" comment="Canonical Url"/>
+    <column xsi:type="boolean" name="nofollow" nullable="false" default="0" comment="Is Nofollow question"/>
+    <column xsi:type="boolean" name="noindex" nullable="false" default="0" comment="Is Noindex question"/>
+    <column xsi:type="boolean" name="is_show_full_answer" nullable="true" default="0" comment="Show Full answer In question list"/>
+    <column xsi:type="smallint" name="asked_from_store" padding="5" unsigned="true" nullable="true" identity="false" comment="Asked From Store ID"/>
+    <column xsi:type="int" name="visit_count" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Visit count"/>
+    <column xsi:type="decimal" name="avg_rating" scale="4" precision="10" unsigned="true" nullable="false" default="0" comment="Average Question Rating"/>
+    <column xsi:type="int" name="avg_total" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Total Average Ratings Count"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="question_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_QUESTION_ASKED_FROM_STORE_STORE_STORE_ID" table="amasty_faq_question" column="asked_from_store" referenceTable="store" referenceColumn="store_id" onDelete="SET NULL"/>
+    <index referenceId="AMASTY_FAQ_QUESTION_TITLE_ANSWER" indexType="fulltext">
+      <column name="title"/>
+      <column name="answer"/>
+    </index>
+    <index referenceId="AMASTY_FAQ_QUESTION_TOTAL_RATING" indexType="btree">
+      <column name="total_rating"/>
+    </index>
+    <index referenceId="AMASTY_FAQ_QUESTION_SHORT_ANSWER" indexType="fulltext">
+      <column name="short_answer"/>
+    </index>
+  </table>
+  <table name="amasty_faq_category" resource="default" engine="innodb" comment="Amasty Faq category table">
+    <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="false" identity="true" comment="Category Id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+    <column xsi:type="int" name="position" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Position"/>
+    <column xsi:type="varchar" name="url_key" nullable="false" length="255" comment="Url Key"/>
+    <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+    <column xsi:type="text" name="meta_title" nullable="true" comment="Meta Title"/>
+    <column xsi:type="text" name="meta_description" nullable="true" comment="Meta Description"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    <column xsi:type="boolean" name="exclude_sitemap" nullable="false" default="0" comment="Exclude From Sitemap"/>
+    <column xsi:type="varchar" name="canonical_url" nullable="true" length="255" comment="Canonical Url"/>
+    <column xsi:type="boolean" name="nofollow" nullable="false" default="0" comment="Is Nofollow category"/>
+    <column xsi:type="boolean" name="noindex" nullable="false" default="0" comment="Is Noindex category"/>
+    <column xsi:type="text" name="description" nullable="false" comment="Description"/>
+    <column xsi:type="varchar" name="icon" nullable="true" length="255" comment="Icon"/>
+    <column xsi:type="int" name="visit_count" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Visit count"/>
+    <column xsi:type="varchar" name="page_title" nullable="true" length="255" comment="Title on Category Page"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="category_id"/>
+    </constraint>
+    <index referenceId="AMASTY_FAQ_CATEGORY_TITLE_DESCRIPTION" indexType="fulltext">
+      <column name="title"/>
+      <column name="description"/>
+    </index>
+  </table>
+  <table name="amasty_faq_tag" resource="default" engine="innodb" comment="Amasty Faq tag table">
+    <column xsi:type="int" name="tag_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Tag Id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="tag_id"/>
+    </constraint>
+    <index referenceId="AMASTY_FAQ_TAG_TITLE" indexType="btree">
+      <column name="title"/>
+    </index>
+  </table>
+  <table name="amasty_faq_question_category" resource="default" engine="innodb" comment="Amasty Faq question category relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+    <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Category Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_43D8EA4D1F87EB3A2234C059D05F9313" table="amasty_faq_question_category" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_QUESTION_CTGR_CTGR_ID_AMASTY_FAQ_QUESTION_CTGR_ID" table="amasty_faq_question_category" column="category_id" referenceTable="amasty_faq_category" referenceColumn="category_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_CATEGORY_QUESTION_ID_CATEGORY_ID">
+      <column name="question_id"/>
+      <column name="category_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_question_store" resource="default" engine="innodb" comment="Amasty Faq question store relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_64015C500900F6BB2FE0CF2641B3BA8E" table="amasty_faq_question_store" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_QUESTION_STORE_STORE_ID_STORE_STORE_ID" table="amasty_faq_question_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_STORE_QUESTION_ID_STORE_ID">
+      <column name="question_id"/>
+      <column name="store_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_question_tag" resource="default" engine="innodb" comment="Amasty Faq question tag relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+    <column xsi:type="int" name="tag_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Tag Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_2FCDCE0D745FEB058A8F5F5093FA3F8A" table="amasty_faq_question_tag" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_QUESTION_TAG_CATEGORY_ID_AMASTY_FAQ_TAG_CATEGORY_ID" table="amasty_faq_question_tag" column="tag_id" referenceTable="amasty_faq_tag" referenceColumn="tag_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_TAG_QUESTION_ID_TAG_ID">
+      <column name="question_id"/>
+      <column name="tag_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_question_product" resource="default" engine="innodb" comment="Amasty Faq question product relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Product Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_A884CA80B026BCE2060E5C64FF6C6B20" table="amasty_faq_question_product" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_QUESTION_PRD_PRD_ID_CAT_PRD_ENTT_ENTT_ID" table="amasty_faq_question_product" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_PRODUCT_QUESTION_ID_PRODUCT_ID">
+      <column name="question_id"/>
+      <column name="product_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_category_store" resource="default" engine="innodb" comment="Amasty Faq category store relation table">
+    <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Category Id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_CTGR_STORE_CTGR_ID_AMASTY_FAQ_CTGR_CTGR_ID" table="amasty_faq_category_store" column="category_id" referenceTable="amasty_faq_category" referenceColumn="category_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_CATEGORY_STORE_STORE_ID_STORE_STORE_ID" table="amasty_faq_category_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_CATEGORY_STORE_CATEGORY_ID_STORE_ID">
+      <column name="category_id"/>
+      <column name="store_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_view_stat" resource="default" engine="innodb" comment="Amasty Faq visit statistic table">
+    <column xsi:type="int" name="visit_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Visit Id"/>
+    <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="true" identity="false" comment="Category Id"/>
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Question Id"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Customer Id"/>
+    <column xsi:type="int" name="visitor_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Visitor Id"/>
+    <column xsi:type="varchar" name="search_query" nullable="true" length="255" comment="Search Query"/>
+    <column xsi:type="timestamp" name="datetime" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Visit Date and Time"/>
+    <column xsi:type="varchar" name="page_url" nullable="true" length="255" comment="Page Url"/>
+    <column xsi:type="smallint" name="store_ids" padding="5" unsigned="true" nullable="false" identity="false" comment="Customer store"/>
+    <column xsi:type="int" name="count_of_result" padding="11" unsigned="false" nullable="false" identity="false" comment="Count of output results"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="visit_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_VIEW_STAT_STORE_IDS_STORE_STORE_ID" table="amasty_faq_view_stat" column="store_ids" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_faq_question_product_category" resource="default" engine="innodb" comment="Amasty Faq question product categories relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Question Id"/>
+    <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Category Id"/>
+    <constraint xsi:type="foreign" referenceId="FK_506382904937EDA1473474CDD1A23523" table="amasty_faq_question_product_category" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_PRODUCT_CATEGORY_QUESTION_ID_CATEGORY_ID">
+      <column name="question_id"/>
+      <column name="category_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_question_customer_groups" resource="default" engine="innodb" comment="Amasty Faq question customer groups relation table">
+    <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Question Id"/>
+    <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer group id"/>
+    <constraint xsi:type="foreign" referenceId="FK_0DC91C0DB8CE918A179A05AEB844C71F" table="amasty_faq_question_customer_groups" column="question_id" referenceTable="amasty_faq_question" referenceColumn="question_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="FK_9ABF550BBE84909F1E04DA69BBDDF523" table="amasty_faq_question_customer_groups" column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_QUESTION_CSTR_GROUPS_QUESTION_ID_CSTR_GROUP_ID">
+      <column name="question_id"/>
+      <column name="customer_group_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_faq_category_customer_groups" resource="default" engine="innodb" comment="Amasty Faq category customer groups relation table">
+    <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="true" identity="false" comment="Category Id"/>
+    <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer group id"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_FAQ_CTGR_CSTR_GROUPS_CTGR_ID_AMASTY_FAQ_CTGR_CTGR_ID" table="amasty_faq_category_customer_groups" column="category_id" referenceTable="amasty_faq_category" referenceColumn="category_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="FK_C45C9E22DC75441BA8D245D92A0A33B1" table="amasty_faq_category_customer_groups" column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    <constraint xsi:type="unique" referenceId="AMASTY_FAQ_CTGR_CSTR_GROUPS_CTGR_ID_CSTR_GROUP_ID">
+      <column name="category_id"/>
+      <column name="customer_group_id"/>
+    </constraint>
+  </table>
+</schema>

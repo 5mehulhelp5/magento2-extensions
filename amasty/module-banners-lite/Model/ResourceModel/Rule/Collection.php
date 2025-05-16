@@ -58,7 +58,6 @@ class Collection extends \Magento\SalesRule\Model\ResourceModel\Rule\Collection
                 'setof_fixed',
                 'tiered_wholecheaper',
                 'tiered_buyxgetcheapern',
-                'tiered_discount_percent',
                 //Free Gift Rules
                 'ampromo_product',
                 'ampromo_items',

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\Inventory;
 
-use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\ResourceModel\GetInStockProductIds;
 use Amasty\Shopby\Model\ResourceModel\GetMsiInStockProductIds;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Module\Manager;
 
 class Resolver
@@ -36,66 +34,21 @@ class Resolver
      */
     private $getMsiInStockProductIds;
 
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
     public function __construct(
         Manager $moduleManager,
         GetInStockProductIds $getInStockProductIds,
-        GetMsiInStockProductIds $getMsiInStockProductIds,
-        ConfigProvider $configProvider = null // TODO not optional
+        GetMsiInStockProductIds $getMsiInStockProductIds
     ) {
         $this->moduleManager = $moduleManager;
         $this->getInStockProductIds = $getInStockProductIds;
         $this->getMsiInStockProductIds = $getMsiInStockProductIds;
-        // OM is temporary for backward compatibility
-        $this->configProvider = $configProvider ?? ObjectManager::getInstance()->get(ConfigProvider::class);
     }
 
-    /**
-     * @return string[]|int[] [product_id]
-     */
     public function getInStockProducts(array $productIds, int $storeId): array
     {
-        if ($this->isMsiEnabled()) {
-            if ($this->configProvider->isStockByReservedQty($storeId)) {
-                return $this->getMsiInStockProductIds->filterIsStockWithReservation(
-                    $productIds,
-                    $storeId,
-                    $this->configProvider->getCatalogManageStock(),
-                    $this->configProvider->getCatalogMinQty()
-                );
-            }
-
-            return $this->getMsiInStockProductIds->execute($productIds, $storeId);
-        }
-
-        return $this->getInStockProductIds->execute($productIds, $storeId);
-    }
-
-    /**
-     * @param int $storeId
-     * @param int[] $productIds
-     * @return string[]|int[] [product_id => stock_status]
-     */
-    public function getProductStock(int $storeId, array $productIds = []): array
-    {
-        if ($this->isMsiEnabled()) {
-            if ($this->configProvider->isStockByReservedQty($storeId)) {
-                return $this->getMsiInStockProductIds->getStockStatusWithReservation(
-                    $storeId,
-                    $this->configProvider->getCatalogManageStock(),
-                    $this->configProvider->getCatalogMinQty(),
-                    $productIds
-                );
-            }
-
-            return $this->getMsiInStockProductIds->getStockStatus($storeId, $productIds);
-        }
-
-        return $this->getInStockProductIds->getStock($storeId, $productIds);
+        return $this->isMsiEnabled()
+            ? $this->getMsiInStockProductIds->execute($productIds, $storeId)
+            : $this->getInStockProductIds->execute($productIds, $storeId);
     }
 
     /**

@@ -1,0 +1,25 @@
+{
+    "name": "amasty/xnotif",
+    "description": "Out Of Stock Notification by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/cron-schedule-list": "*",
+        "amasty/base": ">=1.17.0"
+    },
+    "suggest": {
+        "amasty/module-osn-graphql": "Install module-osn-graphql to activate GraphQl and Out Of Stock Notification integration."
+    },
+    "type": "magento2-module",
+    "version": "1.18.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Xnotif\\": ""
+        }
+    }
+}

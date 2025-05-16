@@ -147,17 +147,6 @@ define([
                     this.applyFilter();
                 }
             }
-
-            $(this.value).trigger('amshopby:price_from_to', {
-                defaults: {
-                    from: parseFloat(this.options.min),
-                    to: parseFloat(this.options.max)
-                },
-                current: {
-                    from: parseFloat(from),
-                    to: parseFloat(to)
-                },
-            });
         },
 
         /**

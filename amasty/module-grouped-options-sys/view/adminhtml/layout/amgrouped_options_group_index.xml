@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
+ * @package Grouped Options for Magento 2
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_GroupedOptions::css/grid.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="amgrouped_group_listing" />
+        </referenceContainer>
+      </body>
+</page>

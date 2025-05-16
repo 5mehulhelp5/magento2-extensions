@@ -1,0 +1,32 @@
+"If enabled the specified number of images will be excluded from Lazy Load and will be loaded along with the page content.","If enabled the specified number of images will be excluded from Lazy Load and will be loaded along with the page content."
+"If enabled the specified number of images will be excluded from Lazy Load and will be loaded along with the page content. <br/>For images preload request before content, please make sure that Server Push/Preload is enabled and Preloaded images option is selected in the Asset Types to Server Push/Preload setting (to configure proceed to Stores -> Configuration -> Amasty Extensions -> Google Page Speed Optimizer -> Server Push/Preload).","If enabled the specified number of images will be excluded from Lazy Load and will be loaded along with the page content. <br/>For images preload request before content, please make sure that Server Push/Preload is enabled and Preloaded images option is selected in the Asset Types to Server Push/Preload setting (to configure proceed to Stores -> Configuration -> Amasty Extensions -> Google Page Speed Optimizer -> Server Push/Preload)."
+"jQuery Lazy Script","jQuery Lazy Script"
+"Lozad Lazy Script","Lozad Lazy Script"
+"Native JavaScript Lazy Script","Native JavaScript Lazy Script"
+"Vanilla Lazy Script","Vanilla Lazy Script"
+Desktop,Desktop
+Tablet,Tablet
+Mobile,Mobile
+"WebP Support","WebP Support"
+"No WebP Support","No WebP Support"
+Simple,Simple
+Advanced,Advanced
+"Smart Optimization","Smart Optimization"
+"Original Format of Images","Original Format of Images"
+"Yes (Recommended)","Yes (Recommended)"
+No,No
+"Use Lazy Loading Images","Use Lazy Loading Images"
+"Lazy Load Script","Lazy Load Script"
+"Preload Images","Preload Images"
+"Desktop Preload Images Number","Desktop Preload Images Number"
+"Tablet Preload Images Number","Tablet Preload Images Number"
+"Mobile Preload Images Number","Mobile Preload Images Number"
+"Preload Images Strategy","Preload Images Strategy"
+"Preload Images Count","Preload Images Count"
+"Ignore Images that Contain","Ignore Images that Contain"
+"Add Aspect Ratio Styles to Image Tags","Add Aspect Ratio Styles to Image Tags"
+"Add to Images that Contain","Add to Images that Contain"
+"Lazy Load Compatibility Settings","Lazy Load Compatibility Settings"
+"User Agents","User Agents"
+"Images Resolution","Images Resolution"
+"Preloaded Images","Preloaded Images"

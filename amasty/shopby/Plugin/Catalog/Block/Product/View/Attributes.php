@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -66,7 +66,7 @@ class Attributes
                 $setting = $this->filterHelper->getFilterSettingByCode($row['code']);
                 if (!$setting->getUnitsLabelUseCurrencySymbol()) {
                     $row['value'] = preg_replace('@<[^>]+>@u', '', $row['value']);
-                    $pattern = '@\s*' . preg_quote((string)$this->currency->getCurrencySymbol(), '@') . '\s*@u';
+                    $pattern = '@\s*' . preg_quote($this->currency->getCurrencySymbol(), '@') . '\s*@u';
                     $row['value'] = preg_replace($pattern, '', $row['value']);
                     $row['value'] .= ' ' . $setting->getUnitsLabel();
                 }

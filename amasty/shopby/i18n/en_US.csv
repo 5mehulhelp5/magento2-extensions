@@ -3,11 +3,6 @@
 "Add New Group","Add New Group"
 "Display Mode","Display Mode"
 "Add From-To Widget","Add From-To Widget"
-"Range Algorithm","Range Algorithm"
-"Range Step","Range Step"
-"Set 10 to get ranges 10-20, 20-30, etc.
-                        Custom value improves pages speed. Leave empty to get default ranges.","Set 10 to get ranges 10-20, 20-30, etc.
-                        Custom value improves pages speed. Leave empty to get default ranges."
 "Minimum Slider Value","Minimum Slider Value"
 "Please specify the min value to limit the slider, e.g. <$10","Please specify the min value to limit the slider, e.g. <$10"
 "Maximum Slider Value","Maximum Slider Value"
@@ -64,6 +59,7 @@ Categories,Categories
 above,above
 "Select Options","Select Options"
 "Incorrect data for object: %1","Incorrect data for object: %1"
+"Requested page doesn't exist","Requested page doesn't exist"
 "Make sure that ""%1"" attribute can be used in layered navigation","Make sure that ""%1"" attribute can be used in layered navigation"
 Category,Category
 "Make sure that ""%1""(id:%2) category for current store is anchored","Make sure that ""%1""(id:%2) category for current store is anchored"
@@ -71,8 +67,8 @@ Category,Category
 Yes,Yes
 New,New
 "On Sale","On Sale"
-"%1 star & up","%1 star & up"
 "%1 stars & up","%1 stars & up"
+"%1 star & up","%1 star & up"
 "%1 stars","%1 stars"
 "Not Yet Rated","Not Yet Rated"
 "Out of Stock","Out of Stock"
@@ -87,6 +83,7 @@ New,New
 "Show Labels Only","Show Labels Only"
 "Show Images Only","Show Images Only"
 "Show Labels And Images","Show Labels And Images"
+"All Categories","All Categories"
 Disabled,Disabled
 "Category Thumbnail Images","Category Thumbnail Images"
 "Category Names Without Images","Category Names Without Images"
@@ -117,8 +114,6 @@ Both,Both
 "Show products with ALL values only","Show products with ALL values only"
 Before,Before
 After,After
-"Default system algorithm","Default system algorithm"
-"Custom algorithm","Custom algorithm"
 "Root Category","Root Category"
 "Current Category Level","Current Category Level"
 "Current Category Children","Current Category Children"
@@ -132,7 +127,6 @@ Light,Light
 Dark,Dark
 Position,Position
 Name,Name
-"Product Quantities","Product Quantities"
 Always,Always
 "By Click","By Click"
 Folding,Folding
@@ -174,22 +168,17 @@ image,image
 Items,Items
 Item,Item
 "Please enter a valid price range.","Please enter a valid price range."
-"Amasty 2 columns with left bar (for categories)","Amasty 2 columns with left bar (for categories)"
-"Amasty 2 columns with right bar (for categories)","Amasty 2 columns with right bar (for categories)"
 General,General
-"Enable AJAX","Enable AJAX"
+"Enable Ajax","Enable Ajax"
 "Scroll to Top after AJAX Load","Scroll to Top after AJAX Load"
 "Add Vertical Scrolling to Filter Block After","Add Vertical Scrolling to Filter Block After"
+"Set maximum box height in px, to disable enter 0","Set maximum box height in px, to disable enter 0"
 "Enable Sticky Sidebar for Desktop","Enable Sticky Sidebar for Desktop"
 "Note: filters in top block will be hidden.","Note: filters in top block will be hidden."
 "Submit Filters on Desktop","Submit Filters on Desktop"
 "Submit Filters on Mobile","Submit Filters on Mobile"
 "Leave the Single-Select Filter Visible after Selection","Leave the Single-Select Filter Visible after Selection"
-"Disable the setting to hide the filter with just one option when the value is selected.","Disable the setting to hide the filter with just one option when the value is selected."
-"Hide Filters with One Available Option","Hide Filters with One Available Option"
-"Applies only to category filters and filters based on EAV attributes.","Applies only to category filters and filters based on EAV attributes."
 "Number of Unfolded Options in State","Number of Unfolded Options in State"
-"Specify the number of unfolded options. To see other options, a customer should click the 'More' button.","Specify the number of unfolded options. To see other options, a customer should click the 'More' button."
 "Exclude 'Out of Stock' Configurable Options from Navigation","Exclude 'Out of Stock' Configurable Options from Navigation"
 "Parent configurable products won’t be displayed in the results when filtered by an out of stock option. This setting will exclude such products from search results as well.","Parent configurable products won’t be displayed in the results when filtered by an out of stock option. This setting will exclude such products from search results as well."
 "Slider Settings","Slider Settings"
@@ -204,14 +193,12 @@ General,General
 "Separate Category Name & Title with","Separate Category Name & Title with"
 "Add Filter Description","Add Filter Description"
 "Replace Category Image","Replace Category Image"
-"When enabled, a category image will be replaced if a filter option has a custom image uploaded.","When enabled, a category image will be replaced if a filter option has a custom image uploaded."
+"Category Image will be replaced if filter option have custom image uploaded.","Category Image will be replaced if filter option have custom image uploaded."
 "Replace Category CMS Block","Replace Category CMS Block"
-"When enabled, a category CMS block will be replaced if a filter option has a custom Top CMS Block defined.","When enabled, a category CMS block will be replaced if a filter option has a custom Top CMS Block defined."
+"Category CMS Block will be replaced if filter option has custom Top CMS Block defined.","Category CMS Block will be replaced if filter option has custom Top CMS Block defined."
 "Children Categories Block","Children Categories Block"
-"These settings activate the block with subcategories on top of the selected category pages.","These settings activate the block with subcategories on top of the selected category pages."
 "Category's Thumbnail Image Size","Category's Thumbnail Image Size"
 "Show Image Labels","Show Image Labels"
-"Enable the setting to display the titles of the subcategories.","Enable the setting to display the titles of the subcategories."
 "Enable Slider","Enable Slider"
 "Items per Slide","Items per Slide"
 "Category Meta Tags","Category Meta Tags"
@@ -226,7 +213,6 @@ General,General
 "Add Filter Title to Meta-Keywords","Add Filter Title to Meta-Keywords"
 """Category"" Filter","""Category"" Filter"
 Enabled,Enabled
-"Specify sorting order in the sidebar navigation block.","Specify sorting order in the sidebar navigation block."
 "Category Filter","Category Filter"
 """Stock"" Filter","""Stock"" Filter"
 "If set to ‘Yes’, please make sure that displaying of out of stock products is configured accordingly
@@ -234,26 +220,18 @@ Enabled,Enabled
                     Otherwise, stock filter won’t appear on storefront.","If set to ‘Yes’, please make sure that displaying of out of stock products is configured accordingly
                     (Stores -> Configuration -> Catalog -> Inventory -> Stock Options -> Display Out of Stock Products -> Yes).
                     Otherwise, stock filter won’t appear on storefront."
-"Consider Product Salable Quantity in the Filter","Consider Product Salable Quantity in the Filter"
-"If enabled the Salable Quantity will be taken into account and displayed on the front-end
-                        in the ""In Stock"" filter. Is only compatible with simple products.","If enabled the Salable Quantity will be taken into account and displayed on the front-end
-                        in the ""In Stock"" filter. Is only compatible with simple products."
 "Specify sorting order in the top navigation block.","Specify sorting order in the top navigation block."
+"Specify sorting order in the sidebar navigation block.","Specify sorting order in the sidebar navigation block."
 Label,Label
-"Specify tooltip text that will be displayed on a mouse hover for the Stock filter.","Specify tooltip text that will be displayed on a mouse hover for the Stock filter."
 """Rating"" Filter","""Rating"" Filter"
-"Specify tooltip text that will be displayed on a mouse hover for the Rating filter.","Specify tooltip text that will be displayed on a mouse hover for the Rating filter."
 """New"" Filter","""New"" Filter"
-"Specify tooltip text that will be displayed on a mouse hover for the New filter.","Specify tooltip text that will be displayed on a mouse hover for the New filter."
 """On Sale"" Filter","""On Sale"" Filter"
-"Specify tooltip text that will be displayed on a mouse hover for the On Sale filter.","Specify tooltip text that will be displayed on a mouse hover for the On Sale filter."
 Tooltips,Tooltips
 "Tooltip Image","Tooltip Image"
 "Improved Layered Navigation: All Products","Improved Layered Navigation: All Products"
 "Enable All Products Page","Enable All Products Page"
-"When enabled, the All Products page is activated, containing all store items and layered navigation filters.","When enabled, the All Products page is activated, containing all store items and layered navigation filters."
 "All Products Page URL","All Products Page URL"
 "Amasty Improved Layered Navigation","Amasty Improved Layered Navigation"
 "Settings for your filters and their options","Settings for your filters and their options"
 "Exclude from Category Filter","Exclude from Category Filter"
-"No layout updates","No layout updates"
+"Enable Improved Layered Navigation","Enable Improved Layered Navigation"

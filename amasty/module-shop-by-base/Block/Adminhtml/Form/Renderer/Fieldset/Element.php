@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -30,7 +30,7 @@ class Element extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Eleme
     public function usedDefault()
     {
         $isDefault = $this->getDataObject()->getData($this->getElement()->getName().'_use_default');
-        if ($isDefault === null || $this->getDataObject()->getStoreId() == 0) {
+        if ($isDefault === null) {
             $isDefault = true;
         }
 

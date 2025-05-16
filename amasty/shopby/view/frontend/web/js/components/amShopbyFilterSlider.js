@@ -442,17 +442,6 @@ define([
                 $.mage.amShopbyFilterAbstract.prototype.renderShowButton(0, this.element[0]);
                 $.mage.amShopbyFilterAbstract.prototype.apply(linkHref);
             }
-
-            $(this.value).trigger('amshopby:price_slider', {
-                defaults: {
-                    from: parseFloat(this.options.min),
-                    to: parseFloat(this.options.max)
-                },
-                current: {
-                    from: parseFloat(valueFrom),
-                    to: parseFloat(valueTo)
-                }
-            });
         },
 
         /**

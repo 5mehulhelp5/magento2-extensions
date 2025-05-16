@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_xnotif_after_save_stock_model">
+        <observer name="Amasty_XnotifSubscriptionFunctionality::updateRestockTable"
+                  instance="Amasty\XnotifSubscriptionFunctionality\Observer\UpdateRestockTable"/>
+        <observer name="Amasty_XnotifSubscriptionFunctionality::StockSubscriptionNotification"
+                  instance="Amasty\XnotifSubscriptionFunctionality\Observer\StockSubscriptionNotification"/>
+    </event>
+    <event name="amasty_xnotif_after_save_price_model">
+        <observer name="Amasty_XnotifSubscriptionFunctionality::PriceSubscriptionNotification"
+                  instance="Amasty\XnotifSubscriptionFunctionality\Observer\PriceSubscriptionNotification"/>
+    </event>
+</config>

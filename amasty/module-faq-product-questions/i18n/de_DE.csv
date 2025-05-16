@@ -1,0 +1,416 @@
+"Are you sure you want to do this?","Sind Sie sicher, dass Sie fortfahren möchten?"
+Delete,Löschen
+"Not Selected","Nicht ausgewählt"
+ID,ID
+Title,Titel
+"Url Key","Url Key"
+Exclude,Ausschließen
+Field,Feld
+"Save and Send email to Customer","Speichern und E-Mail an den Kunden senden"
+Question,Frage
+Status,Status
+"Sort Option","Option sortieren"
+"Product Questions",Produktfragen
+"No Questions","Keine Fragen"
+Guest,Gast
+Admin,Admin
+"Search results for ""%1"":","Suchergebnisse für ""%1"":"
+"We can't change item right now. Please review the log and try again.","Artikel kann derzeit nicht geändert werden. Bitte überprüfen Sie das Log und versuchen Sie es erneut."
+"A total of %1 record(s) have been changed.","Insgesamt wurden %1 Datensätze geändert."
+"No records have been changed.","Es wurden keine Datensätze geändert."
+"You deleted the category.","Sie haben die Kategorie gelöscht."
+"We can't delete item right now. Please review the log and try again.","Artikel kann derzeit nicht gelöscht werden. Bitte überprüfen Sie das Log und versuchen Sie es erneut."
+"We can't find a item to delete.","Wir können kein Artikel zum Löschen finden."
+"This category no longer exists.","Diese Kategorie existiert nicht mehr."
+Categories,Kategorien
+"New Category","Neue Kategorie"
+"FAQ Categories",FAQ-Kategorien
+"Please correct the data sent.","Bitte korrigieren Sie die gesendeten Daten."
+"Something went wrong while saving the question.","Beim Speichern der Frage ist ein Fehler aufgetreten."
+"A total of %1 record(s) have been deleted.","Insgesamt wurden %1 Datensätze gelöscht."
+"No records have been deleted.","Es wurden keine Datensätze gelöscht."
+"The wrong item is specified.","Der falsche Artikel ist angegeben."
+"You saved the item.","Sie haben den Artikel gespeichert."
+"Import FAQ Categories","FAQ-Kategorien importieren"
+"Import FAQ Questions","FAQ-Fragen importieren"
+"You deleted the question.","Sie haben die Frage gelöscht."
+"This question no longer exists.","Diese Frage besteht nicht mehr."
+Questions,Fragen
+"New Question","Neue Frage"
+"FAQ Questions",FAQ-Fragen
+"Email can not be sent. Email field is empty.","E-Mail kann nicht gesendet werden. E-Mail-Feld ist leer."
+"You saved the item. Answer sent to Customer's Email.","Sie haben das Element gespeichert. Antwort an E-Mail des Kunden gesendet."
+"FAQ Search Terms Report",FAQ-Suchbegriffsbericht
+"Form Key is Invalid, please, reload page and try again.","Form Key ist ungültig, bitte laden Sie die Seite neu und versuchen Sie es erneut."
+"Please log in to ask a question.","Bitte loggen Sie sich ein um eine Frage zu stellen."
+"The question was sent. We'll notify you about the answer via email.","Die Frage wurde gesendet. Wir benachrichtigen Sie per E-Mail über die Antwort."
+"The question was sent.","Die Frage wurde gesendet."
+"We can't post your question right now.","Wir können Ihre Frage derzeit nicht posten."
+"Question doesn't exists.","Frage existiert nicht."
+"You successfully voted.","Sie haben erfolgreich abgestimmt."
+"Can't save question.","Frage kann nicht gespeichert werden."
+"This question or category is not available for the current store view","Diese Frage oder Kategorie ist für die aktuelle Store-Ansicht nicht verfügbar"
+"FAQ Search Results",FAQ-Suchergebnisse
+"Duplicate Url key","Doppelter URL Key"
+"Invalid Url key. Only a-z, 0-9, ., -, _ expected.","Ungültiger URL Key. Nur a-z, 0-9, ., -, _ erwartet."
+"Voting is not allowed.","Abstimmung ist nicht erlaubt."
+"Unable to save category with ID %1. Error: %2","Kategorie mit ID %1 kann nicht gespeichert werden. Fehler: %2"
+"Unable to save new category. Error: %1","Neue Kategorie kann nicht gespeichert werden. Fehler: %1"
+"Category with specified ID ""%1"" not found.","Kategorie mit angegebener ID ""%1"" nicht gefunden."
+"Unable to remove category with ID %1. Error: %2","Kategorie mit ID %1 kann nicht entfernt werden. Fehler: %2"
+"Unable to remove category. Error: %1","Kategorie kann nicht entfernt werden. Fehler: %1"
+Position,Position
+Name,Name
+"Most Viewed","Meist gesehen"
+"1 column","1 Spalte"
+"2 columns","2 Spalten"
+"3 columns","3 Spalten"
+"Don't Add","Nicht hinzufügen"
+"From Current Store Default Country","Vom aktuellen Store Standard Land"
+"From Current Store Locale","Vom aktuellen Store Locale"
+"2 columns with left sidebar","2 Spalten mit linker Seitenleiste"
+"2 columns with right sidebar","2 Spalten mit rechter Seitenleiste"
+"Customer Service",Kundendienst
+"Technical Support","Technische Unterstützung"
+"Billing Support",Rechnungsunterstützung
+"Bill Payment",Rechnungszahlung
+Sales,Verkauf
+Reservations,Reservierungen
+"Credit Card Support",Kreditkartenunterstützung
+Emergency,Notfall
+"Baggage Tracking",Gepäckverfolgung
+"Roadside Assistance",Pannenhilfe
+"Package Tracking",Paketverfolgung
+"Show Short answer","Kurze Antwort anzeigen"
+"Show Cut Full answer","Ausschnitt Vollständige Antwort anzeigen"
+"FAQ and Product Questions","FAQ und Produktfragen"
+"FAQ Ask Question Form","FAQ Frageformular stellen"
+Left,Links
+Center,Center
+Right,Rechts
+Customer,Kunde
+"Nothing to Export","Nichts zu exportieren"
+"You already voted.","Sie haben bereits abgestimmt."
+"Please, login to rate the question.","Bitte loggen Sie sich ein um die Frage zu bewerten."
+Disabled,Deaktiviert
+Enabled,Aktiviert
+"NOT LOGGED IN","NICHT EINGELOGGT"
+Yes/No,Ya/Nein
+Voting,Abstimmung
+"Average Rating",Durchschnittswertung
+Pending,Ausstehend
+Answered,Beantwortet
+None,Keiner
+Public,Öffentlich
+"For logged in only","Nur für eingeloggte"
+"FAQ Category",FAQ-Kategorie
+"Specific Questions","Spezifische Fragen"
+"From Specific Product","Von einem bestimmten Produkt"
+"From Current Product","Vom aktuellen Produkt"
+"Please enter a question title.","Bitte geben Sie einen Fragentitel ein."
+"Please enter correct email.","Bitte geben Sie die korrekte E-Mail ein."
+"Unable to save question with ID %1. Error: %2","Frage mit ID %1 kann nicht gespeichert werden. Fehler: %2"
+"Unable to save new question. Error: %1","Neue Frage konnte nicht gespeichert werden. Fehler: %1"
+"Question with specified ID ""%1"" not found.","Frage mit angegebener ID ""%1"" nicht gefunden."
+"Unable to remove question with ID %1. Error: %2","Frage mit ID %1 kann nicht entfernt werden. Fehler: %2"
+"Unable to remove question. Error: %1","Frage konnte nicht entfernt werden. Fehler: %1"
+Add,Hinzufügen
+Add/Update,Hinzufügen/Aktualisieren
+"Unable to save tag with ID %1. Error: %2","Tag mit ID %1 kann nicht gespeichert werden. Fehler: %2"
+"Unable to save new tag. Error: %1","Neues Tag kann nicht gespeichert werden. Fehler: %1"
+"Tag with specified ID ""%1"" not found.","Tag mit der angegebenen ID ""%1"" nicht gefunden."
+"Unable to remove tag with ID %1. Error: %2","Tag mit ID %1 kann nicht entfernt werden. Fehler: %2"
+"Unable to remove tag. Error: %1","Tag kann nicht entfernt werden. Fehler: %1"
+"Visit with specified ID ""%1"" not found.",Besuch mit angegebener ID ""%1"" nicht gefunden.
+"Unable to save visit with ID %1. Error: %2","Besuch mit ID %1 kann nicht gespeichert werden. Fehler: %2"
+"Unable to save new visit. Error: %1","Neuer Besuch kann nicht gespeichert werden. Fehler: %1"
+"All Store Views","Alle Store-Ansichten"
+"Add Selected Questions","Ausgewählte Fragen hinzufügen"
+"Question Name",Fragename
+Remove,Entfernen
+"Read More",Weiterlesen
+"View all","Alle ansehen"
+Tags,Tags
+"Please, mind that only logged in users can submit questions","Bitte beachten Sie, dass nur eingeloggte Benutzer Fragen stellen können."
+"Did you find what you were looking for?","Haben Sie gefunden, wonach Sie gesucht haben?"
+"Ask a Question","Stelle eine Frage"
+"Hide form","Formular ausblenden"
+"* Required Fields","* Benötigte Felder"
+"Your question:","Ihre Frage:"
+"Type your question here...","Geben Sie ihre Frage hier ein..."
+GDPR,DSGVO
+"Your name:","Ihr Name:"
+Notification,Benachrichtigung
+"get notification on email when the answer is ready","benachrichtigung per E-Mail erhalten, wenn die Antwort fertig ist"
+"Your e-mail:","Ihre E-Mail:"
+Email,E-Mail
+"Send the Question","Die Frage senden"
+"Find answer (deliver, etc.)","Antwort finden (liefern, usw.)"
+Search,Suchen
+Categories:,Kategorien:
+"No categories to display. Create or enable categories.","Keine Kategorien zum Anzeigen. Erstellen oder aktivieren Sie Kategorien."
+"Customer Questions",Kundenfragen
+"Customer: %name","Kunde: %name"
+Question:,Frage:
+"Delete image","Bild löschen"
+"Dear %name,","Lieber %name,"
+"We answered your question.","Wir haben Ihre Frage beantwortet."
+"Your Question: %question","Ihre Frage: %question"
+"Answer: %answer","Antwort: %answer"
+"Back to Product","Zurück zum Produkt"
+"Rate the answer?","Bewerten Sie die Antwort?"
+"Total rating",Gesamtbewertung
+"Was this answer helpful?","War diese Antwort hilfreich?"
+Yes,Ya
+No,Nein
+"people of","leute von"
+"found this answer helpful","fand diese Antwort hilfreich"
+"Invalid url key. Only a-z, 0-9, ., -, _ expected.","Ungültiger URL-Key. Nur a-z, 0-9, ., -, _ erwartet."
+"Invalid template and/or element id selector","Ungültiger Vorlagen- und/oder Element-ID-Selektor"
+"See all results","Alle Ergebnisse anzeigen"
+"Hide results","Ergebnisse ausblenden"
+"Amasty FAQ","Amasty FAQ"
+"General Settings","Allgemeine Einstellungen"
+"Enable module","Modul aktivieren"
+"The name of the FAQ page to be used in the top(breadcrumbs) and bottom menu(footer)","Der Name der FAQ-Seite, der im oberen (Breadcrumbs) und unteren Menü (Footer) verwendet werden soll"
+"URL prefix",URL-Präfix
+"route name, for example {base_store_url}/{URL prefix}/{question_url_key)","routenname, zum Beispiel {base_store_url}/{URL prefix}/{question_url_key)"
+"Add FAQ To the Toolbar","FAQ zur Toolbar hinzufügen"
+"Link to the FAQ page will be added to toolbar","Link zur FAQ-Seite wird zur Toolbar hinzugefügt"
+"Add FAQ To the Categories Menu","FAQ zum Kategorien-Menü hinzufügen"
+"Link to the FAQ page will be added to categories menu","Link zur FAQ-Seite wird zu Kategorien-Menü hinzugefügt"
+"Add FAQ To the Footer","FAQ zur Fußzeile hinzufügen"
+"Link to the FAQ page will be added to footer","Link zur FAQ-Seite wird zur Fußzeile hinzugefügt"
+"Allow unregistered customers to ask questions","Nicht registrierten Kunden erlauben, Fragen zu stellen"
+"Not logged in customers will be permitted to submit questions if the setting is YES","Nicht eingeloggte Kunden können Fragen stellen, wenn die Einstellung JA ist"
+"FAQ Home Page",FAQ-Homepage
+"Use FAQ Home Page","FAQ-Homepage verwenden"
+"Select CMS Page","CMS-Seite auswählen"
+"Select FAQ Pages Layout","Layout der FAQ-Seiten auswählen"
+"FAQ Search, Navigation and Sorting","FAQ Suche, Navigation und Sortierung"
+"Show breadcrumbs","Breadcrumbs anzeigen"
+"Show Ask a Question Button","Eine Frage stellen Button anzeigen"
+"Sort Categories By","Kategorien sortieren nach"
+"Sort Questions By","Fragen sortieren nach"
+"Limit Displayed Answer Length","Angezeigte Antwortlänge begrenzen"
+"Show Search Box","Suchfeld anzeigen"
+"No Results Text","Keine Ergebnisse Text"
+"Specifies the text to display if nothing has been found by the search results page.","Gibt den anzuzeigenden Text an, wenn auf der Suchergebnisseite nichts gefunden wurde."
+"Include FAQ Categories into Searching","FAQ-Kategorien in die Suche einbeziehen"
+"If enabled, you will get search results based not only on questions but also on categories, if the search query matches the category name.","Wenn aktiviert, erhalten Sie Suchergebnisse nicht nur auf Fragen, sondern auch auf Kategorien, wenn die Suchanfrage mit dem Kategorienamen übereinstimmt."
+"Limit Categories Number in Search Results","Anzahl der Kategorien in den Suchergebnisse begrenzen"
+"Limit Questions Number in Category","Anzahl der Fragen in der Kategorie begrenzen"
+"Limit Questions Number in Search Results","Anzahl der Fragen in den Suchergebnissen begrenzen"
+"Short Answer Behavior","Kurzes Antwortverhalten"
+"Limit Tags in Menu","Tags im Menü begrenzen"
+"User Notifications",Benutzerbenachrichtigungen
+"Notify user via email","Benutzer per E-Mail benachrichtigen"
+"Email Sender","E-Mail-Absender"
+"Email Template","E-Mail-Vorlage"
+"Admin Notifications","Admin-Benachrichtigungen"
+"Notify admin of a new question","Admin über eine neue Frage benachrichtigen"
+"Send e-mail to","E-Mail senden an"
+"Product Page",Produktseite
+"Show `Product Questions` Tab","`Produktfragen` Tab anzeigen"
+"`Product Questions` Tab Name","`Produktfragen` Tab Name"
+"`Product Questions` Tab Position","`Produktfragen` Tab Position"
+"Sort order should be greater than 0","Sortierreihenfolge sollte größer als 0 sein"
+"Limit questions number","Anzahl der Fragen begrenzen"
+Rating,Bewertung
+Type,Typ
+"Hide Zero Total Rating","Null Gesamtbewertung ausblenden"
+"Allow Rating for Guests","Bewertung für Gäste zulassen"
+"Social buttons","Soziale Buttons"
+"Social Networks","Soziale Netzwerke"
+SEO,SEO
+"Enable Question and Category URL Suffix","Frage und Kategorie-URL-Suffix aktievieren"
+"Please mind that changing this configuration may affect your indexing in Google.","Bitte beachten Sie, dass eine Änderung dieser Konfiguration Ihre Indexierung in Google beeinträchtigen kann."
+"Remove Trailing Slash from Question and Category URLs","Trailing Slash aus Frage- und Kategorie-URLs entfernen"
+"If enabled, a trailing slash will be removed from FAQ question URLs and FAQ category URLs.","Wenn diese Option aktiviert ist, wird ein Trailing Slash aus FAQ-Frage-URLs und FAQ-Kategorie-URLs entfernt."
+"Question and Category URL Suffix","URL-Suffix für Frage und Kategorie"
+"Use Canonical URL on Pages","Kanonische URL auf Seiten verwenden"
+"Mark Up FAQ with Structured Data","Markieren Sie FAQ mit strukturierten Daten"
+"Structured data will be added to product pages, FAQ home page, FAQ question pages and FAQ category pages.","Strukturierte Daten werden den Produktseiten, der FAQ-Homepage, den FAQ-Frageseiten und den FAQ-Kategorieseiten hinzugefügt."
+"Enable Rich Data Breadcrumbs","Rich Data Breadcrumbs aktivieren"
+"The <b>Show breadcrumbs</b> setting should be enabled in the <b>Faq Page</b> section.","Die Einstellung <b>Breadcrumbs anzeigen</b> sollte im Abschnitt <b>FAQ-Seite</b> aktiviert sein."
+"Enable Rich Data Organization","Rich Data Organization aktivieren"
+"Organization Website Url","Organization Website Url"
+"The URL of the website associated with the logo.","Die URL der Website, die mit dem Logo verbunden ist."
+"Organization Logo Url","Organization Logo Url"
+"URL of a logo that is representative of the organization.","URL eines Logos, das für die Organisation repräsentativ ist."
+"Image requirements:<ul style=""margin-left: 5px;""><li>The image must be 112x112px, at minimum.</li><li>The image URL must be crawlable and indexable.</li><li>The image must be in .jpg, .png, or. gif format.</li></ul>","Bildanforderungen:<ul style=""margin-left: 5px;""><li>Das Bild muss mindestens 112 x 112 px groß sein.</li><li>Die Bild-URL muss crawlbar und indexierbar sein.</li><li>Das Bild muss im Format .jpg, .png oder. gif-Format sein.</li></ul>"
+"Organization Name","Name der Organisation"
+"Add Contact for Organization","Kontakt für Organisation hinzufügen"
+"Contact Type","Kontakt Typ"
+Telephone,Telefon
+"Phone number should be in internationalized version, starting with the ""<b>+</b>"" symbol and country code (+1 in the US and Canada).<br>Examples:<br><b>+1-800-555-1212</b><br><b>+44-2078225951</b>","Die Telefonnummer sollte in internationalisierter Form vorliegen und mit dem Symbol ""<b>+</b>"" und der Landesvorwahl (+1 in den USA und Kanada) beginnen.<br>Beispiele:<br><b>+1-800 -555-1212</b><br><b>+44-2078225951</b>"
+"XML Sitemap",XML-Sitemap"
+"Add FAQ urls to XML Sitemap","FAQ-URLs zur XML-Sitemap hinzufügen"
+"Enable Hreflang URLs","Hfllang-URLs aktivieren"
+"Language Code",Sprachcode
+"Country Code",Landesvorwahl
+Frequency,Häufigkeit
+Priority,Priorität
+"Valid values range from 0.0 to 1.0.","Gültige Werte reichen von 0.0 bis 1.0."
+"GDPR Consent",DSGVO-Einwilligung
+"Сonsent Text",Einwilligungstext
+Buffer,Buffer
+Facebook,Facebook
+WhatsApp,WhatsApp
+Digg,Digg
+Google+,Google+
+LinkedIn,LinkedIn
+Pinterest,Pinterest
+Reddit,Reddit
+StumbleUpon,StumbleUpon
+Tumblr,Tumblr
+Twitter,Twitter
+VKontakte,VKontakte
+"Amasty FAQ Categories","Amasty FAQ-Kategorien"
+"Amasty FAQ Questions","Amasty FAQ-Fragen"
+"Please disable the setting if you use consent checkboxes configured for FAQ Ask Question Form via <a href='%1'>GDPR Consent Checkboxes.</a>","Bitte deaktivieren Sie die Einstellung, wenn Sie Zustimmungskästchen verwenden, die für das FAQ-Formular über <a href='%1'>DSGVO-Zustimmungskästchen</a> konfiguriert sind."
+"Amasty Back to Product Button","Zurück zum Produkt Button von Amasty"
+"Back to last viewed Product Button by Amasty","Zurück zum zuletzt angesehenen Produkt Button von Amasty"
+"Back To Product button Align","Zurück zum Produkt Button Ausrichten"
+"Amasty FAQ Search Box","Amasty FAQ-Suchfeld"
+"Amasty FAQ Search Box widget","Amasty FAQ-Suchfeld-Widget"
+"Search Box Width",Suchfeldbreite
+"You can use the CSS-length values for the Search Box configuration (100px, 77pt, 20em, .5ex or 50%)","Sie können die CSS-Längenwerte für die Search Box Konfiguration verwenden (100px, 77pt, 20em, .5ex oder 50%)"
+"Search Box Align","Suchfeld ausrichten"
+"Amasty FAQ Categories List","Liste der Amasty-FAQ-Kategorien"
+"FAQ and Product Questions Categories list widget","FAQ und Produktfragen-Kategorien-Listen-Widget"
+"Layout Type",Layouttyp
+"Limit question number in category","Anzahl der Fragen in der Kategorie begrenzen"
+"Limit categories number","Anzahl der Kategorien begrenzen"
+"Categories list without questions","Kategorienliste ohne Fragen"
+"Amasty FAQ Tags Block","Amasty FAQ-Tags-Block"
+"Tags block for home page","Tags-Block für die Homepage"
+"Tags limit",Tags-Limit
+"Amasty FAQ Questions List","Amasty FAQ Fragen Liste"
+"FAQ and Product Questions list widget","FAQ und Produktfragen Liste Widget"
+"Block Title",Block-Titel
+"Widget Type",Widget-Typ
+"Select Category...","Kategorie auswählen..."
+"Select Question...","Frage auswählen..."
+Product,Produkt
+"Select Product...","Produkt auswählen..."
+"Category Information",Kategorieinformationen
+Back,Zurück
+Save,Speichern
+"Save and Continue Edit","Speichern und fortfahren Bearbeiten"
+"Category Details",Kategoriedetails
+"Enable Category","Kategorie aktivieren"
+"Category Name",Kategoriename
+"Category Name on Category Page","Kategoriename auf der Kategorieseite"
+"Please fill in the field if you want to display a different category name on the category page on front end. Otherwise, the name specified in the ‘Category Name’ setting will be used.","Bitte füllen Sie das Feld aus, wenn Sie einen anderen Kategorienamen auf der Kategorieseite im Frontend anzeigen lassen möchten. Andernfalls wird der in der Einstellung ’Kategoriename’ angegebene Name verwendet."
+"Url key","Url Key"
+"Store View",Store-Ansicht
+"Display for Specific Customer Groups","Anzeige für bestimmte Kundengruppen"
+"Leave the field empty if you would like to show this question to all customer groups","Lassen Sie das Feld leer, wenn Sie diese Frage für alle Kundengruppen anzeigen möchten"
+"Image will be resized to 50x50 px. Allowed file types : jpg jpeg gif png. Gif can have only one frame","Bild wird auf 50x50 px skaliert. Erlaubte Dateitypen: jpg jpeg gif png. Gif kann nur einen Rahmen haben"
+Description,Beschreibung
+"Add questions","Frage hinzufügen"
+Cancel,Abbrechen
+Visibility,Sichtbarkeit
+Actions,Aktionen
+"Meta title",Meta-Titel
+"Meta description",Meta-Beschreibung
+"Exclude from XML SiteMap","Von XML SiteMap ausschließen"
+Noindex,Noindex
+Nofollow,Nofollow
+Canonical,Kanonische
+"Add New Category","Neue Kategorie hinzufügen"
+"Delete items","Artikel löschen"
+"Are you sure you wan't to delete selected items?","Sind Sie sicher, dass Sie ausgewählte Artikel löschen möchten?"
+"Change Status",Änderungsstatus
+Edit,Bearbeiten
+Viewed,Angesehen
+"Meta Title",Meta-Titel
+"Meta Description",Meta-Beschreibung
+Id,ID
+"Don't show question direct URL","Keine direkte URL der Frage anzeigen"
+Thumbnail,Thumbnail
+SKU,Artikelnummer
+Price,Preis
+General,Allgemein
+"Set ""Yes"" if you want to hide ""Read more"" link and disable direct question URL (useful for brief answers)","Setzen Sie ""Ja"", wenn Sie den Link ""Weiterlesen"" ausblenden und die direkte Frage-URL deaktivieren möchten (nützlich für kurze Antworten)"
+"URL Key",URL Key"
+Stores,Stores
+"Short Answer",Kurzantwort
+"Full Answer","Vollständige Antwort"
+"Positive Rating","Positive Bewertung"
+"Negative Rating","Negative Bewertung"
+"Customer Info",Kunden-Info
+"Sender Name",Absendername
+"Sender Email","Absender E-Mail"
+"Asked in","Gefragt in"
+Products,Produkte
+"Add products","Produkte hinzufügen"
+"Add Selected Products","Ausgewählte Produkte hinzufügen"
+"Product Categories",Produktkategorien
+"Select Categories","Kategorien auswählen"
+"Add New Question","Neue Frage hinzufügen"
+"Change Visibility","Sichtbarkeit ändern"
+"Clear Grid","Raster löschen"
+"Search query",Suchfrage
+Result,Ergebnis
+Hits,Treffer
+"You can use {count} to show how many questions Product has","Sie können {count} verwenden, um anzuzeigen, wie viele Fragen Product hat."
+"You haven't selected any items!","Sie haben keine Artikel ausgewählt!"
+"Something went wrong.","Etwas ist schiefgelaufen."
+"Something went wrong with processing the default view and we have restored the filter to its original state.","Bei der Verarbeitung der Standardansicht ist etwas schiefgelaufen und wir haben den Filter in den ursprünglichen Zustand zurückversetzt."
+"This is a required field.","Das ist ein Pflichtfeld."
+"This tab contains invalid data. Please resolve this before saving.","Dieser Tab enthält ungültige Daten. Bitte beheben Sie dieses Problem vor dem Speichern."
+Icon,Icon
+Upload,Hochladen
+"Import Settings",Importeinstellungen
+"Download Sample File","Beispieldatei herunterladen"
+"Import Behavior","Import Verhalten"
+"Validation Strategy",Validierungsstrategie
+"Stop on Error","Bei Fehler stoppen"
+"Skip error entries","Fehlereinträge überspringen"
+"Allowed Errors Count","Anzahl zulässiger Fehler"
+"Please specify number of errors to halt import process","Bitte geben Sie die Anzahl der Fehler an, um den Importvorgang anzuhalten"
+"Field separator",Feldtrenner
+"Multiple value separator","Trennzeichen für mehrere Werte"
+"Empty attribute value constant","Konstante für den leeren Attributwert"
+"Fields enclosure","Felder Einfriedung"
+"File to Import","Datei für den Import"
+"Choose file","Datei auswählen"
+"No file chosen'","Keine Datei ausgewählt'"
+"Select File to Import","Wählen Sie Datei zum Importieren aus"
+"File must be saved in UTF-8 encoding for proper import","Die Datei muss für einen ordnungsgemäßen Import in UTF-8-Codierung gespeichert werden"
+"Check Data","Daten prüfen"
+"Validation Results","Ergebnisse der Validierung"
+"Grid has been cleared.","Das Raster wurde gelöscht."
+Register,Anmelden
+Login,Login
+Password,Passwort
+"Show Password","Passwort anzeigen"
+"Forgot your Password?","Haben Sie Ihr Passwort vergessen?"
+"Sign in","Einloggen"
+"-- Please Select --","-- Bitte auswählen --"
+"What is this?","Was ist das?"
+"Duplicates found in column names: array ( 0 => 'Please update Amasty Base module. Re-upload it and replace all the files.', 1 => 'Please update Amasty Base module. Re-upload it and replace all the files.')","Duplikate in Spaltennamen gefunden: array ( 0 => 'Bitte aktualisieren Sie das Amasty Base-Modul. Laden Sie es erneut hoch und ersetzen Sie alle Dateien.', 1 => 'Bitte aktualisieren Sie das Amasty Base-Modul. Laden Sie es erneut hoch und ersetzen Sie alle Dateien. ')"
+"The file cannot be imported.","Die Datei kann nicht importiert werden."
+"File is valid! To start import process press ""Import"" button","Datei ist gültig! Um den Importvorgang zu starten, klicken Sie auf die Schaltfläche ""Importier""."
+"We couldn't find any records.","Wir konnten keine Datensätze finden."
+"Checked rows: %1, checked entities: %2, invalid rows: %3, total errors: %4","Geprüfte Zeilen: %1, geprüfte Entitäten: %2, ungültige Zeilen: %3, Gesamtfehler: %4"
+"Images File Directory","Verzeichnis der Bilderdateien"
+"For Type &quot;Local Server&quot; use relative path to &lt;Magento root directory&gt;/var/import/images, e.g. <i>product_images</i>, <i>import_images/batch1</i>.<br><br>For example, in case <i>product_images</i>, files should be placed into <i>&lt;Magento root directory&gt;/var/import/images/product_images</i> folder.<br><br>If remote storage is enabled, in case <i>product_images</i>, files should be placed into <i>&lt;Remote Storage&gt;/var/import/images/product_images</i> folder.","Verwenden Sie für Typ ""Lokaler Server"" den relativen Pfad zu &lt;Magento root directory&gt;/var/import/images, z.B <i>product_images</i>, <i>import_images/batch1</i>. <br><br>Falls beispielsweise <i>product_images</i>, Dateien im Ordner <i>&lt;Magento root directory&gt;/var/import/images/product_images</i> abgelegt werden sollten.<br><br>Wenn die Remote-Speicherung aktiviert ist, sollten die Dateien im Fall von <i>product_images</i> im Ordner <i>&lt;Remote Storage&gt;/var/import/images/product_images</i> abgelegt werden."
+"The file cannot be uploaded.","Die Datei lässt sich nicht hochladen."
+"Created: %1, Updated: %2, Deleted: %3","Erstellt: %1, Aktualisiert: %2, Gelöscht: %3"
+"Import successfully done","Import erfolgreich abgeschlossen"
+"Following Error(s) has been occurred during importing process:","Folgende(r) Fehler ist/sind während des Importvorgangs aufgetreten:"
+"Only the first 100 errors are shown.","Es werden nur die ersten 100 Fehler angezeigt."
+"Download full report","Vollständigen Bericht herunterladen"
+"Maximum error count has been reached or system error is occurred!","Die maximale Fehleranzahl wurde erreicht oder es ist ein Systemfehler aufgetreten!"
+Category:,Kategorie:
+"Apply Filters","Filter anwenden"
+Done,Fertig
+Reset,Zurücksetzen
+"Related Product","Verwandtes Produkt"
+"Check out the response on our website","Sehen Sie sich die Antwort auf unserer Website an"
+"Your question was answered","Ihre Frage wurde beantwortet"
+"FAQ: you received new question","FAQ: Sie haben eine neue Frage erhalten"
+"Asked from:","Nachgefragt von:"

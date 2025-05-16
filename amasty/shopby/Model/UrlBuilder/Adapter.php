@@ -1,13 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Model\UrlBuilder;
 
-use Amasty\ShopbyBase\Model\ConfigProvider;
 use Magento\Framework\App\RequestInterface;
 use Magento\Store\Model\ScopeInterface;
 
@@ -23,23 +22,23 @@ class Adapter implements \Amasty\ShopbyBase\Api\UrlBuilder\AdapterInterface
     private $urlBuilder;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * @var RequestInterface
      */
     private $request;
 
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
     public function __construct(
         \Magento\Framework\UrlFactory $urlBuilderFactory,
-        RequestInterface $request,
-        ConfigProvider $configProvider
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopConfig,
+        RequestInterface $request
     ) {
         $this->urlBuilder = $urlBuilderFactory->create();
+        $this->scopeConfig = $scopConfig;
         $this->request = $request;
-        $this->configProvider = $configProvider;
     }
 
     /**
@@ -53,7 +52,10 @@ class Adapter implements \Amasty\ShopbyBase\Api\UrlBuilder\AdapterInterface
         if ($routePath == self::SELF_ROUTE_PATH
             || ($this->request->getModuleName() == self::SELF_MODULE_NAME && $routePath == self::SAME_PAGE_ROUTE)
         ) {
-            $urlKey = $this->configProvider->getAllProductsUrlKey();
+            $urlKey = $this->scopeConfig->getValue(
+                \Amasty\Shopby\Helper\Data::AMSHOPBY_ROOT_GENERAL_URL_PATH,
+                ScopeInterface::SCOPE_STORE
+            );
             if ($urlKey) {
                 if (isset($routeParams['_scope'])) {
                     $this->urlBuilder->setScope($routeParams['_scope']);
@@ -66,13 +68,6 @@ class Adapter implements \Amasty\ShopbyBase\Api\UrlBuilder\AdapterInterface
             return $this->urlBuilder->getUrl($routePath, $routeParams);
         }
         return null;
-    }
-
-    public function isApplicable(string $routePath = null, array $routeParams = null): bool
-    {
-        $routePath = trim($routePath, '/');
-        return $routePath == self::SELF_ROUTE_PATH
-            || ($this->request->getModuleName() == self::SELF_MODULE_NAME && $routePath == self::SAME_PAGE_ROUTE);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -48,9 +48,7 @@ class UrlBuilder implements UrlBuilderInterface
         if (!isset($this->storage[$key])) {
             $url = null;
             foreach ($this->urlAdapters as $adapter) {
-                if ($adapter->isApplicable($routePath, $routeParams)
-                    && ($url = $adapter->getUrl($routePath, $routeParams))
-                ) {
+                if ($url = $adapter->getUrl($routePath, $routeParams)) {
                     break;
                 }
             }
@@ -69,22 +67,10 @@ class UrlBuilder implements UrlBuilderInterface
     {
         $key = '' . $routePath;
         if ($routeParams !== null) {
-            $key .= json_encode($this->sortRouteParamsForKey($routeParams));
+            $key .= json_encode($routeParams);
         }
 
         return $key;
-    }
-
-    private function sortRouteParamsForKey(array $routeParams): array
-    {
-        foreach ($routeParams as $key => $routeParam) {
-            if (is_array($routeParam)) {
-                $routeParams[$key] = $this->sortRouteParamsForKey($routeParam);
-            }
-        }
-        ksort($routeParams);
-
-        return $routeParams;
     }
 
     /**

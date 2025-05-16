@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -56,30 +56,16 @@ class BrandSettingProvider
                 $collection = $this->collectionFactory->create()
                     ->addFieldToFilter('store_id', $stores)
                     ->addFieldToFilter(OptionSettingInterface::ATTRIBUTE_CODE, $attributeCode)
-                    ->addOrder('store_id', 'DESC');
+                    ->addOrder('store_id', 'ASC'); //current store values will rewrite defaults
 
                 /** @var OptionSettingInterface $item **/
                 foreach ($collection as $item) {
-                    $this->populateBrandSettings($item, $storeId);
+                    $this->brandSettingsByStore[$storeId][$item->getValue()] = $item;
                 }
             }
         }
 
         return $this->brandSettingsByStore[$storeId];
-    }
-
-    private function populateBrandSettings(OptionSettingInterface $item, int $storeId): void
-    {
-        if (!isset($this->brandSettingsByStore[$storeId][$item->getValue()])) {
-            $this->brandSettingsByStore[$storeId][$item->getValue()] = $item;
-        } else {
-            $settingByStore = $this->brandSettingsByStore[$storeId][$item->getValue()];
-            foreach ($settingByStore->getData() as $key => $value) {
-                if ($value === null) {
-                    $settingByStore->setData($key, $item->getData($key));
-                }
-            }
-        }
     }
 
     /**

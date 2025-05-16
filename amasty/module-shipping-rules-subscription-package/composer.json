@@ -1,0 +1,28 @@
+{
+    "name": "amasty/module-shipping-rules-subscription-package",
+    "description": "Shipping Rules Subscription Package by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.17.0",
+        "amasty/shiprules": ">=2.11.0"
+    },
+    "suggest": {
+        "amasty/module-shipping-rules-hyva": "Install this package to insure Shipping Rules extension works with Hyv\u00e4 Theme.",
+        "amasty/module-ship-rules-export-entity": "Install this package for Shipping Rules Export compatibility.",
+        "amasty/module-ship-rules-import-entity": "Install this package for Shipping Rules Import compatibility.",
+        "amasty/module-shipping-rules-hyva-checkout": "Please install this package to ensure compatibility between the Shipping Rules extension and the Hyv\u00e4 Checkout.",
+        "amasty/module-ship-rules-name-customization": "This package provides the ability to customize Shipping Carrier and Method names."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "2.12.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ShippingRulesSubscriptionPackage\\": ""
+        }
+    }
+}

@@ -41,4 +41,13 @@
             </argument>
         </arguments>
     </virtualType>
+
+    <virtualType name="ProductVariantData" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_SeoRichDataSubscriptionFunctionality</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string">https://amasty.com/amcustomer/account/products/?utm_source=extension&amp;utm_medium=backend&amp;utm_campaign=subscribe_snippets</item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -13,10 +13,6 @@ namespace Amasty\Shopby\Model\ResourceModel\Catalog\Product\Indexer\Price;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 
-/**
- * @deprecated Moved for separate module amasty/module-composite-product-price-indexer
- * @see \Amasty\CompositeProductPriceIndexer\Model\ResourceModel\Catalog\Product\Indexer\Price\Configurable
- */
 class Configurable
 {
     /**

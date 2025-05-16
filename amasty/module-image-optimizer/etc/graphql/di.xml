@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogGraphQl\Model\Resolver\Product\MediaGallery\Url">
+        <plugin name="Amasty_ImageOptimizer::CatalogGraphQlGalleryReplace" type="Amasty\ImageOptimizer\Plugin\CatalogGraphQl\Model\Resolver\Product\MediaGallery\Url\CatalogGraphQlGalleryReplace" />
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Plugin\CatalogGraphQl\Model\Resolver\Product\MediaGallery\Url\CatalogGraphQlGalleryReplace">
+        <arguments>
+            <argument name="typesForProcess" xsi:type="array">
+                <item name="amMostviewedBundlePacks" xsi:type="string">amMostviewedBundlePacks</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -107,10 +107,10 @@ class Rating extends AbstractFilter implements CustomFilterInterface
         }
 
         $this->getLayer()->getProductCollection()->addFieldToFilter($this->getAttributeCode(), $condition);
-        if ($value == 1) {
-            $name = __('%1 star & up', $value);
-        } elseif ($value < count(self::STARS)) {
+        if ($value < count(self::STARS)) {
             $name = __('%1 stars & up', $value);
+        } elseif ($value == 1) {
+            $name = __('%1 star & up', $value);
         } else {
             $name = __('%1 stars', $value);
         }
@@ -225,7 +225,7 @@ class Rating extends AbstractFilter implements CustomFilterInterface
 
         return $collection->getFacetedData($this->getAttributeCode(), $this->getSearchResult());
     }
-
+    
     private function getSearchResult(): ?SearchResultInterface
     {
         $alteredQueryResponse = null;

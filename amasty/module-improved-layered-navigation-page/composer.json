@@ -3,11 +3,11 @@
     "description": "Improved Layered Navigation by Amasty - Page sub-module",
     "require": {
         "php": ">=7.3.0",
-        "amasty/base": ">=1.17.0",
-        "amasty/module-shop-by-base": ">=2.17.0"
+        "amasty/base": ">=1.14.6",
+        "amasty/module-shop-by-base": ">=2.16.6"
     },
     "type": "magento2-module",
-    "version": "2.8.2",
+    "version": "2.7.18",
     "license": [
         "proprietary"
     ],

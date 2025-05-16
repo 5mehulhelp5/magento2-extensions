@@ -61,7 +61,7 @@ define([
 
             mutationsList.forEach(function (mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-rendered') {
-                    swatchWidget = self.getSwatchWidget(mutation);
+                    swatchWidget = $(mutation.target).data(self.options.swatchWidgetName) || $(mutation.target).data(self.options.newSwatchWidgetName);
 
                     $(self.options.listSwatches).each( function (id, attribute) {
                         if (!swatchWidget || !swatchWidget._EmulateSelected) {
@@ -72,15 +72,6 @@ define([
                     });
                 }
             });
-        },
-
-        /**
-         * @param {string} mutation
-         * @returns {*|jQuery}
-         */
-        getSwatchWidget: function (mutation) {
-            return $(mutation.target).data(this.options.swatchWidgetName)
-                || $(mutation.target).data(this.options.newSwatchWidgetName);
         }
     });
 

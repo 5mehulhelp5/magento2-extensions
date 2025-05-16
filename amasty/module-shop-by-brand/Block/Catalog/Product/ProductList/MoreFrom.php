@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -13,10 +13,7 @@ use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\CatalogInventory\Helper\Stock;
-use Magento\Customer\Model\Context as CustomerContext;
 use Magento\Framework\App\ActionInterface;
-use Magento\Framework\App\Http\Context as HttpContext;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Url\Helper\Data as UrlHelper;
@@ -70,11 +67,6 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
      */
     private $urlHelper;
 
-    /**
-     * @var HttpContext
-     */
-    private $httpContext;
-
     public function __construct(
         Context $context,
         CollectionFactory $productCollectionFactory,
@@ -85,8 +77,7 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
         \Amasty\ShopbyBrand\Model\ConfigProvider $configProvider,
         \Amasty\ShopbyBrand\Model\Attribute $brandAttribute,
         UrlHelper $urlHelper,
-        array $data = [],
-        HttpContext $httpContext = null// TODO move to not optional
+        array $data = []
     ) {
         parent::__construct($context, $data);
         $this->productCollectionFactory = $productCollectionFactory;
@@ -97,8 +88,6 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
         $this->configProvider = $configProvider;
         $this->brandAttribute = $brandAttribute;
         $this->urlHelper = $urlHelper;
-        // OM for backward compatibility
-        $this->httpContext = $httpContext ?? ObjectManager::getInstance()->get(HttpContext::class);
     }
 
     /**
@@ -120,7 +109,6 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
         $cacheKeyInfo = parent::getCacheKeyInfo();
         if ($this->configProvider->getBrandAttributeCode()) {
             $cacheKeyInfo['product_id'] = $this->getProduct()->getId();
-            $cacheKeyInfo[] = 'cust_gr' .  $this->getCurrentCustomerGroupId();
         }
 
         return $cacheKeyInfo;
@@ -185,7 +173,10 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
         return (string) $attributeValue;
     }
 
-    private function initProductCollection(array $attributeValue): void
+    /**
+     * @param array $attributeValue
+     */
+    private function initProductCollection($attributeValue)
     {
         $currentProductId = (int) $this->getProduct()->getId();
         $attributeCode = $this->configProvider->getBrandAttributeCode();
@@ -205,8 +196,8 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
             ->addAttributeToSelect('special_to_date')
             ->setPageSize($this->getProductsLimit());
 
-        $this->stockHelper->addInStockFilterToCollection($this->itemCollection);
         $this->itemCollection->setCurPage(random_int(1, max($this->itemCollection->getLastPageNumber() - 1, 1)));
+        $this->stockHelper->addInStockFilterToCollection($this->itemCollection);
 
         $this->itemCollection->load();
 
@@ -336,10 +327,5 @@ class MoreFrom extends AbstractProduct implements IdentityInterface
     private function getStoreId(): int
     {
         return (int) $this->_storeManager->getStore()->getId();
-    }
-
-    private function getCurrentCustomerGroupId(): int
-    {
-        return (int)$this->httpContext->getValue(CustomerContext::CONTEXT_GROUP);
     }
 }

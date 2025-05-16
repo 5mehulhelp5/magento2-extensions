@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Shipping Areas for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ShippingArea::shipping_area" title="Shipping Areas" module="Amasty_ShippingArea" resource="Amasty_ShippingArea::shipping_area" parent="Magento_Sales::sales_operation" action="amasty_shiparea/areas/" sortOrder="120"/>
+    </menu>
+</config>

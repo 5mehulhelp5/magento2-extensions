@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -400,7 +400,7 @@ class OptionSetting extends \Magento\Framework\Model\AbstractModel implements Op
     {
         return $this->getData(self::SLIDER_IMAGE);
     }
-
+    
     /**
      * @return string
      */
@@ -417,68 +417,6 @@ class OptionSetting extends \Magento\Framework\Model\AbstractModel implements Op
         $this->setData(self::IMAGE_ALT, $imageAlt);
     }
 
-    public function getPageLayout(): ?string
-    {
-        return $this->getDataByKey(self::BRAND_PAGE_LAYOUT);
-    }
-
-    public function setPageLayout(string $pageLayout): void
-    {
-        $this->setData(self::BRAND_PAGE_LAYOUT, $pageLayout);
-    }
-
-    public function isShowBrandInfo(): ?bool
-    {
-        $isShowBrandInfo = $this->getDataByKey(self::SHOW_BRAND_INFO);
-
-        return $isShowBrandInfo !== null ? (bool)$isShowBrandInfo : $isShowBrandInfo;
-    }
-
-    public function setIsShowBrandInfo(?bool $isShowBrandInfo): void
-    {
-        $this->setData(self::SHOW_BRAND_INFO, $isShowBrandInfo);
-    }
-
-    public function getBrandInfoBlockPosition(): ?string
-    {
-        return $this->getDataByKey(self::BRAND_INFO_BLOCK_POSITION);
-    }
-
-    public function setBrandInfoBlockPosition(?string $brandInfoBlockPosition): void
-    {
-        $this->setData(self::BRAND_INFO_BLOCK_POSITION, $brandInfoBlockPosition);
-    }
-
-    public function getBrandInfoPostalAddress(): ?string
-    {
-        return $this->getData(self::BRAND_INFO_POSTAL_ADDRESS);
-    }
-
-    public function setBrandInfoPostalAddress(?string $brandInfoPostalAddress): void
-    {
-        $this->setData(self::BRAND_INFO_POSTAL_ADDRESS, $brandInfoPostalAddress);
-    }
-
-    public function getBrandInfoElectronicAddress(): ?string
-    {
-        return $this->getDataByKey(self::BRAND_INFO_ELECTRONIC_ADDRESS);
-    }
-
-    public function setBrandInfoElectronicAddress(?string $brandInfoElectronicAddress): void
-    {
-        $this->setData(self::BRAND_INFO_ELECTRONIC_ADDRESS, $brandInfoElectronicAddress);
-    }
-
-    public function getBrandInfoContact(): ?string
-    {
-        return $this->getDataByKey(self::BRAND_INFO_CONTACT);
-    }
-
-    public function setBrandInfoContact(?string $brandInfoContact): void
-    {
-        $this->setData(self::BRAND_INFO_CONTACT);
-    }
-
     /**
      * @param string|array  $key
      * @param mixed         $value
@@ -486,7 +424,7 @@ class OptionSetting extends \Magento\Framework\Model\AbstractModel implements Op
      */
     public function setData($key, $value = null)
     {
-        if ($key == self::SLIDER_POSITION && $value !== null) {
+        if ($key == self::SLIDER_POSITION) {
             $value = max(0, (int)$value);
         }
 

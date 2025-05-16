@@ -100,8 +100,6 @@ class Product extends AbstractBlock
      */
     private $productInfo;
 
-    protected $productReviewResource;
-
     public function __construct(
         \Magento\Framework\View\Element\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -116,7 +114,6 @@ class Product extends AbstractBlock
         ProductResource $productResource,
         GetAggregateRating $getAggregateRating,
         GetReviews $getReviews,
-        \Forix\YotpoSyncProducts\Model\ResourceModel\ProductReview $productReviewResource,
         \Magento\Framework\App\ResourceConnection $resource,
         array $data = [],
         ProductInfo $productInfo = null // TODO move to not optional
@@ -136,7 +133,6 @@ class Product extends AbstractBlock
         $this->getAggregateRating = $getAggregateRating;
         $this->productInfo = $productInfo ?? ObjectManager::getInstance()->get(ProductInfo::class);
         $this->resource = $resource;
-        $this->productReviewResource = $productReviewResource;
     }
 
     protected function _toHtml()
@@ -187,13 +183,7 @@ class Product extends AbstractBlock
 
         if ($this->configProvider->isShowRating()) {
             $resultArray['aggregateRating'] = $this->getAggregateRating->execute($product);
-
-            $storeId = $this->storeManager->getStore()->getId();
-            //$resultArray['review'] = $this->getReviews->execute((int) $product->getId());
-            if($this->configProvider->isUseYotpo())
-                $resultArray['review'] = $this->productReviewResource->getProductReviewBy($product->getId(),$storeId);
-            else
-                $resultArray['review'] = $this->getReviews->execute((int) $product->getId());
+            $resultArray['review'] = $this->getReviews->execute((int) $product->getId());
         }
 
         if ($brandInfo = $this->getBrandInfo($product)) {
@@ -219,7 +209,6 @@ class Product extends AbstractBlock
         switch ($productType) {
             case ConfigurableType::TYPE_CODE:
             case GroupedType::TYPE_CODE:
-
                 /* custom change price by sku */
                 $sku = $this->_request->getParam('sku', false);
                 if ($sku) {
@@ -243,7 +232,6 @@ class Product extends AbstractBlock
                     } catch (\Exception $e) {}
                 }
                 /* end custom */
-
                 if ($this->configHelper->showAggregate($productType)) {
                     $offers[] = $this->generateAggregateOffers(
                         $this->getSimpleProducts($product),

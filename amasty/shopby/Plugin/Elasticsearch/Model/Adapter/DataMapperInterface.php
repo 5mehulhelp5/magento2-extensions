@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -24,10 +24,9 @@ interface DataMapperInterface
     public function map($entityId, array $entityIndexData, $storeId, $context = []): array;
 
     /**
-     * @param int|null $storeId
      * @return bool
      */
-    public function isAllowed(?int $storeId = null): bool;
+    public function isAllowed(): bool;
 
     /**
      * @return string

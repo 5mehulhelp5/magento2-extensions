@@ -29,33 +29,3 @@ SEO,SEO
 Loading...,Loading...
 Settings,Settings
 "Use Default Value","Use Default Value"
-"
-                Enable the module-mage-2.4.5-fix module for the extension to function correctly.
-                Please, run the following command in the SSH: composer require amasty/module-mage-2.4.5-fix
-            ","
-                Enable the module-mage-2.4.5-fix module for the extension to function correctly.
-                Please, run the following command in the SSH: composer require amasty/module-mage-2.4.5-fix
-            "
-"
-                Considering your current Magento version, please disable the module-mage-2.4.5-fix module to
-                prevent frontend issues, as it is only compatible with version 2.4.5. Please, run the following command
-                in the SSH: php bin/magento module:disable Amasty_Mage245Fix
-            ","
-                Considering your current Magento version, please disable the module-mage-2.4.5-fix module to
-                prevent frontend issues, as it is only compatible with version 2.4.5. Please, run the following command
-                in the SSH: php bin/magento module:disable Amasty_Mage245Fix
-            "
-"
-                Enable the module-shop-by-live-search module to activate Live Search and Improved Layered Navigation integration.
-                Please, run the following command in the SSH: composer require amasty/module-shop-by-live-search
-            ","
-                Enable the module-shop-by-live-search module to activate Live Search and Improved Layered Navigation integration.
-                Please, run the following command in the SSH: composer require amasty/module-shop-by-live-search
-            "
-"
-                Enable the module-shopby-livesearch-root-category module to activate Live Search and Improved Layered Navigation integration.
-                Please, run the following command in the SSH: composer require amasty/module-shopby-livesearch-root-category
-            ","
-                Enable the module-shopby-livesearch-root-category module to activate Live Search and Improved Layered Navigation integration.
-                Please, run the following command in the SSH: composer require amasty/module-shopby-livesearch-root-category
-            "

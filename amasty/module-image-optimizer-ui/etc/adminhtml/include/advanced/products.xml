@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="replace_product" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Product Pages</label>
+        <field id="enable_custom_replace" translate="label" type="select" sortOrder="5" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Enable Custom Image Replace</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <config_path>amoptimizer/replace_images_products/enable_custom_replace</config_path>
+        </field>
+        <field id="replace_strategy" translate="label" type="select" sortOrder="10" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Custom Image Replace Strategy</label>
+            <depends>
+                <field id="enable_custom_replace">1</field>
+            </depends>
+            <source_model>Amasty\ImageOptimizer\Model\OptionSource\ReplaceStrategies</source_model>
+            <config_path>amoptimizer/replace_images_products/replace_strategy</config_path>
+        </field>
+        <field id="replace_ignore" translate="label comment" type="textarea" sortOrder="15" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Ignore Images that Contain</label>
+            <depends>
+                <field id="enable_custom_replace">1</field>
+                <field id="replace_strategy" negative="1">0</field>
+            </depends>
+            <comment>Specify each record from a new line.</comment>
+            <config_path>amoptimizer/replace_images_products/replace_ignore</config_path>
+        </field>
+        <field id="support_third_party_image_attributes" translate="label comment tooltip" type="textarea" sortOrder="20" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Support Third-party Image Attributes</label>
+            <depends>
+                <field id="enable_custom_replace">1</field>
+                <field id="replace_strategy" negative="1">0</field>
+            </depends>
+            <config_path>amoptimizer/replace_images_products/support_third_party_image_attributes</config_path>
+            <comment>Specify each attribute from a new line or leave empty if it shouldn't be used.</comment>
+            <tooltip><![CDATA[Example: &lt;img src="placeholder-image.png data-src="original-image.png"/&gt; In this case 'data-src' - it's a third-party attribute, so you need to prescribe it in the field if you want images with this attribute to be replaced with WebP format.]]></tooltip>
+        </field>
+    </group>
+</include>

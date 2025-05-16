@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="amasty_xnotif_restock_status_updater" instance="Amasty\XnotifSubscriptionFunctionality\Cron\UpdateProductAlerts" method="process">
+            <schedule>5 */1 * * *</schedule>
+        </job>
+    </group>
+</config>

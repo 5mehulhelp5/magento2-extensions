@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/**
+ * @var AdminNotify $block
+ * @var Escaper $escaper
+ */
+
+use Amasty\Xnotif\Block\AdminNotify;
+use Magento\Framework\Escaper;
+
+?>
+
+<?php
+$collection = $block->getSubscriptionCollection();
+if ($collection && $collection->getSize()): ?>
+    <table cellpadding="5" cellspacing="2" border="1">
+        <tr>
+            <th><?= $escaper->escapeHtml(__('Name')) ?></th>
+            <th><?= $escaper->escapeHtml(__('SKU')) ?></th>
+            <th><?= $escaper->escapeHtml(__('Total Number of Subscriptions')) ?></th>
+            <th><?= $escaper->escapeHtml(__('Last Subscription')) ?></th>
+        </tr>
+        <?php foreach ($collection as $item): ?>
+            <tr>
+                <td>
+                    <?= $escaper->escapeHtml($item->getName()); ?>
+                </td>
+                <td>
+                    <?= $escaper->escapeHtml($item->getSku()); ?>
+                </td>
+                <td>
+                    <?= $escaper->escapeHtml($item->getTotalCnt()); ?>
+                </td>
+                <td>
+                    <?= $escaper->escapeHtml($item->getLastD()); ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    <p><?= $escaper->escapeHtml(__('There are no notifications.')) ?></p>
+<?php endif; ?>

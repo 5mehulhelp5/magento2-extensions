@@ -1,0 +1,37 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/**
+ * @var \Amasty\AdvancedReview\Block\Widget\ProductReviews\ProductInfo $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$displayedCollection = $block->getReviewsCollection();
+?>
+<div class="amreview-info-wrapper"
+     data-amreview-js="review-container">
+    <a class="amreview-name"
+       href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
+       title="<?= $escaper->escapeHtmlAttr(__('See All Reviews')); ?>">
+        <?= $escaper->escapeHtml($block->getProductName()) ?>
+    </a>
+    <?= /* @noEscape */ $block->getProductImage() ?>
+    <?= /* @noEscape */ $block->getReviewsSummaryHtml($block->getProduct(), $displayedCollection) ?>
+    <?php if ($block->isAllowWriteReview()): ?>
+        <button id="amreview-form-<?= $escaper->escapeHtmlAttr($block->getProduct()->getId()) ?>"
+                class="action primary amreview-button"
+                title="<?= $escaper->escapeHtmlAttr(__('Review Now')); ?>">
+            <?= $escaper->escapeHtml(__('Review Now')); ?>
+        </button>
+        <?php if ($displayedCollection->count()): ?>
+            <a class="amreview-button -see-all"
+               title="<?= $escaper->escapeHtmlAttr(__('See All Reviews')); ?>"
+               href="<?= $escaper->escapeUrl($block->getProductUrl() . '#reviews') ?>">
+                <?= $escaper->escapeHtml(__('See All Reviews')); ?>
+            </a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>

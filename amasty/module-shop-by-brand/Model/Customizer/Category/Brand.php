@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -17,8 +17,6 @@ class Brand implements CustomizerInterface
 {
     public const APPLY_TO_HEADING = 'am_apply_to_heading';
     public const APPLY_TO_META = 'am_apply_to_meta';
-
-    public const CATEGORY_DISPLAY_MODE_KEY = 'display_mode';
 
     /**
      * @var  Category
@@ -58,8 +56,7 @@ class Brand implements CustomizerInterface
             ->setMetaTitle($data['meta_title'])
             ->setMetaDescription($data['meta_description'])
             ->setMetaKeywords($data['meta_keywords'])
-            ->setBottomCmsBlock($data['bottom_cms_block'])
-            ->setDisplayMode();
+            ->setBottomCmsBlock($data['bottom_cms_block']);
         $category->setData(CategoryDataSetterInterface::APPLIED_BRAND_VALUE, $brand->getValue());
 
         return $this;
@@ -219,18 +216,6 @@ class Brand implements CustomizerInterface
         if ($blockId !== null) {
             $this->category->setData('bottom_cms_block', $blockId);
             $this->category->setData(CategoryManager::CATEGORY_FORCE_MIXED_MODE, 1);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set category display mode.
-     */
-    private function setDisplayMode(): Brand
-    {
-        if ($this->category->getDisplayMode() === Category::DM_PAGE) {
-            $this->category->setData(self::CATEGORY_DISPLAY_MODE_KEY, Category::DM_PRODUCT);
         }
 
         return $this;

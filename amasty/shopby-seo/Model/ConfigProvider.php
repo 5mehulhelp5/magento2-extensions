@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -48,22 +48,9 @@ class ConfigProvider extends ConfigProviderAbstract
         return $this->isSetFlag(self::GROUP_URL . 'is_generate_seo_default', $storeId);
     }
 
-    public function isIncludeAttributeName(?int $storeId = null): bool
-    {
-        return $this->isSetFlag(self::GROUP_URL . 'attribute_name', $storeId);
-    }
-
     public function getOptionSeparator(): string
     {
         return (string) $this->getValue(self::GROUP_URL . 'option_separator');
-    }
-
-    /**
-     * Returns symbol to replace special chars.
-     */
-    public function getSpecialChar(?int $storeId = null): string
-    {
-        return (string) $this->getValue(self::GROUP_URL . 'special_char', $storeId);
     }
 
     /*
@@ -89,19 +76,5 @@ class ConfigProvider extends ConfigProviderAbstract
     public function isAddSuffix(?int $storeId = null): bool
     {
         return $this->isSetFlag(self::GROUP_URL . 'add_suffix_shopby', $storeId);
-    }
-
-    public function getSeoSuffix(?int $storeId = null): string
-    {
-        return (string)$this->scopeConfig->getValue(
-            'catalog/seo/category_url_suffix',
-            ScopeInterface::SCOPE_STORE,
-            $storeId
-        );
-    }
-
-    public function getFilterWord(?int $storeId = null): string
-    {
-        return (string) $this->getValue(self::GROUP_URL . 'filter_word', $storeId);
     }
 }

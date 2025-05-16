@@ -1,0 +1,186 @@
+{
+    "amasty_faq_question": {
+        "column": {
+            "question_id": true,
+            "title": true,
+            "short_answer": true,
+            "answer": true,
+            "visibility": true,
+            "status": true,
+            "name": true,
+            "email": true,
+            "position": true,
+            "url_key": true,
+            "positive_rating": true,
+            "negative_rating": true,
+            "total_rating": true,
+            "meta_title": true,
+            "meta_description": true,
+            "meta_robots": true,
+            "created_at": true,
+            "updated_at": true,
+            "exclude_sitemap": true,
+            "canonical_url": true,
+            "nofollow": true,
+            "noindex": true,
+            "is_show_full_answer": true,
+            "asked_from_store": true,
+            "visit_count": true,
+            "avg_rating": true,
+            "avg_total": true
+        },
+        "index": {
+            "AMASTY_FAQ_QUESTION_TITLE_ANSWER": true,
+            "AMASTY_FAQ_QUESTION_TOTAL_RATING": true,
+            "AMASTY_FAQ_QUESTION_SHORT_ANSWER": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_FAQ_QUESTION_ASKED_FROM_STORE_STORE_STORE_ID": true
+        }
+    },
+    "amasty_faq_category": {
+        "column": {
+            "category_id": true,
+            "title": true,
+            "position": true,
+            "url_key": true,
+            "status": true,
+            "meta_title": true,
+            "meta_description": true,
+            "created_at": true,
+            "updated_at": true,
+            "exclude_sitemap": true,
+            "canonical_url": true,
+            "nofollow": true,
+            "noindex": true,
+            "description": true,
+            "icon": true,
+            "visit_count": true,
+            "page_title": true
+        },
+        "index": {
+            "AMASTY_FAQ_CATEGORY_TITLE_DESCRIPTION": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_faq_tag": {
+        "column": {
+            "tag_id": true,
+            "title": true
+        },
+        "index": {
+            "AMASTY_FAQ_TAG_TITLE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_faq_question_category": {
+        "column": {
+            "question_id": true,
+            "category_id": true
+        },
+        "constraint": {
+            "FK_43D8EA4D1F87EB3A2234C059D05F9313": true,
+            "AMASTY_FAQ_QUESTION_CTGR_CTGR_ID_AMASTY_FAQ_QUESTION_CTGR_ID": true,
+            "AMASTY_FAQ_QUESTION_CATEGORY_QUESTION_ID_CATEGORY_ID": true
+        }
+    },
+    "amasty_faq_question_store": {
+        "column": {
+            "question_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "FK_64015C500900F6BB2FE0CF2641B3BA8E": true,
+            "AMASTY_FAQ_QUESTION_STORE_STORE_ID_STORE_STORE_ID": true,
+            "AMASTY_FAQ_QUESTION_STORE_QUESTION_ID_STORE_ID": true
+        }
+    },
+    "amasty_faq_question_tag": {
+        "column": {
+            "question_id": true,
+            "tag_id": true
+        },
+        "constraint": {
+            "FK_2FCDCE0D745FEB058A8F5F5093FA3F8A": true,
+            "AMASTY_FAQ_QUESTION_TAG_CATEGORY_ID_AMASTY_FAQ_TAG_CATEGORY_ID": true,
+            "AMASTY_FAQ_QUESTION_TAG_QUESTION_ID_TAG_ID": true
+        }
+    },
+    "amasty_faq_question_product": {
+        "column": {
+            "question_id": true,
+            "product_id": true
+        },
+        "constraint": {
+            "FK_A884CA80B026BCE2060E5C64FF6C6B20": true,
+            "AMASTY_FAQ_QUESTION_PRD_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "AMASTY_FAQ_QUESTION_PRODUCT_QUESTION_ID_PRODUCT_ID": true
+        }
+    },
+    "amasty_faq_category_store": {
+        "column": {
+            "category_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "AMASTY_FAQ_CTGR_STORE_CTGR_ID_AMASTY_FAQ_CTGR_CTGR_ID": true,
+            "AMASTY_FAQ_CATEGORY_STORE_STORE_ID_STORE_STORE_ID": true,
+            "AMASTY_FAQ_CATEGORY_STORE_CATEGORY_ID_STORE_ID": true
+        }
+    },
+    "amasty_faq_view_stat": {
+        "column": {
+            "visit_id": true,
+            "category_id": true,
+            "question_id": true,
+            "customer_id": true,
+            "visitor_id": true,
+            "search_query": true,
+            "datetime": true,
+            "page_url": true,
+            "store_ids": true,
+            "count_of_result": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_FAQ_VIEW_STAT_STORE_IDS_STORE_STORE_ID": true
+        }
+    },
+    "amasty_faq_question_product_category": {
+        "column": {
+            "question_id": true,
+            "category_id": true
+        },
+        "constraint": {
+            "FK_506382904937EDA1473474CDD1A23523": true,
+            "AMASTY_FAQ_QUESTION_PRODUCT_CATEGORY_QUESTION_ID_CATEGORY_ID": true
+        }
+    },
+    "amasty_faq_question_customer_groups": {
+        "column": {
+            "question_id": true,
+            "customer_group_id": true
+        },
+        "constraint": {
+            "FK_0DC91C0DB8CE918A179A05AEB844C71F": true,
+            "FK_9ABF550BBE84909F1E04DA69BBDDF523": true,
+            "AMASTY_FAQ_QUESTION_CSTR_GROUPS_QUESTION_ID_CSTR_GROUP_ID": true
+        }
+    },
+    "amasty_faq_category_customer_groups": {
+        "column": {
+            "category_id": true,
+            "customer_group_id": true
+        },
+        "constraint": {
+            "AMASTY_FAQ_CTGR_CSTR_GROUPS_CTGR_ID_AMASTY_FAQ_CTGR_CTGR_ID": true,
+            "FK_C45C9E22DC75441BA8D245D92A0A33B1": true,
+            "AMASTY_FAQ_CTGR_CSTR_GROUPS_CTGR_ID_CSTR_GROUP_ID": true
+        }
+    }
+}

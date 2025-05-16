@@ -71,7 +71,7 @@ class AddForeignKey implements SchemaPatchInterface
             $salesruleTableName,
             $linkField
         );
-
+        
         if (!empty($foreignKeys)) {
             return;
         }

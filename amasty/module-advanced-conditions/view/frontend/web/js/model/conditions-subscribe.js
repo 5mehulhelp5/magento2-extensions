@@ -60,7 +60,13 @@ define([
                     ) {
                         shippingProcessor.getRates(quote.shippingAddress());
                     }
-                    recollect();
+                    if(quote.shippingAddress() && (newBillAddress.countryId !== quote.shippingAddress().countryId)
+                            && (newBillAddress.regionId !== quote.shippingAddress().regionId)
+                            && (newBillAddress.postcode !== quote.shippingAddress().postcode)
+                    )
+                    {
+                            recollect();
+                    }
                 }
             }.bind(this));
 
@@ -152,8 +158,8 @@ define([
             return !this._isVirtualQuote()
                 && (
                     newShippingAddress
-                    && (newShippingAddress.city || newShippingAddress.street)
-                    && (newShippingAddress.city != city || !_.isEqual(newShippingAddress.street, street)));
+                    && (newShippingAddress.city)
+                    && (newShippingAddress.city != city));
         },
 
         _isNeededRecollectBilling: function (newBillAddress, billingAddressCountry, billingAddressCity) {

@@ -37,21 +37,15 @@
             "top_position": true,
             "side_position": true,
             "attribute_url_alias": true,
-            "hide_zeros": true,
-            "range_algorithm": true,
-            "range_step": true,
-            "limit_options_show_search_box": true,
-            "attribute_id": true
+            "hide_zeros": true
         },
         "index": {
             "AMASTY_AMSHOPBY_FILTER_SETTING_SHOW_ICONS_ON_PRODUCT": true,
-            "AMASTY_AMSHOPBY_FILTER_SETTING_IS_SEO_SIGNIFICANT": true,
-            "AMASTY_AMSHOPBY_FILTER_SETTING_ATTRIBUTE_ID": true
+            "AMASTY_AMSHOPBY_FILTER_SETTING_IS_SEO_SIGNIFICANT": true
         },
         "constraint": {
             "PRIMARY": true,
-            "AMASTY_AMSHOPBY_FILTER_SETTING_ATTRIBUTE_CODE": true,
-            "AMASTY_AMSHOPBY_FILTER_SETTING_ATTR_ID_EAV_ATTR_ATTR_ID": true
+            "AMASTY_AMSHOPBY_FILTER_SETTING_ATTRIBUTE_CODE": true
         }
     },
     "amasty_amshopby_option_setting": {
@@ -77,8 +71,7 @@
             "small_image_alt": true,
             "limit_options_show_search_box": true,
             "show_featured_only": true,
-            "is_show_in_widget": true,
-            "image_alt": true
+            "is_show_in_widget": true
         },
         "index": {
             "AMASTY_AMSHOPBY_OPTION_SETTING_URL_ALIAS": true,
@@ -89,8 +82,7 @@
             "AMASTY_AMSHOPBY_OPTION_SETTING_ATTRIBUTE_CODE_VALUE_STORE_ID": true
         },
         "constraint": {
-            "PRIMARY": true,
-            "AMASTY_AMSHOPBY_OPT_SETTING_VAL_EAV_ATTR_OPT_OPT_ID": true
+            "PRIMARY": true
         }
     }
 }

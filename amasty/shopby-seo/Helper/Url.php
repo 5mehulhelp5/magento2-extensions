@@ -1,23 +1,19 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
 namespace Amasty\ShopbySeo\Helper;
 
 use Amasty\ShopbyBase\Helper\Data as BaseHelper;
+use Amasty\ShopbyBase\Model\Customizer\Category;
 use Amasty\ShopbySeo\Helper\Url as UrlHelper;
-use Amasty\ShopbySeo\Model\ConfigProvider;
 use Amasty\ShopbySeo\Model\SeoOptions;
-use Amasty\ShopbySeo\Model\UrlParser\Utils\SpecialCharReplacer;
-use Amasty\ShopbySeo\Model\UrlRewrite\IsExist as IsUrlRewriteExist;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
-use Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Store\Model\ScopeInterface;
 
@@ -106,6 +102,11 @@ class Url extends AbstractHelper
     private $originalIdentifier;
 
     /**
+     * @var bool
+     */
+    private $hasUrlSuffix = false;
+
+    /**
      * @var Config
      */
     private $config;
@@ -125,31 +126,6 @@ class Url extends AbstractHelper
      */
     private $categoryRepository;
 
-    /**
-     * @var IsUrlRewriteExist|null
-     */
-    private $isUrlRewriteExist;
-
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
-    /**
-     * @var SpecialCharReplacer
-     */
-    private $specialCharReplacer;
-
-    /**
-     * @var array
-     */
-    private $identifierBaseInfo = [];
-
-    /**
-     * @var array
-     */
-    private $parsedParamsByRoute = [];
-
     public function __construct(
         Context $context,
         Data $helper,
@@ -159,10 +135,7 @@ class Url extends AbstractHelper
         \Amasty\ShopbySeo\Helper\Config $config,
         DataPersistorInterface $dataPersistor,
         SeoOptions $seoOptions,
-        ?CategoryRepositoryInterface $categoryRepository, // TODO: remove
-        IsUrlRewriteExist $isUrlRewriteExist = null, // TODO move to not optional
-        ConfigProvider $configProvider = null,
-        SpecialCharReplacer $specialCharReplacer = null
+        CategoryRepositoryInterface $categoryRepository
     ) {
         parent::__construct($context);
         $this->helper = $helper;
@@ -172,10 +145,7 @@ class Url extends AbstractHelper
         $this->config = $config;
         $this->dataPersistor = $dataPersistor;
         $this->seoOptions = $seoOptions;
-        $this->isUrlRewriteExist = $isUrlRewriteExist ?? ObjectManager::getInstance()->get(IsUrlRewriteExist::class);
-        $this->configProvider = $configProvider ?? ObjectManager::getInstance()->get(ConfigProvider::class);
-        $this->specialCharReplacer =
-            $specialCharReplacer ?? ObjectManager::getInstance()->get(SpecialCharReplacer::class);
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -194,32 +164,33 @@ class Url extends AbstractHelper
      */
     public function seofyUrl($url, ?int $categoryId = null, bool $skipModuleCheck = false)
     {
-        if (!$this->checkForAllowedModule($skipModuleCheck)) {
+        if (!$this->initialize($url, $skipModuleCheck)) {
             return $url;
         }
 
-        $this->resolveIdentifier($url);
-        $identifierBaseInfo = $this->resolveIdentifierBaseInfo($url, $categoryId);
-        if (empty($identifierBaseInfo)) {
-            return $url;
+        $this->hasUrlSuffix = false;
+
+        $identifier = $this->removeCategorySuffix($this->identifier);
+        if ($this->identifier !== $identifier) {
+            $this->hasUrlSuffix = true;
         }
 
-        $this->initialize($url);
-
-        $hasUrlSuffix = $identifierBaseInfo['has_url_suffix'];
-        $isCategoryPathRemoved = $identifierBaseInfo['is_category_path_removed'];
-        $categoryPath = $identifierBaseInfo['category_path'];
-        $identifier = $identifierBaseInfo['clean_identifier'];
+        $isCategoryPathRemoved = false;
+        if ($categoryPath = $this->getCategoryPath($categoryId)) {
+            $identifierWithoutCategoryPath = $this->removeCategoryPath($identifier, $categoryPath);
+            $isCategoryPathRemoved = $identifier !== $identifierWithoutCategoryPath;
+            $identifier = $identifierWithoutCategoryPath;
+        }
 
         if ($this->isSeoUrlEnabled()) {
             $identifier = $this->injectAliases($identifier);
-            $identifier = ltrim($identifier, '/');
+            $identifier = ltrim($identifier, DIRECTORY_SEPARATOR);
         }
 
         if ($isCategoryPathRemoved) {
             $identifier = $this->addCategoryPath($identifier, $categoryPath);
         }
-        if ($hasUrlSuffix || $this->getRequest()->getMetaData(Data::SEO_REDIRECT_MISSED_SUFFIX_FLAG)) {
+        if ($this->hasUrlSuffix || $this->getRequest()->getMetaData(Data::SEO_REDIRECT_MISSED_SUFFIX_FLAG)) {
             $identifier = $this->addCategorySuffix($identifier);
         }
 
@@ -231,42 +202,6 @@ class Url extends AbstractHelper
         }
 
         return $url;
-    }
-
-    private function resolveIdentifierBaseInfo(string $url, ?int $categoryId = null): array
-    {
-        if (isset($this->identifierBaseInfo[$categoryId][$this->identifier])) {
-            return $this->identifierBaseInfo[$categoryId][$this->identifier];
-        }
-
-        foreach ($this->disallowedPathes as $path) {
-            if (strpos($this->identifier, $path) !== false) {
-                $this->identifierBaseInfo[$categoryId][$this->identifier] = [];
-                return $this->identifierBaseInfo[$categoryId][$this->identifier];
-            }
-        }
-
-        $hasUrlSuffix = false;
-        $identifier = $this->removeCategorySuffix($this->identifier);
-        if ($this->identifier !== $identifier) {
-            $hasUrlSuffix = true;
-        }
-
-        $isCategoryPathRemoved = false;
-        if ($categoryPath = $this->retrieveCategoryUrl($url, $categoryId)) {
-            $identifierWithoutCategoryPath = $this->removeCategoryPath($identifier, $categoryPath);
-            $isCategoryPathRemoved = $identifier !== $identifierWithoutCategoryPath;
-            $identifier = $identifierWithoutCategoryPath;
-        }
-
-        $this->identifierBaseInfo[$categoryId][$this->identifier] = [
-            'has_url_suffix' => $hasUrlSuffix,
-            'is_category_path_removed' => $isCategoryPathRemoved,
-            'category_path' => $categoryPath,
-            'clean_identifier' => $identifier
-        ];
-
-        return $this->identifierBaseInfo[$categoryId][$this->identifier];
     }
 
     private function removeCategoryPath(string $identifier, string $categoryPath): string
@@ -285,22 +220,22 @@ class Url extends AbstractHelper
         return $categoryPath;
     }
 
-    private function retrieveCategoryUrl(string $url, ?int $categoryId): ?string
+    private function getCategoryPath(?int $categoryId): ?string
     {
-        if ($categoryId === null && $this->coreRegistry->registry('current_category')) {
-            $categoryId = $this->coreRegistry->registry('current_category')->getId();
+        if ($categoryId) {
+            $category = $this->categoryRepository->get($categoryId);
+        } else {
+            $category = $this->coreRegistry->registry('current_category');
         }
 
-        if ($categoryId && $this->storeManager->getStore()->getRootCategoryId() != $categoryId) {
-            $categoryPath = str_replace($this->getBaseUrl(), '', $this->removeQueryParams($url));
-            if ($this->isUrlRewriteExist->execute(
-                $categoryPath,
-                (int)$this->storeManager->getStore()->getId(),
-                CategoryUrlRewriteGenerator::ENTITY_TYPE,
-                $categoryId
-            )) {
-                return $this->removeCategorySuffix($categoryPath);
-            }
+        /** @var \Magento\Catalog\Model\Category $category */
+        if ($category && $this->storeManager->getStore()->getRootCategoryId() != $category->getId()) {
+            $categoryPath = str_replace(
+                $this->getBaseUrl(),
+                '',
+                $this->removeQueryParams($category->getData(Category::ORIGINAL_CATEGORY_URL) ?? $category->getUrl())
+            );
+            return $this->removeCategorySuffix($categoryPath);
         }
 
         return null;
@@ -330,23 +265,46 @@ class Url extends AbstractHelper
     /**
      * @return bool
      */
+    private function isCatalog()
+    {
+        return !$this->dataPersistor->get(BaseHelper::SHOPBY_BRAND_POPUP)
+            && (!$this->getRequest()->getModuleName() == self::CATALOG_MODULE_NAME
+                || $this->hasCategoryFilterParam());
+    }
+
+    /**
+     * @return bool
+     */
     public function hasCategoryFilterParam()
     {
         return (bool)$this->getParam(self::CATEGORY_FILTER_PARAM);
     }
 
-    private function checkForAllowedModule(bool $skipModuleCheck): bool
+    /**
+     * @param string $url
+     * @param bool $skipModuleCheck
+     * @return bool
+     */
+    private function initialize($url, bool $skipModuleCheck)
     {
-        return $skipModuleCheck || in_array($this->getRequest()->getModuleName(), $this->allowedModules);
-    }
+        if (!$skipModuleCheck && !in_array($this->getRequest()->getModuleName(), $this->allowedModules)) {
+            return false;
+        }
 
-    private function initialize(string $url): void
-    {
         // @codingStandardsIgnoreLine
         $parsedUrl = parse_url($url);
 
+        $url = $this->removeQueryParams($url);
+
+        $this->identifier = substr($url, strlen($this->getBaseUrl()));
         $this->hasSeoAliases = false;
         $this->queryParams = [];
+
+        foreach ($this->disallowedPathes as $path) {
+            if (strpos($this->identifier, $path) !== false) {
+                return false;
+            }
+        }
 
         if (isset($parsedUrl['query'])) {
             $this->paramsDelimiter = strpos($parsedUrl['query'], '&amp;') !== false ? '&amp;' : '&';
@@ -354,12 +312,8 @@ class Url extends AbstractHelper
         }
 
         $this->originalIdentifier = $this->identifier . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
-    }
 
-    private function resolveIdentifier(string $url): void
-    {
-        $url = $this->removeQueryParams($url);
-        $this->identifier = substr($url, strlen($this->getBaseUrl()));
+        return true;
     }
 
     private function removeQueryParams(string $url): string
@@ -499,58 +453,24 @@ class Url extends AbstractHelper
     }
 
     /**
-     * @param string $routeUrl
+     * @param $routeUrl
      *
      * @return string
      */
     private function injectAliases($routeUrl)
     {
-        [$routeUrl, $parsedParams] = $this->resolveParsedParams($routeUrl);
-
-        $this->prepareParams($parsedParams);
-        $routeUrl = $this->modifySeoIdentifier($routeUrl);
-
-        $allAliases = $this->getAllAliases();
-
-        if ($allAliases) {
-            $this->hasSeoAliases = true;
-            $routeUrl = rtrim($this->modifySeoIdentifierByAlias($routeUrl, $allAliases), '/') . '/';
-            if ($filterWord = $this->configProvider->getFilterWord()) {
-                $routeUrl .= $filterWord . '/';
+        if ($this->helper->getFilterWord()) {
+            if (strpos($routeUrl, '/' . $this->helper->getFilterWord() . '/') !== false) {
+                $filterWordPosition = strpos($routeUrl, '/' . $this->helper->getFilterWord() . '/');
+                $seoPart = substr(
+                    $routeUrl,
+                    $filterWordPosition + strlen('/' . $this->helper->getFilterWord() . '/')
+                );
+                $routeUrl = substr($routeUrl, 0, $filterWordPosition);
+            } else {
+                $seoPart = '';
             }
-            $optionSeparator = $this->config->getOptionSeparator();
-            $isWithAttributeName = $this->configProvider->isIncludeAttributeName();
-            $aliasString = '';
-
-            foreach ($allAliases as $code => $alias) {
-                if ($aliasString) {
-                    $aliasString .= $optionSeparator;
-                }
-                if ($isWithAttributeName || $code === UrlHelper::CATEGORY_FILTER_PARAM) {
-                    $aliasString .= $this->getAttributeUrlAlias($code) . $optionSeparator;
-                }
-                $aliasString .= implode($optionSeparator, $alias);
-            }
-            $routeUrl .= $aliasString;
-        }
-
-        return $routeUrl;
-    }
-
-    /**
-     * @return array [string parsedRouteUrl, array parsedParams]
-     */
-    private function resolveParsedParams(string $routeUrl): array
-    {
-        if (isset($this->parsedParamsByRoute[$routeUrl])) {
-            return $this->parsedParamsByRoute[$routeUrl];
-        }
-
-        $originalRouteUrl = $routeUrl;
-
-        $filterWord = $this->configProvider->getFilterWord();
-        if ($filterWord) {
-            [$routeUrl, $parsedParams] = $this->parseWithFilterWord($routeUrl);
+            $parsedParams = $this->urlParser->parseSeoPart($seoPart);
         } else {
             $trimmedRouteUrl = trim($routeUrl, '/');
             if ($lastSlashPosition = strrpos($trimmedRouteUrl, "/")) {
@@ -561,45 +481,44 @@ class Url extends AbstractHelper
                 }
             } else {
                 $parsedParams = $this->urlParser->parseSeoPart($trimmedRouteUrl);
-                if ($parsedParams) {
-                    $routeUrl = '';
-                } else {
-                    $routeUrl = $trimmedRouteUrl;
-                }
+                $routeUrl = $trimmedRouteUrl;
             }
         }
 
-        $this->parsedParamsByRoute[$originalRouteUrl] = [
-            $routeUrl,
-            $parsedParams
-        ];
+        $this->prepareParams($parsedParams);
+        $routeUrl = $this->modifySeoIdentifier($routeUrl);
 
-        return $this->parsedParamsByRoute[$originalRouteUrl];
-    }
+        $allAliases = $this->getAllAliases();
 
-    private function parseWithFilterWord(string $routeUrl): array
-    {
-        $filterWordKey = '/' . $this->configProvider->getFilterWord() . '/';
-        $seoPart = '';
-        if (strpos($routeUrl, $filterWordKey) !== false) {
-            $filterWordPosition = strpos($routeUrl, $filterWordKey);
-            $seoPart = substr(
-                $routeUrl,
-                $filterWordPosition + strlen($filterWordKey)
-            );
-            $routeUrl = substr($routeUrl, 0, $filterWordPosition);
+        if ($allAliases) {
+            $this->hasSeoAliases = true;
+            $routeUrl = rtrim($this->modifySeoIdentifierByAlias($routeUrl, $allAliases), '/') . DIRECTORY_SEPARATOR;
+            $routeUrl .= $this->helper->getFilterWord() ? $this->helper->getFilterWord() . DIRECTORY_SEPARATOR : '';
+            $optionSeparator = $this->config->getOptionSeparator();
+            $aliasString = '';
+
+            foreach ($allAliases as $code => $alias) {
+                $aliasString .= ($aliasString ? $optionSeparator : '')
+                    . (
+                        $this->helper->isIncludeAttributeName() || $code == UrlHelper::CATEGORY_FILTER_PARAM
+                            ? $this->getAttributeUrlAlias($code)
+                            . $optionSeparator : ''
+                    )
+                    . implode($optionSeparator, $alias);
+            }
+            $routeUrl .= $aliasString;
         }
-        $parsedParams = $this->urlParser->parseSeoPart($seoPart);
 
-        return [$routeUrl, $parsedParams];
+        return $routeUrl;
     }
 
     private function getAttributeUrlAlias(string $attribute): string
     {
         $attributeUrlAliases = $this->helper->getAttributeUrlAliases();
         $store = $this->storeManager->getStore()->getId();
+        $alias = $attributeUrlAliases[$attribute][$store] ?? null;
 
-        return $attributeUrlAliases[$attribute][$store] ?? $this->specialCharReplacer->replace($attribute);
+        return $alias ?: $attribute;
     }
 
     /**
@@ -730,6 +649,7 @@ class Url extends AbstractHelper
     {
         return !empty($this->queryParams);
     }
+
     /**
      * @param string $paramName
      * @param null $paramValue

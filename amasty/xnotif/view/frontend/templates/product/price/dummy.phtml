@@ -1,0 +1,31 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/**
+ * Added dummy price block for correct work out of stock configurable
+ * with Magento_ConfigurableProduct/js/configurable.js
+ */
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<?php
+/** @var \Amasty\Xnotif\ViewModel\Product\ProductRegistry $productRegistry */
+$productRegistry = $block->getData('product_registry');
+/** @var \Amasty\Xnotif\ViewModel\Product\ConfigurableProduct $configurableProduct */
+$configurableProduct = $block->getData('configurable_product');
+
+$product = $productRegistry->getCurrent();
+?>
+
+<?php if ($product && !$product->isSaleable() && $configurableProduct->isProductWithoutSwatchAttribute($product)): ?>
+    <div class="price-box" data-role="priceBox"
+         data-product-id="<?= $escaper->escapeHtml($product->getId()) ?>"
+         data-price-box="product-id-<?= $escaper->escapeHtml($product->getId()) ?>"></div>
+<?php endif; ?>
+

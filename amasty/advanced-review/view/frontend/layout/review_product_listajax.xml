@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.product_additional_data" remove="true" />
+        <referenceContainer name="root">
+            <block class="Amasty\AdvancedReview\Block\Review\Product\View\ListView"
+                   name="amasty.product.info.product_additional_data"
+                   template="Amasty_AdvancedReview::product/view/list.phtml"
+                   before="product_review_list.toolbar">
+                <arguments>
+                    <argument name="advanced-review-helper" xsi:type="object">Amasty\AdvancedReview\Helper\BlockHelper</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Template"
+                       name="amasty.reviews.write_review_button"
+                       template="Amasty_AdvancedReview::product/view/write_review_button.phtml"
+                >
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">
+                            Amasty\AdvancedReview\ViewModel\Reviews\Product\View\ListView\WriteReviewButton
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+            <block name="review.comments.js" class="Amasty\AdvancedReview\Block\Comment\JsInit" ifconfig="amasty_advancedreview/comments/enabled" />
+        </referenceContainer>
+    </body>
+</page>

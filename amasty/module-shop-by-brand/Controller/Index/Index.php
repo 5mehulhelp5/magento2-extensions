@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -114,7 +114,6 @@ class Index extends \Magento\Framework\App\Action\Action
         }
 
         $settings = $this->catalogDesign->getDesignSettings($category);
-        $this->_eventManager->dispatch('amshopby_brand_page_init_design', ['design_settings' => $settings]);
 
         // apply custom design
         if ($settings->getCustomDesign()) {
@@ -158,17 +157,6 @@ class Index extends \Magento\Framework\App\Action\Action
 
         /** @var Breadcrumbs $breadcrumbsBlock */
         if ($breadcrumbsBlock = $page->getLayout()->getBlock('breadcrumbs')) {
-
-            $brandsTitle = $this->brandHelper->getModuleConfig('general/menu_item_label') ?: __('Brands');
-            $breadcrumbsBlock->addCrumb(
-                'brands',
-                [
-                    'label' => $brandsTitle,
-                    'title' => $brandsTitle,
-                    'link' => $this->brandHelper->getAllBrandsUrl()
-                ]
-            );
-
             $breadcrumbsBlock->addCrumb(
                 'all-products',
                 [

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Page for Magento 2 (System)
  */
 
@@ -28,7 +28,6 @@ interface PageInterface extends ExtensibleDataInterface
     public const BOTTOM_BLOCK_ID = 'bottom_block_id';
     public const STORES = 'stores';
     public const IMAGE = 'image';
-    public const TAG_ROBOTS = 'tag_robots';
     public const TABLE_NAME = 'amasty_amshopby_page';
 
     /**
@@ -113,11 +112,6 @@ interface PageInterface extends ExtensibleDataInterface
     public function getImage();
 
     /**
-     * @return string|null
-     */
-    public function getTagRobots(): ?string;
-
-    /**
      * @param int
      * @return PageInterface
      */
@@ -200,12 +194,6 @@ interface PageInterface extends ExtensibleDataInterface
      * @return PageInterface
      */
     public function setImage($image);
-
-    /**
-     * @param string $tagRobots
-     * @return PageInterface
-     */
-    public function setTagRobots(string $tagRobots): PageInterface;
 
     /**
      * @return mixed

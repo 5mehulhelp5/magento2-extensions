@@ -1,0 +1,17 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/* @var $block \Magento\ProductAlert\Block\Product\View */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+
+<div class="product alert <?= $block->getHtmlClass() ?>">
+    <a href="<?= $escaper->escapeUrl($block->getSignupUrl()) ?>"
+       title="<?= $escaper->escapeHtml(__($block->getSignupLabel())) ?>" class="action alert">
+        <?= $escaper->escapeHtml(__($block->getSignupLabel())) ?>
+    </a>
+    <?= $block->getChildHtml(); ?>
+</div>

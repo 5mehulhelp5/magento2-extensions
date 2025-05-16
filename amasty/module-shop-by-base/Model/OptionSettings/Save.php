@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -55,12 +55,10 @@ class Save
             $model->setStoreId($storeId);
         }
 
-        if (!empty($data)) {
-            $defaultModel = $this->repository->getByCode($attributeCode, $optionId, Store::DEFAULT_STORE_ID);
-            $this->processImages($model, $defaultModel, $data);
-            $this->processSliderImage($model, $defaultModel, $data);
-            $this->processUseDefault($data);
-        }
+        $defaultModel = $this->repository->getByCode($attributeCode, $optionId, Store::DEFAULT_STORE_ID);
+        $this->processImages($model, $defaultModel, $data);
+        $this->processSliderImage($model, $defaultModel, $data);
+        $this->processUseDefault($defaultModel, $data);
 
         $model->addData($data);
         $this->repository->save($model);
@@ -68,14 +66,25 @@ class Save
         return $model;
     }
 
-    private function processUseDefault(array &$data): void
+    private function processUseDefault(OptionSettingInterface $defaultModel, array &$data): void
     {
         if (empty($data['use_default']) || !is_array($data['use_default'])) {
             return;
         }
 
         foreach ($data['use_default'] as $field) {
-            $data[$field] = null;
+            switch ($field) {
+                case OptionSettingInterface::META_TITLE:
+                case OptionSettingInterface::TITLE:
+                    $defaultValue = '';
+                    break;
+                case OptionSettingInterface::URL_ALIAS:
+                    $defaultValue = null;
+                    break;
+                default:
+                    $defaultValue = $defaultModel->getData($field);
+            }
+            $data[$field] = $defaultValue;
         }
     }
 

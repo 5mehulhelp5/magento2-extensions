@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -45,10 +45,5 @@ class Adapter implements \Amasty\ShopbyBase\Api\UrlBuilder\AdapterInterface
     public function getBaseUrl($params)
     {
         return $this->urlBuilder->getBaseUrl($params);
-    }
-
-    public function isApplicable(string $routePath = null, array $routeParams = null): bool
-    {
-        return true;
     }
 }

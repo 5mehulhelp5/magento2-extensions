@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -93,11 +93,10 @@ class SaveFilterSettingOnAttributeSave
         $this->prepareFilterSettingData($subject, $filterSetting);
 
         $connection = $filterSetting->getResource()->getConnection();
-        /** @var \Magento\Catalog\Model\ResourceModel\Eav\Attribute $result */
         $result = $proceed();
         try {
-            $filterSetting->setAttributeId((int)$result->getAttributeId());
             $connection->beginTransaction();
+            $this->deleteFromAmshopbyOptionSettings($subject);
             $this->filterSettingRepository->save($filterSetting);
 
             foreach ($this->filterSettingHelper->getKeyValueForCategoryFilterConfig() as $dataKey => $configPath) {
@@ -133,6 +132,8 @@ class SaveFilterSettingOnAttributeSave
     private function prepareData(array $data): array
     {
         $multipleData = ['categories_filter', 'attributes_filter', 'attributes_options_filter'];
+        $sliderRange = ['slider_min', 'slider_max'];
+
         foreach ($multipleData as $multiple) {
             if (array_key_exists($multiple, $data) && is_array($data[$multiple])) {
                 $data[$multiple] = implode(',', array_filter($data[$multiple], [$this, 'callbackNotEmpty']));
@@ -141,14 +142,9 @@ class SaveFilterSettingOnAttributeSave
             }
         }
 
-        $nullableFields = [
-            FilterSettingInterface::SLIDER_MIN,
-            FilterSettingInterface::SLIDER_MAX,
-            FilterSettingInterface::RANGE_STEP
-        ];
-        foreach ($nullableFields as $nullableField) {
-            if (!isset($data[$nullableField]) || $data[$nullableField] === '') {
-                $data[$nullableField] = null;
+        foreach ($sliderRange as $slider) {
+            if (!isset($data[$slider]) || $data[$slider] === '') {
+                $data[$slider] = null;
             }
         }
 
@@ -176,6 +172,19 @@ class SaveFilterSettingOnAttributeSave
 
         if (empty($filterSetting->getAttributeCode())) {
             $filterSetting->setAttributeCode($attributeResource->getAttributeCode());
+        }
+    }
+
+    private function deleteFromAmshopbyOptionSettings(EavAttributeResource $attributeResource): void
+    {
+        $option = $attributeResource->getOption();
+
+        if (isset($option['delete'])) {
+            foreach ($option['delete'] as $optionId => $value) {
+                if ($value && (int)$optionId) {
+                    $this->optionSettingRepository->deleteByOptionId($optionId);
+                }
+            }
         }
     }
 }

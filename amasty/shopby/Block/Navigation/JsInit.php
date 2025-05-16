@@ -1,13 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Navigation;
 
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
 use Amasty\Shopby\Model\ConfigProvider;
 use Amasty\Shopby\Model\UrlResolver\UrlResolverInterface;
 use Magento\Framework\View\Element\Template;
@@ -25,6 +24,11 @@ class JsInit extends \Magento\Framework\View\Element\Template
     protected $_template = 'jsinit.phtml';
 
     /**
+     * @var \Amasty\Shopby\Helper\Data
+     */
+    private $helper;
+
+    /**
      * @var UrlResolverInterface
      */
     private $urlResolver;
@@ -34,21 +38,16 @@ class JsInit extends \Magento\Framework\View\Element\Template
      */
     private $configProvider;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
     public function __construct(
         Template\Context $context,
+        \Amasty\Shopby\Helper\Data $helper,
         UrlResolverInterface $urlResolver,
         ConfigProvider $configProvider,
-        MobileConfigResolver $mobileConfigResolver,
         array $data = []
     ) {
+        $this->helper = $helper;
         $this->urlResolver = $urlResolver;
         $this->configProvider = $configProvider;
-        $this->mobileConfigResolver = $mobileConfigResolver;
         parent::__construct($context, $data);
     }
 
@@ -58,7 +57,7 @@ class JsInit extends \Magento\Framework\View\Element\Template
      */
     public function collectFilters()
     {
-        return $this->mobileConfigResolver->getSubmitFilterMode();
+        return (int)$this->helper->collectFilters();
     }
 
     /**

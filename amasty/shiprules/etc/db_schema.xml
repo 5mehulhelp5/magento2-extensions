@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Shipping Rules for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_shiprules_rule" resource="default" engine="innodb" comment="amasty_shiprules_rule">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Rule Id"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" comment="Is Active"/>
+        <column xsi:type="boolean" name="calc" nullable="false" comment="Calculation Type"/>
+        <column xsi:type="text" name="discount_id" nullable="false" onCreate="migrateDataFrom(discount_id)"
+                comment="Discount Id"/>
+        <column xsi:type="boolean" name="ignore_promo" nullable="false" comment="Ignore Promo"/>
+        <column xsi:type="int" name="pos" padding="10" unsigned="true" nullable="false" default="0" comment="Pos"/>
+        <column xsi:type="decimal" name="price_from" scale="2" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Price From"/>
+        <column xsi:type="decimal" name="price_to" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                comment="Price To"/>
+        <column xsi:type="decimal" name="weight_from" scale="4" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Weight From"/>
+        <column xsi:type="decimal" name="weight_to" scale="4" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Weight To"/>
+        <column xsi:type="int" name="qty_from" padding="10" unsigned="true" nullable="false" default="0"
+                comment="Qty_from"/>
+        <column xsi:type="int" name="qty_to" padding="10" unsigned="true" nullable="false" default="0"
+                comment="Qty_to"/>
+        <column xsi:type="decimal" name="rate_base" scale="2" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Rate Base"/>
+        <column xsi:type="decimal" name="rate_fixed" scale="2" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Rate Fixed"/>
+        <column xsi:type="decimal" name="weight_fixed" scale="2" precision="12" unsigned="true" nullable="false"
+                default="0" comment="Weight Fixed"/>
+        <column xsi:type="decimal" name="rate_percent" unsigned="true" nullable="false" default="0"
+                onCreate="migrateDataFrom(rate_percent)" scale="2" precision="12"/>
+        <column xsi:type="decimal" name="rate_min" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                comment="Rate Min"/>
+        <column xsi:type="decimal" name="rate_max" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                comment="Rate Max"/>
+        <column xsi:type="decimal" name="ship_min" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                comment="Ship Min"/>
+        <column xsi:type="decimal" name="ship_max" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                comment="Ship Max"/>
+        <column xsi:type="decimal" name="handling" scale="2" precision="12" unsigned="true" nullable="false" default="0"
+                onCreate="migrateDataFrom(handling)"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="days" nullable="true" length="255" default="NULL" comment="Deprecated.Days"/>
+        <column xsi:type="varchar" name="stores" nullable="true" length="255" default="NULL" comment="Deprecated. Stores"/>
+        <column xsi:type="varchar" name="cust_groups" nullable="true" length="255" default="NULL"
+                comment="Deprecated. Customer Groups"/>
+        <column xsi:type="text" name="carriers" nullable="true" comment="Carriers"/>
+        <column xsi:type="text" name="methods" nullable="true" comment="Methods"/>
+        <column xsi:type="text" name="coupon" nullable="true" comment="Coupon"/>
+        <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Conditions_serialized"/>
+        <column xsi:type="text" name="actions_serialized" nullable="true" comment="Actions_serialized"/>
+        <column xsi:type="smallint" name="out_of_stock" padding="6" unsigned="false" nullable="false" default="0"
+                comment="Apply to Backorders"/>
+        <column xsi:type="int" name="time_from" padding="11" unsigned="false" nullable="true" comment="Time From"/>
+        <column xsi:type="int" name="time_to" padding="11" unsigned="false" nullable="true" comment="Time To"/>
+        <column xsi:type="text" name="coupon_disable" nullable="true" comment="Coupon Disable"/>
+        <column xsi:type="text" name="discount_id_disable" nullable="true" comment="Disable Discount ID"/>
+        <column xsi:type="smallint" name="for_admin" padding="6" unsigned="false" nullable="false"
+                comment="For Admin Rule"/>
+        <column xsi:type="boolean" name="skip_subsequent" nullable="false" default="0" comment="Skip Subsequent"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+        </constraint>
+        <index referenceId="AMASTY_SHIPRULES_RULE_IS_ACTIVE_TIME_FROM_TIME_TO"
+               indexType="btree">
+            <column name="is_active"/>
+            <column name="time_from"/>
+            <column name="time_to"/>
+        </index>
+    </table>
+    
+    <table name="amasty_shiprules_rule_stores" resource="default" engine="innodb">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" comment="Rule Id"/>
+        <column xsi:type="int" name="store_id" nullable="false" unsigned="true" comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="FK_E13520CC320FC34417449FD2B48DDD5F"
+                    table="amasty_shiprules_rule_stores"
+                    column="rule_id"
+                    referenceTable="amasty_shiprules_rule"
+                    referenceColumn="rule_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+
+    <table name="amasty_shiprules_rule_customer_groups" resource="default" engine="innodb">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" comment="Rule Id"/>
+        <column xsi:type="int" name="customer_group" nullable="false" unsigned="true" comment="Customer Group ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+            <column name="customer_group"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="FK_48266ED9482E3D374C4BAAD9A5E978FC"
+                    table="amasty_shiprules_rule_customer_groups"
+                    column="rule_id"
+                    referenceTable="amasty_shiprules_rule"
+                    referenceColumn="rule_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+
+    <table name="amasty_shiprules_rule_days" resource="default" engine="innodb">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" comment="Rule Id"/>
+        <column xsi:type="int" name="day" nullable="false" unsigned="true" comment="Day of the week"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+            <column name="day"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="AMASTY_SHIPRULES_RULE_DAYS_RULE_ID_AMASTY_SHIPRULES_RULE_RULE_ID"
+                    table="amasty_shiprules_rule_days"
+                    column="rule_id"
+                    referenceTable="amasty_shiprules_rule"
+                    referenceColumn="rule_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+
+    <table name="amasty_shiprules_attribute" resource="default" engine="innodb" comment="amasty_shiprules_attribute">
+        <column xsi:type="int" name="attr_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Attr Id"/>
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" comment="Rule Id"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="255" comment="Code"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+          <column name="attr_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="AMASTY_SHIPRULES_ATTR_RULE_ID_AMASTY_SHIPRULES_RULE_RULE_ID"
+                    table="amasty_shiprules_attribute" column="rule_id" referenceTable="amasty_shiprules_rule"
+                    referenceColumn="rule_id" onDelete="CASCADE"/>
+        <index referenceId="RULE_ID" indexType="btree">
+          <column name="rule_id"/>
+        </index>
+    </table>
+</schema>

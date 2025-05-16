@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -14,15 +14,11 @@ use Amasty\ShopbyBase\Model\OptionSettings\UrlResolver;
 use Amasty\ShopbyBrand\Model\ConfigProvider;
 use Magento\Catalog\Model\Category\Attribute\Source\Page;
 use Magento\Cms\Model\Wysiwyg\Config;
-use Magento\Config\Model\Config\Source\Yesno as YesNoSource;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Data\Form;
 use Magento\Framework\Event\ObserverInterface;
 
 class OptionFormBuildAfter implements ObserverInterface
 {
-    private const UPGRADE_SUBSCRIPTION_PLAN_LINK = 'https://amasty.com/amcustomer/account/products/'
-        . '?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_shopbybrand';
     /**
      * @var Page
      */
@@ -43,23 +39,16 @@ class OptionFormBuildAfter implements ObserverInterface
      */
     private $optionsUrlResolver;
 
-    /**
-     * @var YesNoSource
-     */
-    private $yesnoSource;
-
     public function __construct(
         Page $page,
         ConfigProvider $configProvider,
         Config $wysiwygConfig,
-        UrlResolver $optionsUrlResolver,
-        YesNoSource $yesnoSource = null// TODO move to not optional
+        UrlResolver $optionsUrlResolver
     ) {
         $this->page = $page;
         $this->wysiwygConfig = $wysiwygConfig;
         $this->configProvider = $configProvider;
         $this->optionsUrlResolver = $optionsUrlResolver;
-        $this->yesnoSource = $yesnoSource ?? ObjectManager::getInstance()->get(YesNoSource::class);
     }
 
     /**
@@ -229,27 +218,6 @@ class OptionFormBuildAfter implements ObserverInterface
                 'title' => __('Bottom CMS Block'),
                 'values' => $listCmsBlocks
             ]
-        );
-
-        $productListFieldset->addField(
-            OptionSettingInterface::SHOW_BRAND_INFO,
-            'select',
-            [
-                'name' => OptionSettingInterface::SHOW_BRAND_INFO,
-                'label' => __('Display Additional Brand Information'),
-                'title' => __('Display Additional Brand Information'),
-                'values' => $this->yesnoSource->toOptionArray(),
-                'disabled' => true,
-                'note' => sprintf(
-                    'The functionality is available as part of an active product subscription or support '
-                    . 'subscription. To upgrade and obtain functionality please follow the '
-                    . '<a href="%s" target="_blank">link</a>.<br>'
-                    . 'Than you can find the \'%s\' package for installation in composer suggest.',
-                    self::UPGRADE_SUBSCRIPTION_PLAN_LINK,
-                    'amasty/module-shop-by-brand-subscription-functionality'
-                )
-            ],
-            OptionSettingInterface::BOTTOM_CMS_BLOCK_ID
         );
     }
 

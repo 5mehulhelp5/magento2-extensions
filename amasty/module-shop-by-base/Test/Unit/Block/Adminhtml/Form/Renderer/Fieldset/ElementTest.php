@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -82,7 +82,6 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->model->usedDefault());
 
         $this->dataObject->setData('elementName_use_default', false);
-        $this->dataObject->setStoreId(1);
         $this->assertFalse($this->model->usedDefault());
     }
 

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Shipping Rules for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\Shiprules\Controller\Adminhtml\Rule\Delete">
+        <arguments>
+            <argument name="ruleModel" xsi:type="object" shared="false">Amasty\Shiprules\Model\Rule</argument>
+            <argument name="resource" xsi:type="object">Amasty\Shiprules\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Controller\Adminhtml\Rule\Duplicate">
+        <arguments>
+            <argument name="ruleModel" xsi:type="object" shared="false">Amasty\Shiprules\Model\Rule</argument>
+            <argument name="resource" xsi:type="object">Amasty\Shiprules\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Controller\Adminhtml\Rule\Edit">
+        <arguments>
+            <argument name="ruleModel" xsi:type="object" shared="false">Amasty\Shiprules\Model\Rule</argument>
+            <argument name="resource" xsi:type="object">Amasty\Shiprules\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Controller\Adminhtml\Rule\MassAction">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Amasty\Shiprules\Model\ResourceModel\Rule\Collection</argument>
+            <argument name="resource" xsi:type="object">Amasty\Shiprules\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Controller\Adminhtml\Rule\Save">
+        <arguments>
+            <argument name="ruleModel" xsi:type="object" shared="false">Amasty\Shiprules\Model\Rule</argument>
+            <argument name="resource" xsi:type="object">Amasty\Shiprules\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shiprules\Ui\Component\Grid\Rule\DataProvider">
+        <arguments>
+            <argument name="modifiersPool" xsi:type="object">Amasty\Shiprules\Ui\Component\Grid\Rule\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\Shiprules\Ui\Component\Grid\Rule\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="modify_stores" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\Shiprules\Ui\Component\Grid\Rule\Modifiers\ModifyStores</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="modify_cust_groups" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\Shiprules\Ui\Component\Grid\Rule\Modifiers\ModifyCustGroups</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\Shiprules\Block\Adminhtml\System\Config\SuggestNotification">
+        <arguments>
+            <argument name="suggestModules" xsi:type="array">
+                <item name="shipping_rules_hyva" xsi:type="string">Amasty_ShippingRulesHyva</item>
+                <item name="shipping_rules_hyva_checkout" xsi:type="string">Amasty_ShippingRulesHyvaCheckout</item>
+                <item name="shipping_rules_export" xsi:type="string">Amasty_ShipRulesExportEntity</item>
+                <item name="shipping_rules_import" xsi:type="string">Amasty_ShipRulesImportEntity</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

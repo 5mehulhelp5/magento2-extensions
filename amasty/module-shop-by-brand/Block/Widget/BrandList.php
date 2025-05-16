@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -28,18 +28,10 @@ class BrandList extends BrandListAbstract implements BlockInterface
 
     public function getCacheKeyInfo()
     {
-        return array_merge(parent::getCacheKeyInfo(), [
-            'brand_list',
-            (int)$this->getData('columns'),
-            $this->isShowBrandLogo(),
-            $this->getImageWidth(),
-            $this->getImageHeight(),
-            $this->isShowSearch(),
-            $this->isShowFilter(),
-            $this->isFilterDisplayAll(),
-            $this->isShowCount(),
-            $this->isDisplayZero()
-        ]);
+        $parts = parent::getCacheKeyInfo();
+        $parts[] = 'brand_list';
+
+        return $parts;
     }
 
     /**
@@ -110,7 +102,7 @@ class BrandList extends BrandListAbstract implements BlockInterface
         return $this->items;
     }
 
-    public function getItemsFilter(): array
+    private function getItemsFilter(): array
     {
         $filters = [
             FilterItems::FOR_WIDGET => true

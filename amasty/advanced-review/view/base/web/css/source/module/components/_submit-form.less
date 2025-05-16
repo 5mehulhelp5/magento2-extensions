@@ -1,0 +1,344 @@
+//
+//  Magento Submit Form Restyle
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@amrev-submit-form__max-width: 575px;
+@amrev-submit-form__background: @amreview-placeholder__color;
+@amrev-submit-form__active__color: #007bdb;
+@amrev-submit-form__required-color: #e02b27;
+@amrev-submit-form__error__border-color: #ff2149;
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .review-field-image {
+        & {
+            .am-flex(none, center, wrap);
+
+            color: @amreview-input-text__color;
+            margin: 0;
+        }
+
+        > .label {
+            font-weight: 600;
+            margin: 0 0 @amrev__indent__xl 0;
+            width: 190px;
+        }
+    }
+
+    .review-field-rating {
+        & {
+            .am-flex(none, center);
+        }
+
+        > .label {
+            & {
+                color: @amreview-input-text__color;
+                margin: 0;
+                min-width: 70px;
+            }
+
+            &:after {
+                color: @amrev-submit-form__required-color;
+                content: '*';
+                font-size: 1.2rem;
+                margin-left: 3px;
+            }
+        }
+    }
+
+    .amreview-submit-form {
+        & {
+            background: @amrev-submit-form__background;
+            margin: 0 auto;
+        }
+
+        > .block-content {
+            margin: 0 auto;
+            max-width: @amrev-submit-form__max-width;
+            padding: @amrev__indent__xl * 2 @amrev__indent__xl 45px;
+        }
+
+        .review-fieldset {
+            display: block;
+            margin: 0 0 35px;
+            width: 100%;
+        }
+
+        .review-fieldset .field:last-child {
+            margin: 0;
+        }
+
+        .review-form {
+            max-width: 100%;
+        }
+
+        .review-form .action.submit.primary {
+            & {
+                background: @amreview-button__color;
+                border: 1px solid @amreview-button__color;
+                border-radius: 2px;
+                box-shadow: none;
+                color: @color-white;
+                font-weight: 400;
+                padding: 16px 22px;
+            }
+
+            &:hover,
+            &:active,
+            &.-active {
+                background: darken(@amreview-button__color, 5%);
+                border-color: darken(@amreview-button__color, 5%);
+                color: @color-white;
+            }
+        }
+
+        .review-fieldset .field {
+            margin: 0 0 @amrev__indent__xl 0;
+        }
+
+        .review-fieldset .review-legend.legend {
+            & {
+                .am-flex();
+
+                float: none;
+                font-size: 16px;
+                margin: 0 0 @amrev__indent 0;
+            }
+
+            > span {
+                float: left;
+                margin: 0 @amrev__indent / 2 0 0;
+            }
+        }
+
+        .review-fieldset .review-field-ratings {
+            .field {
+                margin: 0 0 @amrev__indent__l 0;
+            }
+
+            > .label {
+                display: none;
+            }
+        }
+
+        .review-control-vote.control {
+            & {
+                .am-flex(none, none, wrap);
+
+                margin: 0 0 0 @amrev__indent__l;
+                position: relative;
+            }
+
+            &:before {
+                .am-flex();
+                .transition(.1);
+
+                color: @amreview-stars__color;
+                font-size: 22px;
+                font-weight: 600;
+                letter-spacing: @amrev__indent / 2;
+                line-height: normal;
+                margin: 0;
+                position: initial;
+            }
+
+            &:hover:before {
+                color: @amreview-stars__filtering__color;
+            }
+        }
+
+        .review-control-vote.control label {
+            &:hover:before {
+                color: @amreview-stars__filtering__color;
+            }
+
+            &:before {
+                .transition(.1);
+
+                color: @amreview-stars__filtering__color;
+                font-size: 22px;
+                font-weight: 600;
+                letter-spacing: @amrev__indent / 2;
+                line-height: normal;
+                margin: 0;
+                position: initial;
+            }
+        }
+    }
+
+    .amreview-submit-form .field {
+        > .label {
+            font-weight: 400;
+            margin: 0 0 2px;
+        }
+
+        &.required > .label:after {
+            margin-left: 3px;
+        }
+
+        .review-field-rating > .label,
+        &.review-field-image > .label {
+            font-weight: 600;
+        }
+
+        .mage-error[generated] {
+            margin: 0;
+        }
+
+        &.review-field-nickname.-half {
+            float: left;
+        }
+
+        &.review-field-email {
+            float: right;
+        }
+
+        &.review-field-nickname,
+        &.review-field-email {
+            width: 100%;
+        }
+
+        .review-field-summary {
+            float: none;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .input-text {
+            & {
+                border: 1px solid @amreview-label__color;
+                border-radius: 1px;
+                color: @amreview-input-text__color;
+                height: 30px;
+            }
+
+            &.mage-error {
+                border-color: @amrev-submit-form__error__border-color;
+            }
+
+            ::placeholder {
+                color: @amrev-checkbox__border-color;
+            }
+        }
+    }
+
+    .review-field-summary > .label {
+        width: 100%;
+    }
+
+    .amreview-recommend-wrap {
+        margin: 0 0 @amrev__indent 0;
+        position: relative;
+    }
+
+    .field textarea {
+        border: 1px solid @amreview-label__color;
+    }
+
+    .amreview-recommend-wrap,
+    .amreview-gdpr-wrap {
+        > .amreview-checkbox {
+            & {
+                cursor: pointer;
+                left: 0;
+                margin: 0;
+                opacity: 0; // element should be visible for working require validation
+                position: absolute;
+                right: 0;
+                width: 100%;
+                z-index: 1;
+            }
+
+            &:not(.valid) + .mage-error[generated] + .amreview-checkboxlabel:before {
+                border: 1px solid @amrev-submit-form__required-color;
+            }
+
+            &:checked ~ .amreview-checkboxlabel:after {
+                background: @amreview-form-check__background no-repeat center;
+                content: '';
+                display: inline-block;
+                height: 9px;
+                position: absolute;
+                right: 2px;
+                top: 5px;
+                width: 10px;
+            }
+
+            &:checked ~ .amreview-checkboxlabel:before {
+                border-color: @amrev-submit-form__active__color;
+            }
+        }
+
+        > .amreview-checkboxlabel {
+            & {
+                color: @amreview-input-text__color;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 600;
+                padding-right: 30px;
+                position: relative;
+            }
+
+            &:before {
+                background: @color-white;
+                border: 1px solid @amreview-label__color;
+                border-radius: 2px;
+                box-sizing: border-box;
+                content: '';
+                display: inline-block;
+                height: @amrev__indent__l;
+                position: absolute;
+                right: 0;
+                top: 2px;
+                width: @amrev__indent__l;
+            }
+
+            .asterix {
+                color: @amrev-submit-form__required-color;
+                font-size: 1.2rem;
+                margin-left: 3px;
+            }
+
+            &:hover:before {
+                border-color: @amrev-submit-form__active__color;
+                box-shadow: 0 1px 2px rgba(37, 83, 119, .25);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amreview-submit-form {
+        .field.review-field-nickname.-half,
+        .field.review-field-email {
+            width: 48%;
+        }
+
+        .review-form .action.submit.primary {
+            padding: 11px 22px;
+        }
+
+        > .block-content {
+            padding: @amrev__indent__xxl 0 55px;
+        }
+
+        .review-fieldset {
+            margin: 0 0 @amrev__indent__xl * 2;
+        }
+
+        .review-fieldset .field {
+            margin: 0 0 @amrev__indent__l 0;
+        }
+    }
+}

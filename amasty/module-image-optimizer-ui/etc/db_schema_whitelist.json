@@ -1,0 +1,23 @@
+{
+    "amasty_page_speed_optimizer_image_setting": {
+        "column": {
+            "image_setting_id": true,
+            "is_enabled": true,
+            "folders": true,
+            "is_automatic_optimization": true,
+            "title": true,
+            "is_create_mobile_resolution": true,
+            "is_create_tablet_resolution": true,
+            "resize_algorithm": true,
+            "is_create_dump": true,
+            "jpeg_tool": true,
+            "png_tool": true,
+            "gif_tool": true,
+            "webp_tool": true,
+            "avif_tool": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

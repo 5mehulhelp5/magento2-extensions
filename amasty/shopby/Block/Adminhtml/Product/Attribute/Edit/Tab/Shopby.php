@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -15,7 +15,6 @@ use Amasty\Shopby\Block\Adminhtml\Product\Attribute\Edit\Tab\Shopby\Multiselect;
 use Amasty\Shopby\Helper\Category;
 use Amasty\Shopby\Model\Source\Expand;
 use Amasty\Shopby\Model\Source\PositionLabel;
-use Amasty\Shopby\Model\Source\RangeAlgorithm as RangeAlgorithmSource;
 use Amasty\Shopby\Model\Source\RenderCategoriesLevel;
 use Amasty\Shopby\Model\Source\RenderCategoriesTree;
 use Amasty\Shopby\Model\Source\SubcategoriesExpand;
@@ -41,7 +40,6 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Config\Model\Config\Source\Yesno;
 use Magento\Catalog\Model\Entity\Attribute;
 use Magento\Config\Model\Config\Structure\Element\Dependency\FieldFactory;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Data\Form;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Data\FormFactory;
@@ -185,11 +183,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
      */
     private $configProvider;
 
-    /**
-     * @var RangeAlgorithmSource
-     */
-    private $rangeAlgorithmSource;
-
     public function __construct(
         Context $context,
         Registry $registry,
@@ -217,7 +210,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
         VisibleInCategory $visibleInCategory,
         Json $serializer,
         ConfigProvider $configProvider,
-        RangeAlgorithmSource $rangeAlgorithmSource,
         array $data = []
     ) {
         $this->yesNo = $yesNo;
@@ -246,7 +238,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
         $this->serializer = $serializer;
         parent::__construct($context, $registry, $formFactory, $data);
         $this->configProvider = $configProvider;
-        $this->rangeAlgorithmSource = $rangeAlgorithmSource;
     }
 
     private function addDisplayModeField(Fieldset $fieldsetDisplayProperties, Dependence $dependence): ?AbstractElement
@@ -333,56 +324,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
         }
 
         return $addFromToWidget ?? null;
-    }
-
-    private function addRangeAlgorithmFields(
-        Fieldset $fieldsetDisplayProperties,
-        Dependence $dependence,
-        ?AbstractElement $displayModeField
-    ): void {
-        if ($displayModeField && $this->attributeObject->getFrontendInput() === 'price') {
-            $rangeAlgorithmField = $fieldsetDisplayProperties->addField(
-                'range_algorithm',
-                'select',
-                [
-                    'name' => 'range_algorithm',
-                    'label' => __('Range Algorithm'),
-                    'title' => __('Range Algorithm'),
-                    'values' => $this->rangeAlgorithmSource->toOptionArray()
-                ]
-            );
-            $rangeStepField = $fieldsetDisplayProperties->addField(
-                'range_step',
-                'text',
-                [
-                    'name' => 'range_step',
-                    'label' => __('Range Step'),
-                    'title' => __('Range Step'),
-                    'note' => __('Set 10 to get ranges 10-20, 20-30, etc.
-                        Custom value improves pages speed. Leave empty to get default ranges.'),
-                    'class' => 'validate-zero-or-greater validate-number'
-                ]
-            );
-
-            $dependence->addFieldMap($rangeAlgorithmField->getHtmlId(), $rangeAlgorithmField->getName());
-            $dependence->addFieldDependence(
-                $rangeAlgorithmField->getName(),
-                $displayModeField->getName(),
-                DisplayMode::MODE_DEFAULT
-            );
-
-            $dependence->addFieldMap($rangeStepField->getHtmlId(), $rangeStepField->getName());
-            $dependence->addFieldDependence(
-                $rangeStepField->getName(),
-                $rangeAlgorithmField->getName(),
-                RangeAlgorithmSource::CUSTOM
-            );
-            $dependence->addFieldDependence(
-                $rangeStepField->getName(),
-                $displayModeField->getName(),
-                DisplayMode::MODE_DEFAULT
-            );
-        }
     }
 
     private function addMinSliderField(
@@ -1126,7 +1067,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
         $displayModeField = $this->addDisplayModeField($fieldsetDisplayProperties, $dependence);
         $this->addHideZerosField($fieldsetDisplayProperties, $dependence, $displayModeField);
         $this->addFromToField($fieldsetDisplayProperties, $dependence, $displayModeField);
-        $this->addRangeAlgorithmFields($fieldsetDisplayProperties, $dependence, $displayModeField);
         $this->addMinSliderField($fieldsetDisplayProperties, $dependence, $displayModeField);
         $this->addMaxSliderField($fieldsetDisplayProperties, $dependence, $displayModeField);
         $this->addStepSliderField($fieldsetDisplayProperties, $dependence, $displayModeField);
@@ -1203,9 +1143,6 @@ class Shopby extends \Magento\Backend\Block\Widget\Form\Generic
 
         if (isset($data['slider_step'])) {
             $data['slider_step'] = round((float) $data['slider_step'], 4);
-        }
-        if (isset($data[FilterSettingInterface::RANGE_STEP])) {
-            $data[FilterSettingInterface::RANGE_STEP] = round((float)$data[FilterSettingInterface::RANGE_STEP], 4);
         }
 
         if (!isset($data[FilterSettingInterface::TOP_POSITION])) {

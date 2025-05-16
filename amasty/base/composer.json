@@ -3,7 +3,7 @@
     "description": "Amasty Base",
     "require": {
         "php": ">=7.3",
-        "ext-dom": "*",
+        "ext-dom": ">=1.0",
         "monolog/monolog": ">=1.17"
     },
     "type": "magento2-module",
@@ -17,6 +17,9 @@
         ],
         "psr-4": {
             "Amasty\\Base\\": ""
-        }
+       }
+    },
+    "extra": {
+        "origin": "marketplace"
     }
 }

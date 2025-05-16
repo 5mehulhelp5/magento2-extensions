@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Test\Unit\Model\Layer;
 
+use Amasty\Shopby\Helper\FilterSetting;
 use Amasty\Shopby\Model\Layer\FilterList;
 use Amasty\Shopby\Model\Source\FilterPlacedBlock;
 use Amasty\Shopby\Test\Unit\Traits;
-use Amasty\ShopbyBase\Model\FilterSetting\FilterResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -27,9 +27,9 @@ class FilterListSortingTest extends TestCase
     private $filterList;
 
     /**
-     * @var FilterResolver|MockObject
+     * @var FilterSetting|MockObject
      */
-    private $filterResolver;
+    private $filterHelper;
 
     /**
      * @covers       FilterList::sortingByPosition
@@ -87,8 +87,8 @@ class FilterListSortingTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->filterResolver = $this->createMock(FilterResolver::class);
-        $this->filterResolver->method('resolveByFilter')
+        $this->filterHelper = $this->createMock(FilterSetting::class);
+        $this->filterHelper->method('getSettingByLayerFilter')
             ->willReturnCallback(
                 function ($filter) {
                     return $filter->getSetting();
@@ -97,9 +97,9 @@ class FilterListSortingTest extends TestCase
 
         $this->filterList = $this->getMockBuilder(FilterList::class)
             ->disableOriginalConstructor()
-            ->addMethods([])
+            ->setMethods()
             ->getMock();
 
-        $this->setProperty($this->filterList, 'filterResolver', $this->filterResolver, FilterList::class);
+        $this->setProperty($this->filterList, 'filterSetting', $this->filterHelper, FilterList::class);
     }
 }

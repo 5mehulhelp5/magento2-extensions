@@ -1,16 +1,14 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Controller;
 
-use Amasty\ShopbyBase\Model\ConfigProvider as BaseConfigProvider;
 use Amasty\ShopbySeo\Model\ConfigProvider as SeoConfigProvider;
 use Magento\Framework\App\RequestInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class Router implements \Magento\Framework\App\RouterInterface
 {
@@ -20,30 +18,23 @@ class Router implements \Magento\Framework\App\RouterInterface
     private $actionFactory;
 
     /**
+     * @var \Amasty\Shopby\Helper\Data
+     */
+    private $helper;
+
+    /**
      * @var SeoConfigProvider
      */
     private $seoConfigProvider;
 
-    /**
-     * @var BaseConfigProvider
-     */
-    private $baseConfig;
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    private $scopeConfig;
-
     public function __construct(
         \Magento\Framework\App\ActionFactory $actionFactory,
-        SeoConfigProvider $seoConfigProvider,
-        BaseConfigProvider $baseConfig,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Amasty\Shopby\Helper\Data $helper,
+        SeoConfigProvider $seoConfigProvider
     ) {
         $this->actionFactory = $actionFactory;
+        $this->helper = $helper;
         $this->seoConfigProvider = $seoConfigProvider;
-        $this->baseConfig = $baseConfig;
-        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -52,14 +43,14 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     public function match(RequestInterface $request)
     {
-        if (!$this->baseConfig->isAllProductsEnabled()) {
+        if (!$this->helper->isAllProductsEnabled()) {
             return false;
         }
 
         $identifier = trim($request->getPathInfo(), '/');
 
         if ($this->seoConfigProvider->isAddSuffix()
-            && ($seoSuffix = $this->getCatalogSeoSuffix())
+            && ($seoSuffix = $this->helper->getCatalogSeoSuffix())
         ) {
             $suffixPosition = strpos($identifier, $seoSuffix);
             if ($suffixPosition !== false) {
@@ -69,8 +60,6 @@ class Router implements \Magento\Framework\App\RouterInterface
 
         if ($this->checkMatchExpressions($request, $identifier)) {
             $request->setModuleName('amshopby')
-                ->setControllerModule('Amasty_Shopby')
-                ->setRouteName('amshopby')
                 ->setControllerName('index')
                 ->setActionName('index')
                 ->setAlias(
@@ -78,18 +67,10 @@ class Router implements \Magento\Framework\App\RouterInterface
                     $identifier
                 );
 
-            return $this->actionFactory->create(\Amasty\Shopby\Controller\Index\Index::class);
+            return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
         }
 
         return false;
-    }
-
-    private function getCatalogSeoSuffix()
-    {
-        return (string)$this->scopeConfig->getValue(
-            \Amasty\Shopby\Helper\Data::CATALOG_SEO_SUFFIX_PATH,
-            ScopeInterface::SCOPE_STORE
-        );
     }
 
     /**
@@ -99,6 +80,6 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     public function checkMatchExpressions(RequestInterface $request, $identifier)
     {
-        return $identifier == $this->baseConfig->getAllProductsUrlKey();
+        return $identifier == $this->helper->getAllProductsUrlKey();
     }
 }

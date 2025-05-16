@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer for Magento 2 (System)
+ */-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="opti" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+        <label>Automatic Image Optimization</label>
+
+        <field id="optimize_automatically" translate="label tooltip comment" type="select" sortOrder="40" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Automatically Optimize Newly Uploaded Images</label>
+            <depends>
+                <field id="optimize_images">1</field>
+            </depends>
+            <source_model>Amasty\ImageOptimizer\Model\OptionSource\YesRecommended</source_model>
+            <config_path>amoptimizer/images/optimize_automatically</config_path>
+            <tooltip><![CDATA[When you install the extension, you have to optimize all previously uploaded images. It can be done from the Content>Image Optimizer>Image Folder Optimization Settings page.<br /><br />But if you upload new images after the optimization (e.g. a new product has been created), use this option to optimize the newly uploaded images on the fly before saving it.]]></tooltip>
+            <comment>Add folders to automatic optimization in the pattern settings.</comment>
+        </field>
+        <field id="optimization_type" translate="label" type="select" sortOrder="45" showInDefault="1"
+               showInWebsite="0" showInStore="0">
+            <label>Automatically Optimize Images</label>
+            <depends>
+                <field id="optimize_automatically">1</field>
+            </depends>
+            <source_model>Amasty\ImageOptimizer\Model\OptionSource\OptimizationType</source_model>
+            <frontend_model>ImageOptimizerPremiumFunctionalityPromo</frontend_model>
+            <config_path>amoptimizer/images/optimization_type</config_path>
+        </field>
+    </group>
+</include>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 /** @var Amasty\ShopbyBrand\Block\Widget\BrandSlider $block */
@@ -19,7 +19,6 @@ $sliderWidth = (int)$block->getData('slider_width') ?: ($imgWidth + 10) * $items
 $buttonWidth = 40;
 $fontSizeMultiplier = 0.65;
 $sliderId = BrandSlider::HTML_ID . random_int(1, 10000);
-$itemsCount = count($items);
 ?>
 
 <div class="am-widget-brand-slider">
@@ -51,9 +50,9 @@ $itemsCount = count($items);
         <?php if ($isSliderEnable): ?>
             #<?= /* @noEscape */ $sliderId ?> .ambrands-swiper-brand .ambrands-image-block,
             #<?= /* @noEscape */ $sliderId ?> .ambrands-swiper-brand .ambrands-image-block img {
-                max-width: <?= /* @noEscape */ ($itemsPerView <= $itemsCount ) ?
+                max-width: <?= /* @noEscape */ ($itemsPerView <= count($items)) ?
                 $sliderWidth / $itemsPerView :
-                $sliderWidth / $itemsCount
+                $sliderWidth / count($items)
                 ?>px;
             }
         <?php else: ?>
@@ -103,38 +102,29 @@ $itemsCount = count($items);
                 <div class="swiper-container">
                     <div class="<?= /** @noEscape */ $swiperPrefix ?>wrapper">
                         <?php foreach ($items as $brand): ?>
-                        <div class="<?= /** @noEscape */ $swiperPrefix?>slide brand-swiper-slide">
                             <a href="<?= /** @noEscape */ $brand['url']?>"
-                               class="ambrands-slide-link"
-                               title="<?= $escaper->escapeHtmlAttr((string)$brand['label']) ?>"
-                            >
+                               class="<?= /** @noEscape */ $swiperPrefix?>slide">
                                 <span class="ambrands-swiper-brand
                                     <?= ($block->getData('show_label')) ? ' brand-label' : '' ?>"
                                 >
-                                    <?php if ($brand['img']): ?>
-                                        <span class="ambrands-image-block">
-                                            <img alt="<?= $escaper->escapeHtml($brand['alt']) ?>"
-                                                 title="<?= $escaper->escapeHtml($brand['alt']) ?>"
-                                                 src="<?= /* @escapeNotVerified */ $escaper->escapeHtml($brand['img']); ?>"
-                                                 class="ambrands-image"
-                                            />
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="ambrands-image-block">
-                                            <span class="ambrands-empty">
-                                                <?= /** @noEscape */ $brand['label'][0] ?>
-                                            </span>
-                                        </span>
-                                    <?php endif ?>
+                                <?php if ($brand['img']): ?>
+                                    <span class="ambrands-image-block">
+                                        <img alt="<?= $escaper->escapeHtml($brand['alt']) ?>"
+                                             title="<?= $escaper->escapeHtml($brand['alt']) ?>"
+                                             src="<?= /* @escapeNotVerified */ $escaper->escapeHtml($brand['img']); ?>"
+                                             class="ambrands-image"/>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="ambrands-image-block">
+                                        <span class="ambrands-empty"><?= /** @noEscape */ $brand['label'][0] ?></span>
+                                    </span>
+                                <?php endif ?>
 
-                                    <?php if ($block->getData('show_label')): ?>
-                                        <span class="ambrands-label">
-                                            <?= $escaper->escapeHtml($brand['label']) ?>
-                                        </span>
-                                    <?php endif; ?>
+                                <?php if ($block->getData('show_label')): ?>
+                                    <span class="ambrands-label"><?= $escaper->escapeHtml($brand['label']) ?></span>
+                                <?php endif; ?>
                                 </span>
                             </a>
-                        </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -147,27 +137,26 @@ $itemsCount = count($items);
     </div>
     <?php if ($isSliderEnable): ?>
         <script>
-            require([ 'jquery', 'swiper', 'domReady!' ], function ($, Swiper) {
+            require(['jquery', 'swiper', 'domReady!'], function ($, Swiper) {
                 new Swiper('#<?= /** @noEscape */ $sliderId ?> .swiper-container', {
                     slidesPerView: 1,
-                    loop: <?= (int)$block->isLoopAvailable(1) ?>,
-                    simulateTouch: <?= (int)$block->getSimulateTouch() ?>,
+                    loop: <?= (int) $block->getLoop() ?>,
+                    simulateTouch: <?= (int) $block->getSimulateTouch() ?>,
                     <?php if ($block->isPaginationShow()): ?>
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true
-                    },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        },
                     <?php endif; ?>
                     <?php if ($block->isAutoplay()): ?>
-                    autoplay: {
-                        delay: <?= (int)$block->getAutoplayTime() ?>
-                    },
+                        autoplay: {
+                            delay: <?= (int) $block->getAutoplayTime() ?>
+                        },
                     <?php endif; ?>
                     breakpoints: {
                     <?php for ($i = 1; $i <= $itemsPerView; $i++): ?>
                         <?= ($i + 1) * ($imgWidth + 20 + 10) + $buttonWidth * 2; ?> : {
-                            slidesPerView: <?= (int)$i ?>,
-                            loop: <?= (int)$block->isLoopAvailable($i) ?>
+                            slidesPerView: <?= (int) $i ?>
                         },
                     <?php endfor; ?>
                     },
@@ -175,8 +164,7 @@ $itemsCount = count($items);
                         nextEl: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-next',
                         prevEl: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-prev'
                     },
-                    spaceBetween: 10,
-                    a11y: true
+                    spaceBetween: 10
                 });
             });
         </script>

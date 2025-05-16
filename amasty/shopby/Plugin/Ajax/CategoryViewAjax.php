@@ -1,59 +1,31 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Plugin\Ajax;
 
-use Amasty\Shopby\Model\Ajax\AjaxResponseBuilder;
-use Amasty\Shopby\Model\Ajax\Counter\CounterDataProvider;
-use Amasty\Shopby\Model\Ajax\RequestResponseUtils;
+use Exception;
 use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\ActionFlag;
 use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\View\Result\Page;
 
-class CategoryViewAjax
+class CategoryViewAjax extends Ajax
 {
     /**
-     * @var ActionFlag
+     * @param Action $controller
+     *
+     * @return array
      */
-    private $actionFlag;
-
-    /**
-     * @var RequestResponseUtils
-     */
-    private $utils;
-
-    /**
-     * @var AjaxResponseBuilder
-     */
-    private $ajaxResponseBuilder;
-
-    /**
-     * @var CounterDataProvider
-     */
-    private $counterDataProvider;
-
-    public function __construct(
-        ActionFlag $actionFlag,
-        RequestResponseUtils $utils,
-        AjaxResponseBuilder $ajaxResponseBuilder,
-        CounterDataProvider $counterDataProvider
-    ) {
-        $this->actionFlag = $actionFlag;
-        $this->utils = $utils;
-        $this->ajaxResponseBuilder = $ajaxResponseBuilder;
-        $this->counterDataProvider = $counterDataProvider;
-    }
-
-    public function beforeExecute(Action $controller): void
+    public function beforeExecute(Action $controller)
     {
-        if ($this->utils->isAjaxNavigation($controller->getRequest())) {
-            $this->actionFlag->set('', 'no-renderLayout', true);
+        if ($this->isAjax($controller->getRequest())) {
+            $this->getActionFlag()->set('', 'no-renderLayout', true);
         }
+
+        return [];
     }
 
     /**
@@ -64,14 +36,14 @@ class CategoryViewAjax
      */
     public function afterExecute(Action $controller, $page)
     {
-        if (!$this->utils->isAjaxNavigation($controller->getRequest())) {
+        if (!$this->isAjax($controller->getRequest())) {
             return $page;
         }
 
-        $responseData = $this->utils->isCounterRequest($controller->getRequest())
+        $responseData = $this->isCounterRequest($controller->getRequest())
             ? $this->counterDataProvider->execute()
-            : $this->ajaxResponseBuilder->build();
+            : $this->getAjaxResponseData();
 
-        return $this->utils->prepareResponse($responseData);
+        return $this->prepareResponse($responseData);
     }
 }

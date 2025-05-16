@@ -1,0 +1,54 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\LazyLoad\Model\Output\LazyConfig\LazyConfig">
+        <arguments>
+            <argument name="configProvider" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\LazyLoadConfigProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Model\OptionSource\ReplaceStrategies">
+        <arguments>
+            <argument name="additionalStrategies" xsi:type="array">
+                <item name="2" xsi:type="string" translate="true">SpeedSize</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Image Replace Configuration Start -->
+    <virtualType name="Amasty\ImageOptimizerSpeedSize\Model\Image\ReplacePatterns\Video" type="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Common">
+        <arguments>
+            <argument name="name" xsi:type="string">video</argument>
+            <argument name="pattern" xsi:type="string"><![CDATA[(?:\G(?!^)|<video\b[^><]*>)\s*\K<source\s[^><]*?\b(?<ssrc>src="([^"]*)"[^><]*>)|<video[^>]+(?:(?<vsrc>src=\"([^"]+)\")[^>]*>)]]></argument>
+            <argument name="groupByName" xsi:type="array">
+                <item name="ssrc" xsi:type="number">2</item>
+                <item name="vsrc" xsi:type="number">4</item>
+            </argument>
+            <argument name="baseAlgorithm" xsi:type="const">Amasty\ImageOptimizerSpeedSize\Model\Image\ReplaceAlgorithm\SpeedSizeReplaceAlgorithm::ALGORITHM_NAME</argument>
+            <argument name="replaceAllAttrs" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\PageSpeedTools\Model\Image\ReplacePatternGroupsPool">
+        <arguments>
+            <argument name="replacePatternGroups" xsi:type="array">
+                <item name="image_optimizer" xsi:type="array">
+                    <item name="video" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Image\ReplacePatterns\Video</item>
+                </item>
+                <item name="lazy_load" xsi:type="array">
+                    <item name="video" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Image\ReplacePatterns\Video</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithmResolver">
+        <arguments>
+            <argument name="replaceAlgorithms" xsi:type="array">
+                <item name="replace_with_speed_size" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Image\ReplaceAlgorithm\SpeedSizeReplaceAlgorithm\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Image Replace Configuration End -->
+
+    <!-- Client Hints configuration-->
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="Amasty_ImageOptimizerSpeedSize::add_clienthint_headers" type="Amasty\ImageOptimizerSpeedSize\Plugin\Framework\Controller\AddClientHintHeaders"/>
+    </type>
+</config>

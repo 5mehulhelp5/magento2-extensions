@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Page for Magento 2 (System)
  */
 
@@ -167,11 +167,6 @@ class Page extends AbstractExtensibleObject implements PageInterface
         return $this->_get(self::BOTTOM_BLOCK_ID);
     }
 
-    public function getTagRobots(): ?string
-    {
-        return (string) $this->_get(self::TAG_ROBOTS);
-    }
-
     /**
      * @param int
      * @return PageInterface
@@ -292,11 +287,6 @@ class Page extends AbstractExtensibleObject implements PageInterface
     public function setImage($image)
     {
         return $this->setData(self::IMAGE, $image);
-    }
-
-    public function setTagRobots(string $tagRobots): PageInterface
-    {
-        return $this->setData(self::TAG_ROBOTS, $tagRobots);
     }
 
     /**

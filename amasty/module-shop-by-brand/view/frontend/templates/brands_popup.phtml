@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 /**
@@ -76,15 +76,10 @@ $brandItemBorder = 2;
                         </a>
                         <?php if ($filterDisplayAll): ?>
                             <?php foreach (array_merge(range('A', 'Z'), ['#']) as $letter): ?>
-                                <?php $disabled = !(in_array($letter, $brandLetters)) ?>
                                 <button data-ambrands-js="popup-filter-letter"
-                                        class="ambrands-letter <?= ($disabled)
+                                        class="ambrands-letter <?= (!(in_array($letter, $brandLetters)))
                                             ? '-disabled'
-                                            : 'letter-' . $escaper->escapeHtmlAttr($letter) ?>"
-                                        <?php if ($disabled): ?>
-                                            disabled
-                                        <?php endif; ?>
-                                >
+                                            : 'letter-' . $escaper->escapeHtmlAttr($letter) ?>">
                                     <?= $escaper->escapeHtml($letter) ?>
                                 </button>
                             <?php endforeach; ?>

@@ -17,7 +17,7 @@
 @ambrands-filter__hover__color: #fff;
 @ambrands-filter__pressed__color: #dff1ff;
 @ambrands-filter__disabled__color: #ececec;
-@ambrands-filter__disabled__text-color: @color-gray34;
+@ambrands-filter__disabled__text-color: #ccc;
 
 @ambrands-filter-input__width: 460px;
 @ambrands-filter-input__height: 40px;
@@ -47,34 +47,34 @@
 
     .ambrands-letters-filter .ambrands-letter {
         & {
-            align-items: center;
-            background: @color-white;
-            border: 1px solid @color-gray80;
-            border-radius: @ambrands-filter-button__border-radius;
-            box-sizing: border-box;
-            color: @ambrands-filter-button__text-color;
-            cursor: pointer;
             display: flex;
-            font-size: @ambrands-filter-button__font-size;
-            font-weight: 400;
+            align-items: center;
             justify-content: center;
-            line-height: 1.2;
+            box-sizing: border-box;
             margin: 0 12px 12px 0;
-            min-height: @ambrands-filter-button__size;
-            min-width: @ambrands-filter-button__size;
             padding: 6px;
+            min-width: @ambrands-filter-button__size;
+            min-height: @ambrands-filter-button__size;
+            border: 1px solid #ccc;
+            border-radius: @ambrands-filter-button__border-radius;
+            background: #fff;
+            color: @ambrands-filter-button__text-color;
             text-align: center;
+            font-weight: 400;
+            font-size: @ambrands-filter-button__font-size;
+            line-height: 1.2;
+            cursor: pointer;
         }
 
         &:hover {
-            background: @ambrands-filter__hover__color;
             border-color: @ambrands-filter__active__color;
+            background: @ambrands-filter__hover__color;
             text-decoration: none;
         }
 
         &.-disabled {
-            background: @ambrands-filter__disabled__color;
             border-color: @ambrands-filter__disabled__color;
+            background: @ambrands-filter__disabled__color;
             box-shadow: none;
             color: @ambrands-filter__disabled__text-color;
             pointer-events: none;
@@ -85,8 +85,8 @@
         }
 
         &.-active {
-            background: @ambrands-filter__pressed__color;
             border-color: @ambrands-filter__active__color;
+            background: @ambrands-filter__pressed__color;
             color: @ambrands-filter__active__text-color;
         }
 
@@ -108,35 +108,35 @@
 
     .ambrands-search-block {
         & {
-            display: block;
             position: relative;
+            display: block;
         }
 
         &:before {
-            background: @ambrands-filter-icon__search;
-            content: '';
-            display: flex;
-            height: @ambrands-filter-icon__size;
-            left: 15px;
-            min-width: @ambrands-filter-icon__size;
-            pointer-events: none;
             position: absolute;
             top: ~'calc(50% - @{ambrands-filter-icon__size} / 2)';
+            left: 15px;
+            display: flex;
+            min-width: @ambrands-filter-icon__size;
             width: @ambrands-filter-icon__size;
+            height: @ambrands-filter-icon__size;
+            background: @ambrands-filter-icon__search;
+            content: '';
+            pointer-events: none;
         }
 
         .ambrands-clear {
-            background: @ambrands-filter-icon__clear;
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: block;
+            padding: 10px;
+            width: @ambrands-filter-input__height;
+            height: @ambrands-filter-input__height;
             border: 0;
             border-radius: 0 @ambrands-filter-input__border-radius @ambrands-filter-input__border-radius 0;
+            background: @ambrands-filter-icon__clear;
             cursor: pointer;
-            display: block;
-            height: @ambrands-filter-input__height;
-            padding: 10px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: @ambrands-filter-input__height;
         }
 
         .ambrands-clear:not(.-active) {
@@ -148,19 +148,19 @@
         & {
             .ambrands-input-placeholder();
 
-            background: @color-white;
-            border: 1px solid @color-gray80;
-            border-radius: @ambrands-filter-input__border-radius;
-            box-sizing: border-box;
-            color: @ambrands-filter-input__text-color;
             display: block;
-            font-size: 14px;
-            font-weight: 400;
-            height: @ambrands-filter-input__height;
-            line-height: @ambrands-filter-input__line-height;
+            box-sizing: border-box;
             margin: 0 0 10px;
-            max-width: 100%;
             padding: ((@ambrands-filter-input__height - @ambrands-filter-input__line-height) / 2) @ambrands-filter-input__height;
+            max-width: 100%;
+            height: @ambrands-filter-input__height;
+            border: 1px solid #ccc;
+            border-radius: @ambrands-filter-input__border-radius;
+            background: #fff;
+            color: @ambrands-filter-input__text-color;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: @ambrands-filter-input__line-height;
         }
 
         &:hover,
@@ -176,19 +176,19 @@
 
     .ambrands-livesearch-block {
         & {
-            background-color: @color-white;
-            border: 1px solid transparent;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(190, 199, 219, .21), 0 6px 25px rgba(190, 199, 219, .28);
-            box-sizing: border-box;
+            position: absolute;
+            z-index: 99;
             display: block;
-            max-height: 250px;
-            max-width: 100%;
             overflow-x: hidden;
             overflow-y: auto;
-            position: absolute;
+            box-sizing: border-box;
+            max-width: 100%;
+            max-height: 250px;
             width: @ambrands-filter-input__width;
-            z-index: 99;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(190, 199, 219, .21), 0 6px 25px rgba(190, 199, 219, .28);
         }
 
         &:not(.-active) {
@@ -197,26 +197,22 @@
 
         > .ambrands-item {
             & {
-                box-sizing: border-box;
-                color: @primary__color__dark;
                 display: block;
                 float: left;
+                box-sizing: border-box;
                 padding: 5px 10px;
                 width: 100%;
+                color: #000;
             }
 
             &:hover {
-                background-color: @color-gray91;
+                background-color: #e8e8e8;
                 text-decoration: none;
-            }
-
-            &.active {
-                background-color: @color-gray91;
             }
         }
     }
 
-    //  Safari mobile fix
+    // Safari mobile fix
     @supports (-webkit-touch-callout: none) {
         .ambrands-search-block .ambrands-input {
             ._keyfocus &:not(:focus),
@@ -225,7 +221,7 @@
             }
         }
     }
-    //  END Safari mobile fix
+    // END Safari mobile fix
 }
 
 //

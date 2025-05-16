@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */
+/* @var ProductList $block */
+/* @var Escaper $escaper */
+
+use Amasty\Xnotif\Block\Adminhtml\Analytics\Wanted\ProductList;
+use Magento\Framework\Escaper;
+
+?>
+<div class="amxnotif-2column">
+    <p class="amxnotif-title"><?= $escaper->escapeHtml(__('Most Wanted Products')); ?></p>
+
+    <table class="amxnotif-table">
+        <thead class="amxnotif-thead">
+        <tr>
+            <th class="amxnotif-cell"><?= $escaper->escapeHtml(__('SKU')); ?></th>
+            <th class="amxnotif-cell"><?= $escaper->escapeHtml(__('Product Name')); ?></th>
+            <th class="amxnotif-cell"><?= $escaper->escapeHtml(__('Qty')); ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($block->getWantedProducts() as $product): ?>
+            <tr class="amxnotif-row">
+                <td class="amxnotif-cell"><?= $escaper->escapeHtml($product->getProductSku()); ?></td>
+                <td class="amxnotif-cell"><?= $escaper->escapeHtml($product->getProductName()); ?></td>
+                <td class="amxnotif-cell"><?= $escaper->escapeHtml($product->getWantedCount()); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <a href="<?= $escaper->escapeUrl($block->getMoreUrl()) ?>"
+       class="amxnotif-more-link"
+       title="<?= $escaper->escapeHtml(__("View more")); ?>"
+       target="_blank"><?= $escaper->escapeHtml(__("View more")); ?></a>
+</div>

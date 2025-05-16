@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -150,10 +150,7 @@ class AddCategoryPermissionsToCollectionPlugin
         );
 
         $productCollection->addFieldToFilter('category_permissions_field', $categoryPermissionKey);
-        $productCollection->addFieldToFilter(
-            'category_permissions_value',
-            Permission::PERMISSION_DENY // @phpstan-ignore class.notFound
-        );
+        $productCollection->addFieldToFilter('category_permissions_value', Permission::PERMISSION_DENY);
 
         $productCollection->setFlag(self::PERMISSION_FILTER_ADDED_FLAG, true);
     }
@@ -165,7 +162,7 @@ class AddCategoryPermissionsToCollectionPlugin
             $this->storeManager = $this->objectManager->get(StoreManager::class);
             $this->fieldNameResolver = $this->objectManager->get(ResolverInterface::class);
             $this->attributeAdapterProvider = $this->objectManager->get(AttributeProvider::class);
-            $this->config = $this->objectManager->get(Config::class); // @phpstan-ignore class.notFound
+            $this->config = $this->objectManager->get(Config::class);
             $this->inited = true;
         }
     }

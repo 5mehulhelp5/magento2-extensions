@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -35,8 +35,6 @@ interface BrandDataInterface
     public const SHORT_DESCRIPTION = 'short_description';
 
     public const COUNT = 'cnt';
-
-    public const PAGE_LAYOUT = 'page_layout';
 
     /**
      * @return bool
@@ -157,15 +155,4 @@ interface BrandDataInterface
      * @param int $count
      */
     public function setCount(int $count): void;
-
-    /**
-     * @return string|null
-     */
-    public function getPageLayout(): ?string;
-
-    /**
-     * @param string $pageLayout
-     * @return void
-     */
-    public function setPageLayout(string $pageLayout): void;
 }

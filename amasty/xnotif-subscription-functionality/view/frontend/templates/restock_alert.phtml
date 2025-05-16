@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */
+/** @var $block Amasty\XnotifSubscriptionFunctionality\Block\Restock */
+/** @var $escaper Magento\Framework\Escaper */
+?>
+<div class="am-restock-alert-wrapper"
+     data-mage-init='{"Amasty_XnotifSubscriptionFunctionality/js/restock-alert": {}}'>
+    <input class="am-restock-checkbox"
+           type="checkbox"
+           name="restock_alert"
+           title="Restock alert"
+           aria-label="Restock alert">
+    <span class="am-restock-text">
+        <?= $escaper->escapeHtml(__('Receive notifications every time the product comes back in stock')) ?>
+    </span>
+</div>

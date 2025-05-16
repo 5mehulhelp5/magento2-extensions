@@ -4,40 +4,19 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
 namespace Amasty\ShopbyBase\Model\ResourceModel;
 
-use Magento\Catalog\Model\Product;
+use Magento\Catalog\Setup\CategorySetup;
 use Magento\Eav\Api\Data\AttributeInterface;
-use Magento\Eav\Model\Config as EavConfig;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Magento\Framework\Model\ResourceModel\Db\Context;
 
 class IsProductAttributeExist extends AbstractDb
 {
     public const ATTRIBUTE_TABLE = 'eav_attribute';
-
-    /**
-     * @var EavConfig
-     */
-    private $eavConfig;
-
-    /**
-     * @var int|null
-     */
-    private $catalogProductEntityTypeId;
-
-    public function __construct(
-        EavConfig $eavConfig,
-        Context $context,
-        $connectionName = null
-    ) {
-        parent::__construct($context, $connectionName);
-        $this->eavConfig = $eavConfig;
-    }
 
     protected function _construct()
     {
@@ -58,20 +37,9 @@ class IsProductAttributeExist extends AbstractDb
             $attributeCode
         )->where(
             sprintf('%s = ?', AttributeInterface::ENTITY_TYPE_ID),
-            $this->getCatalogProductEntityTypeId()
+            CategorySetup::CATALOG_PRODUCT_ENTITY_TYPE_ID
         );
 
         return (bool) $this->getConnection()->fetchOne($select);
-    }
-
-    private function getCatalogProductEntityTypeId(): int
-    {
-        if ($this->catalogProductEntityTypeId === null) {
-            $this->catalogProductEntityTypeId = (int)$this->eavConfig->getEntityType(
-                Product::ENTITY
-            )->getEntityTypeId();
-        }
-
-        return $this->catalogProductEntityTypeId;
     }
 }

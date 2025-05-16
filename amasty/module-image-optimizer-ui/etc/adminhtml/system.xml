@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amimageoptimizer" translate="label" type="text" sortOrder="90116" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Image Optimizer</label>
+            <tab>amasty</tab>
+            <resource>Amasty_ImageOptimizer::config</resource>
+            <group id="images_general_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <attribute type="expanded">1</attribute>
+                <field id="multiprocess_enabled" translate="label tooltip" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Multi-Process Generation</label>
+                    <config_path>amoptimizer/images/multiprocess_enabled</config_path>
+                    <tooltip><![CDATA[Multi-Process Optimization significantly boosts the image optimization speed. But it generates extra load to the server as well. We recommend first to run the test image optimization process with the 'multi-process' ON and monitor your server performance.
+                        <br/><br/>
+                        The 'Multi-Process Generation' feature needs the php extension 'pcntl' to be installed on the server. If you enable the feature and no performance boost happens, plase ask your hoster/system administrator to check if the 'pcntl' extension installed.]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="process_count" translate="label tooltip" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Number of Parallels Processes</label>
+                    <tooltip>The more parallel processes are set, the faster is the image optimization process, as well as the higher is the server load</tooltip>
+                    <validate>validate-greater-than-zero</validate>
+                    <config_path>amoptimizer/images/process_count</config_path>
+                    <depends>
+                        <field id="multiprocess_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="process_images_per_request" translate="label" type="text" sortOrder="86" showInDefault="1"
+                       showInStore="0" showInWebsite="0">
+                    <label>Process Images per Request</label>
+                    <config_path>amoptimizer/images/process_images_per_request</config_path>
+                    <tooltip><![CDATA[The more images are processed per request, the faster the optimization process is. But keep in mind that your server load is higher as well.]]></tooltip>
+                </field>
+                <field id="resolutions_lib" type="select" translate="label comment tooltip" sortOrder="87" showInDefault="1"
+                       showInStore="0" showInWebsite="0">
+                    <label>Image Resolutions Library</label>
+                    <tooltip><![CDATA[Applicable for Image Resolutions included in the Smart Optimization strategy.<br/>
+The choice of library impacts the speed of image optimization. Using the Imagick library can speed up the Image Resolutions optimization process, making it especially useful for generating large product catalogs.]]></tooltip>
+                    <source_model>Amasty\ImageOptimizer\Model\OptionSource\ResolutionsLib</source_model>
+                    <frontend_model>AmastyImageOptimizerImagickPromo</frontend_model>
+                    <config_path>amoptimizer/images/resolutions_lib</config_path>
+                </field>
+                <field id="optimize_enabled_products" translate="label" type="select" sortOrder="100" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Optimize Images for Enabled Products Only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>amoptimizer/images/optimize_enabled_products</config_path>
+                </field>
+                <field id="webp_compression_quality" translate="label" type="text" sortOrder="110" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>WebP Compression Quality</label>
+                    <config_path>amoptimizer/images/webp_compression_quality</config_path>
+                    <tooltip>Compression quality can be set from 50 to 99</tooltip>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-50-99</validate>
+                </field>
+                <field id="avif_compression_quality" translate="label tooltip" type="text" sortOrder="120" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <frontend_model>AvifImageOptimizerPromo</frontend_model>
+                    <label>AVIF Compression Quality</label>
+                    <config_path>amoptimizer/images/avif_compression_quality</config_path>
+                    <tooltip>Compression quality can be set from 0 to 100</tooltip>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-0-100</validate>
+                </field>
+                <field id="avif_encoding_speed" translate="label comment tooltip" type="text" sortOrder="130" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <frontend_model>AvifImageOptimizerPromo</frontend_model>
+                    <label>AVIF Encoding Speed</label>
+                    <config_path>amoptimizer/images/avif_encoding_speed</config_path>
+                    <comment>Allows to configure the speed of the encoding process, with higher values resulting in faster encoding but lower quality. Ranges from 0 (slow, smaller file) to 10 (fast, larger file).</comment>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-0-10</validate>
+                    <tooltip>Encoding speed can be set from 0 to 10</tooltip>
+                </field>
+            </group>
+
+            <group id="images_user_agent" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>User Agent</label>
+
+                <field id="replace_images_using_user_agent" translate="label tooltip comment" type="select" sortOrder="13" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use User Agent for Loading Images</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>amoptimizer/images/replace_images_using_user_agent</config_path>
+                    <tooltip><![CDATA[Using user Agent allows to apply such features as Smart Optimization+Resize together with the Lazy Load feature for the same image as well as to set the number of preloaded images separately for desktop and mobile views.<br /><br />There could be a situation, when User Agent doesn’t work properly for some reasons and should be switched OFF. In this case only preloaded images can be served with Smart Optimization+Resize features while Lazy Load is enabled. And if Lazy Load feature is disabled all images can be served with Smart Optimization+Resize features.]]></tooltip>
+                    <comment>Please note that the User Agent functionality works only with Smart Optimization strategy.</comment>
+                </field>
+                <field id="replace_images_using_user_agent_ignore_list" translate="label" type="textarea" sortOrder="14" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Ignore Images that Contain</label>
+                    <depends>
+                        <field id="replace_images_using_user_agent">1</field>
+                    </depends>
+                    <config_path>amoptimizer/images/replace_images_using_user_agent_ignore_list</config_path>
+                    <comment><![CDATA[Example: &lt;img class="testImage <b>lazyOwl</b>" src="http://site.com/1.png"/&gt; OR &lt;img src="http://site.com/<b>lazyOwl</b>.png"/&gt; will be excluded.]]></comment>
+                </field>
+            </group>
+
+            <group id="replace_images" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Replace Images</label>
+                <field id="replace_strategy" translate="label" type="select" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Image Replace Strategy</label>
+                    <source_model>Amasty\ImageOptimizer\Model\OptionSource\ReplaceStrategies</source_model>
+                    <config_path>amoptimizer/replace_images_general/replace_strategy</config_path>
+                    <tooltip><![CDATA[According to the settings options, you can choose one of the optimization strategies:<br /><br />None: no optimization strategy is selected.<br /><br />Smart optimization: includes WebP and Image Resolutions, and additionally, the AVIF image compression format for Pro and Premium versions. Since AVIF is not supported by all browsers, the choice of image compression format depends on the browser being used. AVIF will be applied in supported browsers, while in cases where this is not possible, WebP and Image Resolutions will be used (note: AVIF functionality is available as part of an active product or support subscription).<br /><br />SpeedSize (is available for Pro and Premium versions): a solution based on neurobiological optimization of multimedia that allows you to maintain high quality and speed of loading images.]]></tooltip>
+                </field>
+                <field id="replace_ignore" translate="label comment" type="textarea" sortOrder="16" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Ignore Images that Contain</label>
+                    <depends>
+                        <field id="replace_strategy" negative="1">0</field>
+                    </depends>
+                    <comment>Specify each record from a new line.</comment>
+                    <config_path>amoptimizer/replace_images_general/replace_ignore</config_path>
+                </field>
+                <field id="support_third_party_image_attributes" translate="label comment tooltip" type="textarea" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Support Third-party Image Attributes</label>
+                    <depends>
+                        <field id="enable_custom_replace">1</field>
+                        <field id="replace_strategy" negative="1">0</field>
+                    </depends>
+                    <config_path>amoptimizer/replace_images_general/support_third_party_image_attributes</config_path>
+                    <comment>Specify each attribute from a new line or leave empty if it shouldn't be used.</comment>
+                    <tooltip><![CDATA[Example: &lt;img src="placeholder-image.png data-src="original-image.png"/&gt; In this case 'data-src' - it's a third-party attribute, so you need to prescribe it in the field if you want images with this attribute to be replaced with WebP format.]]></tooltip>
+                </field>
+                <include path="Amasty_ImageOptimizerUi::include/advanced/home_page.xml"/>
+                <include path="Amasty_ImageOptimizerUi::include/advanced/categories.xml"/>
+                <include path="Amasty_ImageOptimizerUi::include/advanced/products.xml"/>
+                <include path="Amasty_ImageOptimizerUi::include/advanced/cms_page.xml"/>
+            </group>
+            <include path="Amasty_ImageOptimizer::include/automatic_optimization.xml"/>
+            <include path="Amasty_ImageOptimizer::include/clear_folders.xml"/>
+        </section>
+    </system>
+</config>

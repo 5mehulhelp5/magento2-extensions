@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -44,11 +44,8 @@ class MapperPlugin
      * @throws Zend_Db_Select_Exception
      * @throws LocalizedException
      */
-    public function afterBuildQuery(
-        Mapper $subject, // @phpstan-ignore class.notFound
-        Select $select,
-        RequestInterface $request
-    ): Select {
+    public function afterBuildQuery(Mapper $subject, Select $select, RequestInterface $request): Select
+    {
         $subSelect = $select->getPart(Select::FROM)['main_select']['tableName'] ?? null;
         if ($subSelect && $subSelect instanceof Select) {
             $this->checkAndModify($subSelect);

@@ -1,0 +1,25 @@
+<!--@subject {{trans "You’re subscribed to a price alert!"}} @-->
+<!--@vars
+{
+"var product_name":"Product Name",
+"var store_name":"Store Name",
+"var unsubscribeUrl":"Unsubscribe Url"
+}
+@-->
+
+<style>
+    .details tr {
+        text-align: center;
+    }
+</style>
+<table>
+    <tr class="email-intro">
+        <td valign="top">
+            <p>{{trans "Hello,"}}</p>
+            <p>{{trans "You've successfully subscribed to price alerts for %product_name" product_name=$product_name | raw}}</p>
+            <p>{{trans "If the price is updated, we’ll notify you right away."}}</p>
+            <p>{{trans "You can unsubscribe from price alerts anytime by clicking "}} <a href="{{var unsubscribeUrl}}">{{trans "here."}}</a></p>
+            <p>{{trans "Best Regards, %store_name." store_name=$store_name | raw}}</p>
+        </td>
+    </tr>
+</table>

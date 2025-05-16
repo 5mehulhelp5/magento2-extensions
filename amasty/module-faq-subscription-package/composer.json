@@ -1,0 +1,24 @@
+{
+    "name": "amasty/module-faq-subscription-package",
+    "description": "FAQ Subscription Package",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.14.7",
+        "amasty/module-faq-product-questions": "*"
+    },
+    "suggest": {
+        "amasty/module-faq-hyva": "Install this module to activate the integration with Hyva Theme."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "2.13.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\FaqSubscriptionPackage\\": ""
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "amasty/module-advanced-review-subscription-package",
+    "description": "Advanced Review Subscription Package Lite",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.17.0",
+        "amasty/module-advanced-review-lite": ">=1.16.0"
+    },
+    "suggest": {
+        "amasty/module-advanced-review-purchased": "This package provides the possibility to limit reviews only for customers who bought the product.",
+        "amasty/module-advanced-review-api": "Install this package for REST API compatibility.",
+        "amasty/module-invisible-captcha-subscription-package": "Install this package for compatibility with captcha subscription features.",
+        "amasty/module-advanced-review-hyva": "Install module-advanced-review-hyva module to activate the integration with Hyva Theme."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.17.1",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\AdvancedReviewSubscriptionPackage\\": ""
+        }
+    }
+}

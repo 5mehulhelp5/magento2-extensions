@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
@@ -40,11 +40,4 @@
         </arguments>
     </type>
 
-    <type name="Amasty\ShopbySeo\Model\Attribute\GetAttributeCodesSeoByDefault">
-        <arguments>
-            <argument name="attributesToExclude" xsi:type="array">
-                <item name="category_ids" xsi:type="string">category_ids</item>
-            </argument>
-        </arguments>
-    </type>
 </config>

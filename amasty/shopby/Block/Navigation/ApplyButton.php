@@ -1,14 +1,12 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
 namespace Amasty\Shopby\Block\Navigation;
 
-use Amasty\Shopby\Model\Config\MobileConfigResolver;
-use Amasty\Shopby\Model\ConfigProvider;
 use Magento\Framework\View\Element\Template;
 
 /**
@@ -44,29 +42,15 @@ class ApplyButton extends \Magento\Framework\View\Element\Template
      */
     private $layer;
 
-    /**
-     * @var MobileConfigResolver
-     */
-    private $mobileConfigResolver;
-
-    /**
-     * @var ConfigProvider
-     */
-    private $configProvider;
-
     public function __construct(
         Template\Context $context,
         \Amasty\Shopby\Helper\Data $helper,
         \Magento\Catalog\Model\Layer\Resolver $layerResolver,
-        MobileConfigResolver $mobileConfigResolver,
-        ConfigProvider $configProvider,
         array $data = []
     ) {
-        parent::__construct($context, $data);
         $this->layer = $layerResolver->get();
         $this->helper = $helper;
-        $this->mobileConfigResolver = $mobileConfigResolver;
-        $this->configProvider = $configProvider;
+        parent::__construct($context, $data);
     }
 
     /**
@@ -74,7 +58,7 @@ class ApplyButton extends \Magento\Framework\View\Element\Template
      */
     public function isAjaxEnabled()
     {
-        return $this->mobileConfigResolver->isAjaxEnabled();
+        return $this->helper->isAjaxEnabled();
     }
 
     /**
@@ -82,7 +66,7 @@ class ApplyButton extends \Magento\Framework\View\Element\Template
      */
     public function isAjaxSettingEnabled()
     {
-        return $this->configProvider->isAjaxEnabled();
+        return $this->helper->isAjaxSettingEnabled();
     }
 
     /**
@@ -93,8 +77,9 @@ class ApplyButton extends \Magento\Framework\View\Element\Template
     {
         $existBlock  = $this->getLayout()->getBlock('catalog.leftnav')
             || $this->getLayout()->getBlock('catalogsearch.leftnav');
+        $visible = $this->helper->collectFilters() && $existBlock;
 
-        return $this->mobileConfigResolver->getSubmitFilterMode() && $existBlock;
+        return $visible;
     }
 
     /**

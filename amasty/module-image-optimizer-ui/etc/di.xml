@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\ImageOptimizerUi\Api\ImageSettingRepositoryInterface" type="Amasty\ImageOptimizerUi\Model\Image\Repository"/>
+    <preference for="Amasty\ImageOptimizer\Api\Data\ImageSettingInterface" type="Amasty\ImageOptimizerUi\Model\Image\ImageSetting"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="amimageopt_optimize" xsi:type="object">Amasty\ImageOptimizerUi\Console\Command\OptimizeCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizerUi\Console\Command\OptimizeCommand">
+        <arguments>
+            <argument name="optimizeCommand" xsi:type="object">Amasty\ImageOptimizerUi\Console\Command\Operation\Optimize\Proxy</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AvifImageOptimizerPromo" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_AvifImageOptimizer</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string"><![CDATA[https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_productattachments]]></item>
+                <item name="comment" xsi:type="string"><![CDATA[The functionality is available as part of an active product subscription or support subscription. To upgrade and obtain functionality please follow the <a href='https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_pageoptimizer' target='_blank'>link</a>. Than you can find the 'amasty/module-avif-image-optimizer' package for installation in composer suggest.]]></item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

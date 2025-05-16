@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Reports Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Reports\Controller\Adminhtml\Report\Statistics">
+        <arguments>
+            <argument name="reportTypes" xsi:type="array">
+                <item name="amasty_reports_customers_customers" xsi:type="string">Amasty\Reports\Model\ResourceModel\Customers\Customers\Statistic</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="amasty_report_sales_order_items_listing" xsi:type="array">
+                    <item name="order_date" xsi:type="string">order_date</item>
+                </item>
+                <item name="amasty_report_catalog_product_performance_listing" xsi:type="array">
+                    <item name="date" xsi:type="string">date</item>
+                </item>
+                <item name="amasty_report_customers_abandoned_listing" xsi:type="array">
+                    <item name="created_at" xsi:type="string">created_at</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Reports\Model\ReportsDataProvider">
+        <arguments>
+            <argument name="customSalesAndOrdersReports" xsi:type="array">
+                <item name="quote" xsi:type="array">
+                    <item name="title" translate="true" xsi:type="string">Quotes</item>
+                    <item name="url" xsi:type="string">amasty_reports/report_sales/quote</item>
+                    <item name="resource" xsi:type="string">Amasty_Reports::reports_sales_quote</item>
+                    <item name="module" xsi:type="string">Amasty_RequestQuote</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="amquoteStatus" type="Amasty\Reports\Model\Di\Wrapper">
+        <arguments>
+            <argument name="name" xsi:type="string">Amasty\RequestQuote\Model\Source\Status</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\Reports\Model\Source\Quote\Status">
+        <arguments>
+            <argument name="status" xsi:type="object">amquoteStatus</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\Reports\Model\Grid\Export\ByProduct\ConvertToCsv" type="Magento\Ui\Model\Export\ConvertToCsv">
+        <arguments>
+            <argument name="pageSize" xsi:type="number">10000</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\Reports\Controller\Adminhtml\Report\Catalog\ByProduct\ExportGridToCsv">
+        <arguments>
+            <argument name="converter"
+                      xsi:type="object">Amasty\Reports\Model\Grid\Export\ByProduct\ConvertToCsv</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\Orders" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_orders_columns</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\OrderItems" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_overview_columns</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\ProductPerformance" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_overview_columns</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\CustomersReturning" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_overview_columns</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\CustomersAbandoned" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_overview_columns</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\Component\Listing\Customers" type="Amasty\Reports\Ui\Component\Listing">
+        <arguments>
+            <argument name="componentName" xsi:type="string">amreports_sales_overview_columns</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Amasty\Reports\Ui\DataProvider\Listing\Catalog\ProductPerformance\DataProvider" type="Amasty\Reports\Ui\DataProvider\Listing\Abstract\DataProvider">
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\DataProvider\Listing\Customers\Abandoned\DataProvider" type="Amasty\Reports\Ui\DataProvider\Listing\Abstract\DataProvider">
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\DataProvider\Listing\Customers\Customers\DataProvider" type="Amasty\Reports\Ui\DataProvider\Listing\Abstract\DataProvider">
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\DataProvider\Listing\Sales\OrderItems\DataProvider" type="Amasty\Reports\Ui\DataProvider\Listing\Abstract\DataProvider">
+    </virtualType>
+    <virtualType name="Amasty\Reports\Ui\DataProvider\Listing\Sales\Orders\DataProvider" type="Amasty\Reports\Ui\DataProvider\Listing\Abstract\DataProvider">
+    </virtualType>
+</config>

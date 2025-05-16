@@ -1,15 +1,13 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
 namespace Amasty\ShopbyBrand\Test\Unit\Controller;
 
 use Amasty\ShopbyBrand\Controller\Router;
-use Amasty\ShopbyBrand\Model\ConfigProvider;
-use Amasty\ShopbyBrand\Model\UrlParser\MatchBrandParams;
 use Amasty\ShopbyBrand\Test\Unit\Traits;
 
 /**
@@ -66,18 +64,12 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 
         $this->actionFactory = $this->createMock(\Magento\Framework\App\ActionFactory::class);
 
-        $configProvider = $this->createMock(ConfigProvider::class);
-        $configProvider->expects($this->any())->method('getBrandAttributeCode')
-            ->will($this->returnValue(self::BRAND_ATR_CODE));
-        $matchBrandParams = new MatchBrandParams($this->brandHelper, $configProvider);
-
         $this->router = $this->getObjectManager()->getObject(
             Router::class,
             [
                 'brandCode' => self::BRAND_ATR_CODE,
                 'permissionHelper' => $permissionHelper,
-                'actionFactory' => $this->actionFactory,
-                'matchBrandParams' => $matchBrandParams
+                'actionFactory' => $this->actionFactory
             ]
         );
         $this->setProperty($this->router, 'brandHelper', $this->brandHelper);

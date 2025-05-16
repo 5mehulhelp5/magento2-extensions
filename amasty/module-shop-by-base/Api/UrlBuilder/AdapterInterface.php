@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -15,6 +15,4 @@ interface AdapterInterface
      * @return  string
      */
     public function getUrl($routePath = null, $routeParams = null);
-
-    public function isApplicable(string $routePath = null, array $routeParams = null): bool;
 }

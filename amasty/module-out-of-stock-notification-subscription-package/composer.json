@@ -1,0 +1,25 @@
+{
+    "name": "amasty/module-out-of-stock-notification-subscription-package",
+    "description": "Out Of Stock Notification Subscription Package by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.17.0",
+        "amasty/xnotif": ">=1.16.1",
+        "amasty/xnotif-subscription-functionality": ">=1.1.0"
+    },
+    "suggest": {
+        "amasty/module-out-of-stock-hyva-compatibility": "Install this package to ensure the Out Of Stock Notification extension works with Hyv\u00e4 Theme."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.18.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\OutOfStockNotificationSubscriptionPackage\\": ""
+        }
+    }
+}

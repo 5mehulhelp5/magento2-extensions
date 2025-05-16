@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\ImageOptimizer\Api\ImageQueueServiceInterface" type="Amasty\ImageOptimizer\Model\Queue\ImageQueueService"/>
+    <preference for="Amasty\ImageOptimizer\Api\Data\QueueInterface" type="Amasty\ImageOptimizer\Model\Queue\Queue"/>
+    <preference for="Amasty\ImageOptimizer\Api\Data\ImageSettingInterface" type="Amasty\ImageOptimizer\Model\Image\ImageSetting"/>
+
+    <type name="Magento\Framework\Image">
+        <plugin name="ImageAdapterImage" type="Amasty\ImageOptimizer\Plugin\Image\AdapterImage" />
+    </type>
+    <type name="Magento\Framework\File\Uploader">
+        <plugin name="ImageAmastyFileUploader" type="Amasty\ImageOptimizer\Plugin\Framework\File\UploaderPlugin" />
+    </type>
+
+    <virtualType name="Amasty\ImageOptimizer\Model\Command\JpegCommandProvider" type="Amasty\ImageOptimizer\Model\Command\CommandProvider">
+        <arguments>
+            <argument name="captionLabel" xsi:type="string" translatable="true">Do not Optimize</argument>
+            <argument name="commands" xsi:type="array">
+                <item name="jpegoptim100" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Jpegoptim100</item>
+                <item name="jpegoptim90" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Jpegoptim90</item>
+                <item name="jpegoptim80" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Jpegoptim80</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\OptimizeJpeg">
+        <arguments>
+            <argument name="jpegCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\JpegCommandProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\ImageOptimizer\Model\Command\PngCommandProvider" type="Amasty\ImageOptimizer\Model\Command\CommandProvider">
+        <arguments>
+            <argument name="captionLabel" xsi:type="string" translatable="true">Do not Optimize</argument>
+            <argument name="commands" xsi:type="array">
+                <item name="optipng" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Optipng</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\OptimizePng">
+        <arguments>
+            <argument name="pngCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\PngCommandProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\ImageOptimizer\Model\Command\GifCommandProvider" type="Amasty\ImageOptimizer\Model\Command\CommandProvider">
+        <arguments>
+            <argument name="captionLabel" xsi:type="string" translatable="true">Do not Optimize</argument>
+            <argument name="commands" xsi:type="array">
+                <item name="gifsicle" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Gifsicle</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\OptimizeGif">
+        <arguments>
+            <argument name="gifCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\GifCommandProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\ImageOptimizer\Model\Command\WebpCommandProvider" type="Amasty\ImageOptimizer\Model\Command\CommandProvider">
+        <arguments>
+            <argument name="captionLabel" xsi:type="string" translatable="true">Do not Convert</argument>
+            <argument name="commands" xsi:type="array">
+                <item name="cwebp" xsi:type="object">Amasty\ImageOptimizer\Model\Command\Cwebp</item>
+                <item name="gifcwebp" xsi:type="object">Amasty\ImageOptimizer\Model\Command\GifCwebp</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\CreateWebp">
+        <arguments>
+            <argument name="webpCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\WebpCommandProvider</argument>
+        </arguments>
+    </type>
+
+    <!-- backward compatibility start -->
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\Resolution">
+        <arguments>
+            <argument name="webpCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\WebpCommandProvider</argument>
+        </arguments>
+    </type>
+    <!-- backward compatibility end -->
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\ResolutionToolProcessor\Webp">
+        <arguments>
+            <argument name="commandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\WebpCommandProvider</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AmastyJpegImageStrategy" type="Amasty\ImageOptimizer\Model\ImageProcessor\Strategy">
+        <arguments>
+            <argument name="extensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+            </argument>
+            <argument name="strategy" xsi:type="array">
+                <item name="initialcheck" xsi:type="object" sortOrder="10">Amasty\ImageOptimizer\Model\ImageProcessor\InitialCheck</item>
+                <item name="restore" xsi:type="object" sortOrder="20">Amasty\ImageOptimizer\Model\ImageProcessor\RestoreFromOriginal</item>
+                <item name="dumporiginal" xsi:type="object" sortOrder="30">Amasty\ImageOptimizer\Model\ImageProcessor\DumpOriginal</item>
+                <item name="optimizejpeg" xsi:type="object" sortOrder="40">Amasty\ImageOptimizer\Model\ImageProcessor\OptimizeJpeg</item>
+                <item name="createwebp" xsi:type="object" sortOrder="50">Amasty\ImageOptimizer\Model\ImageProcessor\CreateWebp</item>
+                <item name="resolution" xsi:type="object" sortOrder="60">Amasty\ImageOptimizer\Model\ImageProcessor\Resolution</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyPngImageStrategy" type="Amasty\ImageOptimizer\Model\ImageProcessor\Strategy">
+        <arguments>
+            <argument name="extensions" xsi:type="array">
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="strategy" xsi:type="array">
+                <item name="initialcheck" xsi:type="object" sortOrder="10">Amasty\ImageOptimizer\Model\ImageProcessor\InitialCheck</item>
+                <item name="restore" xsi:type="object" sortOrder="20">Amasty\ImageOptimizer\Model\ImageProcessor\RestoreFromOriginal</item>
+                <item name="dumporiginal" xsi:type="object" sortOrder="30">Amasty\ImageOptimizer\Model\ImageProcessor\DumpOriginal</item>
+                <item name="optimizepng" xsi:type="object" sortOrder="40">Amasty\ImageOptimizer\Model\ImageProcessor\OptimizePng</item>
+                <item name="createwebp" xsi:type="object" sortOrder="50">Amasty\ImageOptimizer\Model\ImageProcessor\CreateWebp</item>
+                <item name="resolution" xsi:type="object" sortOrder="60">Amasty\ImageOptimizer\Model\ImageProcessor\Resolution</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyGifImageStrategy" type="Amasty\ImageOptimizer\Model\ImageProcessor\Strategy">
+        <arguments>
+            <argument name="extensions" xsi:type="array">
+                <item name="gif" xsi:type="string">gif</item>
+            </argument>
+            <argument name="strategy" xsi:type="array">
+                <item name="initialcheck" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\InitialCheck</item>
+                <item name="restore" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\RestoreFromOriginal</item>
+                <item name="dumporiginal" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\DumpOriginal</item>
+                <item name="optimizegif" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\OptimizeGif</item>
+                <item name="createwebp" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\CreateWebp</item>
+                <item name="resolution" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\Resolution</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor">
+        <arguments>
+            <argument name="strategies" xsi:type="array">
+                <item name="jpegStrategy" xsi:type="object">AmastyJpegImageStrategy</item>
+                <item name="pngStrategy" xsi:type="object">AmastyPngImageStrategy</item>
+                <item name="gifStrategy" xsi:type="object">AmastyGifImageStrategy</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ImageOptimizer\Model\Image\CheckTools">
+        <arguments>
+            <!-- backward compatibility start -->
+            <argument name="jpegCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\JpegCommandProvider</argument>
+            <argument name="pngCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\PngCommandProvider</argument>
+            <argument name="gifCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\GifCommandProvider</argument>
+            <argument name="webpCommandProvider" xsi:type="object">Amasty\ImageOptimizer\Model\Command\WebpCommandProvider</argument>
+            <!-- backward compatibility end -->
+            <argument name="commandProviders" xsi:type="array">
+                <item name="jpeg_tool" xsi:type="object">Amasty\ImageOptimizer\Model\Command\JpegCommandProvider</item>
+                <item name="png_tool" xsi:type="object">Amasty\ImageOptimizer\Model\Command\PngCommandProvider</item>
+                <item name="gif_tool" xsi:type="object">Amasty\ImageOptimizer\Model\Command\GifCommandProvider</item>
+                <item name="webp_tool" xsi:type="object">Amasty\ImageOptimizer\Model\Command\WebpCommandProvider</item>
+            </argument>
+            <argument name="tools" xsi:type="array">
+                <item name="jpeg_tool" xsi:type="array">
+                    <item name="name" xsi:type="string">jpegoptim</item>
+                    <item name="command" xsi:type="string">jpegoptim100</item>
+                </item>
+                <item name="png_tool" xsi:type="array">
+                    <item name="name" xsi:type="string">optiPNG</item>
+                    <item name="command" xsi:type="string">optipng</item>
+                </item>
+                <item name="gif_tool" xsi:type="array">
+                    <item name="name" xsi:type="string">Gifsicle</item>
+                    <item name="command" xsi:type="string">gifsicle</item>
+                </item>
+                <item name="webp_tool" xsi:type="array">
+                    <item name="name" xsi:type="string">libwebp</item>
+                    <item name="command" xsi:type="string">cwebp</item>
+                </item>
+            </argument>
+            <argument name="extensions" xsi:type="array">
+                <item name="gd" xsi:type="string">PHP extension gd2.dll</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AmastyReplaceImageConfigPath" type="Amasty\PageSpeedTools\Model\Output\PageType\GetConfigPathByPageType">
+        <arguments>
+            <argument name="configPathsByPageType" xsi:type="array">
+                <item name="cms_index_index" xsi:type="string">replace_images_home</item>
+                <item name="catalog_category_view" xsi:type="string">replace_images_categories</item>
+                <item name="catalog_product_view" xsi:type="string">replace_images_products</item>
+                <item name="cms_page_view" xsi:type="string">replace_images_cms</item>
+                <item name="general" xsi:type="string">replace_images_general</item>
+            </argument>
+            <argument name="defaultConfigPath" xsi:type="string">replace_images_general</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\PageSpeedTools\Model\Output\ProcessorsResolver">
+        <arguments>
+            <argument name="customProcessors" xsi:type="array">
+                <item name="ampProcessors" xsi:type="array">
+                    <item name="checker" xsi:type="object">Amasty\PageSpeedTools\Model\Output\RequestChecker\AmpChecker\Proxy</item>
+                    <item name="processors" xsi:type="array">
+                        <item name="replaceImagesAmp" xsi:type="array">
+                            <item name="processor" xsi:type="object">Amasty\ImageOptimizer\Model\Output\AmpReplaceImageProcessor</item>
+                            <item name="sortOrder" xsi:type="number">40</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="esiProcessors" xsi:type="array">
+                    <item name="checker" xsi:type="object">Amasty\PageSpeedTools\Model\Output\RequestChecker\EsiBlocksChecker\Proxy</item>
+                    <item name="processors" xsi:type="array">
+                        <item name="image_replace" xsi:type="array">
+                            <item name="processor" xsi:type="object">Amasty\ImageOptimizer\Model\Output\ImageReplaceProcessor</item>
+                            <item name="sortOrder" xsi:type="number">40</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <argument name="defaultProcessors" xsi:type="array">
+                <item name="image_replace" xsi:type="array">
+                    <item name="processor" xsi:type="object">Amasty\ImageOptimizer\Model\Output\ImageReplaceProcessor</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Image Replace Configuration Start -->
+    <!-- Patterns Config -->
+    <virtualType name="Amasty\ImageOptimizer\Model\Image\ReplacePatterns\Gallery" type="Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Common">
+        <arguments>
+            <argument name="name" xsi:type="string">gallery</argument>
+            <argument name="pattern" xsi:type="string"><![CDATA[\.(jpg|jpeg|png|gif$(?<any>[a-z\-_]+\s*\=\s*[\'\"](.*?)[\'\"].*?\s*))+.*?]]></argument>
+            <argument name="groupByName" xsi:type="array"/>
+            <argument name="baseAlgorithm" xsi:type="const">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\ImageFormatReplaceAlgorithm::ALGORITHM_NAME</argument>
+            <argument name="replaceAllAttrs" xsi:type="boolean">false</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\ImageOptimizer\Model\Image\ReplacePatterns\AmpImg" type="Amasty\ImageOptimizer\Model\Image\ReplacePatterns\Img">
+        <arguments>
+            <argument name="pattern" xsi:type="string"><![CDATA[<amp-img\s*(?:%img_attributes%|(?<any>[a-z\-_]+\s*\=\s*[\'\"](.*?)[\'\"].*?\s*))+.*?>]]></argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\PageSpeedTools\Model\Image\ReplacePatternGroupsPool">
+        <arguments>
+            <argument name="replacePatternGroups" xsi:type="array">
+                <item name="image_optimizer" xsi:type="array">
+                    <item name="img" sortOrder="10" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplacePatterns\Img</item>
+                    <item name="background_image" sortOrder="20" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\BackgroundImage</item>
+                    <item name="page_builder" sortOrder="30" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\PageBuilder</item>
+                    <item name="background" sortOrder="40" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Background</item>
+                </item>
+                <item name="amp_image_optimizer" xsi:type="array">
+                    <item name="img" sortOrder="10" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplacePatterns\AmpImg</item>
+                    <item name="background_image" sortOrder="20" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\BackgroundImage</item>
+                    <item name="page_builder" sortOrder="30" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\PageBuilder</item>
+                    <item name="background" sortOrder="40" xsi:type="object">Amasty\PageSpeedTools\Model\Image\ReplacePatterns\Background</item>
+                </item>
+                <item name="gallery" xsi:type="array">
+                    <item name="img" sortOrder="10" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplacePatterns\Gallery</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Algorithms Config -->
+    <virtualType name="Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm" type="Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm">
+        <arguments>
+            <argument name="checker" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\Checker\ReplaceBestChecker</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\PictureTagReplaceAlgorithm" type="Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithm\PictureTagReplaceAlgorithm">
+        <arguments>
+            <argument name="checker" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\Checker\ReplacePictureChecker</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\ImageFormatReplaceAlgorithm">
+        <arguments>
+            <argument name="checker" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\Checker\ReplaceBestChecker</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PageSpeedTools\Model\Image\ReplaceAlgorithmResolver">
+        <arguments>
+            <argument name="replaceAlgorithms" xsi:type="array">
+                <item name="replace_with_best" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\BestReplaceAlgorithm</item>
+                <item name="replace_with_picture" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\PictureTagReplaceAlgorithm</item>
+                <item name="replace_with_image_format" xsi:type="object">Amasty\ImageOptimizer\Model\Image\ReplaceAlgorithm\ImageFormatReplaceAlgorithm</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Image Replace Configuration End -->
+
+    <type name="Amasty\ImageOptimizer\Model\Output\ReplaceConfig\ReplaceConfig">
+        <arguments>
+            <argument name="getConfigPathByPageType" xsi:type="object">AmastyReplaceImageConfigPath</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Model\Image\Directory\Reader">
+        <arguments>
+            <argument name="fileSelectors" xsi:type="array">
+                <item name="catalog_product_images" xsi:type="object">Amasty\ImageOptimizer\Model\Image\Directory\Provider\EnabledProductImages</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Deploy path exceptions configuration -->
+    <type name="Amasty\Base\Model\FilesystemProvider">
+        <arguments>
+            <argument name="exceptionPaths" xsi:type="array">
+                <item name="Amasty_ImageOptimizer" xsi:type="array">
+                    <item name="0" xsi:type="string">pub/media/amasty/amoptimizer_dump/.htaccess</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Automatic image processors -->
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\AutoProcessing\ProcessorsProvider">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="manual" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\AutoProcessing\Processors\AutomaticallyProcessImage</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\MegaMenuLite\ViewModel\Tree">
+        <plugin name="Amasty_ImageOptimizer::ProcessMegamenuContent" type="Amasty\ImageOptimizer\Plugin\MegaMenuLite\ViewModel\ProcessMegamenuContent"/>
+    </type>
+
+    <!-- Automatic image optimization based on query parameters -->
+    <virtualType name="MagentoCatalog_CatalogMediaConfig" type="Amasty\Base\Model\Di\Wrapper">
+        <arguments>
+            <argument name="name" xsi:type="string">Magento\Catalog\Model\Config\CatalogMediaConfig</argument>
+            <argument name="isShared" xsi:type="boolean">true</argument>
+            <argument name="isProxy" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\ImageOptimizer\Observer\OptimizeImages">
+        <arguments>
+            <argument name="catalogMediaConfig" xsi:type="object">MagentoCatalog_CatalogMediaConfig</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Model\OptionSource\ResolutionsLib">
+        <arguments>
+            <argument name="libs" xsi:type="array">
+                <item name="gd2" translatable="true" xsi:type="string">GD2</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\Resolution\ResolutionProcessorsPool">
+        <arguments>
+            <argument name="defaultProcessor" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\Resolution\Processors\Gd2Processor</argument>
+            <argument name="processors" xsi:type="array">
+                <item name="gd2" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\Resolution\Processors\Gd2Processor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImageOptimizer\Model\ImageProcessor\ResolutionToolProvider">
+        <arguments>
+            <argument name="toolTypes" xsi:type="array">
+                <item name="cwebp" xsi:type="object">Amasty\ImageOptimizer\Model\ImageProcessor\ResolutionToolProcessor\Webp</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,45 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/** @var \Amasty\AdvancedReview\Block\Email\Grid $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$reviews = $block->getReviews();
+?>
+
+<?php if (!empty($reviews)): ?>
+<table class="amreview-container">
+    <?php  foreach ($reviews as $review): ?>
+        <tr>
+            <td class="col amreview-item">
+                <p>
+                    <strong class="product name">
+                        <?= $escaper->escapeHtml($block->getProductName($review)) ?>
+                    </strong>
+                </p>
+                <p>
+                    <strong><?= $escaper->escapeHtml(__('Author: ')) ?></strong>
+                    <?= $escaper->escapeHtml($review->getNickname() . $block->getCustomerEmail($review)) ?>
+                </p>
+                <p>
+                    <strong><?= $escaper->escapeHtml(__('Title: ')) ?></strong>
+                    <?= $escaper->escapeHtml($review->getTitle()) ?>
+                </p>
+                <p>
+                    <strong><?= $escaper->escapeHtml(__('Review: ')) ?></strong>
+                    <?= $escaper->escapeHtml($review->getDetail()) ?>
+                </p>
+            </td>
+            <td class="col amreview-item amreview-button-box">
+                <a class="amreview-button blue" href="<?= $escaper->escapeUrl($block->getReviewUrl($review)) ?>"
+                   title="<?= /* @noEscape */ __('View'); ?>">
+                    <?= /* @noEscape */ __('View'); ?>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php endif;?>

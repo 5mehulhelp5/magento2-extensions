@@ -1,0 +1,60 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/**
+ * @var $block \Amasty\AdvancedReview\Block\Comment\Form
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+use Amasty\AdvancedReview\Api\Data\CommentInterface;
+
+$reviewId = $block->getReviewId();
+?>
+
+<form class="amrev-form" data-amreview-js="comment-form">
+    <input name="form_key" type="hidden" />
+    <input name="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::REVIEW_ID) ?>]"
+           type="hidden"
+           value="<?= (int) $reviewId ?>" />
+    <div class="amrev-fieldset">
+        <?php if (!$block->isLoggedIn()): ?>
+            <div class="amrev-field amrev-input-field">
+                <label class="amrev-label required"
+                       for="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::NICKNAME . '-' . $reviewId) ?>]">
+                    <?= $escaper->escapeHtml(__('Nickname')) ?>
+                </label>
+                <input class="amrev-input required-entry"
+                       id="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::NICKNAME . '-' . $reviewId) ?>]"
+                       name="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::NICKNAME) ?>]"
+                       type="text" />
+            </div>
+            <div class="amrev-field amrev-input-field">
+                <label class="amrev-label required"
+                       for="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::EMAIL . '-' . $reviewId) ?>]">
+                    <?= $escaper->escapeHtml(__('Email')) ?>
+                </label>
+                <input class="amrev-input required-entry validate-email"
+                       id="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::EMAIL . '-' . $reviewId) ?>]"
+                       name="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::EMAIL) ?>]"
+                       type="text" />
+            </div>
+        <?php endif; ?>
+        <div class="amrev-field amrev-area-field">
+            <label class="amrev-label required"
+                   for="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::MESSAGE . '-' . $reviewId) ?>]">
+                <?= $escaper->escapeHtml(__('Comment')) ?>
+            </label>
+            <textarea class="amrev-input amrev-area required-entry"
+                      id="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::MESSAGE . '-' . $reviewId) ?>]"
+                      name="comment[<?= $escaper->escapeHtmlAttr(CommentInterface::MESSAGE) ?>]"
+                      placeholder="<?= $escaper->escapeHtml(__('Talk about why you like this review, or ask a question.')) ?>"
+                      rows="3"></textarea>
+        </div>
+    </div>
+    <button class="amrev-btn" type="submit">
+        <?= $escaper->escapeHtml(__('Add Comment')) ?>
+    </button>
+</form>

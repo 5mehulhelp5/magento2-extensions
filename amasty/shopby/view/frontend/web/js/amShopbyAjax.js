@@ -1,11 +1,16 @@
+/**
+ * @author    Amasty Team
+ * @copyright Copyright (c) Amasty Ltd. ( http://www.amasty.com/ )
+ * @package   Amasty_Shopby
+ */
 define([
-    'underscore',
-    'jquery',
-    'knockout',
+    "underscore",
+    "jquery",
+    "knockout",
     'amShopbyTopFilters',
-    'productListToolbarForm',
-    'amShopbyFilterAbstract',
-    'Magento_PageCache/js/page-cache'
+    "productListToolbarForm",
+    "amShopbyFilterAbstract",
+    "Magento_PageCache/js/page-cache"
 ], function (_, $, ko, amShopbyTopFilters) {
     'use strict';
     $.widget('mage.amShopbyAjax', {
@@ -39,8 +44,8 @@ define([
             $(function () {
                 self.initWidget();
 
-                if (typeof window.history.replaceState === 'function') {
-                    window.history.replaceState({ url: document.URL }, document.title);
+                if (typeof window.history.replaceState === "function") {
+                    window.history.replaceState({url: document.URL}, document.title);
 
                     setTimeout(function () {
                         /*
@@ -61,7 +66,7 @@ define([
                                 self.$shopbyOverlay.show();
                             }
                         };
-                    }, 0);
+                    }, 0)
                 }
             });
         },
@@ -79,7 +84,7 @@ define([
                 var data = eventData.data,
                     clearUrl = self.options.clearUrl,
                     isSorting = eventData.isSorting,
-                    pushState = !self.options.submitByClick || !!eventData?.pushState,
+                    pushState = !self.options.submitByClick,
                     isGetCounter = data?.isGetCounter && !pushState;
 
                 if (typeof data.clearUrl !== 'undefined') {
@@ -108,7 +113,7 @@ define([
                             self.options.clearUrl = response.newClearUrl;
                         }
 
-                        window.history.pushState({ url: response.url }, '', response.url);
+                        window.history.pushState({url: response.url}, '', response.url);
                         self.reloadHtml(response);
                         self.initAjax();
                     } else if ($.mage.amShopbyApplyFilters) {
@@ -156,7 +161,7 @@ define([
                         data.splice(key, 1);
                     } else {
                         item.value.split(',').filter(function (element) {
-                            return element != self.options.currentCategoryId;
+                            return element != self.options.currentCategoryId
                         }).join(',');
                     }
 
@@ -166,14 +171,10 @@ define([
                 return true;
             });
 
-            data.push({ name: 'shopbyAjax', value: 1 });
+            data.push({name: 'shopbyAjax', value: 1});
 
             if (isGetCounter) {
-                data.push({ name: 'shopbyCounterAjax', value: 1 });
-            }
-
-            if (isSorting) {
-                data.push({ name: 'shopbySorting', value: 1 });
+                data.push({name: 'shopbyCounterAjax', value: 1});
             }
 
             data = this.addMemorizeData(data);
@@ -213,8 +214,8 @@ define([
                             self.options.clearUrl = response.newClearUrl;
                         }
 
-                        if (pushState || isSorting) {
-                            window.history.pushState({url: response.url }, '', response.url);
+                        if (pushState || ($.mage.amShopbyApplyFilters && $.mage.amShopbyApplyFilters.prototype.showButtonClick) || isSorting) {
+                            window.history.pushState({url: response.url}, '', response.url);
                         }
 
                         if (self.options.submitByClick !== 1 || isSorting || !isGetCounter) {
@@ -276,23 +277,60 @@ define([
             });
         },
 
-        /**
-         * @param {Object} data
-         * @returns void
-         */
         reloadHtml: function (data) {
-            let selectSidebarNavigation = '.sidebar.sidebar-main .block.filter',
+            var selectSidebarNavigation = '.sidebar.sidebar-main .block.filter',
                 selectTopNavigation = selectSidebarNavigation + '.amshopby-all-top-filters-append-left',
-                selectMainNavigation
-                    = this.resolveMainNavigationSelector(selectTopNavigation, selectSidebarNavigation),
-                $productList,
-                $swatchesTooltip;
+                selectMainNavigation = '',
+                $productsWrapper = this.getProductBlock();
 
-            this.updateCurrentCategoryId(data);
-            this.updateMainNavigation(selectMainNavigation, data);
-            this.updateTopNavigation(data);
-            this.updateMainContent(data);
-            this.updateTitle(data);
+            this.options.currentCategoryId = data.currentCategoryId
+                ? data.currentCategoryId
+                : this.options.currentCategoryId;
+
+            if ($(selectTopNavigation).first().length > 0) {
+                selectMainNavigation = selectTopNavigation; //if all filters are top
+            } else if ($(selectSidebarNavigation).first().length > 0) {
+                selectMainNavigation = selectSidebarNavigation;
+            }
+
+            $('.am_shopby_apply_filters').remove();
+            if (!selectMainNavigation) {
+                if ($('.sidebar.sidebar-main').first().length) {
+                    $('.sidebar.sidebar-main').first().prepend("<div class='block filter'></div>");
+                    selectMainNavigation = selectSidebarNavigation;
+                } else {
+                    selectMainNavigation = '.block.filter';
+                }
+            }
+
+            $(selectMainNavigation).first().replaceWith(data.navigation);
+            $(selectMainNavigation).first().trigger('contentUpdated');
+
+            //top nav already exist into categoryProducts
+            if (!data.categoryProducts || data.categoryProducts.indexOf('amasty-catalog-topnav') == -1) {
+                $(this.selectors.top_navigation).first().replaceWith(data.navigationTop);
+                $(this.selectors.top_navigation).first().trigger('contentUpdated');
+            }
+
+            var mainContent  = data.categoryProducts || data.cmsPageData;
+
+            if (mainContent) {
+                $productsWrapper.replaceWith(mainContent);
+                // we should reinitialize element - because it was replaced and removed
+                $productsWrapper = this.getProductBlock();
+                try {
+                    if (typeof $.fn.applyBindings !== 'undefined') {
+                        ko.cleanNode($productsWrapper)
+                        $productsWrapper.applyBindings();
+                    }
+                    $productsWrapper.trigger('contentUpdated');
+                } catch (e) {
+                    //do nothing. error with third party extension
+                }
+            }
+
+            $(this.selectors.title_head).closest('.page-title-wrapper').replaceWith(data.h1);
+            $(this.selectors.title_head).trigger('contentUpdated');
 
             this.replaceBlock('.breadcrumbs', 'breadcrumbs', data);
             this.replaceBlock('.switcher-currency', 'currency', data);
@@ -319,141 +357,28 @@ define([
                     amShopbyTopFilters.removeTopFiltersFromSidebar();
                 }
             });
-
-            $swatchesTooltip = $('.swatch-option-tooltip');
-            if ($swatchesTooltip.length) {
-                $swatchesTooltip.hide();
+            var swatchesTooltip = $('.swatch-option-tooltip');
+            if (swatchesTooltip.length) {
+                swatchesTooltip.hide();
             }
 
             if (this.$shopbyOverlay) {
                 this.$shopbyOverlay.hide();
             }
 
-            $productList = $(this.selectors.products_wrapper).last();
+            var productList = $(this.selectors.products_wrapper).last();
 
             this.scrollUp();
 
             $('.amshopby-filters-bottom-cms').remove();
-            $productList.append(data.bottomCmsBlock);
-            this.processJsInit(data);
+            productList.append(data.bottomCmsBlock);
 
-            this.afterChangeContentExternal($productList);
+            $(this.selectors.js_init).first().replaceWith(data.js_init);
+            $(this.selectors.js_init).first().trigger('contentUpdated');
+            window.history.pushState({url: data.url}, '', data.url);
+
+            this.afterChangeContentExternal(productList);
             this.initAjax();
-            $(window).trigger('amShopBy:afterReloadHtml', [data]);
-        },
-
-        /**
-         * @param {Object} data
-         * @returns void
-         */
-        updateCurrentCategoryId: function (data) {
-            if (data.currentCategoryId) {
-                this.options.currentCategoryId = data.currentCategoryId;
-            }
-        },
-
-        /**
-         * @param {string} selectMainNavigation
-         * @param {Object} data
-         * @returns void
-         */
-        updateMainNavigation: function (selectMainNavigation, data) {
-            let $mainNavigation = $(selectMainNavigation).first();
-
-            $mainNavigation.replaceWith(data.navigation);
-            // we should reinitialize element - because it was replaced
-            $mainNavigation = $(selectMainNavigation).first();
-            $mainNavigation.trigger('contentUpdated');
-        },
-
-        updateTitle: function (data) {
-            let $title = $(this.selectors.title_head);
-
-            $title.closest('.page-title-wrapper').replaceWith(data.h1);
-            $title.trigger('contentUpdated');
-        },
-
-        /**
-         * @param {string} selectTopNavigation
-         * @param {string} selectSidebarNavigation
-         * @returns {string}
-         */
-        resolveMainNavigationSelector: function (selectTopNavigation, selectSidebarNavigation) {
-            let selectMainNavigation,
-                sidebar;
-
-            if ($(selectTopNavigation).first().length > 0) {
-                selectMainNavigation = selectTopNavigation; //if all filters are top
-            } else if ($(selectSidebarNavigation).first().length > 0) {
-                selectMainNavigation = selectSidebarNavigation;
-            }
-
-            $('.am_shopby_apply_filters').remove();
-            if (!selectMainNavigation) {
-                sidebar = $('.sidebar.sidebar-main').first();
-                if (sidebar.length) {
-                    sidebar.prepend('<div class=\'block filter\'></div>');
-                    selectMainNavigation = selectSidebarNavigation;
-                } else {
-                    selectMainNavigation = '.block.filter';
-                }
-            }
-
-            return selectMainNavigation;
-        },
-
-        /**
-         * @param {Object} data
-         * @returns void
-         */
-        updateMainContent: function (data) {
-            let mainContent = data.categoryProducts || data.cmsPageData,
-                $productsWrapper = this.getProductBlock();
-
-            if (mainContent) {
-                $productsWrapper.replaceWith(mainContent);
-                // we should reinitialize element - because it was replaced
-                $productsWrapper = this.getProductBlock();
-                try {
-                    if (typeof $.fn.applyBindings !== 'undefined') {
-                        ko.cleanNode($productsWrapper);
-                        $productsWrapper.applyBindings();
-                    }
-                    $productsWrapper.trigger('contentUpdated');
-                } catch (e) {
-                    //do nothing. error with third party extension
-                }
-            }
-        },
-
-        /**
-         * @param {Object} data
-         * @returns void
-         */
-        updateTopNavigation: function (data) {
-            let $topNavigation;
-
-            //top nav already exist into categoryProducts
-            if (!data.categoryProducts || data.categoryProducts.indexOf('amasty-catalog-topnav') == -1) {
-                $topNavigation = $(this.selectors.top_navigation).first();
-                $topNavigation.replaceWith(data.navigationTop);
-                // we should reinitialize element - because it was replaced
-                $topNavigation = $(this.selectors.top_navigation).first();
-                $topNavigation.trigger('contentUpdated');
-            }
-        },
-
-        /**
-         * @param {Object} data
-         * @returns void
-         */
-        processJsInit: function (data) {
-            let $jsInit = $(this.selectors.js_init).first();
-
-            $jsInit.replaceWith(data.js_init);
-            // we should reinitialize element - because it was replaced
-            $jsInit = $(this.selectors.js_init).first();
-            $jsInit.trigger('contentUpdated');
         },
 
         /**
@@ -476,14 +401,12 @@ define([
 
             if (this.options.scrollUp && productList.length) {
                 $(document).scrollTop(this.options.scrollUp === 1
-                    ? ((topNavBlock.length && topNavBlock.offset().top > 0) ? topNavBlock.offset().top : productList.offset().top)
+                    ? (topNavBlock.length ? topNavBlock.offset().top : productList.offset().top)
                     : 0);
             }
         },
 
         afterChangeContentExternal: function (productList) {
-            let lazyImg;
-
             //compatibility with Amasty Scroll extension
             $(document).trigger('amscroll_refresh');
 
@@ -491,9 +414,9 @@ define([
             productList.formKey();
 
             //porto theme compatibility
-            lazyImg =  $('img.porto-lazyload:not(.porto-lazyload-loaded)');
+            var lazyImg = $("img.porto-lazyload:not(.porto-lazyload-loaded)");
             if (lazyImg.length && typeof $.fn.lazyload == 'function') {
-                lazyImg.lazyload({ effect: 'fadeIn' });
+                lazyImg.lazyload({effect:"fadeIn"});
             }
 
             if ($('head').html().indexOf('Infortis') > -1) {
@@ -516,14 +439,14 @@ define([
         },
 
         replaceCategoryView: function (data) {
-            var imageElement = $('.category-image'),
-                descrElement = $('.category-description');
+            var imageElement = $(".category-image"),
+                descrElement = $(".category-description");
             if (data.image) {
-                if (imageElement.length !== 0) {
-                    imageElement.replaceWith(data.image);
-                } else {
-                    imageElement.prependTo('column.main');
-                }
+                 if (imageElement.length !== 0) {
+                     imageElement.replaceWith(data.image);
+                 } else {
+                     imageElement.prependTo("column.main");
+                 }
             } else {
                 imageElement.remove();
             }
@@ -536,7 +459,7 @@ define([
                     if (imageElement.length !== 0) {
                         $(data.description).insertAfter(imageElement.selector);
                     } else {
-                        descrElement.prependTo('column.main');
+                        descrElement.prependTo("column.main");
                     }
                 }
             } else {
@@ -545,7 +468,7 @@ define([
 
             $('title').html(data.title);
             if (data.categoryData) {
-                var categoryViewSelector = '.category-view';
+                var categoryViewSelector = ".category-view";
                 if ($(categoryViewSelector).length === 0) {
                     $('<div class="category-view"></div>').insertAfter('.page.messages');
                 }
@@ -612,7 +535,7 @@ define([
                     }
 
                     if (self.options.isMemorizerAllowed) {
-                        self.memorizeData.push({ name: paramName, value: paramValue });
+                        self.memorizeData.push({name: paramName, value: paramValue});
                     }
 
                     self.options.clearUrl = self.getNewClearUrl(
@@ -627,14 +550,14 @@ define([
             }
 
             //change page number
-            $('.toolbar .pages a').unbind('click').bind('click', function (e) {
+            $(".toolbar .pages a").unbind('click').bind('click', function (e) {
                 var newUrl = $(this).prop('href'),
                     updatedUrl = null,
                     urlPaths = newUrl.split('?'),
                     urlParams = urlPaths[1] ? urlPaths[1].split('&') : [];
 
                 for (var i = 0; i < urlParams.length; i++) {
-                    if (urlParams[i].indexOf('p=') === 0) {
+                    if (urlParams[i].indexOf("p=") === 0) {
                         var pageParam = urlParams[i].split('=');
                         updatedUrl = self.getNewClearUrl(pageParam[0], pageParam[1] > 1 ? pageParam[1] : '');
                         break;

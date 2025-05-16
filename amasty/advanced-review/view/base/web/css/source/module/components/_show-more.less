@@ -1,0 +1,66 @@
+//
+//  Amasty Show More Component Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amshowmore-container {
+        .amshowmore-text {
+            & {
+                .transition(.3);
+
+                display: block;
+                overflow: hidden;
+                position: relative;
+            }
+
+            &:after {
+                bottom: 0;
+                box-shadow: inset 0 -15px 10px 0 rgba(255, 255, 255, .7);
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+
+            &.-active {
+                & {
+                    box-shadow: none;
+                }
+
+                &:after {
+                    content: none;
+                }
+            }
+
+            &:not(.-active) {
+                max-height: 100px;
+            }
+        }
+
+        .amshowmore-button {
+            & {
+                .am-flex(none, center);
+
+                color: @amreview-color__blue-light;
+                cursor: pointer;
+                font-size: 12px;
+                margin-top: @amrev__indent / 2;
+                text-decoration: none;
+                user-select: none;
+            }
+
+            &:after {
+                content: '>';
+                display: inline-block;
+                margin: 0 0 0 @amrev__indent / 2;
+                text-decoration: none;
+                transform: scaleY(1.3);
+            }
+        }
+    }
+}

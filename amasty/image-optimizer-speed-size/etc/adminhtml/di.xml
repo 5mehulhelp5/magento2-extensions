@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
+ * @package Image Optimizer Speed Size for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Model\Config\Structure">
+        <plugin name="Amasty_ImageOptimizerSpeedSize::add_speedsize_dependency" type="Amasty\ImageOptimizerSpeedSize\Plugin\Config\Model\Config\Structure\AddSpeedSizeDependency"/>
+    </type>
+
+    <!-- Config Validators Configuration Start -->
+    <virtualType name="AmApiKeyFieldValidator" type="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\ValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="api" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\ApiKey</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmCdnUrlFieldValidator" type="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\ValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="cdn" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\CdnUrl</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmStrategyFieldValidator" type="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\ValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="api" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\ApiKey</item>
+                <item name="cdn" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\CdnUrl</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\ApiKey">
+        <arguments>
+            <argument name="validator" xsi:type="object">AmApiKeyFieldValidator</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\CdnUrl">
+        <arguments>
+            <argument name="validator" xsi:type="object">AmCdnUrlFieldValidator</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\ImageOptimizer\SpeedSizeStrategy">
+        <arguments>
+            <argument name="validator" xsi:type="object">AmStrategyFieldValidator</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\LazyLoad\LazyLoadValidatorComposite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="api" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\ApiKey</item>
+                <item name="cdn" xsi:type="object">Amasty\ImageOptimizerSpeedSize\Model\Config\Backend\Validation\Validators\CdnUrl</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Config Validators Config End -->
+</config>

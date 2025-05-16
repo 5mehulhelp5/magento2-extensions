@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -12,9 +12,6 @@ use Amasty\ShopbyBrand\Helper\Data as DataHelper;
 use Amasty\ShopbyBrand\Model\Attribute;
 use Amasty\ShopbyBrand\Model\Brand\BrandListDataProvider;
 use Amasty\ShopbyBase\Model\OptionSetting;
-use Amasty\ShopbyBrand\Model\Source\BrandsDisplay;
-use Magento\Framework\App\Http\Context as HttpContext;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -51,11 +48,6 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
      */
     private $brandAttribute;
 
-    /**
-     * @var HttpContext
-     */
-    private $httpContext;
-
     public function __construct(
         Context $context,
         DataPersistorInterface $dataPersistor,
@@ -63,16 +55,13 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
         UrlBuilderInterface $amUrlBuilder,
         BrandListDataProvider $brandListDataProvider,
         Attribute $brandAttribute,
-        array $data = [],
-        HttpContext $httpContext = null// TODO move to not optional
+        array $data = []
     ) {
         $this->helper = $helper;
         $this->amUrlBuilder = $amUrlBuilder;
         $this->dataPersistor = $dataPersistor;
         $this->brandListDataProvider = $brandListDataProvider;
         $this->brandAttribute = $brandAttribute;
-        // OM for backward compatibility
-        $this->httpContext = $httpContext ?? ObjectManager::getInstance()->get(HttpContext::class);
 
         parent::__construct($context, $data);
     }
@@ -89,19 +78,6 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
         if (!$this->hasData('cache_lifetime')) {
             $this->setData('cache_lifetime', 86400);
         }
-    }
-
-    public function getCacheKeyInfo()
-    {
-        $parts = parent::getCacheKeyInfo();
-        $parts[] = 'cust_gr' .  $this->getCurrentCustomerGroupId();
-
-        return $parts;
-    }
-
-    private function getCurrentCustomerGroupId(): int
-    {
-        return (int)$this->httpContext->getValue(\Magento\Customer\Model\Context::CONTEXT_GROUP);
     }
 
     protected function getCacheTags(): array
@@ -166,12 +142,6 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
 
     public function isDisplayZero(): bool
     {
-        return in_array(BrandsDisplay::DISPLAY_ZERO, $this->getBrandsDisplay())
-            || $this->getData('display_zero');
-    }
-
-    public function getBrandsDisplay(): array
-    {
-        return explode(',', (string)$this->getData('brands_display'));
+        return (bool) $this->getData('display_zero');
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -18,7 +18,6 @@ use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Eav\Model\ResourceModel\Entity\Attribute\Option;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Store\Model\Store;
 
 class OptionSettingRepository implements OptionSettingRepositoryInterface
 {
@@ -38,20 +37,20 @@ class OptionSettingRepository implements OptionSettingRepositoryInterface
     private $collectionFactory;
 
     /**
-     * @param OptionSettingResource $resource
-     * @param OptionSettingFactory $factory
-     * @param OptionSettingResource\CollectionFactory $collectionFactory
-     * @param Option\CollectionFactory|null $optionCollectionFactory @deprecated
+     * @var Option\CollectionFactory
      */
+    private $optionCollectionFactory;
+
     public function __construct(
         OptionSettingResource $resource,
         OptionSettingFactory $factory,
         ResourceModel\OptionSetting\CollectionFactory $collectionFactory,
-        Option\CollectionFactory $optionCollectionFactory = null
+        Option\CollectionFactory $optionCollectionFactory
     ) {
         $this->resource = $resource;
         $this->factory = $factory;
         $this->collectionFactory = $collectionFactory;
+        $this->optionCollectionFactory = $optionCollectionFactory;
     }
 
     /**
@@ -85,33 +84,33 @@ class OptionSettingRepository implements OptionSettingRepositoryInterface
     {
         $collection = $this->collectionFactory->create();
         $collection->addLoadFilters($attributeCode, $optionId, $storeId);
+        $eavValue = $collection->getValueFromMagentoEav($optionId, $storeId);
 
         /** @var OptionSettingInterface|AbstractModel $model */
         $model = $collection->getFirstItem();
-        if ($storeId !== Store::DEFAULT_STORE_ID && $model->getStoreId() !== Store::DEFAULT_STORE_ID) {
+        if ($storeId !== \Magento\Store\Model\Store::DEFAULT_STORE_ID) {
             $defaultModel = $collection->getLastItem();
             foreach ($model->getData() as $key => $value) {
-                $isDefault = $value === null;
-                if ($isDefault) {
-                    $model->setData($key, $defaultModel->getData($key));
+                switch ($key) {
+                    case OptionSettingInterface::META_TITLE:
+                    case OptionSettingInterface::TITLE:
+                        $isDefault = !$value || $eavValue === $value;
+                        if ($isDefault) {
+                            $model->setData($key, $defaultModel->getData($key) ?: $eavValue);
+                        }
+                        break;
+                    case OptionSettingInterface::URL_ALIAS:
+                        $isDefault = $value === null;
+                        break;
+                    default:
+                        $isDefault = $defaultModel->getData($key) === $value;
                 }
 
                 $model->setData($key . '_use_default', $isDefault);
             }
-        }
-
-        if ($model->getTitle() === null || $model->getMetaTitle() === null) {
-            $eavValue = $collection->getValueFromMagentoEav($optionId, $storeId);
-            if ($model->getTitle() === null) {
-                $model->setTitle($eavValue);
-                //for $storeId == 0
-                $model->setData('title_use_default', true);
-            }
-            if ($model->getMetaTitle() === null) {
-                $model->setMetaTitle($eavValue);
-                //for $storeId == 0
-                $model->setData('meta_title_use_default', true);
-            }
+        } else {
+            $this->resolveTitleUseDefault($model, OptionSettingInterface::TITLE, $eavValue);
+            $this->resolveTitleUseDefault($model, OptionSettingInterface::META_TITLE, $eavValue);
         }
 
         return $model;
@@ -148,6 +147,23 @@ class OptionSettingRepository implements OptionSettingRepositoryInterface
                     [$optionId, $e->getMessage()]
                 )
             );
+        }
+    }
+
+    /**
+     * @param OptionSettingInterface $model
+     * @param string $key
+     * @param mixed $eavValue
+     * @return void
+     */
+    private function resolveTitleUseDefault(OptionSettingInterface $model, string $key, $eavValue): void
+    {
+        $useDefaultKey = $key . '_use_default';
+        $model->setData($useDefaultKey, false);
+        $value = $model->getData($key);
+        if (!$value || $model->getData($key) === $eavValue) {
+            $model->setData($useDefaultKey, true);
+            $model->setData($key, $eavValue);
         }
     }
 }

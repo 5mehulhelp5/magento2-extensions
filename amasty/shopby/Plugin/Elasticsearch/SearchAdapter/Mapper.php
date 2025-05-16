@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -20,10 +20,8 @@ class Mapper
      * @param array $query
      * @return array
      */
-    public function afterExecute(
-        GetRequestQuery $subject, // @phpstan-ignore class.notFound
-        array $query
-    ) {
+    public function afterExecute(GetRequestQuery $subject, array $query)
+    {
         return $this->adjustRequestQuery($query);
     }
 

@@ -95,3 +95,5 @@ Manufacturer,Manufacturer
 "Please click <a target='_blank' href='https://amasty.com/docs/doku.php?id=magento_2:rich_snippets&utm_source=extension&utm_medium=backend&utm_campaign=userguide_RichSnippet#product_rich_data'>here</a> to find out how to configure the current setting.","Please click <a target='_blank' href='https://amasty.com/docs/doku.php?id=magento_2:rich_snippets&utm_source=extension&utm_medium=backend&utm_campaign=userguide_RichSnippet#product_rich_data'>here</a> to find out how to configure the current setting."
 "Number of Reviews","Number of Reviews"
 "Extension will output set number of the latest reviews. Leave empty to output all reviews.","Extension will output set number of the latest reviews. Leave empty to output all reviews."
+"Product Variant Structured Data","Product Variant Structured Data"
+Information,Information

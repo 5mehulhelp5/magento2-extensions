@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -61,7 +61,7 @@ class DataProvider
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundGetDataSet(
-        \Magento\CatalogSearch\Model\Adapter\Mysql\Aggregation\DataProvider $subject, // @phpstan-ignore class.notFound
+        \Magento\CatalogSearch\Model\Adapter\Mysql\Aggregation\DataProvider $subject,
         \Closure $proceed,
         BucketInterface $bucket,
         array $dimensions,

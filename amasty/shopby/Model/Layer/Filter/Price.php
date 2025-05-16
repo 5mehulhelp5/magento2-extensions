@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -220,7 +220,10 @@ class Price extends \Magento\CatalogSearch\Model\Layer\Filter\Price implements F
             $to = $this->range ? $from + $this->range : '';
         }
         $to = (float) $to;
-        $label = $this->renderRangeLabel($from, $to);
+        $label = $this->renderRangeLabel(
+            empty($from) ? 0 : $from,
+            $to ? $to - 0.01 : $to
+        );
         $filterSetting = $this->filterSettingResolver->getFilterSetting($this);
         $format = $this->getFormat($filterSetting, $from, $to);
         $value = sprintf($format, $from, $to, $this->dataProvider->getAdditionalRequestData());
@@ -297,7 +300,7 @@ class Price extends \Magento\CatalogSearch\Model\Layer\Filter\Price implements F
 
         $this->getLayer()->getProductCollection()->addFieldToFilter(
             'price',
-            ['from' => $from, 'to' => $this->request->getParam('price-ranges') && $to ? $to - self::PRICE_DELTA : $to]
+            ['from' => $from, 'to' => $this->request->getParam('price-ranges') ? $to - self::PRICE_DELTA : $to]
         );
 
         $this->getLayer()->getState()->addFilter(

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Xnotif::css/analytics/amcharts.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" template="Amasty_Xnotif::analytics/dashboard.phtml">
+                <container name="before.chart_stock" htmlTag="div" label="before.chart_stock">
+                    <block name="filters" template="Amasty_Xnotif::analytics/filters.phtml">
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">Amasty\Xnotif\ViewModel\Analytics\Filters</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Chart\Stock" name="chart_stock"/>
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Wanted\ProductList" name="wanted_products"/>
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Activity\ProductList" name="last_activity"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

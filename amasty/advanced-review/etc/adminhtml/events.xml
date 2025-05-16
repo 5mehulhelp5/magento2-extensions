@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_catalog">
+        <observer name="Amasty_AdvancedReview::save_catalog"
+                  instance="Amasty\AdvancedReview\Observer\System\ConfigChanged"/>
+    </event>
+    <event name="admin_system_config_changed_section_amasty_advancedreview">
+        <observer name="Amasty_AdvancedReview::save_amasty_advancedreview"
+                  instance="Amasty\AdvancedReview\Observer\System\ConfigChanged"/>
+        <observer name="Amasty_AdvancedReview::save_amasty_advancedreview_coupons"
+                  instance="Amasty\AdvancedReview\Observer\System\AdvancedRuleObserver"/>
+    </event>
+    <event name="controller_action_predispatch_adminhtml_system_config_save">
+        <observer name="Amasty_AdvancedReview::predispatch_adminhtml_system_config_save"
+                  instance="Amasty\AdvancedReview\Observer\System\SlipOldConfigValueObserver"/>
+    </event>
+</config>

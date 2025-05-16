@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package FAQ and Product Questions for Magento 2
+ */
+/** @var \Magento\Backend\Block\Template $block **/
+?>
+<div class="page-main-actions" id="faqQuestionsGrid">
+    <div class="page-actions">
+        <div class="page-actions-buttons">
+            <button
+                    type="button"
+                    data-role="action"
+                    onclick="window. <?= $block->escapeHtml($block->getChooserId()) ?>.close()">
+                <span>Cancel</span>
+            </button>
+            <button class="action-primary" type="button" data-role="action" id="addSelectedFiles">
+                <span><?= $block->escapeHtml(__('Add Selected Questions')) ?></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -43,13 +43,10 @@ class ReplaceAmpCategoryCanonical
         $this->seoCustomizer = $seoCustomizer;
     }
 
-    public function afterGetCanonicalUrl(
-        Head $subject, // @phpstan-ignore class.notFound
-        string $url
-    ): string {
+    public function afterGetCanonicalUrl(Head $subject, string $url): string
+    {
         $category = $this->registry->registry('current_category');
 
-        // @phpstan-ignore class.notFound
         if ($this->request->getFullActionName() == ConfigProvider::CATALOG_CATEGORY_VIEW) {
             $url = $this->seoCustomizer->getCategoryModeCanonical($category);
         }

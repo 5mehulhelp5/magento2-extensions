@@ -20,6 +20,9 @@
             <category>
                 <enabled>0</enabled>
             </category>
+            <structured_data>
+                <enabled>0</enabled>
+            </structured_data>
         </amseorichdata>
     </default>
 </config>

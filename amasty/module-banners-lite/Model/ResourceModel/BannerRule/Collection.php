@@ -11,9 +11,8 @@ use Amasty\BannersLite\Api\Data\BannerRuleInterface;
 use Amasty\BannersLite\Model\BannerRule;
 use Amasty\BannersLite\Model\ResourceModel\BannerRule as ResourceModel;
 use Magento\Framework\DB\Select;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
-class Collection extends AbstractCollection
+class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     protected function _construct()
     {
@@ -48,27 +47,63 @@ class Collection extends AbstractCollection
             BannerRuleInterface::ALL_PRODUCTS
         );
 
+        /* show_banner_for = '0' OR (show_banner_for = '1' AND banner_product_sku IN('24-MB03')) */
         if ($productSku) {
-            $skuCondition = $this->getConnection()
-                ->quoteInto('rule_sku.banner_product_sku = ?', strtolower($productSku));
-            $sql .= " OR (main_table.show_banner_for = '" . BannerRuleInterface::PRODUCT_SKU
-                . "' AND " . $skuCondition . ")";
+            $sql .= ' OR (' . $this->getSkuSql($productSku) . ')';
         }
 
-        if (!empty($productCats)) {
-            $catConditions = [];
-            foreach ($productCats as $category) {
-                $catConditions[] = $this->getConnection()
-                    ->quoteInto('rule_categories.banner_product_categories = ?', $category);
-            }
-            $catSql = implode(' OR ', $catConditions);
-            $sql .= " OR (main_table.show_banner_for = '" . BannerRuleInterface::PRODUCT_CATEGORY
-                . "' AND (" . $catSql . "))";
+        /* show_banner_for = '0'
+                OR (show_banner_for = '1' AND banner_product_sku IN('24-MB03'))
+                OR (show_banner_for = '2'
+                    AND (((FIND_IN_SET('3', banner_product_categories))
+                            OR (FIND_IN_SET('4', banner_product_categories))))) */
+        if ($productCats) {
+            $sql .= ' OR (' . $this->getCategorySql($productCats) . ')';
         }
-
-        $sql .= ") AND (rule_categories.banner_product_categories <> '' OR rule_sku.banner_product_sku <> ''";
 
         return $sql;
+    }
+
+    /**
+     * @param string $productSku
+     *
+     * @return string
+     */
+    private function getSkuSql($productSku)
+    {
+        return $this->getConnection()->prepareSqlCondition(
+            BannerRuleInterface::SHOW_BANNER_FOR,
+            BannerRuleInterface::PRODUCT_SKU
+        ) . ' AND '
+            . $this->getConnection()->prepareSqlCondition(
+                BannerRuleInterface::BANNER_PRODUCT_SKU,
+                ['finset' => $productSku]
+            );
+    }
+
+    /**
+     * @param array $productCats
+     *
+     * @return string
+     */
+    private function getCategorySql($productCats)
+    {
+        $query = $this->getConnection()->prepareSqlCondition(
+            BannerRuleInterface::SHOW_BANNER_FOR,
+            BannerRuleInterface::PRODUCT_CATEGORY
+        ) . ' AND (';
+
+        $conditions = [];
+        foreach ($productCats as $category) {
+            $conditions[] = ['finset' => $category];
+        }
+        $query .= $this->getConnection()->prepareSqlCondition(
+            BannerRuleInterface::BANNER_PRODUCT_CATEGORIES,
+            $conditions
+        );
+        $query .= ')';
+
+        return $query;
     }
 
     /**
@@ -81,20 +116,10 @@ class Collection extends AbstractCollection
         $select->reset(Select::ORDER);
         $select->reset(Select::LIMIT_COUNT);
         $select->reset(Select::LIMIT_OFFSET);
-
-        $select->joinLeft(
-            ['rule_categories' => $this->getTable(ResourceModel::RULE_CATEGORIES_TABLE)],
-            'main_table.entity_id = rule_categories.entity_id',
-            ['banner_product_categories']
-        )->joinLeft(
-            ['rule_sku' => $this->getTable(ResourceModel::RULE_PRODUCT_SKU_TABLE)],
-            'main_table.entity_id = rule_sku.entity_id',
-            ['banner_product_sku']
-        )->group('main_table.entity_id');
-
         $select->reset(Select::COLUMNS);
+
         $select->columns(BannerRuleInterface::SALESRULE_ID, 'main_table');
 
-        return $this->getConnection()->fetchAll($select, $this->_bindParams);
+        return $this->getConnection()->fetchCol($select, $this->_bindParams);
     }
 }

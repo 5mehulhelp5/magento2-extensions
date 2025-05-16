@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,17 +16,17 @@
             <group id="url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>SEO URLs</label>
-                <field id="mode" translate="label" type="select" sortOrder="10" showInDefault="1"
+                <field id="mode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Enable</label>
-                    <comment><![CDATA[When enabled, store URLs are optimized for search engines, e.g. URL will be 'category/autumn.html' instead of 'category.html?season=114'.]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[URL will look 'category/autumn.html' instead of 'category.html?season=114'.]]></comment>
                 </field>
-                <field id="is_generate_seo_default" translate="label" type="select" sortOrder="11" showInDefault="1"
+                <field id="is_generate_seo_default" translate="label comment" type="select" sortOrder="11" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>SEO-friendly URLs for Attributes (Default Value)</label>
-                    <comment><![CDATA[Enable to generate SEO-friendly URLs for attributes in bulk. Go to Stores - Attributes - Product - {attribute_name} - Improved Layered Navigation - SEO - Generate SEO URL setting to apply per-attribute fine-tuning.]]></comment>
                     <source_model>Amasty\ShopbySeo\Model\Source\SeoByDefault</source_model>
+                    <comment><![CDATA[Go to Stores - Attributes - Product - {attribute_name} - Improved Layered Navigation - SEO - Generate SEO URL setting to apply per-attribute fine-tuning.]]></comment>
                     <depends>
                         <field id="mode">1</field>
                     </depends>
@@ -40,8 +40,6 @@
                         <field id="mode">1</field>
                     </depends>
                 </field>
-<!--                field from Amasty_ShopByRedirect-->
-<!--                <field id="redirect_to_seo" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">-->
                 <field id="filter_word" translate="label commment" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Filter Key</label>
                     <comment><![CDATA[It allows to add filter key to the URL scheme, e.g. black-xl-activity -> shopby/black-xl-activity]]></comment>
@@ -84,27 +82,25 @@
             <group id="robots" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>Robots Tag Control</label>
-                <field id="control_robots" translate="label" type="select" sortOrder="10" showInDefault="1"
+                <field id="control_robots" translate="label comment" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Allow the Module to Modify Robots Meta Tag</label>
-                    <comment>When enabled, the module manages indexation according to SEO settings for each attribute. If you disable the option, search engines will index all the store content. Use "No" for compatibility with other SEO extensions.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use "No" for compatibility with other SEO extensions.</comment>
                 </field>
                 <field id="noindex_multiple" translate="label comment" type="select" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Noindex when Multiple Attribute Filters Applied</label>
-                    <comment>Enable this option to set the robots to noindex values for multiple filters.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="rel_nofollow" translate="label" type="select" sortOrder="30" showInDefault="1"
+                <field id="rel_nofollow" translate="label comment" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Automatically Add rel="nofollow" to Filter Links when Required</label>
-                    <comment>When enabled, rel=“nofollow” is automatically added to the filter links and “nofollow” robot tag is set. This setting helps exclude filter links from search engine indexation if necessary. Please refer to filter-specific settings to exclude filters.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Please refer per-filter settings to make exclusions.</comment>
                 </field>
-                <field id="noindex_paginated" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="noindex_paginated" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Noindex for Paginated Pages</label>
-                    <comment>Enable this option to set the robots to noindex for paginated pages.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enabled">1</field>

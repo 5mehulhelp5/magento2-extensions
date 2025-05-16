@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package FAQ and Product Questions for Magento 2
+ */
+/** @var $block \Amasty\Faq\Block\CollectVisits */
+?>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        var options = <?= /** @noEscape */ $block->getStatData(); ?>,
+            url = '<?= $block->escapeUrl($block->getStatUrl()); ?>';
+        $.ajax({
+            type: "GET",
+            data: options,
+            url: url,
+            dataType: 'json'
+        });
+    });
+
+</script>

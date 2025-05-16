@@ -1,0 +1,34 @@
+"Mobile Images Folder","Mobile Images Folder"
+"Tablet Images Folder","Tablet Images Folder"
+"WebP Images Folder","WebP Images Folder"
+"Tool `%1` doesn't exist","Tool `%1` doesn't exist"
+Cwebp,Cwebp
+Gifsicle,Gifsicle
+"Jpegoptim 100% quality","Jpegoptim 100% quality"
+"Jpegoptim 80% quality","Jpegoptim 80% quality"
+"Jpegoptim 90% quality","Jpegoptim 90% quality"
+Optipng,Optipng
+"exec function is disabled.","exec function is disabled."
+"Image Optimization Tool ""%1"" is not installed","Image Optimization Tool ""%1"" is not installed"
+"Unable to copy file %1 for optimization processing.","Unable to copy file %1 for optimization processing."
+"Couldn't clear `%1` folder","Couldn't clear `%1` folder"
+"Immediately after Uploading","Immediately after Uploading"
+"By Cron","By Cron"
+None,None
+"Smart Optimization","Smart Optimization"
+Resize,Resize
+Crop,Crop
+Disabled,Disabled
+Enabled,Enabled
+"Yes (Recommended)","Yes (Recommended)"
+No,No
+"Automatic Image Optimization","Automatic Image Optimization"
+"Automatically Optimize Newly Uploaded Images","Automatically Optimize Newly Uploaded Images"
+"When you install the extension, you have to optimize all previously uploaded images. It can be done from the Content>Image Optimizer>Image Folder Optimization Settings page.<br /><br />But if you upload new images after the optimization (e.g. a new product has been created), use this option to optimize the newly uploaded images on the fly before saving it.","When you install the extension, you have to optimize all previously uploaded images. It can be done from the Content>Image Optimizer>Image Folder Optimization Settings page.<br /><br />But if you upload new images after the optimization (e.g. a new product has been created), use this option to optimize the newly uploaded images on the fly before saving it."
+"Add folders to automatic optimization in the pattern settings.","Add folders to automatic optimization in the pattern settings."
+"Automatically Optimize Images","Automatically Optimize Images"
+"Delete Previously Generated & Resized Images","Delete Previously Generated & Resized Images"
+"Avif Images Folder","Avif Images Folder"
+"Do not Optimize","Do not Optimize"
+"Do not Convert","Do not Convert"
+GD2,GD2

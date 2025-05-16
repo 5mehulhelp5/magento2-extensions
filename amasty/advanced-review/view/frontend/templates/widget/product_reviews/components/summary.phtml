@@ -1,0 +1,35 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/**
+ * @var \Amasty\AdvancedReview\Block\Summary $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$rating = $block->getRatingSummary();
+$count = $block->getReviewsCount();
+?>
+
+<div class="amreview-summary-info">
+    <p class="amreview-summary">
+        <?= $escaper->escapeHtml($block->getRatingSummaryValue()) ?>
+    </p>
+    <div class="amreview-rating-wrapper">
+        <div class="amstars-rating-container"
+            <?php $stars = $block->getRatingSummaryValue(); ?>
+             title="<?= $escaper->escapeHtml($stars > 1 ? __('%1 stars', $stars) : __('%1 star', $stars)) ?>">
+            <p class="amstars-stars" style="width:<?= /* @noEscape */ $rating ? $rating: 0; ?>%">
+            <span class="hidden">
+                <?= $escaper->escapeHtml($rating); ?>%
+            </span>
+            </p>
+        </div>
+        <p class="amreview-count">
+            <?= /* @noEscape */ $count; ?> <?= $escaper->escapeHtml(__('reviews')); ?>
+        </p>
+    </div>
+</div>
+

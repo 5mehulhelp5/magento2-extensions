@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -171,22 +171,5 @@ class CategoryItems implements \IteratorAggregate, \Countable
     private function sortOption(Item $a, Item $b): int
     {
         return strcmp($a->getOptionLabel(), $b->getOptionLabel());
-    }
-
-    /**
-     * @SuppressWarnings(PHPMD.ShortVariable)
-     */
-    public function sortOptionsByCount(): self
-    {
-        foreach ($this->items as &$items) {
-            usort(
-                $items,
-                static function ($a, $b) {
-                    return $b->getCount() <=> $a->getCount();
-                }
-            );
-        }
-
-        return $this;
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out of Stock Notification for Magento 2
+ */-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="amasty.xnotif.price.dummy"
+                   template="Amasty_Xnotif::product/price/dummy.phtml"
+                   ifconfig="amxnotif/general/show_out_of_stock_only"
+                   before="-">
+                <arguments>
+                    <argument name="product_registry"
+                              xsi:type="object">Amasty\Xnotif\ViewModel\Product\ProductRegistry</argument>
+                    <argument name="configurable_product"
+                              xsi:type="object">Amasty\Xnotif\ViewModel\Product\ConfigurableProduct</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -17,7 +17,6 @@ define([
         },
         selectors: {
             collapseButton: '.am-collapse-icon',
-            collapseItem: '.item.-is-collapsible',
             filterParent: '.amshopby-filter-parent',
             inputChecked: 'input[checked]',
             inputCat: 'input[name^="amshopby[cat]"]',
@@ -27,8 +26,7 @@ define([
             filterItems: '[data-amshopby-js="filter-items-{code}"]'
         },
         classes: {
-            active: '-active',
-            folded: '-folded'
+            active: '-active'
         },
         mode: {
             folding: 'folding',
@@ -79,7 +77,6 @@ define([
                     $(this).hide();
                 } else {
                     $(this).prevAll(self.selectors.collapseButton).toggleClass(self.classes.active);
-                    $(this).parents(self.selectors.collapseItem).removeClass(self.classes.folded);
                 }
             });
         },

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -16,7 +16,6 @@ use Amasty\Shopby\Model\Layer\Filter\Price;
 use Amasty\Shopby\Test\Unit\Traits;
 use Amasty\ShopbyBase\Model\FilterSetting;
 use Amasty\Shopby\Model\Layer\Filter\Resolver\FilterSettingResolver;
-use Amasty\ShopbyBase\Model\FilterSetting\FilterResolver;
 use Amasty\ShopbyBase\Model\FilterSetting\IsMultiselect;
 use Amasty\ShopbyPage\Controller\Adminhtml\Page\Edit;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -53,8 +52,7 @@ class FilterSettingReolverTest extends \PHPUnit\Framework\TestCase
     public function testIsMultiselectAllowed(): void
     {
         $filterSetting = $this->createMock(FilterSetting::class);
-        $filterResolver = $this->createMock(FilterResolver::class);
-        $filterResolver->expects($this->any())->method('resolveByFilter')->willReturn($filterSetting);
+        $this->model->expects($this->any())->method('getFilterSetting')->willReturn($filterSetting);
 
         $attributeFilter = $this->getObjectManager()->getObject(Attribute::class);
         $priceFilter = $this->getObjectManager()->getObject(Price::class);
@@ -67,7 +65,6 @@ class FilterSettingReolverTest extends \PHPUnit\Framework\TestCase
         $isMultiselect = $this->createMock(IsMultiselect::class);
         $isMultiselect->expects($this->any())->method('execute')->willReturn(true);
         $this->setProperty($this->model, 'isMultiselect', $isMultiselect, FilterSettingResolver::class);
-        $this->setProperty($this->model, 'filterResolver', $filterResolver, FilterSettingResolver::class);
         $this->assertEquals(true, $this->invokeMethod($this->model, 'isMultiselectAllowed', [$attributeFilter]));
     }
 }

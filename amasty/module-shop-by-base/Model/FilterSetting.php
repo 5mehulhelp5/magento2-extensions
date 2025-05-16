@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Base for Magento 2 (System)
  */
 
@@ -689,43 +689,5 @@ class FilterSetting extends \Magento\Framework\Model\AbstractModel implements Fi
     public function setHideZeros(bool $hideZeros): void
     {
         $this->setData(self::HIDE_ZEROS, $hideZeros);
-    }
-
-    public function getRangeAlgorithm(): ?int
-    {
-        return $this->getData(self::RANGE_ALGORITHM) !== null
-            ? (int)$this->getData(self::RANGE_ALGORITHM)
-            : null;
-    }
-
-    public function setRangeAlgorithm(int $rangeAlgorithm): void
-    {
-        $this->setData(self::RANGE_ALGORITHM, $rangeAlgorithm);
-    }
-
-    public function getRangeStep(): ?float
-    {
-        return $this->getData(self::RANGE_STEP) !== null
-            ? (float)$this->getData(self::RANGE_STEP)
-            : null;
-    }
-
-    public function setRangeStep(float $rangeStep): void
-    {
-        $this->setData(self::RANGE_STEP, $rangeStep);
-    }
-
-    public function getAttributeId(): ?int
-    {
-        if ($this->hasData(self::ATTRIBUTE_ID)) {
-            return (int)$this->getData(self::ATTRIBUTE_ID);
-        }
-
-        return null;
-    }
-
-    public function setAttributeId(int $attributeId): void
-    {
-        $this->setData(self::ATTRIBUTE_ID, $attributeId);
     }
 }

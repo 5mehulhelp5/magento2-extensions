@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Page for Magento 2 (System)
  */
 
@@ -13,14 +13,12 @@ namespace Amasty\ShopbyPage\Model\Customizer\Category;
 use Amasty\Shopby\Helper\Data as ShopbyHelper;
 use Amasty\Shopby\Model\Request;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
-use Amasty\ShopbyBase\Helper\FilterSetting;
 use Amasty\ShopbyBase\Model\Category\Manager as CategoryManager;
 use Amasty\ShopbyBase\Model\Customizer\Category;
 use Amasty\ShopbyBase\Model\Customizer\Category\CustomizerInterface;
 use Amasty\ShopbyBase\Model\FilterSetting\IsMultiselect;
 use Amasty\ShopbyPage\Api\Data\PageInterface;
 use Amasty\ShopbyPage\Api\PageRepositoryInterface;
-use Amasty\ShopbyPage\Model\Config\Source\Robots;
 use Amasty\ShopbyPage\Model\Page as PageEntity;
 use Amasty\ShopbyBase\Model\Meta\GetReplacedMetaData;
 use Magento\Catalog\Api\Data\CategoryInterface;
@@ -30,8 +28,8 @@ use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\UrlInterface;
-use Magento\Framework\View\Page\Config as PageConfig;
 use Magento\Store\Model\ScopeInterface;
+use Amasty\ShopbyBase\Helper\FilterSetting;
 
 class Page implements CustomizerInterface
 {
@@ -85,16 +83,6 @@ class Page implements CustomizerInterface
      */
     private $getReplacedMetaData;
 
-    /**
-     * @var PageConfig
-     */
-    private $pageConfig;
-
-    /**
-     * @var Robots
-     */
-    private $robotsConfig;
-
     public function __construct(
         PageRepositoryInterface $pageRepository,
         CatalogConfig $catalogConfig,
@@ -105,9 +93,7 @@ class Page implements CustomizerInterface
         FilterSetting $filterSettingHelper,
         UrlInterface $urlBuilder,
         IsMultiselect $isMultiselect,
-        GetReplacedMetaData $getReplacedMetaData,
-        PageConfig $pageConfig,
-        Robots $robotsConfig
+        GetReplacedMetaData $getReplacedMetaData
     ) {
         $this->pageRepository = $pageRepository;
         $this->catalogConfig = $catalogConfig;
@@ -119,8 +105,6 @@ class Page implements CustomizerInterface
         $this->urlBuilder = $urlBuilder;
         $this->isMultiselect = $isMultiselect;
         $this->getReplacedMetaData = $getReplacedMetaData;
-        $this->pageConfig = $pageConfig;
-        $this->robotsConfig = $robotsConfig;
     }
 
     /**
@@ -432,7 +416,11 @@ class Page implements CustomizerInterface
         }
     }
 
-    private function modifyCategory(PageInterface $page, CategoryInterface $category): void
+    /**
+     * @param PageInterface $page
+     * @param CategoryInterface $category
+     */
+    private function modifyCategory(PageInterface $page, CategoryInterface $category)
     {
         $categoryName = $this->getModifiedCategoryData($page, $page->getTitle(), $category->getName(), ' ');
         $category->setName($categoryName);
@@ -444,10 +432,6 @@ class Page implements CustomizerInterface
         $this->modifyCategoryData($page, $category, 'bottom_block_id', 'bottom_cms_block');
         $category->setData(Category::ORIGINAL_CATEGORY_URL, $category->getUrl());
         $this->modifyCategoryData($page, $category, 'url', 'url');
-
-        if ($robots = $page->getTagRobots()) {
-            $this->pageConfig->setRobots($robots);
-        }
 
         if ($page->getImage()) {
             $category->setData(CategoryManager::CATEGORY_SHOPBY_IMAGE_URL, $page->getImageUrl());

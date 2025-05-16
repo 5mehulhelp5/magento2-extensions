@@ -1,0 +1,83 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Product Reviews Base for Magento 2
+ */
+/** @var \Amasty\AdvancedReview\Block\Review\Toolbar $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+use Amasty\AdvancedReview\Model\Toolbar\UrlBuilder;
+
+$toolbarCssClass = $block->isFilteringEnabled() && $block->isSortingEnabled() ? '-all' : '';
+
+if ($block->isToolbarDisplayed()): ?>
+    <figure class="amrev-toolbar-container <?= /* @noEscape */ $toolbarCssClass ?>" data-amrev-js="toolbar-container">
+        <?php if ($block->isFilteringEnabled()): ?>
+            <ul class="amrev-filters">
+                <?php foreach ($block->getAvailableFilters() as $key => $filterName): ?>
+                    <?php $selected = $block->isFilterSelected($key); ?>
+                    <li class="amrev-filter amrev-checkbox-container">
+                        <input type="checkbox"
+                               class="amrev-input"
+                               name="<?= $escaper->escapeHtml($key) ?>"
+                               data-amreview-js="filter"
+                                <?= /* @noEscape */ $selected ? 'checked' : ''; ?>
+                               data-href="<?= $escaper->escapeUrl($block->generateUrl($key, !$selected)); ?>"
+                               id="amreview-filter-<?= $escaper->escapeHtml($key) ?>">
+                        <label class="amrev-label amrev-label" for="amreview-filter-<?= $escaper->escapeHtml($key); ?>">
+                            <?= $escaper->escapeHtml(__($filterName)) ?>
+                        </label>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php if ($block->isSortingEnabled()): ?>
+            <div class="amrev-sorting">
+                <label class="sorter-label" for="amreview-sorter"><?= /* @noEscape */ __('Sort By') ?></label>
+                <select id="amreview-sorter" class="amrev-select" data-amreview-js="sorter">
+                    <?php foreach ($block->getAvailableOrders() as $key => $order): ?>
+                        <option value="<?= $escaper->escapeHtml($key) ?>"
+                            data-href="<?= $escaper->escapeUrl($block->generateUrl(
+                                UrlBuilder::SORT_PARAM_NAME,
+                                $key
+                            )) ?>"
+                            <?php if ($block->isOrderCurrent($key)): ?>
+                                selected="selected"
+                            <?php endif; ?>
+                        >
+                            <?= $escaper->escapeHtml(__($order)) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <?php if ($block->getCurrentDirection() == 'DESC'): ?>
+                    <a title="<?= /* @noEscape */ __('Set Ascending Direction') ?>"
+                       href="#"
+                       data-href="<?= $escaper->escapeUrl($block->generateUrl(
+                           UrlBuilder::DIRECTION_PARAM_NAME,
+                           'asc'
+                       )) ?>"
+                       class="action amrev-sortbtn sorter-action sort-desc"
+                       data-amreview-js="direction-switcher"
+                       data-value="asc"
+                    >
+                    </a>
+                <?php else: ?>
+                    <a title="<?= /* @noEscape */ __('Set Descending Direction') ?>"
+                       href="#"
+                       data-href="<?= $escaper->escapeUrl($block->generateUrl(
+                           UrlBuilder::DIRECTION_PARAM_NAME,
+                           'desc'
+                       )) ?>"
+                       class="action amrev-sortbtn sorter-action sort-asc"
+                       data-amreview-js="direction-switcher"
+                       data-value="desc"
+                    >
+                    </a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </figure>
+<?php endif; ?>

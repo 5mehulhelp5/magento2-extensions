@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -13,10 +13,6 @@ namespace Amasty\ShopbySeo\Model\UrlParser\Utils\Attribute;
 use Amasty\ShopbySeo\Model\SeoOptions;
 use Amasty\ShopbySeo\Model\UrlParser\Utils\ParamsUpdater;
 
-/**
- * @deprecated behavior when separator and delimiter were the same, no longer stable
- * @see \Amasty\ShopbySeo\Model\UrlParser\Utils\Attribute\DefaultAliasParser
- */
 class OldAliasParser implements ParserInterface
 {
     /**
@@ -60,7 +56,7 @@ class OldAliasParser implements ParserInterface
         $currentAttributeCode = '';
         foreach ($aliases as $groupKey => $aliasGroup) {
             foreach ($aliasGroup as $key => $currentAlias) {
-                if (array_key_exists($currentAlias, $attributeOptionsData)) {
+                if (in_array($currentAlias, array_keys($attributeOptionsData))) {
                     $currentAttributeCode = $currentAlias;
                     $parsedAttributeCodes[] = $currentAlias;
                     continue 2;

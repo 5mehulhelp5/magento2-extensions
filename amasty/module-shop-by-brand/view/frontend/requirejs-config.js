@@ -3,8 +3,15 @@ var config = {
         '*': {
             amBrandsSearch: 'Amasty_ShopbyBrand/js/components/ambrands-search',
             amBrandsFilterInit: 'Amasty_ShopbyBrand/js/components/ambrands-filter-init',
-            amBrandsFilter: 'Amasty_ShopbyBrand/js/brand-filter',
-            swiper: 'Amasty_LibSwiperJs/js/vendor/swiper/swiper.min'
+            amBrandsFilter: 'Amasty_ShopbyBrand/js/brand-filter'
+        }
+    },
+    paths: {
+        'swiper': 'Amasty_ShopbyBase/js/swiper.min',
+    },
+    shim: {
+        'swiper': {
+            deps: ['jquery']
         }
     },
     config: {

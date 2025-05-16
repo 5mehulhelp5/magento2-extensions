@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -81,8 +81,7 @@ class GetFiltersExpanded
             }
 
             $filterSetting = $this->filterSettingHelper->getSettingByLayerFilter($filter);
-            $value = $this->shopbyRequest->getParam($filter->getRequestVar());
-            if ($this->isExpanded($filterSetting) || (!empty($value) || is_numeric($value))) {
+            if ($this->isExpanded($filterSetting) || $this->shopbyRequest->getParam($filter->getRequestVar())) {
                 $listExpandedFilters[] = $position;
             }
 

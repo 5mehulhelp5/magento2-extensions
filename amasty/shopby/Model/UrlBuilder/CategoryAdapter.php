@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -71,11 +71,5 @@ class CategoryAdapter implements \Amasty\ShopbyBase\Api\UrlBuilder\AdapterInterf
             }
         }
         return null;
-    }
-
-    public function isApplicable(string $routePath = null, array $routeParams = null): bool
-    {
-        $routePath = trim($routePath, '/');
-        return $routePath == self::SELF_ROUTE_PATH && isset($routeParams['id']);
     }
 }

@@ -1,0 +1,17 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */ /** @var \Amasty\ImageOptimizerUi\Block\Adminhtml\System\Config\InformationBlocks\SuggestInformation $block */ ?>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<?php if ($block->isShowNotification()): ?>
+    <div>
+        <p class="message message-notice">
+            <?= $escaper->escapeHtml($block->getNotificationText()) ?>
+            <a target="_blank" href="<?= $escaper->escapeUrl($block->getSuggestLink()) ?>">
+                <?=  $escaper->escapeHtml(__('here.')) ?>
+            </a>
+        </p>
+    </div>
+<?php endif;?>

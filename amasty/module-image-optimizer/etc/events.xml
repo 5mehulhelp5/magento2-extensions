@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer for Magento 2 (System)
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_commit_after">
+        <observer name="Amasty_ImageOptimizer::AutomaticOptimizeImages" instance="Amasty\ImageOptimizer\Observer\OptimizeImages" />
+    </event>
+</config>

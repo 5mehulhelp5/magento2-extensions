@@ -1,0 +1,10 @@
+"Please make sure that all required fields are fulfilled to connect to SpeedSize (Stores → Configuration → Amasty Extensions → Image Optimizer → SpeedSize Settings).","Please make sure that all required fields are fulfilled to connect to SpeedSize (Stores → Configuration → Amasty Extensions → Image Optimizer → SpeedSize Settings)."
+"Invalid public key for SpeedSize connection: %1","Invalid public key for SpeedSize connection: %1"
+"Invalid public key for SpeedSize connection.","Invalid public key for SpeedSize connection."
+"Please make sure that all required fields are fulfilled to connect to SpeedSize.","Please make sure that all required fields are fulfilled to connect to SpeedSize."
+"Please note that the User Agent functionality does not work when SpeedSize is enabled.","Please note that the User Agent functionality does not work when SpeedSize is enabled."
+"SpeedSize Settings","SpeedSize Settings"
+"Public Key","Public Key"
+CDN,CDN
+"Enable SpeedSize","Enable SpeedSize"
+SpeedSize,SpeedSize

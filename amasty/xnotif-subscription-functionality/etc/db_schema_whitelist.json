@@ -1,0 +1,13 @@
+{
+  "amasty_restock_alert": {
+    "column": {
+      "alert_id": true,
+      "alert_stock_id": true, 
+      "is_restock": true
+    },
+    "constraint": {
+      "PRIMARY": true,
+      "AMASTY_RESTOCK_ALERT_ALERT_STOCK_ID_PRODUCT_ALERT_STOCK_ALERT_STOCK_ID": true
+    }
+  }
+}

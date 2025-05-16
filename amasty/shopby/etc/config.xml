@@ -2,10 +2,14 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */-->
-
+<!--
+/**
+* Copyright © 2015 Amasty. All rights reserved.
+*/
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <amshopby>
@@ -16,7 +20,6 @@
                 <submit_filters_on_desktop>0</submit_filters_on_desktop>
                 <submit_filters_on_mobile>0</submit_filters_on_mobile>
                 <keep_single_choice_visible>1</keep_single_choice_visible>
-                <hide_filters_with_one_option>1</hide_filters_with_one_option>
                 <unfolded_options_state>0</unfolded_options_state>
                 <exclude_out_of_stock>0</exclude_out_of_stock>
             </general>

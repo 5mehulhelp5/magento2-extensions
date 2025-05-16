@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -14,10 +14,6 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\Pdo\Mysql;
 use Magento\Framework\Stdlib\DateTime;
 
-/**
- * @deprecated Moved for separate module amasty/module-composite-product-price-indexer
- * @see \Amasty\CompositeProductPriceIndexer\Model\ResourceModel\Catalog\Product\Indexer\Price\Simple
- */
 class DefaultPrice
 {
     /**

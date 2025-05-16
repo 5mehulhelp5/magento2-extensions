@@ -1,0 +1,23 @@
+{
+    "name": "amasty/module-advanced-review-lite",
+    "description": "Advanced Review Lite by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.17.0",
+        "amasty/advanced-review": ">=1.16.2"
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.17.1",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\AdvancedReviewLite\\": ""
+        }
+    }
+}

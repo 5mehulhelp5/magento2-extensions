@@ -1,0 +1,36 @@
+<!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="amfaq-rating-average">
+    <span data-bind="i18n: 'Rate the answer?'" class="amfaq-rate-the-answer"></span>
+    <fieldset class="amfaq-rating-fieldset">
+        <legend class="amfaq-rating-legend" data-bind="i18n: 'Rate the answer. Select star amount and press enter.'"></legend>
+        <div class="amfaq-rating-data-wrapper average-rate-wrapper" data-bind="css:{ '-voted': isVoted }">
+            <!-- ko foreach: ko.utils.range(1, 5).reverse() -->
+                <input type="radio" class="amfaq-rating-input" data-bind="
+                    checked: $parent.votedStarNumber().toString(),
+                    attr: {
+                        id: `amfaq-answer-rating-${$parent.id}-${$data}`,
+                        name: `amfaq-rating-${$parent.id}`,
+                        value: $data
+                    },
+                    keyboard: {
+                        13: () => { $parent.handleVoting($data) }
+                    }
+                "></input>
+                <label data-bind="
+                    attr: {
+                        title: $data + ' Stars',
+                        for: `amfaq-answer-rating-${$parent.id}-${$data}`
+                    },
+                    click: () => { $parent.handleVoting($data) }
+                ">
+                    <span class="amfaq-rating-label-hint" data-bind="text: $data + ' Stars'"></span>
+                </label>
+            <!-- /ko -->
+        </div>
+    </fieldset>
+    <!-- ko ifnot: hideZeroRating && average() == 0 -->
+        <span class="amfaq-rate-the-answer -gray" data-bind="i18n: 'Total rating ' + average().toFixed(1)"></span>
+    <!-- /ko -->
+</div>

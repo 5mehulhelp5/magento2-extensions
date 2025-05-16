@@ -8,7 +8,7 @@ define([
     return Component.extend({
         defaults: {
             rulesActions: [
-                // SP Rules
+                //SP Rules
                 'buyxgety_anyproducts',
                 'thecheapest',
                 'thecheapest_fixprice',
@@ -35,8 +35,7 @@ define([
                 'setof_fixed',
                 'tiered_wholecheaper',
                 'tiered_buyxgetcheapern',
-                'tiered_discount_percent',
-                // Free Gift Rules
+                //Free Gift Rules
                 'ampromo_product',
                 'ampromo_items',
                 'ampromo_cart',
@@ -48,32 +47,23 @@ define([
             }
         },
 
-        /**
-         * @returns {Object} Chainable.
-         */
         initialize: function () {
             this._super();
             registry.get(this.parentName + '.actions.simple_action', function (component) {
-                this.setVisibility(component.value());
+                this.checkVisibility(component.value());
             }.bind(this));
-
-            return this;
         },
 
-        /**
-         * @param {String} value
-         * @returns {void}
-         */
         onChange:function (value) {
-            this.setVisibility(value);
+            this.checkVisibility(value);
         },
 
-        /**
-         * @param {String} value
-         * @returns {void}
-         */
-        setVisibility: function (value) {
-            this.visible(_.contains(this.rulesActions, value));
+        checkVisibility: function (value) {
+            if (_.contains(this.rulesActions, value)) {
+                this.visible(true);
+            } else {
+                this.visible(false);
+            }
         }
     });
 });

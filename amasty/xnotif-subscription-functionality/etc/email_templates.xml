@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Out Of Stock Notification Subscription Functionality
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="amxnotif_customer_notifications_price_template"
+              label="Customer Price Alert Subscription"
+              file="price_alert.html"
+              type="html"
+              module="Amasty_XnotifSubscriptionFunctionality"
+              area="frontend"/>
+    <template id="amxnotif_customer_notifications_stock_template"
+              label="Customer Back in Stock Alert Subscription"
+              file="stock_alert.html"
+              type="html"
+              module="Amasty_XnotifSubscriptionFunctionality"
+              area="frontend"/>
+</config>

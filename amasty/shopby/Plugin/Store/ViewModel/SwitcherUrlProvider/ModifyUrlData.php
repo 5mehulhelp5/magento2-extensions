@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */
 
@@ -134,13 +134,6 @@ class ModifyUrlData
 
     private function getCategoryId(): ?int
     {
-        if (!in_array($this->request->getFullActionName(), [
-            'catalog_category_view',
-            \Amasty\Shopby\Helper\Data::AMSHOPBY_INDEX_INDEX
-        ])) {
-            return null;
-        }
-
         $category = $this->registry->registry('current_category');
         return $category ? (int) $category->getId() : null;
     }

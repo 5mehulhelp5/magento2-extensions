@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -72,7 +72,8 @@ class OptionProcessor implements OptionProcessorInterface
      */
     public function process(OptionSetting $setting): array
     {
-        $title = $setting->getTitle() ?: $setting->getAttributeOption()->getLabel();
+        $label = $setting->getAttributeOption()->getLabel();
+        $title = $label ? : $setting->getTitle();
         $data = [
             self::LINK_URL => $this->getOptionSettingUrl($setting),
             self::TITLE => $title,

@@ -2,10 +2,14 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Improved Layered Navigation Base for Magento 2
  */-->
-
+<!--
+/**
+ * Copyright © 2015 Amasty. All rights reserved.
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="amshopby" translate="label" type="text" sortOrder="91312" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -17,28 +21,25 @@
             <group id="general" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="ajax_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable AJAX</label>
-                    <comment>For the ‘By button click’ mode AJAX keeps working no matter which option is selected</comment>
-                    <tooltip>Enabling AJAX allows your store to update filter results dynamically, so when a customer uses filtering on the frontend, selecting filters will not cause a page reload.</tooltip>
+                    <label>Enable Ajax</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For the ‘By button click’ mode AJAX keeps working no matter which option is selected</comment>
                 </field>
                 <field id="ajax_scroll_up" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Scroll to Top after AJAX Load</label>
-                    <comment>With this setting, you can enable an option of scrolling to the top after filter applying by AJAX. Select 'No' to not enable.</comment>
                     <source_model>Amasty\Shopby\Model\Source\ScrollToTop</source_model>
                     <depends>
                         <field id="ajax_enabled">1</field>
                     </depends>
                 </field>
-                <field id="enable_overflow_scroll" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enable_overflow_scroll" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Add Vertical Scrolling to Filter Block After</label>
-                    <comment>Specify maximal filter size (in pixels) that will be displayed without vertical scrolling. In case a filter is higher than the indicated size, the scrolling will appear. To disable set 0.</comment>
+                    <comment>Set maximum box height in px, to disable enter 0</comment>
                     <validate>validate-zero-or-greater</validate>
                 </field>
                 <field id="enable_sticky_sidebar_desktop" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable Sticky Sidebar for Desktop</label>
                     <comment>Note: filters in top block will be hidden.</comment>
-                    <tooltip>Activate the Sticky Sidebar to keep the filter block visible while users scroll down the page on desktop devices. Enabling this will hide any filters located in the top block, ensuring the sidebar remains fixed and accessible.</tooltip>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="submit_filters_on_desktop" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -49,21 +50,14 @@
                     <label>Submit Filters on Mobile</label>
                     <source_model>Amasty\Shopby\Model\Source\SubmitMode</source_model>
                 </field>
-                <field id="keep_single_choice_visible" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="keep_single_choice_visible" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Leave the Single-Select Filter Visible after Selection</label>
-                    <comment>Disable the setting to hide the filter with just one option when the value is selected.</comment>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="hide_filters_with_one_option" translate="label comment" type="select" sortOrder="75"
-                       showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Hide Filters with One Available Option</label>
-                    <comment>Applies only to category filters and filters based on EAV attributes.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="unfolded_options_state" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Number of Unfolded Options in State</label>
-                    <comment>Specify the number of unfolded options. To see other options, a customer should click the 'More' button.</comment>
                     <validate>validate-zero-or-greater</validate>
+                    <comment>Other options will be shown after a customer clicks the "More" button.</comment>
                 </field>
                 <field id="exclude_out_of_stock" translate="label comment" type="select" sortOrder="90" showInDefault="1">
                     <label>Exclude 'Out of Stock' Configurable Options from Navigation</label>
@@ -108,19 +102,17 @@
                 </field>
                 <field id="replace_image" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Replace Category Image</label>
-                    <comment>When enabled, a category image will be replaced if a filter option has a custom image uploaded.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Category Image will be replaced if filter option have custom image uploaded.</comment>
                 </field>
                 <field id="replace_cms_block" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Replace Category CMS Block</label>
-                    <comment>When enabled, a category CMS block will be replaced if a filter option has a custom Top CMS Block defined.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Category CMS Block will be replaced if filter option has custom Top CMS Block defined.</comment>
                 </field>
             </group>
             <group id="children_categories" translate="label comment" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Children Categories Block</label>
-                <comment>These settings activate the block with subcategories on top of the selected category pages.</comment>
-
                 <field id="display_mode" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Display Mode</label>
                     <source_model>Amasty\Shopby\Model\Source\ChildrenCategoriesBlock\DisplayMode</source_model>
@@ -134,7 +126,6 @@
                 </field>
                 <field id="show_labels" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show Image Labels</label>
-                    <comment>Enable the setting to display the titles of the subcategories.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="display_mode">1</field>
@@ -156,7 +147,7 @@
                 </field>
                 <field id="categories" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Categories</label>
-                    <source_model>Amasty\Base\Model\Source\ActiveWithEmptyOptionCategory</source_model>
+                    <source_model>Amasty\Shopby\Model\Source\ChildrenCategoriesBlock\Categories</source_model>
                     <depends>
                         <field id="display_mode" separator=",">1,2</field>
                     </depends>
@@ -198,9 +189,8 @@
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="position" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="position" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Position</label>
-                    <comment>Specify sorting order in the sidebar navigation block.</comment>
                     <validate>validate-zero-or-greater</validate>
                     <depends>
                         <field id="enabled">1</field>
@@ -219,17 +209,6 @@
                     <comment><![CDATA[If set to ‘Yes’, please make sure that displaying of out of stock products is configured accordingly
                     (Stores -> Configuration -> Catalog -> Inventory -> Stock Options -> Display Out of Stock Products -> Yes).
                     Otherwise, stock filter won’t appear on storefront.]]></comment>
-                </field>
-                <field id="use_salable_qty" translate="label comment" type="select" sortOrder="15" showInDefault="1"
-                       showInWebsite="1" showInStore="1">
-                    <label>Consider Product Salable Quantity in the Filter</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>If enabled the Salable Quantity will be taken into account and displayed on the front-end
-                        in the "In Stock" filter. Is only compatible with simple products.</comment>
-                    <depends>
-                        <field id="enabled">1</field>
-                    </depends>
-                    <if_module_enabled>Magento_Inventory</if_module_enabled>
                 </field>
                 <field id="block_position" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show in the Block</label>
@@ -270,9 +249,8 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="tooltip" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="tooltip" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tooltip</label>
-                    <comment>Specify tooltip text that will be displayed on a mouse hover for the Stock filter.</comment>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
@@ -332,9 +310,8 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="tooltip" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="tooltip" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tooltip</label>
-                    <comment>Specify tooltip text that will be displayed on a mouse hover for the Rating filter.</comment>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
@@ -394,9 +371,8 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="tooltip" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="tooltip" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tooltip</label>
-                    <comment>Specify tooltip text that will be displayed on a mouse hover for the New filter.</comment>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
@@ -456,9 +432,8 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="tooltip" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="tooltip" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tooltip</label>
-                    <comment>Specify tooltip text that will be displayed on a mouse hover for the On Sale filter.</comment>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
@@ -495,20 +470,13 @@
             <tab>amasty</tab>
             <group id="general" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
-                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable All Products Page</label>
-                    <comment>When enabled, the All Products page is activated, containing all store items and layered navigation filters.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>All Products Page URL</label>
                 </field>
-            </group>
-        </section>
-
-        <section id="web">
-            <group id="default_layouts">
-                <field id="default_category_layout" type="Amasty\Shopby\Model\Config\Backend\Element\DisableableSelect" />
             </group>
         </section>
     </system>

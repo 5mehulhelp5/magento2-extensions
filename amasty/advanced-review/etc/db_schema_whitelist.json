@@ -1,0 +1,99 @@
+{
+    "amasty_advanced_review_images": {
+        "column": {
+            "image_id": true,
+            "review_id": true,
+            "path": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_ADVANCED_REVIEW_IMAGES_REVIEW_ID_REVIEW_REVIEW_ID": true
+        }
+    },
+    "amasty_advanced_review_vote": {
+        "column": {
+            "vote_id": true,
+            "review_id": true,
+            "type": true,
+            "ip": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_ADVANCED_REVIEW_VOTE_REVIEW_ID_REVIEW_REVIEW_ID": true
+        }
+    },
+    "review": {
+        "column": {
+            "answer": true,
+            "verified_buyer": true,
+            "is_recommended": true,
+            "amasty_admin_answer_account_only": true
+        }
+    },
+    "amasty_advanced_review_reminder": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "created_at": true,
+            "updated_at": true,
+            "send_date": true,
+            "status": true,
+            "coupon": true
+        },
+        "index": {
+            "AMASTY_ADVANCED_REVIEW_REMINDER_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_ADVANCED_REVIEW_RMNDR_ORDER_ID_SALES_ORDER_ORD_ID": true,
+            "AMASTY_ADVANCED_REVIEW_REMINDER_ENTITY_ID_ORDER_ID": true
+        }
+    },
+    "amasty_advanced_review_unsubscribe": {
+        "column": {
+            "entity_id": true,
+            "unsubscribed_at": true,
+            "email": true,
+            "isComment": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "review_detail": {
+        "column": {
+            "like_about": true,
+            "not_like_about": true,
+            "guest_email": true
+        }
+    },
+    "amasty_advanced_review_reminder_product": {
+        "column": {
+            "customer_email": true,
+            "product_id": true
+        },
+        "constraint": {
+            "AMASTY_ADVANCED_REVIEW_REMINDER_PRD_PRD_ID_CAT_PRD_ENT_PRD_ID": true,
+            "AMASTY_ADVANCED_REVIEW_REMINDER_PRD_CSTR_EMAIL_PRD_ID": true
+        }
+    },
+    "amasty_advanced_review_comments": {
+        "column": {
+            "id": true,
+            "review_id": true,
+            "store_id": true,
+            "status":true,
+            "customer_id": true,
+            "message": true,
+            "nickname": true,
+            "email": true,
+            "session_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_ADVANCED_REVIEW_COMMENTS_REVIEW_ID_REVIEW_REVIEW_ID": true
+        }
+    }
+}

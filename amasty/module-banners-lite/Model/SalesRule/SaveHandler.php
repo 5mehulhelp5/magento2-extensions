@@ -133,6 +133,10 @@ class SaveHandler implements ExtensionInterface
             $snapshotData = $promoBanner->getData();
 
             $this->prepareData($data, $key);
+            if (!isset($data[BannerInterface::BANNER_IMAGE]) && !$promoBanner->getBannerImage()) {
+                continue; //to avoid filling banners table with empty rows on rule saving
+            }
+
             $this->prepareBannerForSave($promoBanner, $data, $ruleLinkId);
             if (!$this->isBannerModified) {
                 $this->isBannerModified = $this->isBannerModified($snapshotData, $promoBanner->getData());

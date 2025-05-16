@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -33,11 +33,8 @@ class HideBrandFilterOnBrandPage
         $this->brandResolver = $brandResolver;
     }
 
-    public function afterIsVisibleWhenSelected(
-        FilterDataResolver $subject, // @phpstan-ignore class.notFound
-        bool $result,
-        FilterInterface $filter
-    ): bool {
+    public function afterIsVisibleWhenSelected(FilterDataResolver $subject, bool $result, FilterInterface $filter): bool
+    {
         return ($result && $this->brandResolver->isBrandFilter($filter)) ? false : $result;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */
 
@@ -54,8 +54,8 @@ class Adapter implements AdapterInterface
     }
 
     /**
-     * @param string|null $routePath
-     * @param array|null $routeParams
+     * @param null $routePath
+     * @param null $routeParams
      * @return string|null
      */
     public function getUrl($routePath = null, $routeParams = null)
@@ -110,7 +110,7 @@ class Adapter implements AdapterInterface
                 if ($suffix = $this->getSuffix()) {
                     $routePath .= $suffix;
                 }
-
+                
                 $this->urlBuilder->setScope($routeParams['_scope'] ?? null);
                 $routeParams['_direct'] = $routePath;
                 $routeParams['_use_rewrite'] = true;
@@ -118,10 +118,10 @@ class Adapter implements AdapterInterface
             }
             $url = $this->urlBuilder->getUrl($routePath, $routeParams);
             $this->urlBuilder->setScope(null);
-
+            
             return $url;
         }
-
+        
         return null;
     }
 
@@ -131,19 +131,5 @@ class Adapter implements AdapterInterface
     public function getSuffix()
     {
         return null;
-    }
-
-    public function isApplicable(string $routePath = null, array $routeParams = null): bool
-    {
-        $brandAttributeCode = $this->configProvider->getBrandAttributeCode();
-        $routePath = trim($routePath, '/');
-        return ($routePath == self::SELF_ROUTE_PATH && isset($routeParams['id']))
-            || ($brandAttributeCode
-                && ($this->request->has($brandAttributeCode)
-                    || isset($routeParams['_query'][$brandAttributeCode])
-                )
-                && ((in_array($this->request->getModuleName(), self::SEO_BRAND_MODULES)
-                    || ($routePath == self::SAME_PAGE_ROUTE && $this->request->getModuleName() == self::MODULE_NAME))
-                ));
     }
 }

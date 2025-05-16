@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Seo for Magento 2 (System)
  */
 
@@ -192,7 +192,7 @@ class Seo implements CustomizerInterface
 
         switch ($this->configProvider->getCanonicalCategory()) {
             case CategoryAlias::CATEGORY_CURRENT:
-                $canonical = $this->url->getCurrentUrl(false);
+                $canonical = $this->url->getCurrentUrl();
                 break;
             case CategoryAlias::CATEGORY_PURE:
                 $canonical = $this->getCurrentWithoutFilters($category);
@@ -206,7 +206,7 @@ class Seo implements CustomizerInterface
                 $canonical = $this->getFirstAttributeValueUrl();
                 break;
             case CategoryAlias::CATEGORY_CUT_OFF_GET:
-                $canonical = $this->stripGetParams($this->url->getCurrentUrl(false));
+                $canonical = $this->stripGetParams($this->url->getCurrentUrl());
                 break;
         }
 

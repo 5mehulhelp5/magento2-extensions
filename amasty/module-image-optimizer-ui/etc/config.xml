@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Image Optimizer UI for Magento 2 (System)
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amoptimizer>
+            <images>
+                <process_images_per_request>10</process_images_per_request>
+                <resolutions_lib>gd2</resolutions_lib>
+                <multiprocess_enabled>0</multiprocess_enabled>
+                <process_count>4</process_count>
+                <optimization_type>immediately</optimization_type>
+                <webp_compression_quality>75</webp_compression_quality>
+            </images>
+            <opti>
+                <optimize_automatically_existing_images>0</optimize_automatically_existing_images>
+            </opti>
+        </amoptimizer>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <amoptimizer_dump>amasty/amoptimizer_dump</amoptimizer_dump>
+                    <amoptmobile>amasty/amoptmobile</amoptmobile>
+                    <amopttablet>amasty/amopttablet</amopttablet>
+                    <amoptimizer_dump>amasty/amoptwebp</amoptimizer_dump>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
+    </default>
+</config>

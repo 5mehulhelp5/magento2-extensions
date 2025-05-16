@@ -1,0 +1,752 @@
+//
+//  Amasty FAQ
+//  ______________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@faq-search-form__max-width: 300px;
+@faq-search-form-button__width: 30px;
+@faq-search-form-input__padding-right: @faq-search-form-button__width;
+@faq-search-form-button__background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1Ni45NjYgNTYuOTY2IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHBhdGggZD0iTTU1LjE0NiA1MS44ODdMNDEuNTg4IDM3Ljc4NkEyMi45MjYgMjIuOTI2IDAgMCAwIDQ2Ljk4NCAyM2MwLTEyLjY4Mi0xMC4zMTgtMjMtMjMtMjNzLTIzIDEwLjMxOC0yMyAyMyAxMC4zMTggMjMgMjMgMjNjNC43NjEgMCA5LjI5OC0xLjQzNiAxMy4xNzctNC4xNjJsMTMuNjYxIDE0LjIwOGMuNTcxLjU5MyAxLjMzOS45MiAyLjE2Mi45Mi43NzkgMCAxLjUxOC0uMjk3IDIuMDc5LS44MzdhMy4wMDQgMy4wMDQgMCAwIDAgLjA4My00LjI0MnpNMjMuOTg0IDZjOS4zNzQgMCAxNyA3LjYyNiAxNyAxN3MtNy42MjYgMTctMTcgMTctMTctNy42MjYtMTctMTcgNy42MjYtMTcgMTctMTd6IiBmaWxsPSIjYmFiYWJhIi8+PC9zdmc+);
+@faq-search-form-autocomplete__background-color: @color-white;
+@faq-social-image__width: 30px;
+@faq-category__border-radius: 10px;
+@faq-category__current-item__color: #f9f9f9;
+@faq-search-highlight__background: #d3e185;
+@faq-border-value: 1px solid #c9c9c9;
+@faq-rating-voting__color: #475f7a;
+@faq-rating-voting-arrow-voted__color: #305b8a;
+@faq-average-rating__color: #ffc700;
+@faq-average-rating__hover-color: #e4b200;
+@faq-collapsible-icon__color: #c9c9c9;
+@faq-tag__border-color: #ddd;
+@faq-tag__background: #f2c94c;
+@faq-tag__link__background: #191919;
+
+//
+//  Common
+//  -----------------------------
+
+& when (@media-common = true) {
+
+    .amfaq-hidden {
+        display: none;
+    }
+
+    .amfaq-question-footer-wrapper {
+        .lib-clearfix();
+        align-items: center;
+        display: flex;
+    }
+
+    .amfaq-product-tab .block-title strong {
+        display: block;
+        font-size: 2.6rem;
+        font-weight: 300;
+        line-height: 1.1;
+        margin: 0 0 3rem 0;
+    }
+
+
+    .faq-question-view,
+    .faq-category-view {
+        .page-title-wrapper h1 {
+            word-break: normal;
+        }
+    }
+
+    .faq-search-index {
+        .page-title-wrapper h1 {
+            font-size: 2.5rem;
+            word-break: break-all;
+        }
+
+        .amfaq-highlight {
+            .lib-css(background-color, @faq-search-highlight__background);
+        }
+    }
+
+    .amfaq-social-buttons {
+        & {
+            float: left;
+            padding-top: 4px;
+        }
+
+        .amfaq-social-share-link {
+            display: inline-block;
+
+            &,
+            &:hover {
+                color: transparent;
+            }
+        }
+
+        img {
+            .lib-css(width, @faq-social-image__width);
+            border: 0;
+            display: inline;
+            padding: 0 1px;
+        }
+    }
+
+    /* phpcs:ignore Magento2.Less.ClassNaming.NotAllowedSymbol */
+    .amfaq_questions {
+        .amfaq-title {
+            font-size: 125%;
+            font-weight: bolder;
+            margin-bottom: 2.5%;
+            text-align: center;
+        }
+
+        .am-item {
+            & {
+                .lib-css(border-bottom, @faq-border-value);
+                margin: 0 0 2rem 0;
+            }
+
+            .am-content {
+                padding-bottom: 10px;
+                word-wrap: break-word;
+
+                .amfaq-short-answer-container {
+                    white-space: pre-line;
+                }
+
+                p {
+                    margin-bottom: 2rem;
+                }
+            }
+
+            .am-links {
+                float: right;
+                font-size: 1.5rem;
+                margin-right: 10px;
+                padding: 5px 0;
+                word-wrap: break-word;
+            }
+        }
+
+        .am-title {
+            cursor: pointer;
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            word-wrap: break-word;
+
+            .am-plus {
+                display: inline-block;
+                /* phpcs:disable Magento2.Less.ColonSpacing.AfterNewline */
+                .lib-button-icon(
+                    @_icon-font-content: @icon-up,
+                    @_icon-font-text-hide: true,
+                    @_icon-font-color: @faq-collapsible-icon__color,
+                    @_icon-font-size: inherit
+                );
+                /* phpcs:enable */
+                .lib-button-reset();
+                float: right;
+                font-size: inherit;
+                font-weight: normal;
+            }
+
+            .am-minus {
+                display: inline-block;
+                /* phpcs:disable Magento2.Less.ColonSpacing.AfterNewline */
+                .lib-button-icon(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-text-hide: true,
+                    @_icon-font-color: @faq-collapsible-icon__color,
+                    @_icon-font-size: inherit
+                );
+                /* phpcs:enable */
+                .lib-button-reset();
+                float: right;
+                font-size: inherit;
+                font-weight: normal;
+            }
+        }
+
+        .am-no-items {
+            font-weight: 800;
+            word-wrap: break-word;
+        }
+    }
+
+    .ask-question-form {
+        .button-container {
+            & {
+                margin: 10px 0;
+            }
+
+            .button-info {
+                display: inline-block;
+                float: left;
+                font-size: 1.8rem;
+                font-weight: 300;
+                margin: 10px 0;
+                vertical-align: middle;
+            }
+
+            .form-toggle-button {
+                margin: 10px;
+            }
+        }
+
+        .ask-form-container label input[type='checkbox'] {
+            margin: 0 5px 0 0;
+            vertical-align: middle;
+        }
+    }
+
+    .amfaq-category-description {
+        .lib-css(margin-bottom, @indent__base);
+    }
+
+    /* phpcs:disable Magento2.Less.ClassNaming.NotAllowedSymbol */
+    .amfaq_categories {
+        & {
+            .lib-css(border-radius, @faq-category__border-radius);
+            .lib-css(border, @faq-border-value);
+        }
+
+        .item {
+            .lib-css(border-bottom, @faq-border-value);
+            padding: 1rem;
+            word-wrap: break-word;
+        }
+
+        .item.current {
+            background: @faq-category__current-item__color;
+        }
+
+        .item.current a {
+            color: @color-black;
+        }
+
+        .item.title {
+            background: @color-gray94;
+            color: @color-gray34;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .item:first-child {
+            .lib-css(border-top-left-radius, @faq-category__border-radius);
+            .lib-css(border-top-right-radius, @faq-category__border-radius);
+        }
+
+        .item:last-child {
+            border: 0;
+            .lib-css(border-bottom-left-radius, @faq-category__border-radius);
+            .lib-css(border-bottom-right-radius, @faq-category__border-radius);
+        }
+    }
+
+    .amfaq_tags {
+        & {
+            .lib-css(border-radius, @faq-category__border-radius);
+            .lib-css(border, @faq-border-value);
+            font-weight: 500;
+            margin: 20px 0;
+        }
+        .title {
+            .lib-css(border-bottom, @faq-border-value);
+            .lib-css(border-top-left-radius, @faq-category__border-radius);
+            .lib-css(border-top-right-radius, @faq-category__border-radius);
+            background: @color-gray94;
+            color: @color-gray34;
+            font-size: 1.8rem;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .tags_content {
+            & {
+                margin: 5px;
+            }
+            .current {
+                font-weight: 600;
+                text-decoration: underline;
+            }
+            .item {
+                & {
+                    display: inline-block;
+                    font-family: Roboto;
+                    font-size: 1.6rem;
+                    padding: 5px;
+                }
+                a {
+                    color: @color-black;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .question_view {
+        & {
+            .lib-css(border-bottom, @faq-border-value);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+
+        .answer {
+            word-wrap: break-word;
+        }
+    }
+
+    .am-back-button {
+        float: right;
+        margin-left: 15px;
+    }
+
+    .am-back-to-product-widget {
+        &.am-widget-left {
+            text-align: left;
+        }
+
+        &.am-widget-center {
+            text-align: center;
+        }
+
+        &.am-widget-right {
+            text-align: right;
+        }
+
+        .am-back-button {
+            float: none;
+            margin-left: 0;
+        }
+    }
+
+    .amfaq-search {
+        & {
+            .lib-css(max-width, @faq-search-form__max-width);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .am-input {
+            .lib-css(padding-right, @faq-search-form-input__padding-right);
+        }
+
+        .search-autocomplete {
+            .lib-css(background-color, @faq-search-form-autocomplete__background-color);
+            margin-top: 0;
+        }
+
+        .am-button {
+            .lib-css(background, @faq-search-form-button__background);
+            .lib-css(height, @input-text__height);
+            .lib-css(width, @faq-search-form-button__width);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            border: 0;
+            box-shadow: none;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .amfaq-rating {
+        & {
+            float: left;
+        }
+
+        .amfaq-was-it-helpful {
+            font-size: 1.2rem;
+        }
+
+        .amfaq-rate-the-answer {
+            font-size: 1.2rem;
+            font-weight: 600;
+
+            &.-gray {
+                color: @color-gray46;
+            }
+        }
+
+        .amfaq-rating-voting,
+        .amfaq-rating-yesno,
+        .amfaq-rating-average {
+            .lib-css(border, @faq-border-value);
+            align-items: center;
+            border-radius: 5px;
+            display: flex;
+            padding: 5px 20px;
+
+            .amfaq-rating-fieldset {
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .amfaq-rating-legend {
+                .lib-visually-hidden();
+            }
+        }
+
+        .average-rate-wrapper {
+            direction: rtl;
+
+            &.-voted {
+                cursor: default;
+                pointer-events: none;
+            }
+
+            &:not(:checked) > input {
+                .lib-visually-hidden();
+            }
+
+            &:not(:checked) > label {
+                color: @color-gray80;
+                cursor: pointer;
+                float: right;
+                font-size: 1.5em;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 1em;
+            }
+
+            &:not(:checked) > label:before {
+                content: '★';
+                display: flex;
+                justify-content: center;
+            }
+
+            .amfaq-rating-input:checked ~ label {
+                color: @faq-average-rating__color;
+            }
+
+            .amfaq-rating-input:focus + label {
+                .lib-css(box-shadow, @focus__box-shadow);
+            }
+
+            &:not(:checked) > label:hover,
+            &:not(:checked) > label:hover ~ label {
+                color: @faq-average-rating__hover-color;
+            }
+
+            .amfaq-rating-label-hint {
+                .lib-visually-hidden();
+            }
+        }
+
+        .amfaq-rating-data-wrapper {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .amfaq-arrow {
+            cursor: pointer;
+
+            &.amfaq-arrow-up {
+                /* phpcs:disable Magento2.Less.ColonSpacing.AfterNewline */
+                .lib-button-icon(
+                    @_icon-font-content: @icon-up,
+                    @_icon-font-text-hide: true,
+                    @_icon-font-color: @faq-rating-voting__color,
+                    @_icon-font-size: inherit
+                );
+                /* phpcs:enable */
+                .lib-button-reset();
+                display: inline-block;
+                font-size: inherit;
+                font-weight: bold;
+
+                &:focus {
+                    .lib-css(box-shadow, @focus__box-shadow);
+                }
+            }
+
+            &.amfaq-arrow-down {
+                /* phpcs:disable Magento2.Less.ColonSpacing.AfterNewline */
+                .lib-button-icon(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-text-hide: true,
+                    @_icon-font-color: @faq-rating-voting__color,
+                    @_icon-font-size: inherit
+                );
+                /* phpcs:enable */
+                .lib-button-reset();
+                display: inline-block;
+                font-weight: bold;
+
+                &:focus {
+                    .lib-css(box-shadow, @focus__box-shadow);
+                }
+            }
+
+            &.amfaq-arrow.amfaq-voted {
+                &:before {
+                    .lib-css(color, @faq-rating-voting-arrow-voted__color);
+                }
+
+                & + span {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .amfaq-rating-data-wrapper {
+            .lib-css(color, @faq-rating-voting__color);
+
+            /* phpcs:ignore Magento2.Less.TypeSelectors.UpperCaseSelector */
+            &.isVoted .amfaq-arrow {
+                cursor: default;
+            }
+        }
+
+        .amfaq-rating-yesno-vote {
+            .lib-link();
+            background: none;
+            border: none;
+            font-weight: 400;
+            padding: 0;
+            &.yesno-voted {
+                cursor: auto;
+                font-weight: bold;
+            }
+        }
+
+        .message-error.error {
+            color: @color-red11;
+        }
+    }
+
+    .am-widget-categories-1,
+    .am-widget-categories-2,
+    .am-widget-categories-3 {
+        display: flex;
+        display: -webkit-flex;
+        .lib-css(flex-flow, row wrap, 1);
+    }
+
+    .am-widget-categories-1,
+    .am-widget-categories-2,
+    .am-widget-categories-3 {
+        .am-widget-category {
+            width: 100%;
+        }
+    }
+
+    .am-widget-category {
+        & > .am-category-container {
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        & .view-all {
+            display: block;
+            margin-left: auto;
+            width: fit-content;
+        }
+
+        .am-category-header {
+            & {
+                .lib-css(align-items, center, 1);
+                display: -webkit-flex;
+                display: flex;
+                margin-bottom: 1.5rem;
+                min-height: 50px;
+            }
+            .faq-category-image {
+                & {
+                    line-height: 0;
+                    margin-right: 7px;
+                }
+
+                img {
+                    min-width: 50px;
+                }
+            }
+
+            .faq-category-title {
+                font-size: 1.8rem;
+                font-weight: 600;
+                line-height: 1.1;
+                word-wrap: break-word;
+            }
+        }
+
+        /* phpcs:ignore Magento2.Less.ClassNaming.NotAllowedSymbol */
+        .amfaq_questions {
+            .am-title {
+                font-size: 1.6rem;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .am-search-box-wrapper {
+        .lib-clearfix();
+
+        .am-widget-center {
+            margin: auto;
+        }
+
+        .am-widget-right {
+            float: right;
+        }
+
+        .amfaq-search {
+            max-width: initial;
+        }
+    }
+
+    .amfaq-pager {
+        float: right;
+    }
+
+    /* phpcs:ignore Magento2.Less.AvoidId.IdSelectorUsage */
+    #amfaq_search_autocomplete {
+        .amfaq-category {
+            color: @color-gray34;
+            font-size: 1rem;
+            padding-top: 3px;
+        }
+    }
+
+    .am-faq-tags-widget {
+        & {
+            padding: 0 2rem 2rem 2rem;
+        }
+        .am-tags-main-title {
+            & {
+                border-bottom: solid 1px @color-gray79;
+                margin-bottom: 30px;
+            }
+            span {
+                color: @color-black_dark;
+                font-family: Roboto;
+                font-size: 1.8rem;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+        }
+
+        .am-tags-main-block-wrapper {
+            & {
+                font-family: Roboto;
+            }
+            .am-tags-tag {
+                border: solid 1px @faq-tag__border-color;
+                border-radius: 4px;
+                box-sizing: border-box;
+                display: inline-block;
+                margin: 0 15px 15px 0;
+                padding: 9px 0 9px 0;
+                &:hover {
+                    background: @faq-tag__background;
+
+                    /* phpcs:ignore Magento2.Less.ClassNaming.NotAllowedSymbol */
+                    .am_tag_count {
+                        color: @color-gray34;
+                    }
+                }
+
+                /* phpcs:ignore Magento2.Less.ClassNaming.NotAllowedSymbol */
+                .am_tag_count {
+                    color: @color-gray43;
+                    padding: 11px 12px 10px 0;
+                }
+                a {
+                    color: @faq-tag__link__background;
+                    text-decoration: none;
+                }
+                .am-tag-title {
+                    font-weight: 600;
+                    padding: 0 9px 0 12px;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .search-autocomplete .amfaq-question-container {
+        &.selected {
+            background: @color-white;
+        }
+
+        .amfaq-option-name {
+            color: @color-blue1;
+        }
+
+        &.selected .amfaq-option-name {
+            text-decoration: underline;
+        }
+    }
+
+    .amfaq-link-category {
+        & {
+            margin-bottom: 10px;
+        }
+    }
+
+    .amfaq-links-container {
+        & {
+            margin-bottom: 20px;
+            transition: height .3s ease-in;
+        }
+
+        .amfaq-button.-questions {
+            background: @color-white;
+            border: none;
+            color: @color-blue1;
+            font-weight: bold;
+            letter-spacing: -.015em;
+            padding: 0;
+        }
+    }
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amfaq-social-buttons {
+        float: right;
+        padding-top: 0;
+    }
+
+    .am-widget-categories-2 {
+        .am-widget-category {
+            width: 50%;
+        }
+    }
+
+    .am-widget-categories-3 {
+        .am-widget-category {
+            width: 33.3333%;
+        }
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .am-widget-categories-3 .am-widget-category {
+        width: 50%;
+    }
+}
+
+//
+//  Print
+//  --------------------------------------------
+@media print {
+    .amfaq-social-buttons {
+        display: none;
+    }
+}

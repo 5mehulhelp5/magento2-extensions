@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2023 Amasty (https://www.amasty.com)
  * @package Shop by Brand for Magento 2
  */-->
 
@@ -25,45 +25,17 @@
                     <label>URL Key</label>
                     <comment>Adds a key before brand name in URL like /[key]/brand-name.html.</comment>
                 </field>
-                <field id="brands_page" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <field id="brands_page" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Choose CMS Page</label>
-                    <comment>Select a CMS page where the All Brands List will be shown. Please make sure the CMS page is enabled (Content -> Elements -> Pages).</comment>
+                    <comment>Please make sure the CMS page is enabled (Content -> Elements -> Pages).</comment>
                     <source_model>Amasty\ShopbyBrand\Model\Source\Page</source_model>
                 </field>
-                <field id="menu_item_label" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Brands Item Label</label>
-                    <comment>Used in top menu and account links.</comment>
-                </field>
-                <field id="tooltip_enabled" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" >
-                    <label>Display tooltip</label>
-                    <comment>Select the pages where you would like to display a tooltip with a brand info.</comment>
-                    <source_model>Amasty\ShopbyBrand\Model\Source\Tooltip</source_model>
-                    <frontend_model>Amasty\ShopbyBase\Block\Adminhtml\System\Config\Field\Multiselect</frontend_model>
-                </field>
-                <field id="tooltip_content" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Tooltip content</label>
-                    <comment>Possible variables: {title}, {small_image}, {image}, {description}, {short_description}.</comment>
-                    <depends>
-                        <field id="tooltip_enabled" separator=",">all_brands,product_page,listing_page</field>
-                    </depends>
-                </field>
-                <field id="exclude_empty_sitemap_brand" translate="label comment" type="select" sortOrder="70" showInDefault="1"
-                       showInWebsite="1" showInStore="1">
-                    <label>Exclude Brands without Products from Sitemap</label>
-                    <comment>Set to ‘Yes’ to exclude brand pages without products from the sitemap.</comment>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="top_links" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" >
-                    <label>Add Brands to Account Top Links</label>
-                    <comment>Display Brands link in a customer account.</comment>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="topmenu_enabled" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <field id="topmenu_enabled" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Add Brands Link to Top Menu</label>
                     <source_model>Amasty\ShopbyBrand\Model\Source\TopmenuLink</source_model>
                     <comment>Display Link to All Brands Page in Top Menu.</comment>
                 </field>
-                <field id="brands_popup" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <field id="brands_popup" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Show Brands List Popup</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
@@ -71,9 +43,8 @@
                     </depends>
                     <comment>Enable to display the popup with brands upon hovering over the corresponding top menu link.</comment>
                 </field>
-                <group id="brands_popup_config" translate="label" type="select" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+                <group id="brands_popup_config" translate="label" type="select" sortOrder="46" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Brands List Popup Configuration</label>
-                    <attribute type="expanded">1</attribute>
                     <depends>
                         <field id="topmenu_enabled" separator=",">1,2</field>
                         <field id="brands_popup">1</field>
@@ -92,9 +63,8 @@
                         <validate>validate-greater-than-zero</validate>
                         <comment>Optional.</comment>
                     </field>
-                    <field id="show_filter" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <field id="show_filter" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Enable Filter by Character</label>
-                        <comment>When activated, displays all the alphabet letters and allows filtering by them.</comment>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
                     <field id="filter_display_all" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -112,10 +82,37 @@
                     </field>
                     <field id="display_zero" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Show Brands without Products</label>
-                        <comment>Set to 'No' to display only the brands that have products assigned to them. Please note that this setting may affect the performance.</comment>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Please note that this setting may affect performance.</comment>
                     </field>
                 </group>
+
+                <field id="top_links" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Add Brands to Account Top Links</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display Link to All Brands Page in Account Top Links.</comment>
+                </field>
+                <field id="menu_item_label" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Brands Item Label</label>
+                    <comment>Used in top menu and account links.</comment>
+                </field>
+                <field id="tooltip_enabled" translate="label comment" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Display tooltip</label>
+                    <source_model>Amasty\ShopbyBrand\Model\Source\Tooltip</source_model>
+                    <frontend_model>Amasty\ShopbyBase\Block\Adminhtml\System\Config\Field\Multiselect</frontend_model>
+                </field>
+                <field id="tooltip_content" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Tooltip content</label>
+                    <comment>Possible variables: {title}, {small_image}, {image}, {description}, {short_description}.</comment>
+                    <depends>
+                        <field id="tooltip_enabled" separator=",">all_brands,product_page,listing_page</field>
+                    </depends>
+                </field>
+                <field id="exclude_empty_sitemap_brand" translate="label" type="select" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Exclude Brands without Products from Sitemap</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
 
             <group id="more_from_brand" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -125,9 +122,9 @@
                     <comment>Displays the random products of the same brand at the bottom of the Product page. Note. Please enable "Used in Product Listing" setting for brand attribute.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="title" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title</label>
-                    <comment>Specify a title of a block, using a Brand variable.</comment>
+                    <comment>Default: More from {brand_name}.</comment>
                     <depends>
                         <field id="enable">1</field>
                     </depends>
@@ -143,15 +140,13 @@
 
             <group id="product_page" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product Page Brand Settings</label>
-                <field id="display_title" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="display_title" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Display Brand Title on Product Page</label>
-                    <comment>Set to ‘Yes’ to enable a clickable brand title on product pages.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="display_brand_image" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Display Brand Logo on Product Page</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <tooltip>To make sure the images are displayed correctly, you can install the PHP Imagick</tooltip>
                 </field>
                 <field id="width" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Brand Logo Width, px</label>
@@ -167,20 +162,18 @@
                         <field id="display_brand_image">1</field>
                     </depends>
                 </field>
-                <field id="display_description" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="display_description" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Display Short Description on Product Page</label>
-                    <comment>Set to ‘Yes’ to enable a label short description on the products pages.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
 
             <group id="product_listing_settings" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product Listing Brand Settings</label>
-                <field id="show_on_listing" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <field id="show_on_listing" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Display Brand Logo on Product Listing</label>
-                    <comment>Set to ‘Yes’ to show brand logos on category pages. Please enable "Used in Product Listing" setting for brand attribute.</comment>
-                    <tooltip>To make sure the images are displayed correctly, you can install the PHP Imagick</tooltip>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Note. Please enable "Used in Product Listing" setting for brand attribute.</comment>
                 </field>
                 <field id="listing_brand_logo_width" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Brand Logo Width</label>
